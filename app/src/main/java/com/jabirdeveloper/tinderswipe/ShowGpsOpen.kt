@@ -15,6 +15,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.jabirdeveloper.tinderswipe.ui.first_activity.view.FirstActivity
 
 class ShowGpsOpen : AppCompatActivity() {
     private lateinit var open: Button
@@ -33,7 +34,7 @@ class ShowGpsOpen : AppCompatActivity() {
             mLocationManager = this@ShowGpsOpen.getSystemService(Context.LOCATION_SERVICE) as LocationManager
             if (!intent.hasExtra("2")) {
                 if (!mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) showGPSDiabledDialog() else {
-                    val intent = Intent(this@ShowGpsOpen, First_Activity::class.java)
+                    val intent = Intent(this@ShowGpsOpen, FirstActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     finish()
                     startActivity(intent)
@@ -43,7 +44,7 @@ class ShowGpsOpen : AppCompatActivity() {
                         && ActivityCompat.checkSelfPermission(this@ShowGpsOpen, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     showGPSDiabledDialog()
                 } else {
-                    val intent = Intent(this@ShowGpsOpen, First_Activity::class.java)
+                    val intent = Intent(this@ShowGpsOpen, FirstActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     finish()
                     startActivity(intent)
@@ -73,7 +74,7 @@ class ShowGpsOpen : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 0) {
-            val intent = Intent(this@ShowGpsOpen, First_Activity::class.java)
+            val intent = Intent(this@ShowGpsOpen, FirstActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             finish()
             startActivity(intent)
@@ -83,7 +84,7 @@ class ShowGpsOpen : AppCompatActivity() {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         if (requestCode == 1) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                val intent = Intent(this@ShowGpsOpen, First_Activity::class.java)
+                val intent = Intent(this@ShowGpsOpen, FirstActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 finish()
                 startActivity(intent)

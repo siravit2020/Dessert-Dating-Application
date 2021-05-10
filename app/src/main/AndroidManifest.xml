@@ -89,7 +89,7 @@
             android:screenOrientation="portrait" />
         <activity android:name=".Register.RegistrationActivity" />
         <activity
-            android:name=".First_Activity"
+            android:name=".ui.first_activity.view.FirstActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

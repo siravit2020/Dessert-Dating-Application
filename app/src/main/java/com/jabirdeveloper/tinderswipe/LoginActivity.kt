@@ -1,28 +1,18 @@
 package com.jabirdeveloper.tinderswipe
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.gms.ads.AdListener
-import com.google.android.gms.ads.AdLoader
-import com.google.android.gms.ads.AdRequest
 
-import com.google.android.gms.ads.formats.NativeAdOptions
-import com.google.android.gms.ads.formats.UnifiedNativeAd
-import com.google.android.gms.ads.rewarded.RewardItem
 import com.google.android.gms.ads.rewarded.RewardedAd
 
-import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuth.AuthStateListener
-import com.jabirdeveloper.tinderswipe.LoginActivity
+import com.jabirdeveloper.tinderswipe.ui.first_activity.view.FirstActivity
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var mLogin: Button
@@ -72,7 +62,7 @@ class LoginActivity : AppCompatActivity() {
         firebaseAuthStateListener = AuthStateListener {
             val user = FirebaseAuth.getInstance().currentUser
             if (user != null) {
-                val intent = Intent(this@LoginActivity, First_Activity::class.java)
+                val intent = Intent(this@LoginActivity, FirstActivity::class.java)
                 startActivity(intent)
                 finish()
                 return@AuthStateListener
