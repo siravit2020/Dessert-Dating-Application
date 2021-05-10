@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:visibility="visible">
+
+    <LinearLayout
+        android:id="@+id/dd_22"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background_white"
+        android:padding="@dimen/View4dp">
+
+        <RelativeLayout
+            android:layout_width="76dp"
+            android:layout_height="76dp"
+            android:layout_gravity="top">
+            <ProgressBar
+                android:id="@+id/progress_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+               />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/Match_Image"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_centerInParent="true"
+                app:civ_border_color="#11000000"
+                android:transitionName="ProfileTransition"
+                app:civ_border_width="2dp" />
+
+            <LinearLayout
+
+                android:id="@+id/view_online"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:paddingEnd="@dimen/View8dp"
+                android:paddingBottom="@dimen/View8dp">
+
+                <ImageView
+                    android:id="@+id/on_off_matches"
+                    android:layout_width="@dimen/View12dp"
+                    android:layout_height="@dimen/View12dp"
+                    android:background="@drawable/offline_user" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_marginStart="@dimen/View4dp"
+            android:layout_marginEnd="@dimen/View8dp"
+            android:orientation="vertical"
+            android:padding="@dimen/View4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/Matches_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxEms="8"
+                        android:maxLines="1"
+                        android:textColor="#EC407A"
+                        android:textSize="@dimen/Text16sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tagkm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/View4dp"
+                        android:paddingLeft="@dimen/View4dp"
+                        android:paddingRight="@dimen/View4dp"
+                        android:textAlignment="center"
+                        android:textColor="@color/c3"
+                        android:textSize="@dimen/Text16sp"
+                        android:visibility="gone" />
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/distance_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/c4"
+                    android:textSize="@dimen/Text14sp" />
+
+                <TextView
+                    android:id="@+id/chat_unread"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_unread"
+                    android:paddingStart="@dimen/View8dp"
+                    android:paddingEnd="@dimen/View8dp"
+                    android:text="0"
+                    android:textAlignment="viewEnd"
+                    android:textColor="#FFFFFF"
+                    android:textSize="@dimen/Text14sp"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/Latest_chat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:textSize="@dimen/Text14sp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/Latest_time"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    android:textAlignment="viewEnd"
+                    android:textSize="@dimen/Text14sp"
+
+                    />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/View4dp"
+                android:textSize="@dimen/Text10sp"
+                android:visibility="gone" />
+
+
+            <TextView
+                android:id="@+id/myself"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/Text14sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/status_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#B39A9A9A"
+                android:textSize="@dimen/Text10sp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

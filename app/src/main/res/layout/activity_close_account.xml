@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".CloseAccount">
+    <LinearLayout
+        android:id="@+id/include"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background_white"
+        android:elevation="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+        <include
+            layout="@layout/toolsbar"
+             />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/View32dp"
+            android:layout_marginEnd="@dimen/View32dp"
+            android:gravity="center"
+            android:text="คุณแน่ใจหรือไม่ว่าต้องการ ปิดบัญชีของคุณ"
+            android:textColor="@color/text_black_gray"
+            android:textSize="@dimen/Text20sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/View32dp"
+            android:layout_marginEnd="@dimen/View32dp"
+            android:layout_marginBottom="@dimen/View24dp"
+            android:gravity="center"
+            android:text="โปรดบอกเหตุผลที่ทำให้คุณเลิกใช้งาน"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/Text16sp" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/close_re"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="@dimen/View8dp"
+            android:layout_marginBottom="@dimen/View16dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="#F4F4F4"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="4dp"
+            android:layout_marginStart="@dimen/View32dp"
+            android:layout_marginEnd="@dimen/View32dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="@dimen/View12dp">
+
+                <ImageView
+                    android:layout_width="@dimen/View32dp"
+                    android:layout_height="@dimen/View32dp"
+                    android:layout_marginEnd="@dimen/View16dp"
+                    android:src="@drawable/ic_baseline_refresh_24"
+                    app:tint="#4DD0E1"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="ฉันอยากเริ่มต้นใหม่อีกครั้ง"
+                    android:textColor="@color/text_black_gray"
+                    android:textSize="@dimen/Text14sp" />
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/close_love"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="@dimen/View8dp"
+            android:layout_marginBottom="@dimen/View16dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="#F4F4F4"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="4dp"
+            android:layout_marginStart="@dimen/View32dp"
+            android:layout_marginEnd="@dimen/View32dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="@dimen/View12dp">
+
+                <ImageView
+                    android:layout_width="@dimen/View32dp"
+                    android:layout_height="@dimen/View32dp"
+                    android:layout_marginEnd="@dimen/View16dp"
+                    app:tint="#F06292"
+                    android:src="@drawable/ic_favorite_black_24dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="พบคนมี่ใช่แล้ว"
+                    android:textColor="@color/text_black_gray"
+                    android:textSize="@dimen/Text14sp" />
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/close_bad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="@dimen/View8dp"
+            android:layout_marginBottom="@dimen/View16dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="#F4F4F4"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="4dp"
+            android:layout_marginStart="@dimen/View32dp"
+            android:layout_marginEnd="@dimen/View32dp">
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="@dimen/View12dp">
+
+                <ImageView
+                    android:layout_width="@dimen/View32dp"
+                    android:layout_height="@dimen/View32dp"
+                    android:layout_marginEnd="@dimen/View16dp"
+                    android:src="@drawable/ic_baseline_thumb_down_alt_24"
+                    app:tint="#9575CD"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="ฉันไม่ชอบ Dessert"
+                    android:textColor="@color/text_black_gray"
+                    android:textSize="@dimen/Text14sp" />
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/close_problem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="@dimen/View8dp"
+            android:layout_marginBottom="@dimen/View16dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="#F4F4F4"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="4dp"
+            android:layout_marginStart="@dimen/View32dp"
+            android:layout_marginEnd="@dimen/View32dp">
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="@dimen/View12dp">
+
+                <ImageView
+                    android:layout_width="@dimen/View32dp"
+                    android:layout_height="@dimen/View32dp"
+                    android:layout_marginEnd="@dimen/View16dp"
+                    android:src="@drawable/ic_round_warning_24"
+                    app:tint="#FFB74D" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="มีบางอย่างผิดปกติ"
+                    android:textColor="@color/text_black_gray"
+                    android:textSize="@dimen/Text14sp" />
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.card.MaterialCardView
+            android:clickable="true"
+            android:id="@+id/close_other"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="@dimen/View8dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="#F4F4F4"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="4dp"
+            android:layout_marginStart="@dimen/View32dp"
+            android:layout_marginEnd="@dimen/View32dp">
+
+            <LinearLayout
+                android:clickable="false"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="@dimen/View12dp">
+
+                <ImageView
+                    android:layout_width="@dimen/View32dp"
+                    android:layout_height="@dimen/View32dp"
+                    android:layout_marginEnd="@dimen/View16dp"
+                    android:src="@drawable/ic_mode_edit_black2_24dp"
+                    app:tint="#FF8A65"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="อื่นๆ"
+                    android:textColor="@color/text_black_gray"
+                    android:textSize="@dimen/Text14sp" />
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

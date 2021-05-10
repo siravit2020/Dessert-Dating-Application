@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background_white"
+    tools:context=".LikeYou.LikeYouActivity">
+    <include layout="@layout/toolsbar" />
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/like_you_recycle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <eightbitlab.com.blurview.BlurView
+        android:visibility="gone"
+        android:id="@+id/blurView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:blurOverlayColor="#1AFAFAFA"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </eightbitlab.com.blurview.BlurView>
+    <TextView
+        android:id="@+id/empty"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="ยังไม่มีใครเข้าชมโปรไฟล์คุณ"
+        android:gravity="center"
+        android:textSize="@dimen/Text16sp"
+        android:textColor="@color/text_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <Button
+        android:visibility="gone"
+        android:id="@+id/buttonsee"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginRight="@dimen/View32dp"
+        android:layout_marginLeft="@dimen/View32dp"
+        android:background="@drawable/roundlike"
+        android:textColor="@color/cpb_white"
+        android:translationZ="10dp"
+        android:text="@string/See_who_like"
+        android:layout_marginBottom="@dimen/View32dp"/>
+
+    <ProgressBar
+        android:id="@+id/progress_like"
+        android:background="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@color/background_white"
+    android:paddingTop="1dp">
+
+    <LinearLayout
+        android:id="@+id/dd_22"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/View4dp">
+
+        <RelativeLayout
+            android:layout_width="76dp"
+            android:layout_height="76dp"
+            android:layout_gravity="center_vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/Match_Image"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_centerInParent="true"
+                app:civ_border_color="#11000000"
+                app:civ_border_width="2dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:paddingEnd="@dimen/View8dp"
+                android:paddingBottom="@dimen/View8dp">
+
+                <ImageView
+                    android:id="@+id/on_off_matches"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:background="@drawable/offline_user" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_marginStart="@dimen/View4dp"
+            android:layout_marginEnd="@dimen/View8dp"
+            android:orientation="vertical"
+            android:padding="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:id="@+id/Matches_name"
+                        android:layout_width="wrap_content"
+                        android:maxEms="7"
+                        android:layout_height="wrap_content"
+                        android:textColor="#EC407A"
+                        android:textSize="@dimen/Text16sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tagkm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/View4dp"
+                        android:paddingLeft="@dimen/View4dp"
+                        android:paddingRight="@dimen/View4dp"
+                        android:textAlignment="center"
+                        android:textColor="@color/c3"
+                        android:textSize="@dimen/Text16sp"
+                        />
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/time_text_likeYou"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/c4"
+                    android:textSize="@dimen/Text12sp" />
+
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/status_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/View4dp"
+                android:textColor="@color/text_black_gray"
+                android:textSize="@dimen/Text14sp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

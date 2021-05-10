@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".BandUser">
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/ic_banduser"
+        android:layout_marginBottom="@dimen/View20dp"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/View32dp"
+        android:layout_marginLeft="@dimen/View32dp"
+        android:text="@string/blacklist"
+        android:gravity="center"
+        android:textColor="@color/red"
+        android:textSize="@dimen/Text20sp"
+        />
+    <Button
+        android:id="@+id/button_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/View8dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/back"
+        android:backgroundTint="@color/c1"
+        android:textColor="@color/cpb_white"
+        android:textSize="@dimen/Text16sp" />
+
+
+</LinearLayout>

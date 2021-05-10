@@ -1,0 +1,84 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/c2</item>
+        <item name="colorPrimaryDark">#FFFFFF</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="colorAccent">@color/c3</item>
+        <item name="colorButtonNormal">@color/c2</item>
+        <item name="colorControlHighlight">#4DB3B3B3</item>
+        <item name="textAllCaps">false</item>
+        <item name="fontFamily">@font/sarabun_regular</item>
+        <item name="materialButtonStyle">@style/Widget.App.Button</item>
+        <item name="extendedFloatingActionButtonStyle">@style/Widget.App.ExtendedFloatingActionButton</item>
+        <item name="floatingActionButtonStyle">@style/Widget.App.FloatingActionButton</item>
+        <item  name="android:windowActivityTransitions">true</item>
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+
+    </style>
+
+
+
+    <style name="changfont" parent="AppTheme">
+        <item name="fontFamily">@font/k2d_bold</item>
+    </style>
+
+    <style name="AppTheme2" parent="ThemeOverlay.AppCompat.Light">
+        <!-- Customize your theme here. -->
+        <item name="colorControlNormal">@color/c1</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Button.TextButton" parent="">
+        <item name="colorPrimary">@color/c3</item>
+    </style>
+
+    <style name="Theme.MaterialComponents.buttonPurple" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">30dp</item>
+        <item name="colorPrimary">@color/red</item>
+    </style>
+
+    <style name="Theme.MaterialComponents.buttonLightRed" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">30dp</item>
+        <item name="colorPrimary">@color/light_red</item>
+    </style>
+
+    <style name="Theme.MaterialComponents.successGreen" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">30dp</item>
+        <item name="colorPrimary">@color/success_green</item>
+    </style>
+
+    <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">30dp</item>
+    </style>
+    <style name="Widget.App.Button" parent="Widget.MaterialComponents.Button">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Button.TextButton</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.App.SmallComponent</item>
+    </style>
+
+    <style name="ThemeOverlay.App.FloatingActionButton" parent="">
+        <item name="colorSecondary">@color/c3</item>
+        <item name="colorOnSecondary">#FFFFFF</item>
+    </style>
+    <style name="Widget.App.ExtendedFloatingActionButton" parent="Widget.MaterialComponents.ExtendedFloatingActionButton.Icon">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.FloatingActionButton</item>
+
+    </style>
+
+    <style name="Widget.App.FloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.FloatingActionButton</item>
+        <item name="shapeAppearanceOverlay">
+            @style/ShapeAppearance.App.SmallComponent
+        </item>
+    </style>
+    <style name="ShapeAppearanceOverlay.MyApp.Button.Circle" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+</resources>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:cardCornerRadius="@dimen/cardCorner">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/cpb_white"
+            android:gravity="center"
+            android:paddingTop="@dimen/View20dp"
+            android:text="@string/dessert_vip"
+            android:textColor="@color/c1"
+            android:textSize="@dimen/Text24sp" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <com.github.demono.AutoScrollViewPager
+                android:id="@+id/viewpage"
+                android:layout_width="match_parent"
+                android:layout_height="228dp"
+                android:background="@color/cpb_white"
+                app:cycle="true"
+                app:slideDirection="right"
+                app:slideDuration="1000"
+                app:slideInterval="3500"
+                app:stopWhenTouch="true" />
+
+        </RelativeLayout>
+
+        <me.relex.circleindicator.CircleIndicator
+            android:id="@+id/indicator"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/View20dp"
+            android:layout_marginBottom="@dimen/View20dp"
+            android:background="@color/cpb_white"
+            app:ci_drawable="@drawable/circle_pager"
+            app:ci_drawable_unselected="@drawable/circle_pager2" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/View20dp"
+            android:background="@drawable/gradient_list3"
+            >
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/View20dp"
+                android:layout_marginRight="@dimen/View20dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="@dimen/View20dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    android:background="@color/white" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/View20dp"
+                    android:layout_marginRight="@dimen/View20dp"
+                    android:text="VIP"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/Text20sp"
+
+                    />
+
+                <View
+                    android:layout_width="@dimen/View20dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    android:background="@color/white" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/test_de"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/View8dp"
+                android:gravity="center"
+                android:text="ดูโฆษณาเพื่อรับ จำนวนกดถูกใจ เพิ่ม \n หรือสมัคร Dessert VIP เพื่อรับสิทธิพิเศษต่างๆ"
+                android:textColor="@color/white"
+                android:textSize="@dimen/Text14sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/View8dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/admob"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:backgroundTint="@color/c3"
+                    android:text="@string/LoadingAds"
+                    android:textSize="@dimen/Text14sp"
+                    android:textColor="@color/white" />
+
+                <Button
+                    android:id="@+id/buy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/View4dp"
+                    android:backgroundTint="@color/c3"
+                    android:text="฿100.00 / เดือน"
+                    android:textSize="@dimen/Text14sp"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

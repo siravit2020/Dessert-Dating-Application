@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="c1">#EC407A</color>
+    <color name="c2">#26C6DA</color>
+    <color name="c3">#FFA726</color>
+    <color name="c4">#AB47BC</color>
+    <color name="c4tran">#80AB47BC</color>
+    <color name="text_gray">#9A9A9A</color>
+    <color name="text_black_gray">#292929</color>
+    <color name="background_gray">#F1F1F1</color>
+    <color name="background_white">#FFFFFF</color>
+    <color name="red">#FF004E</color>
+    <color name="light_red">#ED666B</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#FF000000</color>
+    <color name="y1">#ffe07d</color>
+    <color name="v1">#bc95e2</color>
+    <color name="v2">#ac80dd</color>
+    <color name="v3">#f9efda</color>
+    <color name="v4">#f6e4c1</color>
+    <color name="cyan">#28F3AC</color>
+    <color name="success_green">#4CDFB3</color>
+    <color name="white_grey">#8A8686</color>
+
+
+    <integer-array name="candy_color">
+        <item>@color/v1</item>
+        <item>@color/v1</item>
+        <item>@color/v2</item>
+        <item>@color/v2</item>
+        <item>@color/v3</item>
+        <item>@color/v4</item>
+        <item>@color/v1</item>
+        <item>@color/v1</item>
+        <item>@color/v2</item>
+        <item>@color/v2</item>
+        <item>@color/y1</item>
+        <item>@color/y1</item>
+        <item>@color/y1</item>
+        <item>@color/y1</item>
+        <item>@color/y1</item>
+        <item>@color/y1</item>
+        <item>@color/black</item>
+        <item>@color/black</item>
+        <item>@color/black</item>
+        <item>@color/black</item>
+        <item>@color/black</item>
+        <item>@color/black</item>
+        <item>@color/black</item>
+    </integer-array>
+</resources>

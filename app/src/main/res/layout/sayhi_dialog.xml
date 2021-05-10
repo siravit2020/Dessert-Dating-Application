@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/cardCorner"
+
+    >
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:paddingLeft="@dimen/View24dp"
+    android:paddingRight="@dimen/View24dp"
+    android:paddingTop="@dimen/View16dp"
+    android:paddingBottom="@dimen/View16dp"
+    >
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/View8dp"
+        android:text="@string/text_hi"
+        android:textColor="@color/text_black_gray"
+        android:textSize="@dimen/Text20sp"
+        android:layout_gravity="center"
+        />
+
+
+    <EditText
+        android:id="@+id/text_send"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/Text16sp"
+        android:hint="@string/Send_a_message_to"
+        android:gravity="center"
+        />
+
+    <Button
+
+        android:layout_marginTop="@dimen/View8dp"
+        android:paddingStart="@dimen/View16dp"
+        android:paddingEnd="@dimen/View16dp"
+        android:id="@+id/buy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/send_message"
+        android:layout_gravity="center"
+        android:textColor="@color/white"
+        android:padding="0dp"
+        />
+</LinearLayout>
+</androidx.cardview.widget.CardView>

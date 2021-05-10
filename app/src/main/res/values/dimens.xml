@@ -1,0 +1,23 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="Text16sp">16sp</dimen>
+    <dimen name="Text20sp">20sp</dimen>
+    <dimen name="icon80dp">80dp</dimen>
+    <dimen name="cardCorner">15dp</dimen>
+    <dimen name="View4dp">4dp</dimen>
+    <dimen name="View8dp">8dp</dimen>
+    <dimen name="View12dp">12dp</dimen>
+    <dimen name="View16dp">16dp</dimen>
+    <dimen name="View20dp">20dp</dimen>
+    <dimen name="View24dp">24dp</dimen>
+    <dimen name="View32dp">32dp</dimen>
+    <dimen name="View36dp">36dp</dimen>
+    <dimen name="View40dp">40dp</dimen>
+
+
+    <dimen name="Text48sp">48sp</dimen>
+    <dimen name="Text24sp">24sp</dimen>
+    <dimen name="Text14sp">14sp</dimen>
+    <dimen name="Text12sp">12sp</dimen>
+    <dimen name="Text10sp">10sp</dimen>
+</resources>

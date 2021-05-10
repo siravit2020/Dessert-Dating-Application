@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:paddingTop="@dimen/View4dp"
+    android:paddingLeft="@dimen/View20dp"
+    android:paddingRight="@dimen/View20dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center">
+    <LinearLayout
+        android:layout_marginTop="2dp"
+        android:orientation="vertical"
+        android:id="@+id/linear_buttonQA"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textStyle="bold"
+            android:id="@+id/questionQARegister"
+            android:textColor="@color/text_black_gray"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/Text16sp"
+            android:text="Message"/>
+        <RadioGroup
+            android:background="@color/background_gray"
+            android:id="@+id/radioGroupRegisterQA"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:layout_marginBottom="2dp"
+                android:background="@color/white"
+                android:id="@+id/radioButtonRegisterQA1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="label_1"/>
+            <RadioButton
+                android:background="@color/white"
+                android:id="@+id/radioButtonRegisterQA2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="label_2"/>
+        </RadioGroup>
+
+        <TextView
+            android:textStyle="bold"
+            android:textColor="@color/text_black_gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/Text16sp"
+            android:text="@string/QA_improtant"/>
+        <RadioGroup
+            android:background="@color/background_gray"
+            android:id="@+id/radioGroupRegisterQAAns"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:layout_marginBottom="2dp"
+                android:background="@color/white"
+                android:id="@+id/radioButtonRegisterQAAns1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/QA_choice1"/>
+            <RadioButton
+                android:layout_marginBottom="2dp"
+                android:background="@color/white"
+                android:id="@+id/radioButtonRegisterQAAns2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/QA_choice2"/>
+            <RadioButton
+                android:layout_marginBottom="2dp"
+                android:background="@color/white"
+                android:id="@+id/radioButtonRegisterQAAns3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/QA_choice4"/>
+            <RadioButton
+                android:layout_marginBottom="2dp"
+                android:background="@color/white"
+                android:id="@+id/radioButtonRegisterQAAns4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/QA_choice4"/>
+            <RadioButton
+                android:background="@color/white"
+                android:id="@+id/radioButtonRegisterQAAns5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/QA_choice5"/>
+        </RadioGroup>
+        <TextView
+            android:layout_gravity="bottom"
+            android:id="@+id/countRegisterQA"
+            android:textSize="@dimen/Text12sp"
+            android:gravity="center"
+            android:text="0/0"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linear_buttonQA"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/View8dp"
+        android:layout_marginBottom="1dp">
+
+        <Button
+            android:layout_weight="0.1"
+            android:id="@+id/registerQABtnCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/View8dp"
+            android:text="@string/cancle"
+            android:theme="@style/Theme.MaterialComponents.buttonLightRed" />
+
+        <Button
+            android:layout_weight="0.1"
+            android:id="@+id/registerQABtnSkip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/View8dp"
+            android:text="@string/skip_QA" />
+
+        <Button
+            android:layout_weight="0.1"
+            android:id="@+id/registerQABtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/next_QA"
+            android:theme="@style/Theme.MaterialComponents.successGreen" />
+    </LinearLayout>
+
+</RelativeLayout>
