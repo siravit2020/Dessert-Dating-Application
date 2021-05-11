@@ -44,7 +44,7 @@
             android:name=".ImageChat.ItemImageActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SwitchpageActivity"
+            android:name=".MainActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".Register.Regis_ageActivity" />
         <activity
@@ -67,7 +67,7 @@
             android:name=".Register.VerifyActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ChooseLoginRegistrationActivity"
+            android:name=".ui.sign_in_activity.view.SignInActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Register.Regis_target_Acivity"
@@ -85,7 +85,7 @@
             android:name=".SettingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".LoginWithEmailActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".Register.RegistrationActivity" />
         <activity

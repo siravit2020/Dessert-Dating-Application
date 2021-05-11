@@ -16,7 +16,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
-import com.jabirdeveloper.tinderswipe.ChooseLoginRegistrationActivity
+import com.jabirdeveloper.tinderswipe.ui.sign_in_activity.view.SignInActivity
 import com.jabirdeveloper.tinderswipe.R
 
 class RegisGpsActivity : AppCompatActivity(), LocationListener {
@@ -118,7 +118,7 @@ class RegisGpsActivity : AppCompatActivity(), LocationListener {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 recreate()
             } else {
-                startActivity(Intent(this@RegisGpsActivity, ChooseLoginRegistrationActivity::class.java))
+                startActivity(Intent(this@RegisGpsActivity, SignInActivity::class.java))
             }
         }
     }

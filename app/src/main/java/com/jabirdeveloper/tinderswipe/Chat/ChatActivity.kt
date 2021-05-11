@@ -56,7 +56,7 @@ class ChatActivity : AppCompatActivity() {
     //private lateinit var mChatLayoutManager: RecyclerView.LayoutManager
     private lateinit var linearLayoutOvalSend: LinearLayout
     private lateinit var menu: LinearLayout
-    private val plus: SwitchpageActivity? = SwitchpageActivity()
+    private val plus: MainActivity? = MainActivity()
     private lateinit var linearRecord: LinearLayout
     private lateinit var imgSend: ImageView
     private lateinit var mSendImage: ImageView
@@ -869,7 +869,7 @@ class ChatActivity : AppCompatActivity() {
                 finish()
                 return
             }
-            val intent = Intent(this@ChatActivity, SwitchpageActivity::class.java)
+            val intent = Intent(this@ChatActivity, MainActivity::class.java)
             intent.putExtra("first", 1)
             startActivity(intent)
             finish()

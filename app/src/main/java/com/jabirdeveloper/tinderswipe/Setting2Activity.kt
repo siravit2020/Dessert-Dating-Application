@@ -3,7 +3,6 @@ package com.jabirdeveloper.tinderswipe
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
 import android.os.Bundle
 import android.os.Handler
 import android.view.MenuItem
@@ -16,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import com.akexorcist.localizationactivity.core.LocalizationActivityDelegate
-import com.akexorcist.localizationactivity.core.OnLocaleChangedListener
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -25,6 +23,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.jabirdeveloper.tinderswipe.Functions.ChangLanguage
 import com.jabirdeveloper.tinderswipe.Functions.GlobalVariable
+import com.jabirdeveloper.tinderswipe.ui.sign_in_activity.view.SignInActivity
 import hearsilent.discreteslider.DiscreteSlider
 import hearsilent.discreteslider.DiscreteSlider.OnValueChangedListener
 import kotlinx.android.synthetic.main.activity_setting2.*
@@ -199,7 +198,7 @@ class  Setting2Activity : AppCompatActivity(),View.OnClickListener {
             override fun onChildMoved(dataSnapshot: DataSnapshot, s: String?) {}
             override fun onCancelled(databaseError: DatabaseError) {}
         }).let {
-            val intent = Intent(this@Setting2Activity, ChooseLoginRegistrationActivity::class.java)
+            val intent = Intent(this@Setting2Activity, SignInActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
             mAuth.signOut()
@@ -358,7 +357,7 @@ class  Setting2Activity : AppCompatActivity(),View.OnClickListener {
         Handler().postDelayed({
             finish()
             overridePendingTransition(0, 0)
-            startActivity(Intent(this@Setting2Activity, SwitchpageActivity::class.java))
+            startActivity(Intent(this@Setting2Activity, MainActivity::class.java))
             overridePendingTransition(0, 0)
         }, 100)
     }
@@ -400,7 +399,7 @@ class  Setting2Activity : AppCompatActivity(),View.OnClickListener {
                 save()
                 finish()
                 overridePendingTransition(0, 0)
-                startActivity(Intent(this@Setting2Activity, SwitchpageActivity::class.java))
+                startActivity(Intent(this@Setting2Activity, MainActivity::class.java))
                 overridePendingTransition(0, 0)
 
             }
@@ -416,7 +415,7 @@ class  Setting2Activity : AppCompatActivity(),View.OnClickListener {
             status_up2["status"] = 0
             userDb.updateChildren(status_up2)
             mAuth.signOut()
-            val intent = Intent(applicationContext, ChooseLoginRegistrationActivity::class.java)
+            val intent = Intent(applicationContext, SignInActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
             finish()

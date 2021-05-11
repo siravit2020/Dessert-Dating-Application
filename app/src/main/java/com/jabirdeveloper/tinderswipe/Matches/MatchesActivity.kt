@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.jabirdeveloper.tinderswipe.R
-import com.jabirdeveloper.tinderswipe.SwitchpageActivity
+import com.jabirdeveloper.tinderswipe.MainActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -144,7 +144,7 @@ class MatchesActivity : Fragment() {
         var unread:Int = resultMatches[index].count_unread
         if (unread == -1) { unread = 0 }
         val total:Int = dd - unread
-        (mContext as SwitchpageActivity?)!!.setCurrentIndex(total)
+        (mContext as MainActivity?)!!.setCurrentIndex(total)
         val myUnread1:SharedPreferences = mContext!!.getSharedPreferences("TotalMessage", Context.MODE_PRIVATE)
         val editorRead:SharedPreferences.Editor = myUnread1.edit()
         editorRead.putInt("total", total)
@@ -423,7 +423,7 @@ class MatchesActivity : Fragment() {
                             val myUnread = mContext!!.getSharedPreferences("TotalMessage", Context.MODE_PRIVATE)
                             var dd2 = myUnread.getInt("total", 0)
                             ++dd2
-                            (mContext as SwitchpageActivity).setCurrentIndex(dd2)
+                            (mContext as MainActivity).setCurrentIndex(dd2)
                             val myUnread2 = mContext!!.getSharedPreferences("TotalMessage", Context.MODE_PRIVATE)
                             val editorRead = myUnread2.edit()
                             editorRead.putInt("total", dd2)

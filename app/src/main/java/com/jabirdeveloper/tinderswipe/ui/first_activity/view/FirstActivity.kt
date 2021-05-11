@@ -1,35 +1,20 @@
 package com.jabirdeveloper.tinderswipe.ui.first_activity.view
 
-import android.Manifest
-import android.app.Dialog
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.location.LocationManager
-import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
 import android.util.Log
-import android.view.Window
-import android.view.WindowInsets
-import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuth.AuthStateListener
 import com.google.firebase.database.*
-import com.google.firebase.messaging.FirebaseMessaging
-import com.jabirdeveloper.tinderswipe.ChooseLoginRegistrationActivity
+import com.jabirdeveloper.tinderswipe.ui.sign_in_activity.view.SignInActivity
 import com.jabirdeveloper.tinderswipe.R
 import com.jabirdeveloper.tinderswipe.ShowGpsOpen
-import com.jabirdeveloper.tinderswipe.SwitchpageActivity
+import com.jabirdeveloper.tinderswipe.MainActivity
+import com.jabirdeveloper.tinderswipe.services.TransparentStatusBar
 import com.jabirdeveloper.tinderswipe.ui.first_activity.view_model.FirstViewModel
 import com.jabirdeveloper.tinderswipe.utils.CheckStatusUser
 import kotlinx.android.synthetic.main.activity_first_.*
@@ -40,16 +25,7 @@ class FirstActivity : AppCompatActivity() {
     private lateinit var aniFade2: Animation
     private lateinit var firstViewModel: FirstViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        @Suppress("DEPRECATION")
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.insetsController?.hide(WindowInsets.Type.statusBars())
-        } else {
-            window.setFlags(
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN
-            )
-        }
+        TransparentStatusBar(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_first_)
         setAnimation()
@@ -59,11 +35,11 @@ class FirstActivity : AppCompatActivity() {
             aniFade.setAnimationListener(null)
             aniFade2.setAnimationListener(null)
             if(it == CheckStatusUser.CHOOSE){
-                val intent = Intent(this@FirstActivity, ChooseLoginRegistrationActivity::class.java)
+                val intent = Intent(this@FirstActivity, SignInActivity::class.java)
                 startActivity(intent)
             }
             if(it == CheckStatusUser.SWITCH){
-                val intent = Intent(this@FirstActivity, SwitchpageActivity::class.java)
+                val intent = Intent(this@FirstActivity, MainActivity::class.java)
                 startActivity(intent)
                 finish()
             }
@@ -74,11 +50,12 @@ class FirstActivity : AppCompatActivity() {
             if(!it){
                 aniFade.setAnimationListener(null)
                 aniFade2.setAnimationListener(null)
-                val intent = Intent(this@FirstActivity, ChooseLoginRegistrationActivity::class.java)
+                val intent = Intent(this@FirstActivity, SignInActivity::class.java)
                 startActivity(intent)
                 finish()
             }
         })
+
         firstViewModel.getAniamtionStart().observe(this, Observer {
             logo.startAnimation(aniFade)
         })

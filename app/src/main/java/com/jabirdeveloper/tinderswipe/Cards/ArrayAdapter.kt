@@ -14,8 +14,7 @@ import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ServerValue
-import com.jabirdeveloper.tinderswipe.Functions.DateTime
-import com.jabirdeveloper.tinderswipe.MainActivity
+import com.jabirdeveloper.tinderswipe.CardActivity
 import com.jabirdeveloper.tinderswipe.ProfileUserOppositeActivity2
 import com.jabirdeveloper.tinderswipe.R
 import java.util.*
@@ -23,7 +22,7 @@ import java.util.*
 /**
  * Created by manel on 9/5/2017.
  */
-class ArrayAdapter(private var items: ArrayList<Cards>, private val context: Context?, private val activity: MainActivity) : RecyclerView.Adapter<ArrayAdapter.Holder?>() {
+class ArrayAdapter(private var items: ArrayList<Cards>, private val context: Context?, private val activity: CardActivity) : RecyclerView.Adapter<ArrayAdapter.Holder?>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item, parent, false)
         return Holder(view)

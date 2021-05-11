@@ -65,7 +65,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     private fun notificationMatch(name: String?) {
         //String name = NameMatch.get(NameMatch.size()-1);
-        val intent = Intent(this, SwitchpageActivity::class.java)
+        val intent = Intent(this, MainActivity::class.java)
         intent.putExtra("accept", "1")
         val random = Random()
         val id = ++idPlus2

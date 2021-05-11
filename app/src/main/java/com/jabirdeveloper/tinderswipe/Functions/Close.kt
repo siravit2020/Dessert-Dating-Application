@@ -2,15 +2,13 @@ package com.jabirdeveloper.tinderswipe.Functions
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
-import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
-import com.jabirdeveloper.tinderswipe.ChooseLoginRegistrationActivity
+import com.jabirdeveloper.tinderswipe.ui.sign_in_activity.view.SignInActivity
 
 class Close(private var currentUid: String, private var context: Context) {
     fun delete() {
@@ -20,7 +18,7 @@ class Close(private var currentUid: String, private var context: Context) {
                 it.items[x].delete()
             }
             it.items[it.items.size-1].delete().addOnSuccessListener {
-                val intent = Intent(context, ChooseLoginRegistrationActivity::class.java)
+                val intent = Intent(context, SignInActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 context.startActivity(intent)
                 FirebaseAuth.getInstance().signOut()

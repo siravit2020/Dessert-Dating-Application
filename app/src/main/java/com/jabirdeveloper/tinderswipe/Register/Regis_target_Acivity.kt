@@ -29,7 +29,7 @@ import com.google.firebase.ml.vision.common.FirebaseVisionImage
 import com.google.firebase.ml.vision.face.FirebaseVisionFaceDetectorOptions
 import com.google.firebase.storage.FirebaseStorage
 import com.jabirdeveloper.tinderswipe.R
-import com.jabirdeveloper.tinderswipe.SwitchpageActivity
+import com.jabirdeveloper.tinderswipe.MainActivity
 import com.nipunru.nsfwdetector.NSFWDetector
 import com.tapadoo.alerter.Alerter
 import com.theartofdev.edmodo.cropper.CropImage
@@ -164,7 +164,7 @@ class Regis_target_Acivity : AppCompatActivity() {
                             )
                             currentUserDb.child("ProfileImage").updateChildren(userInfo as Map<String, Any>)
 
-                            val intent = Intent(this@Regis_target_Acivity, SwitchpageActivity::class.java)
+                            val intent = Intent(this@Regis_target_Acivity, MainActivity::class.java)
                             intent.putExtra("first", "0")
                             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                             startActivity(intent)
@@ -185,7 +185,7 @@ class Regis_target_Acivity : AppCompatActivity() {
             }
         } else {
             dialog.dismiss()
-            val intent = Intent(this@Regis_target_Acivity, SwitchpageActivity::class.java)
+            val intent = Intent(this@Regis_target_Acivity, MainActivity::class.java)
             intent.putExtra("first", "0")
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)

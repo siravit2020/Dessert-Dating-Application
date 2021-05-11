@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import com.jabirdeveloper.tinderswipe.ui.sign_in_activity.view.SignInActivity
 
 class BandUser : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -11,7 +12,7 @@ class BandUser : AppCompatActivity() {
         setContentView(R.layout.activity_band_user)
         (findViewById<Button>(R.id.button_back)).setOnClickListener {
 
-            startActivity(Intent(applicationContext, ChooseLoginRegistrationActivity::class.java))
+            startActivity(Intent(applicationContext, SignInActivity::class.java))
             finish()
         }
     }

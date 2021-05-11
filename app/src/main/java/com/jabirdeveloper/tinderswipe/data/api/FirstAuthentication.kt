@@ -1,18 +1,11 @@
 package com.jabirdeveloper.tinderswipe.data.api
 
-import android.content.Context
-import android.content.Intent
-import android.location.LocationManager
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.messaging.FirebaseMessaging
-import com.jabirdeveloper.tinderswipe.ChooseLoginRegistrationActivity
-import com.jabirdeveloper.tinderswipe.SwitchpageActivity
 import com.jabirdeveloper.tinderswipe.utils.CheckStatusUser
-import com.jabirdeveloper.tinderswipe.utils.Status
 
 
 class FirstAuthentication {

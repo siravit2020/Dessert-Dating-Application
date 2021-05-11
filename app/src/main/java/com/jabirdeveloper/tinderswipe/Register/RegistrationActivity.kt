@@ -10,9 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuth.AuthStateListener
-import com.jabirdeveloper.tinderswipe.MainActivity
+import com.jabirdeveloper.tinderswipe.CardActivity
 import com.jabirdeveloper.tinderswipe.R
-import com.jabirdeveloper.tinderswipe.Register.RegistrationActivity
 
 class RegistrationActivity : AppCompatActivity() {
     private lateinit var mRegister: Button
@@ -27,7 +26,7 @@ class RegistrationActivity : AppCompatActivity() {
         firebaseAuthStateListener = AuthStateListener {
             val user = FirebaseAuth.getInstance().currentUser
             if (user != null) {
-                val intent = Intent(this@RegistrationActivity, MainActivity::class.java)
+                val intent = Intent(this@RegistrationActivity, CardActivity::class.java)
                 startActivity(intent)
                 finish()
                 return@AuthStateListener

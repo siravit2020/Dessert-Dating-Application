@@ -22,26 +22,28 @@ class FirstViewModel(application: Application) : AndroidViewModel(application) {
 
     init {
         animation.value = true
-        firebaseAuthStateListener = FirebaseAuth.AuthStateListener {
+        firebaseAuthStateListener = setListener()
+        if (locationService.checkPermission() == Status.SUCCESS)
+            mAuth.addAuthStateListener(firebaseAuthStateListener)
+    }
+
+    private fun setListener(): FirebaseAuth.AuthStateListener {
+        return FirebaseAuth.AuthStateListener {
             val user = FirebaseAuth.getInstance().currentUser
             if (user != null) {
-
                 checkUserNull.value = true
                 checkUser()
             } else {
-
                 checkUserNull.value = false
             }
         }
-        if (locationService.checkPermission() == Status.SUCCESS)
-            mAuth.addAuthStateListener(firebaseAuthStateListener)
-
-
     }
 
     private fun checkUser() {
         firstAuthentication.check()
     }
+
+
 
     fun getStatus(): LiveData<CheckStatusUser> {
         return statusUser
@@ -50,6 +52,8 @@ class FirstViewModel(application: Application) : AndroidViewModel(application) {
     fun getCheckUser(): LiveData<Boolean> {
         return checkUserNull
     }
+
+
 
     fun getAniamtionStart(): LiveData<Boolean> {
         return animation

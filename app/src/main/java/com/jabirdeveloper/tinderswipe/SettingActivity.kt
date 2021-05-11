@@ -554,7 +554,7 @@ open class SettingActivity : AppCompatActivity(), View.OnClickListener {
                                         i++
                                     }.addOnFailureListener(OnFailureListener {
                                         Log.d("TAG", "สวยยยยย")
-                                        val intent = Intent(this@SettingActivity, MainActivity::class.java)
+                                        val intent = Intent(this@SettingActivity, CardActivity::class.java)
                                         startActivityForResult(intent, 1)
                                         finish()
                                         return@OnFailureListener
