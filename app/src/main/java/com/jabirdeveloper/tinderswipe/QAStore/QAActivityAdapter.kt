@@ -20,19 +20,20 @@ import com.jabirdeveloper.tinderswipe.R
 import org.json.JSONArray
 import org.json.JSONObject
 
-class QAActivityAdapter(private val context:Context, private val result:ArrayList<QAObject>,
+class QAActivityAdapter(private val context: Context, private val result: ArrayList<QAObject>,
                         private val viewPager: ViewPager2,
-                        private val intent:Intent) : RecyclerView.Adapter<QAActivityAdapter.Holder>() {
+                        private val intent: Intent) : RecyclerView.Adapter<QAActivityAdapter.Holder>() {
     private val hashMapQA: HashMap<String, Map<*, *>> = HashMap()
     private val json: JSONArray = JSONArray()
+
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-         val question:TextView = itemView.findViewById(R.id.questionQARegister)
-        val choiceOne:RadioButton = itemView.findViewById(R.id.radioButtonRegisterQA1)
-        val choiceTwo:RadioButton = itemView.findViewById(R.id.radioButtonRegisterQA2)
-        val confirmButton:Button = itemView.findViewById(R.id.registerQABtn)
-         val dismissButton:Button = itemView.findViewById(R.id.registerQABtnCancel)
-        val skipButton:Button = itemView.findViewById(R.id.registerQABtnSkip)
-        val count:TextView = itemView.findViewById(R.id.countRegisterQA)
+        val question: TextView = itemView.findViewById(R.id.questionQARegister)
+        val choiceOne: RadioButton = itemView.findViewById(R.id.radioButtonRegisterQA1)
+        val choiceTwo: RadioButton = itemView.findViewById(R.id.radioButtonRegisterQA2)
+        val confirmButton: Button = itemView.findViewById(R.id.registerQABtn)
+        val dismissButton: Button = itemView.findViewById(R.id.registerQABtnCancel)
+        val skipButton: Button = itemView.findViewById(R.id.registerQABtnSkip)
+        val count: TextView = itemView.findViewById(R.id.countRegisterQA)
         val radioGroupChoice: RadioGroup = itemView.findViewById(R.id.radioGroupRegisterQA)
         val radioGroupChoiceWeight: RadioGroup = itemView.findViewById(R.id.radioGroupRegisterQAAns)
     }
@@ -44,8 +45,8 @@ class QAActivityAdapter(private val context:Context, private val result:ArrayLis
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: Holder, position: Int) {
         //Log.d("showItemList", userInfo["Type"].toString())
-        holder.count.text = "${position+1}/${itemCount}"
-        holder.question.text = "${position+1}. ${result[position].questions}"
+        holder.count.text = "${position + 1}/${itemCount}"
+        holder.question.text = "${position + 1}. ${result[position].questions}"
         holder.choiceOne.text = result[position].choice[0]
         holder.choiceTwo.text = result[position].choice[1]
         holder.skipButton.setOnClickListener {
@@ -54,7 +55,7 @@ class QAActivityAdapter(private val context:Context, private val result:ArrayLis
             hashMapQA[result[position].questionId] = inputMap as Map<*, *>
             val obj = JSONObject(inputMap)
             json.put(obj)
-            if(itemCount-1 == position){
+            if (itemCount - 1 == position) {
                 finish()
             }
         }
@@ -82,7 +83,7 @@ class QAActivityAdapter(private val context:Context, private val result:ArrayLis
                 hashMapQA[result[position].questionId] = inputMap as Map<*, *>
                 val obj = JSONObject(inputMap)
                 json.put(obj)
-                if(itemCount-1 == position){
+                if (itemCount - 1 == position) {
                     finish()
                 }
             }
@@ -94,7 +95,7 @@ class QAActivityAdapter(private val context:Context, private val result:ArrayLis
                 holder.dismissButton.text = context.getString(R.string.dismiss_label)
                 holder.dismissButton.setOnClickListener {
                     intent.apply {
-                        putExtra("MapQA",hashMapQA)
+                        putExtra("MapQA", hashMapQA)
                     }
                     context.startActivity(intent)
                 }
@@ -102,7 +103,7 @@ class QAActivityAdapter(private val context:Context, private val result:ArrayLis
             itemCount - 1 -> {
                 holder.confirmButton.text = context.getString(R.string.ok_QA)
                 holder.dismissButton.text = context.getString(R.string.previous_QA)
-                json.remove(json.length()-1)
+                json.remove(json.length() - 1)
                 holder.dismissButton.setOnClickListener {
                     viewPager.setCurrentItem(--viewPager.currentItem, false)
                 }
@@ -110,7 +111,7 @@ class QAActivityAdapter(private val context:Context, private val result:ArrayLis
             else -> {
                 holder.confirmButton.text = context.getString(R.string.next_QA)
                 holder.dismissButton.text = context.getString(R.string.previous_QA)
-                json.remove(json.length()-1)
+                json.remove(json.length() - 1)
                 holder.dismissButton.setOnClickListener {
                     viewPager.setCurrentItem(--viewPager.currentItem, false)
                 }
@@ -123,11 +124,11 @@ class QAActivityAdapter(private val context:Context, private val result:ArrayLis
         return Holder(inflater.inflate(R.layout.item_question, parent, false))
     }
 
-    private fun finish(){
+    private fun finish() {
         StatusQuestions().questionStats(json)
 
         intent.apply {
-            putExtra("MapQA",hashMapQA)
+            putExtra("MapQA", hashMapQA)
         }
         context.startActivity(intent)
     }

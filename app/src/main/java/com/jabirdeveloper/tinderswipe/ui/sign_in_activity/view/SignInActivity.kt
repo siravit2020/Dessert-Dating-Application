@@ -3,7 +3,6 @@ package com.jabirdeveloper.tinderswipe.ui.sign_in_activity.view
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
@@ -12,35 +11,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.akexorcist.localizationactivity.core.LocalizationActivityDelegate
-import com.facebook.AccessToken
 import com.facebook.CallbackManager
-import com.facebook.FacebookCallback
-import com.facebook.FacebookException
-import com.facebook.login.LoginManager
-import com.facebook.login.LoginResult
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.ApiException
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuth.AuthStateListener
-import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import com.jabirdeveloper.tinderswipe.BandUser
 import com.jabirdeveloper.tinderswipe.Functions.ChangLanguage
 import com.jabirdeveloper.tinderswipe.Functions.LoadingDialog
 import com.jabirdeveloper.tinderswipe.LoginWithEmailActivity
 import com.jabirdeveloper.tinderswipe.R
-import com.jabirdeveloper.tinderswipe.Register.PhoneActivity
-import com.jabirdeveloper.tinderswipe.Register.Regis_name_Activity
-import com.jabirdeveloper.tinderswipe.Register.RegistrationActivity
+import com.jabirdeveloper.tinderswipe.ui.register.PhoneActivity
+import com.jabirdeveloper.tinderswipe.ui.register.view.RegisterNameActivity
+import com.jabirdeveloper.tinderswipe.ui.testLogin.RegistrationActivity
 import com.jabirdeveloper.tinderswipe.MainActivity
-import com.jabirdeveloper.tinderswipe.data.api.Resource
 import com.jabirdeveloper.tinderswipe.services.TransparentStatusBar
 import com.jabirdeveloper.tinderswipe.ui.sign_in_activity.view_model.SignInViewModel
 import com.jabirdeveloper.tinderswipe.utils.Status
@@ -65,7 +47,10 @@ class SignInActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         language.setLanguage()
         setContentView(R.layout.activity_sign_in)
-        findViewById<TextView>(R.id.clickToTest).setOnClickListener { findViewById<LinearLayout>(R.id.testlogin).visibility = View.VISIBLE; findViewById<TextView>(R.id.clickToTest).visibility = View.GONE }
+        findViewById<TextView>(R.id.clickToTest).setOnClickListener {
+            findViewById<LinearLayout>(R.id.testlogin).visibility = View.VISIBLE;
+            findViewById<TextView>(R.id.clickToTest).visibility = View.GONE
+        }
         mAuth = FirebaseAuth.getInstance()
         thai = findViewById(R.id.thai_lang)
         eng = findViewById(R.id.eng_lang)
@@ -98,11 +83,10 @@ class SignInActivity : AppCompatActivity() {
                         finish()
                     }
                     "register" -> {
-                        val intent = Intent(this@SignInActivity, Regis_name_Activity::class.java)
+                        val intent = Intent(this@SignInActivity, RegisterNameActivity::class.java)
                         intent.putExtra("Type", "face")
                         startActivity(intent)
                     }
-
                 }
             } else {
                 if (it.data === "face") {
@@ -157,7 +141,7 @@ class SignInActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         mCallbackManager.onActivityResult(requestCode, resultCode, data)
-        signInViewModel.result(requestCode, data,this)
+        signInViewModel.result(requestCode, data)
         super.onActivityResult(requestCode, resultCode, data)
     }
 

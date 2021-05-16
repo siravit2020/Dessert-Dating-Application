@@ -1,6 +1,4 @@
-package com.jabirdeveloper.tinderswipe.data.api
-
-import com.jabirdeveloper.tinderswipe.utils.Status
+package com.jabirdeveloper.tinderswipe.utils
 
 data class Resource<out T>(val status: Status, val data: T?, val message: String?) {
 

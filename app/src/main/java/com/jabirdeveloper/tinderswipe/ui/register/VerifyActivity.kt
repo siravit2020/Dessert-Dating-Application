@@ -1,4 +1,4 @@
-package com.jabirdeveloper.tinderswipe.Register
+package com.jabirdeveloper.tinderswipe.ui.register
 
 import android.annotation.SuppressLint
 import android.app.Dialog
@@ -22,6 +22,7 @@ import com.google.firebase.database.ValueEventListener
 import com.jabirdeveloper.tinderswipe.Functions.LoadingDialog
 import com.jabirdeveloper.tinderswipe.R
 import com.jabirdeveloper.tinderswipe.MainActivity
+import com.jabirdeveloper.tinderswipe.ui.register.view.RegisterNameActivity
 import com.tapadoo.alerter.Alerter
 import java.util.concurrent.TimeUnit
 
@@ -67,7 +68,7 @@ class VerifyActivity : AppCompatActivity() {
                             finish()
                             return
                         } else {
-                            val intent = Intent(this@VerifyActivity, Regis_name_Activity::class.java)
+                            val intent = Intent(this@VerifyActivity, RegisterNameActivity::class.java)
                             intent.putExtra("Type", "face")
                             startActivity(intent)
                             return

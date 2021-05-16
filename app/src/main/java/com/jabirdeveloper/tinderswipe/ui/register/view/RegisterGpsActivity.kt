@@ -1,4 +1,4 @@
-package com.jabirdeveloper.tinderswipe.Register
+package com.jabirdeveloper.tinderswipe.ui.register.view
 
 import android.Manifest
 import android.app.Dialog
@@ -19,7 +19,7 @@ import androidx.core.app.ActivityCompat
 import com.jabirdeveloper.tinderswipe.ui.sign_in_activity.view.SignInActivity
 import com.jabirdeveloper.tinderswipe.R
 
-class RegisGpsActivity : AppCompatActivity(), LocationListener {
+class RegisterGpsActivity : AppCompatActivity(), LocationListener {
     private lateinit var mGPSDialog: Dialog
     private lateinit var mLocationManager: LocationManager
     private lateinit var imageView: ImageView
@@ -60,7 +60,7 @@ class RegisGpsActivity : AppCompatActivity(), LocationListener {
     }
 
     private fun getLocation(location: Location) {
-        val intent = Intent(this@RegisGpsActivity, Regis_Sex_Activity::class.java)
+        val intent = Intent(this@RegisterGpsActivity, RegisterSexActivity::class.java)
         intent.putExtra("X", location.latitude)
         intent.putExtra("Y", location.longitude)
         intent.putExtra("Name", getIntent().getStringExtra("Name"))
@@ -75,7 +75,7 @@ class RegisGpsActivity : AppCompatActivity(), LocationListener {
         val longitude = location.longitude
         if (chk == 0) {
             chk = -1
-            val intent = Intent(this@RegisGpsActivity, Regis_Sex_Activity::class.java)
+            val intent = Intent(this@RegisterGpsActivity, RegisterSexActivity::class.java)
             intent.putExtra("X", latitude)
             intent.putExtra("Y", longitude)
             intent.putExtra("Name", getIntent().getStringExtra("Name"))
@@ -118,7 +118,7 @@ class RegisGpsActivity : AppCompatActivity(), LocationListener {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 recreate()
             } else {
-                startActivity(Intent(this@RegisGpsActivity, SignInActivity::class.java))
+                startActivity(Intent(this@RegisterGpsActivity, SignInActivity::class.java))
             }
         }
     }

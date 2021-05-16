@@ -1,9 +1,8 @@
-package com.jabirdeveloper.tinderswipe.Register
+package com.jabirdeveloper.tinderswipe.ui.register.view
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -13,6 +12,7 @@ import android.widget.DatePicker
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.jabirdeveloper.tinderswipe.R
+import com.jabirdeveloper.tinderswipe.ui.register.QuestionActivity
 import com.tapadoo.alerter.Alerter
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -21,13 +21,13 @@ import java.time.Period
 import java.time.ZoneOffset
 import java.util.*
 
-class Regis_ageActivity : AppCompatActivity() {
-    private var Age: String? = null
+
+class RegisterAgeActivity : AppCompatActivity() {
+
     private var age = 0
     private var y = 0
     private var m = 0
     private var d = 0
-    private var dateLong = 0
     private lateinit var button: Button
     private lateinit var toolbar: Toolbar
     private lateinit var calendar: Calendar
@@ -45,20 +45,17 @@ class Regis_ageActivity : AppCompatActivity() {
         supportActionBar!!.setTitle(R.string.registered)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         datePicker = findViewById<DatePicker>(R.id.datePicker)
-        intent1 = Intent(this@Regis_ageActivity, QuestionActivity::class.java)
+        intent1 = Intent(this@RegisterAgeActivity, QuestionActivity::class.java)
         calendar = Calendar.getInstance()
         datePicker.maxDate = calendar.timeInMillis
         calendar.timeInMillis = System.currentTimeMillis()
         y = calendar.get(Calendar.YEAR)
         m = calendar.get(Calendar.MONTH)
         d = calendar.get(Calendar.DAY_OF_MONTH)
-
         datePicker.init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)) { _, year, month, dayOfMonth ->
             y = year
             m = month + 1
             d = dayOfMonth
-
-
         }
         button.setOnClickListener(View.OnClickListener {
             age = getAge(y, m, d)
@@ -69,9 +66,9 @@ class Regis_ageActivity : AppCompatActivity() {
                     date.atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli()
                     intent1.putExtra("Birth", date.atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli())
                 } else {
-                    val str_date = "$d-$m-$y"
+                    val strDate = "$d-$m-$y"
                     val formatter: DateFormat = SimpleDateFormat("dd-MM-yyyy")
-                    val date = formatter.parse(str_date) as Date
+                    val date = formatter.parse(strDate) as Date
                     intent1.putExtra("Birth", date.time)
                 }
                 intent1.putExtra("Sex", intent.getStringExtra("Sex"))
@@ -85,7 +82,7 @@ class Regis_ageActivity : AppCompatActivity() {
                 startActivity(intent1)
                 return@OnClickListener
             } else {
-                Alerter.create(this@Regis_ageActivity)
+                Alerter.create(this@RegisterAgeActivity)
                         .setTitle(getString(R.string.Noti))
                         .setText(getString(R.string.up18))
                         .setBackgroundColorRes(R.color.c3)
@@ -95,22 +92,27 @@ class Regis_ageActivity : AppCompatActivity() {
     }
 
     private fun setLocal(lang: String) {
+
         val locale = Locale(lang)
         Locale.setDefault(locale)
-        val configuration = Configuration()
-        configuration.setLocale(locale)
-        baseContext.resources.updateConfiguration(configuration, baseContext.resources.displayMetrics)
+//        val configuration = Configuration()
+//        configuration.setLocale(locale)
+//        baseContext.resources.updateConfiguration(configuration, baseContext.resources.displayMetrics)
+        val overrideConfiguration = baseContext.resources.configuration
+        overrideConfiguration.setLocale(locale)
         val editor = getSharedPreferences("Settings", Context.MODE_PRIVATE).edit()
         editor.putString("My_Lang", lang)
         editor.apply()
         Log.d("My", lang)
+
+
     }
 
     private fun loadLocal() {
         val preferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
-        val langure = preferences.getString("My_Lang", "")!!
-        Log.d("My2", langure)
-        setLocal(langure)
+        val language = preferences.getString("My_Lang", "")!!
+        Log.d("My2", language)
+        setLocal(language)
     }
 
     private fun getAge(year: Int, month: Int, dayOfMonth: Int): Int {

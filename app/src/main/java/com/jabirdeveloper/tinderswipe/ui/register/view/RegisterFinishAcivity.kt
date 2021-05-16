@@ -1,4 +1,4 @@
-package com.jabirdeveloper.tinderswipe.Register
+package com.jabirdeveloper.tinderswipe.ui.register.view
 
 import android.app.Activity
 import android.app.Dialog
@@ -8,7 +8,6 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.ImageDecoder
 import android.graphics.drawable.ColorDrawable
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
@@ -18,18 +17,22 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.ml.vision.FirebaseVision
-import com.google.firebase.ml.vision.common.FirebaseVisionImage
-import com.google.firebase.ml.vision.face.FirebaseVisionFaceDetectorOptions
 import com.google.firebase.storage.FirebaseStorage
+import com.google.mlkit.vision.common.InputImage
+import com.google.mlkit.vision.face.FaceDetection
+import com.google.mlkit.vision.face.FaceDetectorOptions
+import com.jabirdeveloper.tinderswipe.Functions.LoadingDialog
 import com.jabirdeveloper.tinderswipe.R
 import com.jabirdeveloper.tinderswipe.MainActivity
+import com.jabirdeveloper.tinderswipe.ui.register.view_model.RegisterFinishViewModel
+import com.jabirdeveloper.tinderswipe.ui.sign_in_activity.view_model.SignInViewModel
 import com.nipunru.nsfwdetector.NSFWDetector
 import com.tapadoo.alerter.Alerter
 import com.theartofdev.edmodo.cropper.CropImage
@@ -38,26 +41,26 @@ import java.io.ByteArrayOutputStream
 import java.io.IOException
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS", "NAME_SHADOWING")
-class Regis_target_Acivity : AppCompatActivity() {
+class RegisterFinishAcivity : AppCompatActivity() {
     private var email: String? = null
     private var pass: String? = null
     private var name: String? = null
     private var sex: String? = null
     private var Age: Int = 18
-    private lateinit var type:String
+    private var type: String? = null
     private var x: Double = 0.0
     private var y: Double = 0.0
-    private var hashMapQA:Map<*,*>? = null
+    private var hashMapQA: Map<*, *>? = null
     private lateinit var mAuth: FirebaseAuth
     private lateinit var imageView: ImageView
     private lateinit var UserId: String
     private lateinit var currentUserDb: DatabaseReference
-    private var resultUri: Uri? = null
     private lateinit var dialog: Dialog
     private lateinit var toolbar: Toolbar
     private lateinit var add: ImageView
     private lateinit var skip: TextView
     private lateinit var b1: Button
+    private lateinit var registerFinishViewModel: RegisterFinishViewModel
     var bitmap: Bitmap? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,49 +72,57 @@ class Regis_target_Acivity : AppCompatActivity() {
         add = findViewById(R.id.add1)
         b1 = findViewById(R.id.button6)
         mAuth = FirebaseAuth.getInstance()
-        setSupportActionBar(toolbar)
-        supportActionBar!!.setTitle(R.string.registered)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        registerFinishViewModel = ViewModelProvider(this).get(RegisterFinishViewModel::class.java)
+        setStatusBar()
+
         x = intent.getDoubleExtra("X", x)
         y = intent.getDoubleExtra("Y", y)
-        type = intent.getStringExtra("Type")!!
-        Log.d("showItemList", type)
+        type = intent.getStringExtra("Type")
         email = intent.getStringExtra("email")
         pass = intent.getStringExtra("password")
         name = intent.getStringExtra("Name")
         sex = intent.getStringExtra("Sex")
         Age = intent.getIntExtra("Age", Age)
+
         hashMapQA = intent.getSerializableExtra("MapQA") as Map<*, *>
-        val inflater = layoutInflater
-        val view = inflater.inflate(R.layout.progress_dialog, null)
-        dialog = Dialog(this)
-        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog.setContentView(view)
-        val width = (resources.displayMetrics.widthPixels * 0.80).toInt()
-        dialog.window!!.setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT)
-        imageView.setOnClickListener { InputImage() }
+
+
+        dialog = LoadingDialog(this).dialog()
+
+        imageView.setOnClickListener {
+           inputImage()
+        }
         b1.setOnClickListener { createId(1) }
         skip.setOnClickListener { createId(2) }
     }
 
+    private fun setStatusBar() {
+        setSupportActionBar(toolbar)
+        supportActionBar!!.setTitle(R.string.registered)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+    }
+
     private fun createId(i: Int) {
-        Log.d("showItemList","$type , email")
+        Log.d("showItemList", "$type , email")
         if (type == "email") {
-            mAuth.createUserWithEmailAndPassword(email!!, pass!!).addOnCompleteListener(this@Regis_target_Acivity) { task -> if (!task.isSuccessful) Snackbar.make(b1, R.string.try_again, Snackbar.LENGTH_LONG).show() else CreateData_to_Firebase(i) }
+            mAuth.createUserWithEmailAndPassword(email!!, pass!!).addOnCompleteListener(this@RegisterFinishAcivity) { task ->
+                if (!task.isSuccessful) Snackbar.make(b1, R.string.try_again, Snackbar.LENGTH_LONG).show()
+                else createDataToFirebase(i)
+            }
         } else {
-            Log.d("showItemList","else")
-            CreateData_to_Firebase(i)
+            Log.d("showItemList", "else")
+            createDataToFirebase(i)
         }
     }
 
-    private fun InputImage() {
+    private fun inputImage() {
         CropImage.activity()
                 .setGuidelines(CropImageView.Guidelines.ON)
                 .setAspectRatio(3, 4)
                 .start(this)
     }
 
-    private fun CreateData_to_Firebase(i: Int) {
+    private fun createDataToFirebase(i: Int) {
         val editor = getSharedPreferences("notification_match", Context.MODE_PRIVATE).edit()
         editor.putString("noti", "1")
         editor.apply()
@@ -164,7 +175,7 @@ class Regis_target_Acivity : AppCompatActivity() {
                             )
                             currentUserDb.child("ProfileImage").updateChildren(userInfo as Map<String, Any>)
 
-                            val intent = Intent(this@Regis_target_Acivity, MainActivity::class.java)
+                            val intent = Intent(this@RegisterFinishAcivity, MainActivity::class.java)
                             intent.putExtra("first", "0")
                             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                             startActivity(intent)
@@ -177,7 +188,7 @@ class Regis_target_Acivity : AppCompatActivity() {
                 }
 
             } else {
-                Alerter.create(this@Regis_target_Acivity)
+                Alerter.create(this@RegisterFinishAcivity)
                         .setTitle(R.string.profile_image)
                         .setText(getString(R.string.choose_photo))
                         .setBackgroundColorRes(R.color.c3)
@@ -185,7 +196,7 @@ class Regis_target_Acivity : AppCompatActivity() {
             }
         } else {
             dialog.dismiss()
-            val intent = Intent(this@Regis_target_Acivity, MainActivity::class.java)
+            val intent = Intent(this@RegisterFinishAcivity, MainActivity::class.java)
             intent.putExtra("first", "0")
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
@@ -198,10 +209,11 @@ class Regis_target_Acivity : AppCompatActivity() {
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             val result = CropImage.getActivityResult(data)
             if (resultCode == Activity.RESULT_OK) {
-                var image: FirebaseVisionImage? = null
+                var image: InputImage? = null
                 var bitmap: Bitmap? = null
                 try {
-                    image = FirebaseVisionImage.fromFilePath(this@Regis_target_Acivity, result.uri!!)
+
+                    image = InputImage.fromFilePath(this@RegisterFinishAcivity, result.uri!!)
                     bitmap = if (Build.VERSION.SDK_INT >= 29) {
                         val source = ImageDecoder.createSource(this.contentResolver, result.uri)
                         ImageDecoder.decodeBitmap(source)
@@ -213,9 +225,9 @@ class Regis_target_Acivity : AppCompatActivity() {
                 }
 
                 dialog.show()
-                val highAccuracyOpts = FirebaseVisionFaceDetectorOptions.Builder().build()
-                val detector = FirebaseVision.getInstance().getVisionFaceDetector(highAccuracyOpts)
-                detector.detectInImage(image!!)
+                val options = FaceDetectorOptions.Builder().build()
+                val detector = FaceDetection.getClient(options)
+                detector.process(image!!)
                         .addOnSuccessListener { faces ->
                             dialog.dismiss()
                             if (faces.isNotEmpty()) {

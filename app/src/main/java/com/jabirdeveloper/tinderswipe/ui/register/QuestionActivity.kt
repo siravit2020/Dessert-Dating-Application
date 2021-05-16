@@ -1,27 +1,20 @@
-package com.jabirdeveloper.tinderswipe.Register
+package com.jabirdeveloper.tinderswipe.ui.register
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.viewpager.widget.PagerAdapter
-import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
 import com.akexorcist.localizationactivity.core.LocalizationActivityDelegate
-import com.google.android.gms.tasks.Task
-import com.google.firebase.functions.HttpsCallableResult
-import com.google.firebase.functions.ktx.functions
-import com.google.firebase.ktx.Firebase
 import com.jabirdeveloper.tinderswipe.Functions.ChangLanguage
 import com.jabirdeveloper.tinderswipe.QAStore.QAActivityAdapter
-import com.jabirdeveloper.tinderswipe.QAStore.QAObject
 import com.jabirdeveloper.tinderswipe.R
 import com.jabirdeveloper.tinderswipe.ViewModel.QuestionViewModel
+import com.jabirdeveloper.tinderswipe.ui.register.view.RegisterFinishAcivity
 
 class QuestionActivity : AppCompatActivity() {
     private var x: Double = 0.0
@@ -72,7 +65,7 @@ class QuestionActivity : AppCompatActivity() {
         })
         questionViewModel.responseRegisterQA(localizationDelegate.getLanguage(this).toLanguageTag())
         questionViewModel.response(localizationDelegate.getLanguage(this).toLanguageTag())
-        intent1 = Intent(this@QuestionActivity, Regis_target_Acivity::class.java)
+        intent1 = Intent(this@QuestionActivity, RegisterFinishAcivity::class.java)
         intent1.apply {
             putExtra("Sex", intent.getStringExtra("Sex"))
             putExtra("Type", intent.getStringExtra("Type"))

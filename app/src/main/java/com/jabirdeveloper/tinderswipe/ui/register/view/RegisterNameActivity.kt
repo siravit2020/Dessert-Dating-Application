@@ -1,24 +1,27 @@
-package com.jabirdeveloper.tinderswipe.Register
+package com.jabirdeveloper.tinderswipe.ui.register.view
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.ViewModelProvider
 
 import com.google.firebase.auth.FirebaseAuth
 import com.jabirdeveloper.tinderswipe.R
-import com.jabirdeveloper.tinderswipe.Register.Regis_name_Activity
+import com.jabirdeveloper.tinderswipe.ui.register.view_model.RegisterFinishViewModel
+import com.jabirdeveloper.tinderswipe.ui.sign_in_activity.view_model.SignInViewModel
 import com.tapadoo.alerter.Alerter
 
-class Regis_name_Activity : AppCompatActivity() {
+
+class RegisterNameActivity : AppCompatActivity() {
     private lateinit var b1: Button
     private lateinit var t1: EditText
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var toolbar: Toolbar
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_regis_name_)
@@ -28,11 +31,14 @@ class Regis_name_Activity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar!!.setTitle(R.string.registered)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+
         b1.setOnClickListener {
-            if (!t1.text.toString().trim { it <= ' ' }.isEmpty()) {
+            if (t1.text.toString().trim { it <= ' ' }.isNotEmpty()) {
                 Alerter.hide()
-                val intent = Intent(this@Regis_name_Activity, RegisGpsActivity::class.java)
+
+                val intent = Intent(this@RegisterNameActivity, RegisterGpsActivity::class.java)
                 intent.apply {
+
                     putExtra("Name", t1.text.toString())
                     putExtra("Type", getIntent().getStringExtra("Type"))
                     putExtra("email", getIntent().getStringExtra("email"))
@@ -40,7 +46,7 @@ class Regis_name_Activity : AppCompatActivity() {
                 }
                 startActivity(intent)
             } else {
-                Alerter.create(this@Regis_name_Activity)
+                Alerter.create(this@RegisterNameActivity)
                         .setTitle(R.string.Noti)
                         .setText(getString(R.string.enter_name))
                         .setBackgroundColorRes(R.color.c3)

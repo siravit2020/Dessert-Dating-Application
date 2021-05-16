@@ -62,8 +62,6 @@ class FirstActivity : AppCompatActivity() {
 
     }
 
-
-
     private fun setAnimation() {
         aniFade = AnimationUtils.loadAnimation(applicationContext, R.anim.fade_out)
         aniFade2 = AnimationUtils.loadAnimation(applicationContext, R.anim.fade_in)

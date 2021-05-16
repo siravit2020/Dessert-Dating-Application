@@ -1,4 +1,4 @@
-package com.jabirdeveloper.tinderswipe.Register
+package com.jabirdeveloper.tinderswipe.ui.register
 
 import android.content.Intent
 import android.os.Bundle

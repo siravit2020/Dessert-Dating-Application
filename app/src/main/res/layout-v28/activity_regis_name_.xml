@@ -8,7 +8,7 @@
     android:background="@color/background_white"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".Register.Regis_name_Activity">
+    tools:context=".ui.register.view.RegisterNameActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout23"

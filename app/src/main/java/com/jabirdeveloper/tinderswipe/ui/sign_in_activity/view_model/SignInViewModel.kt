@@ -2,12 +2,11 @@ package com.jabirdeveloper.tinderswipe.ui.sign_in_activity.view_model
 
 import android.app.Activity
 import android.app.Application
-import android.app.Dialog
 import android.content.Intent
 import android.util.Log
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MethodCallsLogger
 import androidx.lifecycle.MutableLiveData
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
@@ -26,9 +25,8 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.jabirdeveloper.tinderswipe.Functions.LoadingDialog
 import com.jabirdeveloper.tinderswipe.R
-import com.jabirdeveloper.tinderswipe.data.api.Resource
+import com.jabirdeveloper.tinderswipe.utils.Resource
 
 class SignInViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -40,6 +38,7 @@ class SignInViewModel(application: Application) : AndroidViewModel(application) 
 
     private var resource = MutableLiveData<Resource<String>>()
     private var dialog = MutableLiveData<Boolean>()
+    private var app = application
     init {
         firebaseAuthStateListener = FirebaseAuth.AuthStateListener {
             val user = FirebaseAuth.getInstance().currentUser
@@ -76,11 +75,10 @@ class SignInViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     fun facebookSigIn(activity: Activity, mCallbackManager:CallbackManager) {
-
         LoginManager.getInstance().logInWithReadPermissions(activity, listOf("email", "public_profile", "user_friends"))
         LoginManager.getInstance().registerCallback(mCallbackManager, object : FacebookCallback<LoginResult?> {
             override fun onSuccess(loginResult: LoginResult?) {
-                handleFacebookToken(loginResult?.accessToken,activity)
+                handleFacebookToken(loginResult?.accessToken)
             }
 
             override fun onCancel() {
@@ -93,11 +91,10 @@ class SignInViewModel(application: Application) : AndroidViewModel(application) 
         })
     }
 
-    private fun handleFacebookToken(token: AccessToken?,activity: Activity) {
-
+    private fun handleFacebookToken(token: AccessToken?) {
         dialog.value = true
         val credential = FacebookAuthProvider.getCredential(token!!.token)
-        mAuth.signInWithCredential(credential).addOnCompleteListener(activity) { task ->
+        mAuth.signInWithCredential(credential).addOnCompleteListener(ContextCompat.getMainExecutor(app)) { task ->
             if (!task.isSuccessful) {
 
                 resource.value = Resource.error("Please try again later", "face")
@@ -114,10 +111,10 @@ class SignInViewModel(application: Application) : AndroidViewModel(application) 
         activity.startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
-    private fun firebaseAuthWithGoogle(idToken: String?,activity: Activity) {
+    private fun firebaseAuthWithGoogle(idToken: String?) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(activity) { task ->
+                .addOnCompleteListener(ContextCompat.getMainExecutor(app)) { task ->
                     dialog.value = true
                     if (!task.isSuccessful) {
 
@@ -127,14 +124,14 @@ class SignInViewModel(application: Application) : AndroidViewModel(application) 
                 }
     }
 
-    fun result(requestCode: Int?, data: Intent?,activity: Activity) {
+    fun result(requestCode: Int?, data: Intent?) {
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 val account = task.getResult(ApiException::class.java)
                 Log.d("TAG", "firebaseAuthWithGoogle:" + account?.id)
-                firebaseAuthWithGoogle(account?.idToken,activity)
+                firebaseAuthWithGoogle(account?.idToken)
             } catch (e: ApiException) {
 
                 Log.d("TAG", "Google sign in failed", e)

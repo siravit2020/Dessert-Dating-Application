@@ -1,4 +1,4 @@
-package com.jabirdeveloper.tinderswipe.Register
+package com.jabirdeveloper.tinderswipe.ui.testLogin
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,6 +12,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuth.AuthStateListener
 import com.jabirdeveloper.tinderswipe.CardActivity
 import com.jabirdeveloper.tinderswipe.R
+import com.jabirdeveloper.tinderswipe.ui.register.view.RegisterNameActivity
 
 class RegistrationActivity : AppCompatActivity() {
     private lateinit var mRegister: Button
@@ -43,7 +44,7 @@ class RegistrationActivity : AppCompatActivity() {
                     if (task.isSuccessful) {
                         val check = task.result!!.signInMethods!!.isEmpty()
                         if (check) {
-                            val intent = Intent(this@RegistrationActivity, Regis_name_Activity::class.java)
+                            val intent = Intent(this@RegistrationActivity, RegisterNameActivity::class.java)
                             intent.putExtra("Type", "email")
                             intent.putExtra("email", mEmail.text.toString())
                             intent.putExtra("password", mPassword.text.toString())
