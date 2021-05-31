@@ -10,6 +10,7 @@ import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.provider.Settings
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
@@ -18,6 +19,8 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import com.jabirdeveloper.tinderswipe.ui.sign_in_activity.view.SignInActivity
 import com.jabirdeveloper.tinderswipe.R
+import com.jabirdeveloper.tinderswipe.services.LocationService
+import com.jabirdeveloper.tinderswipe.utils.Status
 
 class RegisterGpsActivity : AppCompatActivity(), LocationListener {
     private lateinit var mGPSDialog: Dialog
@@ -31,7 +34,7 @@ class RegisterGpsActivity : AppCompatActivity(), LocationListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_regis_gps)
-        handler = Handler()
+        handler = Handler(Looper.getMainLooper())
         imageView = findViewById(R.id.imageView3)
         anime1 = findViewById(R.id.anime1)
         anime2 = findViewById(R.id.anime2)
@@ -40,6 +43,14 @@ class RegisterGpsActivity : AppCompatActivity(), LocationListener {
         setSupportActionBar(toolbar)
         supportActionBar!!.setTitle(R.string.registered)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+
+//        if (LocationService(this).checkPermission() == Status.SUCCESS){
+//            val location =
+//                    mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+//            if(location != null) {
+//                getLocation(location)
+//            }
+//        }
         mLocationManager = this.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {

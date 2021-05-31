@@ -39,7 +39,7 @@ class LoginWithEmailActivity : AppCompatActivity() {
                 return@AuthStateListener
             }
         }
-        mLogin.setOnClickListener(View.OnClickListener {
+        mLogin.setOnClickListener {
 
             val email = mEmail.text.toString()
             val password = mPassword.text.toString()
@@ -50,7 +50,7 @@ class LoginWithEmailActivity : AppCompatActivity() {
                     }
                 }
             }
-        })
+        }
     }
 
 

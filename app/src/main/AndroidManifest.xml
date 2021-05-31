@@ -23,7 +23,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="LockedOrientationActivity"
         tools:replace="android:icon">
-        <activity android:name=".ui.register.view.RegisterMain"></activity>
+
         <activity android:name=".IDontLike" />
         <activity android:name=".ProblemList" />
         <activity android:name=".SendProblem" />
@@ -88,7 +88,7 @@
         <activity
             android:name=".LoginWithEmailActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.testLogin.RegistrationActivity" />
+        <activity android:name=".ui.register.view.RegistrationActivity" />
         <activity
             android:name=".ui.first_activity.view.FirstActivity"
             android:screenOrientation="portrait">

@@ -14,9 +14,11 @@ import com.jabirdeveloper.tinderswipe.ui.sign_in_activity.view.SignInActivity
 import com.jabirdeveloper.tinderswipe.R
 import com.jabirdeveloper.tinderswipe.ShowGpsOpen
 import com.jabirdeveloper.tinderswipe.MainActivity
+import com.jabirdeveloper.tinderswipe.services.LocationService
 import com.jabirdeveloper.tinderswipe.services.TransparentStatusBar
 import com.jabirdeveloper.tinderswipe.ui.first_activity.view_model.FirstViewModel
 import com.jabirdeveloper.tinderswipe.utils.CheckStatusUser
+import com.jabirdeveloper.tinderswipe.utils.Status
 import kotlinx.android.synthetic.main.activity_first_.*
 
 class FirstActivity : AppCompatActivity() {
@@ -24,12 +26,18 @@ class FirstActivity : AppCompatActivity() {
     private lateinit var aniFade: Animation
     private lateinit var aniFade2: Animation
     private lateinit var firstViewModel: FirstViewModel
+    private lateinit var locationService:LocationService;
     override fun onCreate(savedInstanceState: Bundle?) {
-        TransparentStatusBar(this)
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_first_)
+        //TransparentStatusBar(this)
+        locationService = LocationService(this);
         setAnimation()
         firstViewModel = ViewModelProvider(this).get(FirstViewModel::class.java)
+        if (locationService.checkPermission() == Status.SUCCESS){
+            firstViewModel.addListener()
+        }
         firstViewModel.getStatus().observe(this, Observer {
             Log.d("test observe",it.name)
             aniFade.setAnimationListener(null)
@@ -43,7 +51,6 @@ class FirstActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }
-
         })
         firstViewModel.getCheckUser().observe(this, Observer {
             Log.d("test observe",it.toString())
@@ -56,7 +63,7 @@ class FirstActivity : AppCompatActivity() {
             }
         })
 
-        firstViewModel.getAniamtionStart().observe(this, Observer {
+        firstViewModel.getAnimationStart().observe(this, Observer {
             logo.startAnimation(aniFade)
         })
 

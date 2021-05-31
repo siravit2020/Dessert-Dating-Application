@@ -2,7 +2,6 @@ package com.jabirdeveloper.tinderswipe.ui.register.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
@@ -12,7 +11,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.jabirdeveloper.tinderswipe.R
-import com.jabirdeveloper.tinderswipe.ui.register.view_model.RegisterFinishViewModel
+import com.jabirdeveloper.tinderswipe.ui.register.view_model.RegisterViewModel
 import com.tapadoo.alerter.Alerter
 
 class RegisterSexActivity : AppCompatActivity() {
@@ -21,7 +20,7 @@ class RegisterSexActivity : AppCompatActivity() {
     private lateinit var imageView: ImageView
     private lateinit var imageView2: ImageView
     private lateinit var toolbar: Toolbar
-    private lateinit var registerFinishViewModel:RegisterFinishViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_regis__sex_)
@@ -32,7 +31,7 @@ class RegisterSexActivity : AppCompatActivity() {
         supportActionBar!!.setTitle(R.string.registered)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         b3 = findViewById(R.id.button_name)
-        registerFinishViewModel = ViewModelProvider(this).get(RegisterFinishViewModel::class.java)
+
 
 
         imageView.setOnClickListener(View.OnClickListener {

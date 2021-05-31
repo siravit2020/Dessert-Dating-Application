@@ -7,12 +7,9 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.lifecycle.ViewModelProvider
 
 import com.google.firebase.auth.FirebaseAuth
 import com.jabirdeveloper.tinderswipe.R
-import com.jabirdeveloper.tinderswipe.ui.register.view_model.RegisterFinishViewModel
-import com.jabirdeveloper.tinderswipe.ui.sign_in_activity.view_model.SignInViewModel
 import com.tapadoo.alerter.Alerter
 
 
@@ -35,10 +32,8 @@ class RegisterNameActivity : AppCompatActivity() {
         b1.setOnClickListener {
             if (t1.text.toString().trim { it <= ' ' }.isNotEmpty()) {
                 Alerter.hide()
-
                 val intent = Intent(this@RegisterNameActivity, RegisterGpsActivity::class.java)
                 intent.apply {
-
                     putExtra("Name", t1.text.toString())
                     putExtra("Type", getIntent().getStringExtra("Type"))
                     putExtra("email", getIntent().getStringExtra("email"))

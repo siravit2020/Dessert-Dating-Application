@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Application
 import android.content.Intent
 import android.util.Log
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -35,10 +36,10 @@ class SignInViewModel(application: Application) : AndroidViewModel(application) 
     private var mAuth: FirebaseAuth = FirebaseAuth.getInstance()
     private var googleSignInClient: GoogleSignInClient
     private val RC_SIGN_IN = 0
-
     private var resource = MutableLiveData<Resource<String>>()
     private var dialog = MutableLiveData<Boolean>()
     private var app = application
+
     init {
         firebaseAuthStateListener = FirebaseAuth.AuthStateListener {
             val user = FirebaseAuth.getInstance().currentUser
@@ -54,9 +55,11 @@ class SignInViewModel(application: Application) : AndroidViewModel(application) 
                             dataSnapshot.child("Users").child(user.uid).hasChild("sex") -> {
                                 resource.value = Resource.success("main")
                             }
-                            else -> {
+                            user.isEmailVerified
+                            -> {
                                 resource.value = Resource.success("register")
                             }
+                            else -> resource.value = Resource.success("verification")
                         }
                         dialog.value = false
                     }
@@ -74,33 +77,16 @@ class SignInViewModel(application: Application) : AndroidViewModel(application) 
 
     }
 
-    fun facebookSigIn(activity: Activity, mCallbackManager:CallbackManager) {
-        LoginManager.getInstance().logInWithReadPermissions(activity, listOf("email", "public_profile", "user_friends"))
-        LoginManager.getInstance().registerCallback(mCallbackManager, object : FacebookCallback<LoginResult?> {
-            override fun onSuccess(loginResult: LoginResult?) {
-                handleFacebookToken(loginResult?.accessToken)
-            }
-
-            override fun onCancel() {
-
-            }
-            override fun onError(exception: FacebookException?) {
-
-                resource.value = Resource.error(exception.toString(), null)
-            }
-        })
-    }
-
-    private fun handleFacebookToken(token: AccessToken?) {
-        dialog.value = true
-        val credential = FacebookAuthProvider.getCredential(token!!.token)
-        mAuth.signInWithCredential(credential).addOnCompleteListener(ContextCompat.getMainExecutor(app)) { task ->
-            if (!task.isSuccessful) {
-
-                resource.value = Resource.error("Please try again later", "face")
+    fun authenticationWithEmail(email: String, password: String) {
+        if (email.trim { it <= ' ' } != "" && password.trim { it <= ' ' } != "") {
+            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(ContextCompat.getMainExecutor(app)) { task ->
+                if (!task.isSuccessful) {
+                    resource.value = Resource.error("Email or Password incorrect", "email")
+                }
             }
         }
     }
+
 
     fun googleSignIn(activity: Activity) {
         signIn(activity)
@@ -130,8 +116,8 @@ class SignInViewModel(application: Application) : AndroidViewModel(application) 
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 val account = task.getResult(ApiException::class.java)
-                Log.d("TAG", "firebaseAuthWithGoogle:" + account?.id)
-                firebaseAuthWithGoogle(account?.idToken)
+                Log.d("TAG", "firebaseAuthWithGoogle:" + account.id)
+                firebaseAuthWithGoogle(account.idToken)
             } catch (e: ApiException) {
 
                 Log.d("TAG", "Google sign in failed", e)
@@ -145,7 +131,7 @@ class SignInViewModel(application: Application) : AndroidViewModel(application) 
         return resource
     }
 
-    fun getStatusDialog(): LiveData<Boolean>{
+    fun getStatusDialog(): LiveData<Boolean> {
         return dialog
     }
 

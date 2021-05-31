@@ -5,9 +5,7 @@ import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.Color
 import android.graphics.ImageDecoder
-import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
@@ -31,8 +29,7 @@ import com.google.mlkit.vision.face.FaceDetectorOptions
 import com.jabirdeveloper.tinderswipe.Functions.LoadingDialog
 import com.jabirdeveloper.tinderswipe.R
 import com.jabirdeveloper.tinderswipe.MainActivity
-import com.jabirdeveloper.tinderswipe.ui.register.view_model.RegisterFinishViewModel
-import com.jabirdeveloper.tinderswipe.ui.sign_in_activity.view_model.SignInViewModel
+import com.jabirdeveloper.tinderswipe.ui.register.view_model.RegisterViewModel
 import com.nipunru.nsfwdetector.NSFWDetector
 import com.tapadoo.alerter.Alerter
 import com.theartofdev.edmodo.cropper.CropImage
@@ -60,7 +57,7 @@ class RegisterFinishAcivity : AppCompatActivity() {
     private lateinit var add: ImageView
     private lateinit var skip: TextView
     private lateinit var b1: Button
-    private lateinit var registerFinishViewModel: RegisterFinishViewModel
+    private lateinit var registerViewModel: RegisterViewModel
     var bitmap: Bitmap? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,7 +69,7 @@ class RegisterFinishAcivity : AppCompatActivity() {
         add = findViewById(R.id.add1)
         b1 = findViewById(R.id.button6)
         mAuth = FirebaseAuth.getInstance()
-        registerFinishViewModel = ViewModelProvider(this).get(RegisterFinishViewModel::class.java)
+        registerViewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
         setStatusBar()
 
         x = intent.getDoubleExtra("X", x)

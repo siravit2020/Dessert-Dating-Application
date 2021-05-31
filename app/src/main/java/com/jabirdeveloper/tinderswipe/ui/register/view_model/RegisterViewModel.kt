@@ -21,7 +21,7 @@ import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import java.io.ByteArrayOutputStream
 
-class RegisterFinishViewModel(private var intent: Intent, application: Application) : AndroidViewModel(application) {
+class RegisterViewModel(private var intent: Intent, application: Application) : AndroidViewModel(application) {
 
     private var email: String? = null
     private var pass: String? = null
