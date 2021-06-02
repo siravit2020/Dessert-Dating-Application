@@ -3,6 +3,7 @@ package com.jabirdeveloper.tinderswipe.ui.register
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
 import androidx.appcompat.widget.Toolbar
@@ -56,15 +57,6 @@ class QuestionActivity : AppCompatActivity() {
             sex = getStringExtra("Sex")
             age = getIntExtra("Age", age)
         }
-        questionViewModel.fetchRegisterQA.observe(this,{
-            val pagerAdapter = QAActivityAdapter(this,it,pager,intent1)
-            pager.offscreenPageLimit = it.size
-            pager.isUserInputEnabled = false
-            pager.adapter = pagerAdapter
-            progressBar.visibility = View.GONE
-        })
-        questionViewModel.responseRegisterQA(localizationDelegate.getLanguage(this).toLanguageTag())
-        questionViewModel.response(localizationDelegate.getLanguage(this).toLanguageTag())
         intent1 = Intent(this@QuestionActivity, RegisterFinishAcivity::class.java)
         intent1.apply {
             putExtra("Sex", intent.getStringExtra("Sex"))
@@ -77,5 +69,15 @@ class QuestionActivity : AppCompatActivity() {
             putExtra("password", intent.getStringExtra("password"))
             putExtra("Birth", intent.getLongExtra("Birth", 0))
         }
+        questionViewModel.fetchRegisterQA.observe(this,{
+            val pagerAdapter = QAActivityAdapter(this,it,pager,intent1)
+            pager.offscreenPageLimit = it.size
+            pager.isUserInputEnabled = false
+            pager.adapter = pagerAdapter
+            progressBar.visibility = View.GONE
+        })
+        questionViewModel.responseRegisterQA(localizationDelegate.getLanguage(this).toLanguageTag())
+        questionViewModel.response(localizationDelegate.getLanguage(this).toLanguageTag())
+
     }
 }

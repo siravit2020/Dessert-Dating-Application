@@ -13,6 +13,7 @@ import org.json.JSONArray
 class StatusQuestions {
     private val db = FirebaseDatabase.getInstance().reference.child("QuestionStatus")
     fun questionStats(array:JSONArray){
+        Log.d("ButtonQA",array.toString())
        for(i in 0 until array.length()){
            val b = array.getJSONObject(i)
            val id = b.optString("id")

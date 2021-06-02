@@ -87,6 +87,7 @@ class QAPagerAdapter(val context: Context, private val choice: ArrayList<QAObjec
             }
         }
         holder.confirmButton.setOnClickListener {
+            Log.d("ButtonQA","Confirm")
             var answerWeight: Int = 0
             var answerQA: Int = 0
             val chk1 = holder.radioGroupChoice.checkedRadioButtonId

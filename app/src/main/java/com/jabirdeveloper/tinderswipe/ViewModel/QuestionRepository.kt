@@ -88,6 +88,7 @@ class QuestionRepository(context: Context) {
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe {
                                 resultRegisterQA.postValue(it)
+                                loadingDialog.dismiss()
                             }
                 }
     }

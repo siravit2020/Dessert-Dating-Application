@@ -69,9 +69,8 @@ class RegisterFinishAcivity : AppCompatActivity() {
         add = findViewById(R.id.add1)
         b1 = findViewById(R.id.button6)
         mAuth = FirebaseAuth.getInstance()
-        registerViewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
+//        registerViewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
         setStatusBar()
-
         x = intent.getDoubleExtra("X", x)
         y = intent.getDoubleExtra("Y", y)
         type = intent.getStringExtra("Type")
