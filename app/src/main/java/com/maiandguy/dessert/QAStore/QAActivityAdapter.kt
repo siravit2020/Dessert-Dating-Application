@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 
 import android.view.View
 import android.view.ViewGroup
@@ -55,7 +56,6 @@ class QAActivityAdapter(private val context: Context, private val result: ArrayL
             }
         }
         holder.confirmButton.setOnClickListener {
-            viewPager.setCurrentItem(++viewPager.currentItem, false)
             var answerWeight: Int = 0
             var answerQA: Int = 0
             val chkAns = holder.radioGroupChoice.checkedRadioButtonId
@@ -78,6 +78,7 @@ class QAActivityAdapter(private val context: Context, private val result: ArrayL
                 hashMapQA[result[position].questionId] = inputMap as Map<*, *>
                 val obj = JSONObject(inputMap)
                 json.put(obj)
+                viewPager.setCurrentItem(++viewPager.currentItem, false)
                 if (itemCount - 1 == position) {
                     finish()
                 }
