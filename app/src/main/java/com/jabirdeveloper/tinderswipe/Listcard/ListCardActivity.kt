@@ -242,10 +242,14 @@ class ListCardActivity : Fragment() {
                             Log.d("ghu", result1.toString())
                             resultLimit = result1["o"] as ArrayList<*>
                             if (resultLimit.isNotEmpty())
-                                if (type)
+                                if (type){
                                     getUser(resultLimit, 0, type, 0)
-                                else
+                                    Log.d("ghu","Not empty")
+                                }
+                                else{
                                     getUser(resultLimit, 0, type, resultMatches.size - 1)
+                                    Log.d("ghu","Empty")
+                                }
                         }
 
                     }

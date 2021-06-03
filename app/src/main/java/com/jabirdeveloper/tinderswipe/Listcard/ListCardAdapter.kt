@@ -29,12 +29,14 @@ class ListCardAdapter(private val matchesList: ArrayList<ListCardObject?>, priva
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ListCardViewHolders, position: Int) {
-        //Log.d("testDatatatat", matchesList.elementAt(position)!!.percent.toString())
+        var placeHolder = R.drawable.ic_man;
+        if(matchesList.elementAt(position)!!.gender == "Female") placeHolder = R.drawable.ic_woman;
         holder.percent.visibility = View.VISIBLE
         holder.percent.text = "ความเข้ากัน ${(matchesList.elementAt(position)!!.percent.toString())} %"
-        Log.d("dddddddddddddddddddddd", matchesList.size.toString())
         Glide.with(context).load(matchesList[position]!!.profileImageUrl).listener(object : RequestListener<Drawable?> {
             override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable?>?, isFirstResource: Boolean): Boolean {
+                Log.d("failLoadPhoto" , "fails");
+                holder.progressBar!!.visibility = View.GONE
                 return false
             }
 
@@ -43,7 +45,7 @@ class ListCardAdapter(private val matchesList: ArrayList<ListCardObject?>, priva
                 holder.progressBar!!.visibility = View.GONE
                 return false
             }
-        }).apply(RequestOptions().override(100, 100)).into(holder.mMatchImage)
+        }).apply(RequestOptions().override(100, 100)).error(placeHolder).into(holder.mMatchImage)
         holder.container.animation = AnimationUtils.loadAnimation(context, R.anim.item_animation_fall_down)
         if (!matchesList[position]!!.off_status) {
             holder.onOffList.visibility = View.VISIBLE

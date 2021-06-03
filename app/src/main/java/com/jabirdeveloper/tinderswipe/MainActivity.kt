@@ -64,10 +64,8 @@ class MainActivity : AppCompatActivity() ,LocationListener {
         setContentView(R.layout.activity_main)
         load = findViewById(R.id.candyCane)
         j1.launch(Dispatchers.Unconfined) { // launch a new coroutine in background and continue
-
-                getMyUser()
-                getUnreadFunction()
-
+            getMyUser()
+            getUnreadFunction()
         }
         //questionCalculate()
         bar = findViewById(R.id.bar2)
