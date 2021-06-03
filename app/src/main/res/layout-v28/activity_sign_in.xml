@@ -8,6 +8,7 @@
     tools:context=".ui.sign_in_activity.view.SignInActivity">
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
@@ -37,12 +38,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/View32dp"
             android:layout_marginBottom="@dimen/View16dp"
-
             android:background="@drawable/input_field"
             android:hint="อีเมล"
             android:importantForAutofill="no"
             android:inputType="textEmailAddress"
-            android:maxLength="30"
             android:paddingLeft="@dimen/View20dp"
             android:paddingTop="@dimen/View8dp"
             android:paddingRight="@dimen/View20dp"
@@ -57,8 +56,9 @@
             android:background="@drawable/input_field"
             android:hint="รหัสผ่าน"
             android:importantForAutofill="no"
-            android:inputType="numberPassword"
-            android:maxLength="30"
+            android:inputType="textPassword"
+            android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            android:maxLength="20"
             android:paddingLeft="@dimen/View20dp"
             android:paddingTop="@dimen/View8dp"
             android:paddingRight="@dimen/View20dp"
@@ -110,8 +110,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/View24dp"
-            android:background="@drawable/input_field"
+
             android:maxLength="30"
+
             android:paddingLeft="@dimen/View20dp"
             android:paddingRight="@dimen/View20dp"
             android:text="เข้าสู่ระบบ"
@@ -151,69 +152,56 @@
                 android:background="#80000000" />
         </LinearLayout>
 
-
         <LinearLayout
-            android:id="@+id/google"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/View16dp"
-            android:background="@drawable/myrect"
-            android:backgroundTint="#FFFFFF"
-            android:elevation="@dimen/View4dp"
-            android:gravity="center"
-            android:paddingStart="@dimen/View16dp"
-            android:paddingTop="@dimen/View8dp"
-            android:paddingEnd="@dimen/View16dp"
+            android:orientation="horizontal">
 
-            android:paddingBottom="@dimen/View8dp">
-
-            <ImageView
-                android:layout_width="@dimen/View36dp"
-                android:layout_height="@dimen/View36dp"
-                android:layout_marginStart="@dimen/View8dp"
-                android:layout_marginEnd="@dimen/View8dp"
-                android:src="@drawable/ic_search" />
-
-            <TextView
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:id="@+id/google"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/View8dp"
+                android:layout_marginRight="@dimen/View16dp"
                 android:gravity="center"
-                android:text="Signin with google   "
-                android:textColor="@color/text_black_gray"
-                android:textSize="@dimen/Text16sp" />
-        </LinearLayout>
+                android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/button7"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/View16dp"
-            android:background="@drawable/myrect"
-            android:backgroundTint="@color/text_black_gray"
-            android:elevation="@dimen/View4dp"
-            android:gravity="center"
-            android:paddingStart="@dimen/View16dp"
-            android:paddingTop="@dimen/View8dp"
-            android:paddingEnd="@dimen/View16dp"
+                <ImageView
+                    android:layout_width="@dimen/View40dp"
+                    android:layout_height="@dimen/View40dp"
+                    android:src="@drawable/ic_search" />
 
-            android:paddingBottom="@dimen/View8dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="google"
+                    android:textColor="@color/text_black_gray"
+                    android:textSize="@dimen/Text16sp" />
+            </LinearLayout>
 
-            <ImageView
-                android:layout_width="@dimen/View36dp"
-                android:layout_height="@dimen/View36dp"
-                android:layout_marginStart="@dimen/View8dp"
-                android:layout_marginEnd="@dimen/View8dp"
-                android:src="@drawable/ic_phone" />
-
-            <TextView
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:id="@+id/button7"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/View8dp"
+
                 android:gravity="center"
-                android:text="@string/signin_phone"
-                android:textColor="@color/white"
-                android:textSize="@dimen/Text16sp" />
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/View40dp"
+                    android:layout_height="@dimen/View40dp"
+
+                    android:foregroundTint="@color/c3"
+                    android:src="@drawable/ic_phone" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Phone No."
+                    android:textColor="@color/text_black_gray"
+                    android:textSize="@dimen/Text16sp" />
+            </LinearLayout>
         </LinearLayout>
 
 
@@ -253,29 +241,21 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/View8dp"
+        android:layout_marginTop="@dimen/View16dp"
+        android:layout_marginEnd="@dimen/View16dp"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/View8dp"
-            android:text="Language"
-            android:textColor="@color/text_black_gray"
-            android:textSize="18dp" />
 
         <TextView
             android:id="@+id/thai_lang"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ไทย"
+            android:text=" ไทย"
             android:textColor="@color/c4"
             android:textSize="@dimen/Text16sp" />
 
@@ -292,7 +272,7 @@
             android:id="@+id/eng_lang"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="English"
+            android:text="EN"
             android:textColor="@color/c4"
             android:textSize="@dimen/Text16sp" />
 

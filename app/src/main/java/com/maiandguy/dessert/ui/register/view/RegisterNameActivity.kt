@@ -26,7 +26,7 @@ class RegisterNameActivity : AppCompatActivity() {
         t1 = findViewById(R.id.editText5)
         toolbar = findViewById(R.id.my_tools)
         setSupportActionBar(toolbar)
-        supportActionBar!!.setTitle(R.string.registered)
+        supportActionBar!!.setTitle(R.string.register)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
         b1.setOnClickListener {
@@ -52,8 +52,7 @@ class RegisterNameActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        firebaseAuth = FirebaseAuth.getInstance()
-        firebaseAuth.signOut()
+       FirebaseAuth.getInstance().signOut()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

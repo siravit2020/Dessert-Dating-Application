@@ -42,7 +42,7 @@ class RegisterAgeActivity : AppCompatActivity() {
         button = findViewById(R.id.button_name)
         toolbar = findViewById(R.id.my_tools)
         setSupportActionBar(toolbar)
-        supportActionBar!!.setTitle(R.string.registered)
+        supportActionBar!!.setTitle(R.string.register)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         datePicker = findViewById<DatePicker>(R.id.datePicker)
         intent1 = Intent(this@RegisterAgeActivity, QuestionActivity::class.java)

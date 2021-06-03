@@ -39,7 +39,7 @@ class RegisterGpsActivity : AppCompatActivity(), LocationListener {
         runnable!!.run()
         toolbar = findViewById(R.id.my_tools)
         setSupportActionBar(toolbar)
-        supportActionBar!!.setTitle(R.string.registered)
+        supportActionBar!!.setTitle(R.string.register)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
 //        if (LocationService(this).checkPermission() == Status.SUCCESS){

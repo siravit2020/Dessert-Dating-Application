@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:layout_marginHorizontal="@dimen/View32dp"
+    tools:context=".ui.register.view.SendVerificationActivity">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_paper_plane" />
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/View32dp"
+        android:layout_marginBottom="@dimen/View32dp"
+        android:text="กรุณายืนยันบัญชีผู้ใช้ ที่อีเมลของท่าน"
+        android:gravity="center"
+        android:textColor="@color/text_black_gray"
+        android:textSize="@dimen/Text16sp"
+        />
+    <Button
+        android:id="@+id/button_back"
+        android:enabled="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/View8dp"
+        android:layout_marginTop="@dimen/View20dp"
+        android:text="กำลังส่งไปที่อีเมล..."
+        android:textColor="@color/cpb_white"
+        android:textSize="@dimen/Text16sp" />
+
+
+</LinearLayout>

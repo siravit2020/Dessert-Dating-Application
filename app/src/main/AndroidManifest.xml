@@ -15,7 +15,7 @@
     <uses-permission android:name="com.android.vending.BILLING" />
 
     <application
-        android:name="com.maiandguy.dessert.App"
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@drawable/ic_candy"
         android:label="@string/app_name"
@@ -23,74 +23,75 @@
         android:theme="@style/AppTheme"
         tools:ignore="LockedOrientationActivity"
         tools:replace="android:icon">
-
-        <activity android:name="com.maiandguy.dessert.IDontLike" />
-        <activity android:name="com.maiandguy.dessert.ProblemList" />
-        <activity android:name="com.maiandguy.dessert.SendProblem" />
-        <activity android:name="com.maiandguy.dessert.CloseAccount" />
-        <activity android:name="com.maiandguy.dessert.ui.register.QuestionActivity" /> <!-- Include the AdActivity configChanges and theme. -->
+        <activity android:name=".ui.forgot_password.view.ForgotPasswordActivity"></activity>
+        <activity android:name=".ui.register.view.SendVerificationActivity" />
+        <activity android:name=".IDontLike" />
+        <activity android:name=".ProblemList" />
+        <activity android:name=".SendProblem" />
+        <activity android:name=".CloseAccount" />
+        <activity android:name=".ui.register.QuestionActivity" /> <!-- Include the AdActivity configChanges and theme. -->
         <activity
             android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:theme="@android:style/Theme.Translucent" />
-        <activity android:name="com.maiandguy.dessert.BandUser" />
-        <activity android:name="com.maiandguy.dessert.ShowGpsOpen" />
+        <activity android:name=".BandUser" />
+        <activity android:name=".ShowGpsOpen" />
         <activity
-            android:name="com.maiandguy.dessert.LikeYou.LikeYouActivity"
+            android:name=".LikeYou.LikeYouActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.maiandguy.dessert.ui.register.view.RegisterGpsActivity"
+            android:name=".ui.register.view.RegisterGpsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.maiandguy.dessert.ImageChat.ItemImageActivity"
+            android:name=".ImageChat.ItemImageActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.maiandguy.dessert.MainActivity"
+            android:name=".MainActivity"
             android:screenOrientation="portrait" />
-        <activity android:name="com.maiandguy.dessert.ui.register.view.RegisterAgeActivity" />
+        <activity android:name=".ui.register.view.RegisterAgeActivity" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Base.Theme.AppCompat" />
         <activity
-            android:name="com.maiandguy.dessert.Setting2Activity"
+            android:name=".Setting2Activity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.maiandguy.dessert.ProfileActivity"
+            android:name=".ProfileActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.maiandguy.dessert.ProfileUserOppositeActivity2"
+            android:name=".ProfileUserOppositeActivity2"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.maiandguy.dessert.ui.register.PhoneActivity"
+            android:name=".ui.register.PhoneActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.maiandguy.dessert.ui.register.VerifyActivity"
+            android:name=".ui.register.VerifyActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.maiandguy.dessert.ui.sign_in_activity.view.SignInActivity"
+            android:name=".ui.sign_in_activity.view.SignInActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.maiandguy.dessert.ui.register.view.RegisterFinishAcivity"
+            android:name=".ui.register.view.RegisterFinishAcivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.maiandguy.dessert.ui.register.view.RegisterNameActivity"
+            android:name=".ui.register.view.RegisterNameActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.maiandguy.dessert.ui.register.view.RegisterSexActivity"
+            android:name=".ui.register.view.RegisterSexActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.maiandguy.dessert.Chat.ChatActivity"
+            android:name=".Chat.ChatActivity"
             android:hardwareAccelerated="true" />
         <activity
-            android:name="com.maiandguy.dessert.SettingActivity"
+            android:name=".SettingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.maiandguy.dessert.LoginWithEmailActivity"
+            android:name=".LoginWithEmailActivity"
             android:screenOrientation="portrait" />
-        <activity android:name="com.maiandguy.dessert.ui.register.view.RegistrationActivity" />
+        <activity android:name=".ui.register.view.RegistrationActivity" />
         <activity
-            android:name="com.maiandguy.dessert.ui.first_activity.view.FirstActivity"
+            android:name=".ui.first_activity.view.FirstActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -116,13 +117,12 @@
             android:value="face" />
 
         <service
-            android:name="com.maiandguy.dessert.MyFirebaseMessagingService"
+            android:name=".MyFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
     </application>
 
 </manifest>

@@ -26,7 +26,7 @@ class RegisterSexActivity : AppCompatActivity() {
         imageView2 = findViewById(R.id.imageView22)
         toolbar = findViewById(R.id.my_tools)
         setSupportActionBar(toolbar)
-        supportActionBar!!.setTitle(R.string.registered)
+        supportActionBar!!.setTitle(R.string.register)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         b3 = findViewById(R.id.button_name)
 

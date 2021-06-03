@@ -42,7 +42,7 @@ class QuestionActivity : AppCompatActivity() {
                 return QuestionViewModel(this@QuestionActivity) as T
             }
         }).get(QuestionViewModel::class.java)
-        supportActionBar!!.setTitle(R.string.registered)
+        supportActionBar!!.setTitle(R.string.register)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         pager = findViewById(R.id.viewPagerQuestion)
         language.setLanguage()

@@ -28,7 +28,6 @@ import com.google.mlkit.vision.face.FaceDetectorOptions
 import com.maiandguy.dessert.Functions.LoadingDialog
 import com.maiandguy.dessert.R
 import com.maiandguy.dessert.MainActivity
-import com.maiandguy.dessert.ui.register.view_model.RegisterViewModel
 import com.nipunru.nsfwdetector.NSFWDetector
 import com.tapadoo.alerter.Alerter
 import com.theartofdev.edmodo.cropper.CropImage
@@ -56,7 +55,7 @@ class RegisterFinishAcivity : AppCompatActivity() {
     private lateinit var add: ImageView
     private lateinit var skip: TextView
     private lateinit var b1: Button
-    private lateinit var registerViewModel: RegisterViewModel
+
     var bitmap: Bitmap? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,7 +67,6 @@ class RegisterFinishAcivity : AppCompatActivity() {
         add = findViewById(R.id.add1)
         b1 = findViewById(R.id.button6)
         mAuth = FirebaseAuth.getInstance()
-//        registerViewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
         setStatusBar()
         x = intent.getDoubleExtra("X", x)
         y = intent.getDoubleExtra("Y", y)
@@ -78,37 +76,22 @@ class RegisterFinishAcivity : AppCompatActivity() {
         name = intent.getStringExtra("Name")
         sex = intent.getStringExtra("Sex")
         Age = intent.getIntExtra("Age", Age)
-
         hashMapQA = intent.getSerializableExtra("MapQA") as Map<*, *>
-
-
         dialog = LoadingDialog(this).dialog()
-
         imageView.setOnClickListener {
-           inputImage()
+            inputImage()
         }
-        b1.setOnClickListener { createId(1) }
-        skip.setOnClickListener { createId(2) }
+        b1.setOnClickListener {createDataToFirebase(1) }
+        skip.setOnClickListener { createDataToFirebase(2) }
     }
 
     private fun setStatusBar() {
         setSupportActionBar(toolbar)
-        supportActionBar!!.setTitle(R.string.registered)
+        supportActionBar!!.setTitle(R.string.register)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
     }
 
-    private fun createId(i: Int) {
-        Log.d("showItemList", "$type , email")
-        if (type == "email") {
-            mAuth.createUserWithEmailAndPassword(email!!, pass!!).addOnCompleteListener(this@RegisterFinishAcivity) { task ->
-                if (!task.isSuccessful) Snackbar.make(b1, R.string.try_again, Snackbar.LENGTH_LONG).show()
-                else createDataToFirebase(i)
-            }
-        } else {
-            Log.d("showItemList", "else")
-            createDataToFirebase(i)
-        }
-    }
+
 
     private fun inputImage() {
         CropImage.activity()
@@ -138,7 +121,7 @@ class RegisterFinishAcivity : AppCompatActivity() {
                 "Vip" to 0,
                 "birth" to intent.getLongExtra("Birth", 0)
         )
-        currentUserDb.updateChildren(userInfo as Map<String, Any>)
+        currentUserDb.updateChildren(userInfo as Map<String, *>)
         val location = hashMapOf(
                 "X" to x,
                 "Y" to y

@@ -3,10 +3,9 @@ package com.maiandguy.dessert.ui.sign_in_activity.view
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.util.Log
+import android.util.Patterns
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
@@ -19,10 +18,13 @@ import com.maiandguy.dessert.Functions.ChangLanguage
 import com.maiandguy.dessert.Functions.LoadingDialog
 import com.maiandguy.dessert.MainActivity
 import com.maiandguy.dessert.R
+import com.maiandguy.dessert.services.TransparentStatusBar
+import com.maiandguy.dessert.ui.forgot_password.view.ForgotPasswordActivity
 import com.maiandguy.dessert.ui.register.PhoneActivity
 import com.maiandguy.dessert.ui.register.view.RegisterNameActivity
 import com.maiandguy.dessert.ui.sign_in_activity.view_model.SignInViewModel
 import com.maiandguy.dessert.ui.register.view.RegistrationActivity
+import com.maiandguy.dessert.ui.register.view.SendVerificationActivity
 import com.maiandguy.dessert.utils.Status
 import java.util.*
 
@@ -71,7 +73,9 @@ class SignInActivity : AppCompatActivity() {
         }
         signInViewModel = ViewModelProvider(this).get(SignInViewModel::class.java)
         signInViewModel.getResource().observe(this, androidx.lifecycle.Observer {
+            Log.d("resulttt",it.status.toString())
             if (it.status === Status.SUCCESS) {
+                Log.d("result",it.data.toString())
                 when (it.data) {
                     "blackList" -> {
                         val intent = Intent(this@SignInActivity, BandUser::class.java)
@@ -89,11 +93,15 @@ class SignInActivity : AppCompatActivity() {
                         intent.putExtra("Type", "face")
                         startActivity(intent)
                     }
+                    "verification" -> {
+                        val intent = Intent(this@SignInActivity, SendVerificationActivity::class.java)
+                        intent.putExtra("login", true)
+                        startActivity(intent)
+                    }
+
                 }
             } else {
-                if (it.data === "face") {
-                    // Snackbar.make(face, it.message!!, Snackbar.LENGTH_SHORT).show();
-                } else Snackbar.make(google, it.message!!, Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(google, it.message!!, Snackbar.LENGTH_SHORT).show();
             }
         })
         signInViewModel.getStatusDialog().observe(this, androidx.lifecycle.Observer {
@@ -112,7 +120,8 @@ class SignInActivity : AppCompatActivity() {
             signInViewModel.authenticationWithEmail(emailEditText.text.toString(), passwordEditText.text.toString())
         }
         forgotButton.setOnClickListener {
-
+            val intent = Intent(this@SignInActivity, ForgotPasswordActivity::class.java)
+            startActivity(intent)
         }
         registerButton.setOnClickListener {
             val intent = Intent(this@SignInActivity, RegistrationActivity::class.java)
