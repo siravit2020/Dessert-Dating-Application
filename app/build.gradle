@@ -5,7 +5,7 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 30
     defaultConfig {
-        applicationId "com.jabirdeveloper.tinderswipe"
+        applicationId "com.siravit.dessert"
         minSdkVersion 26
         targetSdkVersion 30
         versionCode 1
