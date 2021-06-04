@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.maiandguy.dessert.utils.ReportUser
-import com.maiandguy.dessert.ProfileInformationOppositeUserActivity
+import com.maiandguy.dessert.activity.profile_information_opposite.view.ProfileInformationOppositeUserActivity
 import com.maiandguy.dessert.R
 import java.util.*
 

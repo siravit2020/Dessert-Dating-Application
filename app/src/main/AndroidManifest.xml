@@ -23,72 +23,72 @@
         android:theme="@style/AppTheme"
         tools:ignore="LockedOrientationActivity"
         tools:replace="android:icon">
-        <activity android:name=".ui.forgot_password.view.ForgotPasswordActivity"></activity>
-        <activity android:name=".ui.register.view.SendVerificationActivity" />
+        <activity android:name=".activity.forgot_password.view.ForgotPasswordActivity"></activity>
+        <activity android:name=".activity.register.view.SendVerificationActivity" />
         <activity android:name=".IDontLike" />
-        <activity android:name=".ProblemList" />
-        <activity android:name=".SendProblem" />
+        <activity android:name=".activity.send_ploblem.ProblemListActivity" />
+        <activity android:name=".SendProblemActivity" />
         <activity android:name=".CloseAccount" />
-        <activity android:name=".ui.register.QuestionActivity" /> <!-- Include the AdActivity configChanges and theme. -->
+        <activity android:name=".activity.register.QuestionActivity" /> <!-- Include the AdActivity configChanges and theme. -->
         <activity
             android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:theme="@android:style/Theme.Translucent" />
         <activity android:name=".BandUser" />
-        <activity android:name=".ui.show_gps_open.view.ShowGpsOpen" />
+        <activity android:name=".activity.show_gps_open.view.ShowGpsOpen" />
         <activity
             android:name=".LikeYou.LikeYouActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.register.view.RegisterGpsActivity"
+            android:name=".activity.register.view.RegisterGpsActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ImageChat.ItemImageActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.main.view.MainActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.register.view.RegisterAgeActivity" />
+        <activity android:name=".activity.register.view.RegisterAgeActivity" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Base.Theme.AppCompat" />
         <activity
-            android:name=".FilterSettingActivity"
+            android:name=".activity.filter_setting.view.FilterSettingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ProfileInformationsActivity"
+            android:name=".activity.profile_information.view.ProfileInformationsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ProfileInformationOppositeUserActivity"
+            android:name=".activity.profile_information_opposite.view.ProfileInformationOppositeUserActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.register.PhoneActivity"
+            android:name=".activity.register.PhoneActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.register.VerifyActivity"
+            android:name=".activity.register.VerifyActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.sign_in_activity.view.SignInActivity"
+            android:name=".activity.sign_in.view.SignInActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.register.view.RegisterFinishAcivity"
+            android:name=".activity.register.view.RegisterFinishAcivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.register.view.RegisterNameActivity"
+            android:name=".activity.register.view.RegisterNameActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.register.view.RegisterSexActivity"
+            android:name=".activity.register.view.RegisterSexActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Chat.ChatActivity"
             android:hardwareAccelerated="true" />
         <activity
-            android:name=".EditProfileActivity"
+            android:name=".activity.edit_profile.view.EditProfileActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.register.view.RegistrationActivity" />
+        <activity android:name=".activity.register.view.RegistrationActivity" />
         <activity
-            android:name=".ui.first_activity.view.FirstActivity"
+            android:name=".activity.first.view.FirstActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,18 +1,13 @@
 package com.maiandguy.dessert.utils
 
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import com.maiandguy.dessert.ui.sign_in_activity.view.SignInActivity
+import com.maiandguy.dessert.activity.sign_in.view.SignInActivity
 
 class Close(private var currentUid: String, private var context: Context) {
     fun delete() {

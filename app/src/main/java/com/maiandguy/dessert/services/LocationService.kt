@@ -12,8 +12,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.maiandguy.dessert.R
-import com.maiandguy.dessert.ui.show_gps_open.view.ShowGpsOpen
-import com.maiandguy.constants.Status
+import com.maiandguy.dessert.activity.show_gps_open.view.ShowGpsOpen
+import com.maiandguy.dessert.constants.Status
 
 class LocationService(private var activity: Activity) {
     private lateinit var mLocationManager: LocationManager

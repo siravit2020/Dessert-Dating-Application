@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/background_gray"
     android:orientation="vertical"
-    tools:context=".ProfileInformationsActivity">
+    tools:context=".activity.profile_information.view.ProfileInformationsActivity">
 
 
     <ProgressBar

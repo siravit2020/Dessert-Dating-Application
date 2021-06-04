@@ -17,7 +17,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.maiandguy.dessert.utils.TimeStampToDate
-import com.maiandguy.dessert.ProfileInformationOppositeUserActivity
+import com.maiandguy.dessert.activity.profile_information_opposite.view.ProfileInformationOppositeUserActivity
 import com.maiandguy.dessert.R
 import java.text.DecimalFormat
 

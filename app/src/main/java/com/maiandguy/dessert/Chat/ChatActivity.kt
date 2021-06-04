@@ -42,6 +42,8 @@ import com.maiandguy.dessert.utils.DateTime
 import com.maiandguy.dessert.utils.LoadingDialog
 import com.maiandguy.dessert.utils.ReportUser
 import com.maiandguy.dessert.R
+import com.maiandguy.dessert.activity.main.view.MainActivity
+import com.maiandguy.dessert.activity.profile_information_opposite.view.ProfileInformationOppositeUserActivity
 import com.tapadoo.alerter.Alerter
 import kotlinx.android.synthetic.main.activity_chat.*
 import java.io.ByteArrayOutputStream

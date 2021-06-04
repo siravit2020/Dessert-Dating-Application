@@ -5,7 +5,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.messaging.FirebaseMessaging
-import com.maiandguy.constants.CheckStatusUser
+import com.maiandguy.dessert.constants.CheckStatusUser
 
 
 class FirstAuthentication {

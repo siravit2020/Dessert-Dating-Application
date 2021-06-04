@@ -9,6 +9,7 @@ import androidx.appcompat.widget.Toolbar
 import com.google.android.material.card.MaterialCardView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.maiandguy.dessert.activity.send_ploblem.ProblemListActivity
 import com.maiandguy.dessert.utils.CloseDialog
 
 class CloseAccount : AppCompatActivity(), View.OnClickListener {
@@ -84,11 +85,11 @@ class CloseAccount : AppCompatActivity(), View.OnClickListener {
             startActivity(intent)
         }
         if (v == cardProblem) {
-            val intent = Intent(applicationContext, ProblemList::class.java)
+            val intent = Intent(applicationContext, ProblemListActivity::class.java)
             startActivity(intent)
         }
         if (v == cardOther) {
-            val intent = Intent(applicationContext, SendProblem::class.java)
+            val intent = Intent(applicationContext, SendProblemActivity::class.java)
             startActivity(intent)
         }
     }

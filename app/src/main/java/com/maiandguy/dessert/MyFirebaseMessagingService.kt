@@ -11,6 +11,7 @@ import androidx.core.app.NotificationManagerCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.maiandguy.dessert.Chat.ChatActivity
+import com.maiandguy.dessert.activity.main.view.MainActivity
 import java.io.IOException
 import java.net.URL
 import java.util.*

@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.maiandguy.dessert.R
-import com.maiandguy.dessert.MainActivity
+import com.maiandguy.dessert.activity.main.view.MainActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

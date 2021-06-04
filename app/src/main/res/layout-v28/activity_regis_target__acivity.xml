@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".ui.register.view.RegisterFinishAcivity">
+    tools:context=".activity.register.view.RegisterFinishAcivity">
 
     <LinearLayout
         android:id="@+id/linearLayout23"

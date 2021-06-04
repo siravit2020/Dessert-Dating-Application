@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/background_gray"
     android:orientation="vertical"
-    tools:context=".ProfileInformationOppositeUserActivity">
+    tools:context=".activity.profile_information_opposite.view.ProfileInformationOppositeUserActivity">
 
     <ProgressBar
         android:layout_width="wrap_content"
