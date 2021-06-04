@@ -15,7 +15,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ServerValue
 import com.maiandguy.dessert.CardActivity
-import com.maiandguy.dessert.ProfileUserOppositeActivity2
+import com.maiandguy.dessert.ProfileInformationOppositeUserActivity
 import com.maiandguy.dessert.R
 import java.util.*
 
@@ -90,7 +90,7 @@ class ArrayAdapter(private var items: ArrayList<Cards>, private val context: Con
                 val newDate = hashMapOf<String, Any>()
                 newDate["date"] = ServerValue.TIMESTAMP
                 currentUserConnectionDb.updateChildren(newDate)
-                val intent = Intent(context, ProfileUserOppositeActivity2::class.java)
+                val intent = Intent(context, ProfileInformationOppositeUserActivity::class.java)
                 intent.putExtra("User_opposite", items[position].userId)
                 intent.putExtra("form_main", "1")
                 activity.startActivityForResult(intent, 115)

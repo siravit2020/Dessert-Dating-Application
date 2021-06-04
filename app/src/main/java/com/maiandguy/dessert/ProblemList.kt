@@ -12,14 +12,14 @@ import android.widget.EditText
 import androidx.appcompat.widget.Toolbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.maiandguy.dessert.Functions.CloseDialog
+import com.maiandguy.dessert.utils.CloseDialog
 import kotlinx.android.synthetic.main.activity_problem_list.c1
 import kotlinx.android.synthetic.main.activity_problem_list.c2
 import kotlinx.android.synthetic.main.activity_problem_list.c3
 import kotlinx.android.synthetic.main.activity_problem_list.c4
 import kotlinx.android.synthetic.main.activity_problem_list.c5
 
-class ProblemList : AppCompatActivity(),View.OnClickListener {
+class ProblemList : AppCompatActivity(), View.OnClickListener {
     private lateinit var editText: EditText
     private lateinit var button: Button
     private lateinit var toolbar: Toolbar
@@ -45,7 +45,7 @@ class ProblemList : AppCompatActivity(),View.OnClickListener {
         editText.addTextChangedListener(object : TextWatcher {
 
             override fun afterTextChanged(s: Editable) {
-                Log.d("count",s.length.toString())
+                Log.d("count", s.length.toString())
                 st = s.isNotEmpty()
                 check()
             }
@@ -61,7 +61,7 @@ class ProblemList : AppCompatActivity(),View.OnClickListener {
         })
     }
 
-    private fun check(){
+    private fun check() {
         when {
             c1.isChecked -> {
                 button.isEnabled = true
@@ -75,38 +75,40 @@ class ProblemList : AppCompatActivity(),View.OnClickListener {
             c4.isChecked -> {
                 button.isEnabled = true
             }
-            st -> {button.isEnabled = true}
+            st -> {
+                button.isEnabled = true
+            }
             else -> button.isEnabled = c5.isChecked
         }
     }
 
     override fun onClick(v: View) {
         check()
-        if(v == button){
-            fun send(){
+        if (v == button) {
+            fun send() {
                 dB.addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
-                        val sendMap =  hashMapOf<String, Any>()
-                        val sendMap2 =  hashMapOf<String, Any>()
-                        val map:Map<*,*> = snapshot.value as Map<*, *>
-                        Log.d("map",map.toString())
-                        if(c1.isChecked){
-                            sendMap["notFound"]  = map["notFound"].toString().toInt() + 1
+                        val sendMap = hashMapOf<String, Any>()
+                        val sendMap2 = hashMapOf<String, Any>()
+                        val map: Map<*, *> = snapshot.value as Map<*, *>
+                        Log.d("map", map.toString())
+                        if (c1.isChecked) {
+                            sendMap["notFound"] = map["notFound"].toString().toInt() + 1
                         }
-                        if(c2.isChecked){
-                            sendMap["badApp"]  = map["badApp"].toString().toInt() + 1
+                        if (c2.isChecked) {
+                            sendMap["badApp"] = map["badApp"].toString().toInt() + 1
                         }
-                        if(c3.isChecked){
-                            sendMap["MatchMiss"]  = map["MatchMiss"].toString().toInt() + 1
+                        if (c3.isChecked) {
+                            sendMap["MatchMiss"] = map["MatchMiss"].toString().toInt() + 1
                         }
-                        if(c4.isChecked){
-                            sendMap["overAndOver"]  = map["overAndOver"].toString().toInt() + 1
+                        if (c4.isChecked) {
+                            sendMap["overAndOver"] = map["overAndOver"].toString().toInt() + 1
                         }
-                        if(c5.isChecked){
-                            sendMap["badChat"]  = map["badChat"].toString().toInt() + 1
+                        if (c5.isChecked) {
+                            sendMap["badChat"] = map["badChat"].toString().toInt() + 1
                         }
-                        if(st){
-                            sendMap2[editText.text.toString()]  = ServerValue.TIMESTAMP
+                        if (st) {
+                            sendMap2[editText.text.toString()] = ServerValue.TIMESTAMP
                         }
                         dB.updateChildren(sendMap)
                         dB.child("other").updateChildren(sendMap2)
@@ -118,9 +120,10 @@ class ProblemList : AppCompatActivity(),View.OnClickListener {
                     }
                 })
             }
-            CloseDialog(this, FirebaseAuth.getInstance().uid!!){ send() }.show()
+            CloseDialog(this, FirebaseAuth.getInstance().uid!!) { send() }.show()
         }
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {

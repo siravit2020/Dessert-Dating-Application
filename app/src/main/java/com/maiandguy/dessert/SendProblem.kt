@@ -13,7 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ServerValue
-import com.maiandguy.dessert.Functions.CloseDialog
+import com.maiandguy.dessert.utils.CloseDialog
 
 class SendProblem : AppCompatActivity() {
     private lateinit var editText: EditText

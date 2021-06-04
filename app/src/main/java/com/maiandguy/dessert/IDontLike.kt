@@ -9,7 +9,7 @@ import android.widget.Button
 import androidx.appcompat.widget.Toolbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.maiandguy.dessert.Functions.CloseDialog
+import com.maiandguy.dessert.utils.CloseDialog
 import kotlinx.android.synthetic.main.activity_i_dont_like.*
 import kotlinx.android.synthetic.main.activity_i_dont_like.c1
 import kotlinx.android.synthetic.main.activity_i_dont_like.c2

@@ -31,11 +31,12 @@ import com.google.firebase.functions.HttpsCallableResult
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
 import com.ismaeldivita.chipnavigation.ChipNavigationBar
-import com.maiandguy.dessert.Functions.ChangLanguage
-import com.maiandguy.dessert.Functions.GlobalVariable
-import com.maiandguy.dessert.Functions.WarningDialog
+import com.maiandguy.dessert.utils.ChangLanguage
+import com.maiandguy.dessert.utils.GlobalVariable
+import com.maiandguy.dessert.utils.WarningDialog
 import com.maiandguy.dessert.Listcard.ListCardActivity
 import com.maiandguy.dessert.Matches.MatchesActivity
+import com.maiandguy.dessert.ui.show_gps_open.view.ShowGpsOpen
 
 import kotlinx.coroutines.*
 
@@ -46,15 +47,14 @@ class MainActivity : AppCompatActivity() ,LocationListener {
     private lateinit var mLocationManager: LocationManager
     private var id = R.id.item2
     private var first: String = ""
-
     private var uid = FirebaseAuth.getInstance().currentUser!!.uid
-    private val page1 = SettingMainActivity()
+    private val page1 = ProfileActivity()
     private val page2 = CardActivity()
     private val page3 = ListCardActivity()
     private val page4 = MatchesActivity()
     private var functions = Firebase.functions
     private var activeFragment: Fragment = CardActivity()
-    private val language:ChangLanguage = ChangLanguage(this)
+    private val language: ChangLanguage = ChangLanguage(this)
     private val j1 = CoroutineScope(Job())
     lateinit var load:LinearLayout
     override fun onCreate(savedInstanceState: Bundle?) {

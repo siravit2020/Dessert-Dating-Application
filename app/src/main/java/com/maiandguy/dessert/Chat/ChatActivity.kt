@@ -38,9 +38,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.maiandguy.dessert.*
-import com.maiandguy.dessert.Functions.DateTime
-import com.maiandguy.dessert.Functions.LoadingDialog
-import com.maiandguy.dessert.Functions.ReportUser
+import com.maiandguy.dessert.utils.DateTime
+import com.maiandguy.dessert.utils.LoadingDialog
+import com.maiandguy.dessert.utils.ReportUser
 import com.maiandguy.dessert.R
 import com.tapadoo.alerter.Alerter
 import kotlinx.android.synthetic.main.activity_chat.*
@@ -253,7 +253,7 @@ class ChatActivity : AppCompatActivity() {
             dd.show()
         }
         profile.setOnClickListener {
-            val intent = Intent(applicationContext, ProfileUserOppositeActivity2::class.java)
+            val intent = Intent(applicationContext, ProfileInformationOppositeUserActivity::class.java)
             intent.putExtra("madoo", "1")
             intent.putExtra("User_opposite", matchId)
             startActivity(intent)

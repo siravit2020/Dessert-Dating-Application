@@ -9,15 +9,16 @@ import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.gms.ads.MobileAds
 import com.google.firebase.database.*
 import com.maiandguy.dessert.ui.sign_in_activity.view.SignInActivity
 import com.maiandguy.dessert.R
-import com.maiandguy.dessert.ShowGpsOpen
+import com.maiandguy.dessert.ui.show_gps_open.view.ShowGpsOpen
 import com.maiandguy.dessert.MainActivity
 import com.maiandguy.dessert.services.LocationService
 import com.maiandguy.dessert.ui.first_activity.view_model.FirstViewModel
-import com.maiandguy.dessert.utils.CheckStatusUser
-import com.maiandguy.dessert.utils.Status
+import com.maiandguy.constants.CheckStatusUser
+import com.maiandguy.constants.Status
 import kotlinx.android.synthetic.main.activity_first_.*
 
 class FirstActivity : AppCompatActivity() {
@@ -31,7 +32,8 @@ class FirstActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_first_)
         //TransparentStatusBar(this)
-        locationService = LocationService(this);
+        MobileAds.initialize(this) {}
+        locationService = LocationService(this)
         setAnimation()
         firstViewModel = ViewModelProvider(this).get(FirstViewModel::class.java)
         if (locationService.checkPermission() == Status.SUCCESS){

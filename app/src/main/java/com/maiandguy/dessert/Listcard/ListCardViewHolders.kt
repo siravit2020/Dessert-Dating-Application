@@ -13,8 +13,8 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.maiandguy.dessert.Functions.ReportUser
-import com.maiandguy.dessert.ProfileUserOppositeActivity2
+import com.maiandguy.dessert.utils.ReportUser
+import com.maiandguy.dessert.ProfileInformationOppositeUserActivity
 import com.maiandguy.dessert.R
 import java.util.*
 
@@ -46,7 +46,7 @@ class ListCardViewHolders(itemView: View, private val context: Context) : Recycl
             val newDate: MutableMap<String?, Any?> = HashMap()
             newDate["date"] =  ServerValue.TIMESTAMP
             seeDB!!.updateChildren(newDate)
-            val intent = Intent(context, ProfileUserOppositeActivity2::class.java)
+            val intent = Intent(context, ProfileInformationOppositeUserActivity::class.java)
             //val activityOptions: ActivityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(context as Activity,mMatchImage, ViewCompat.getTransitionName(mMatchImage).toString())
             intent.putExtra("User_opposite", mMatchId.text.toString())
             intent.putExtra("form_list", mMatchId.text.toString())

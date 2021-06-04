@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
-import com.maiandguy.dessert.Functions.GlobalVariable
-import com.maiandguy.dessert.Functions.StatusQuestions
+import com.maiandguy.dessert.utils.GlobalVariable
+import com.maiandguy.dessert.utils.StatusQuestions
 import com.maiandguy.dessert.R
 import org.json.JSONArray
 import org.json.JSONObject

@@ -4,14 +4,13 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.maiandguy.dessert.Functions.StatusQuestions
+import com.maiandguy.dessert.utils.StatusQuestions
 import com.maiandguy.dessert.R
 import org.json.JSONArray
 import org.json.JSONObject

@@ -1,6 +1,7 @@
 package com.maiandguy.dessert
 
 import android.app.Dialog
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -28,7 +29,9 @@ import com.anjlab.android.iab.v3.BillingProcessor
 import com.anjlab.android.iab.v3.TransactionDetails
 import com.bumptech.glide.Glide
 import com.github.demono.AutoScrollViewPager
+import com.google.android.gms.ads.*
 import com.google.android.gms.ads.rewarded.RewardedAd
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -37,10 +40,11 @@ import com.google.firebase.ktx.Firebase
 import com.maiandguy.dessert.Cards.ArrayAdapter
 import com.maiandguy.dessert.Cards.Cards
 import com.maiandguy.dessert.Chat.ChatActivity
-import com.maiandguy.dessert.Functions.*
 import com.maiandguy.dessert.QAStore.DialogFragment
 import com.maiandguy.dessert.ViewModel.QuestionViewModel
 import com.maiandguy.dessert.ui.sign_in_activity.view.SignInActivity
+import com.maiandguy.dessert.utils.CloseLoading
+import com.maiandguy.dessert.utils.GlobalVariable
 import com.yuyakaido.android.cardstackview.*
 import kotlinx.coroutines.*
 import me.relex.circleindicator.CircleIndicator
@@ -88,7 +92,7 @@ class CardActivity : Fragment(), BillingProcessor.IBillingHandler, View.OnClickL
     private lateinit var cardStackView: CardStackView
     lateinit var manager: CardStackLayoutManager
     private var functions = Firebase.functions
-    lateinit var rewardedAd: RewardedAd
+    private var rewardedAd:RewardedAd? = null
     private lateinit var bp: BillingProcessor
     private var countLimit = 0
     private var countLimit2 = 0
@@ -151,6 +155,7 @@ class CardActivity : Fragment(), BillingProcessor.IBillingHandler, View.OnClickL
                 return QuestionViewModel(requireContext()) as T
             }
         }).get(QuestionViewModel::class.java)
+
         questionViewModel.fetchQA.observe(requireActivity(), {
             val dialogFragment: DialogFragment = DialogFragment()
             dialogFragment.setData(it)
@@ -179,7 +184,7 @@ class CardActivity : Fragment(), BillingProcessor.IBillingHandler, View.OnClickL
                         handler.postDelayed(Runnable { cardStackView.rewind() }, 200)
                         //DialogAskQuestion(requireContext()).dialogOutOfQuestion().show()
                         questionAskDialog().show()
-                        //openDialog()
+                        openDialog()
                     }
                 }
                 if (direction == Direction.Left) {
@@ -252,21 +257,20 @@ class CardActivity : Fragment(), BillingProcessor.IBillingHandler, View.OnClickL
         manager.setOverlayInterpolator(LinearInterpolator())
     }
 
-//    fun createAndLoadRewardedAd(): RewardedAd {
-//        rewardedAd = RewardedAd(requireActivity(),
-//                "ca-app-pub-3940256099942544/5224354917")
-//        val adLoadCallback = object : RewardedAdLoadCallback() {
-//            override fun onRewardedAdLoaded() {
-//                Toast.makeText(requireContext(), "สวย", Toast.LENGTH_SHORT).show()
-//            }
-//
-//            override fun onRewardedAdFailedToLoad(errorCode: Int) {
-//                Toast.makeText(requireContext(), errorCode.toString(), Toast.LENGTH_SHORT).show()
-//            }
-//        }
-//        rewardedAd.loadAd(AdRequest.Builder().build(), adLoadCallback)
-//        return rewardedAd
-//    }
+    fun createAndLoadRewardedAd(b2: Button) {
+        val adRequest = AdRequest.Builder().build()
+        RewardedAd.load(requireContext(),"ca-app-pub-3940256099942544/5224354917", adRequest, object : RewardedAdLoadCallback() {
+            override fun onAdFailedToLoad(adError: LoadAdError) {
+                rewardedAd = null
+            }
+
+            override fun onAdLoaded(reward: RewardedAd) {
+                rewardedAd = reward
+                b2.text = "ดูโฆษณาเพื่อรับรางวัล"
+            }
+        })
+
+    }
 
     fun questionAskDialog(): Dialog {
         val view = layoutInflater.inflate(R.layout.question_ask_dialog, null)
@@ -297,52 +301,46 @@ class CardActivity : Fragment(), BillingProcessor.IBillingHandler, View.OnClickL
             text.text = "โฆษณาที่คุณสามารถดูได้ในวันนี้หมดแล้ว \n สมัคร Dessert VIP เพื่อรับสิทธิพิเศษ"
             b2.visibility = View.GONE
         }
-//        rewardedAd = RewardedAd(requireContext(), "ca-app-pub-3940256099942544/5224354917")
-//        val adLoadCallback = object : RewardedAdLoadCallback() {
-//            override fun onRewardedAdLoaded() {
-//                b2.text = "ดูโฆษณา"
-//            }
-//
-//            override fun onRewardedAdFailedToLoad(errorCode: Int) {
-//                // Ad failed to load.
-//            }
-//        }
-//        rewardedAd.loadAd(AdRequest.Builder().build(), adLoadCallback)
-//        b2.setOnClickListener {
-//            if (rewardedAd.isLoaded) {
-//                val activityContext: Activity = requireActivity()
-//                val adCallback = object : RewardedAdCallback() {
-//                    override fun onRewardedAdOpened() {
-//                        rewardedAd = createAndLoadRewardedAd()
-//                    }
-//
-//                    override fun onRewardedAdClosed() {
-//
-//                    }
-//
-//                    override fun onUserEarnedReward(@NonNull reward: RewardItem) {
-//                        Log.d("TAG", maxLike.toString())
-//                        maxLike += 1
-//                        maxAdmob -= 1
-//                        if (maxLike >= 10)
-//                            dialog.dismiss()
-//                        else if (maxAdmob <= 0) {
-//                            b2.visibility = View.GONE
-//                        }
-//
-//                        usersDb.child(currentUid).child("MaxLike").setValue(maxLike)
-//                        usersDb.child(currentUid).child("MaxAdmob").setValue(maxAdmob)
-//                    }
-//
-//                    override fun onRewardedAdFailedToShow(errorCode: Int) {
-//                        Log.d("TAG", "The rewarded ad wasn't loaded yet.")
-//                    }
-//                }
-//                rewardedAd.show(activityContext, adCallback)
-//            } else {
-//                Log.d("TAG", "The rewarded ad wasn't loaded yet.")
-//            }
-//        }
+        createAndLoadRewardedAd(b2)
+
+        rewardedAd?.fullScreenContentCallback = object: FullScreenContentCallback() {
+            override fun onAdDismissedFullScreenContent() {
+                Log.d(TAG, "Ad was dismissed.")
+            }
+
+            override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
+                Log.d(TAG, "Ad failed to show.")
+            }
+
+            override fun onAdShowedFullScreenContent() {
+                Log.d(TAG, "Ad showed fullscreen content.")
+
+                createAndLoadRewardedAd(b2)
+
+            }
+
+        }
+
+        b2.setOnClickListener {
+            if (rewardedAd != null) {
+                rewardedAd?.show(requireActivity(), OnUserEarnedRewardListener() {
+                    Log.d("TAG", maxLike.toString())
+                    maxLike += 1
+                    maxAdmob -= 1
+                    if (maxLike >= 10)
+                        dialog.dismiss()
+                    else if (maxAdmob <= 0) {
+                        b2.visibility = View.GONE
+                    }
+
+                    usersDb.child(currentUid).child("MaxLike").setValue(maxLike)
+                    usersDb.child(currentUid).child("MaxAdmob").setValue(maxAdmob)
+
+                })
+            } else {
+                Log.d(TAG, "The rewarded ad wasn't ready yet.")
+            }
+        }
         b1.setOnClickListener {
             bp.subscribe(requireActivity(), "YOUR SUBSCRIPTION ID FROM GOOGLE PLAY CONSOLE HERE");
             usersDb.child(currentUid).child("Vip").setValue(1)
@@ -356,11 +354,13 @@ class CardActivity : Fragment(), BillingProcessor.IBillingHandler, View.OnClickL
         dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.setContentView(view)
         val pagerModels: ArrayList<PagerModel?> = ArrayList()
-        pagerModels.add(PagerModel("สมัคร Desert เพื่อกดถูกใจได้ไม่จำกัด ปัดขวาได้เต็มที่ ไม่ต้องรอเวลา", "จำนวนการกดถูกใจของคุณหมด", R.drawable.ic_heart))
-        pagerModels.add(PagerModel("คนที่คุณส่งดาวให้จะเห็นคุณก่อนใคร", "รับ 5 Star ฟรีทุกวัน", R.drawable.ic_starss))
-        pagerModels.add(PagerModel("สามารถทักทายได้เต็มที ไม่จำกัดจำนวน", "ทักทายได้ไม่จำกัด", R.drawable.ic_hand))
-        pagerModels.add(PagerModel("ดูว่าใครบ้างที่เข้ามากดถูกใจให้คุณ", "ใครถูกใจคุณ", R.drawable.ic_love2))
-        pagerModels.add(PagerModel("ดูว่าใครบ้างที่เข้าชมโปรไฟล์ของคุณ", "ใครเข้ามาดูโปรไฟล์คุณ", R.drawable.ic_vision))
+        with(pagerModels){
+            add(PagerModel("สมัคร Desert เพื่อกดถูกใจได้ไม่จำกัด ปัดขวาได้เต็มที่ ไม่ต้องรอเวลา", "จำนวนการกดถูกใจของคุณหมด", R.drawable.ic_heart))
+            add(PagerModel("คนที่คุณส่งดาวให้จะเห็นคุณก่อนใคร", "รับ 5 Star ฟรีทุกวัน", R.drawable.ic_starss))
+            add(PagerModel("สามารถทักทายได้เต็มที ไม่จำกัดจำนวน", "ทักทายได้ไม่จำกัด", R.drawable.ic_hand))
+            add(PagerModel("ดูว่าใครบ้างที่เข้ามากดถูกใจให้คุณ", "ใครถูกใจคุณ", R.drawable.ic_love2))
+            add(PagerModel("ดูว่าใครบ้างที่เข้าชมโปรไฟล์ของคุณ", "ใครเข้ามาดูโปรไฟล์คุณ", R.drawable.ic_vision))
+        }
         val adapter = VipSlide(requireContext(), pagerModels)
         val pager: AutoScrollViewPager = dialog.findViewById(R.id.viewpage)
         pager.adapter = adapter
@@ -467,10 +467,10 @@ class CardActivity : Fragment(), BillingProcessor.IBillingHandler, View.OnClickL
         statusVip = GlobalVariable.vip
         distance = when (GlobalVariable.distance) {
             "true" -> {
-                1000.0
+                10000.0
             }
             "Untitled" -> {
-                1000.0
+                10000.0
             }
             else -> {
                 GlobalVariable.distance.toDouble()
@@ -501,9 +501,7 @@ class CardActivity : Fragment(), BillingProcessor.IBillingHandler, View.OnClickL
                     .call(data)
                     .addOnFailureListener { Log.d("ghj", "failed") }
                     .addOnSuccessListener { task ->
-                        // This continuation runs on either success or failure, but if the task
-                        // has failed then result will throw an Exception which will be
-                        // propagated down.
+
                         val result1 = task.data as Map<*, *>
                         resultlimit = result1["o"] as ArrayList<*>
                         if (resultlimit.isNotEmpty()) {
@@ -646,19 +644,12 @@ class CardActivity : Fragment(), BillingProcessor.IBillingHandler, View.OnClickL
         }
     }*/
 
-    override fun onStart() {
-        super.onStart()
-        Log.d("4581", this::manager.isInitialized.toString())
-
-
-    }
 
     private fun likeDelay() {
         val handler = Handler()
         handler.postDelayed({
             like()
         }, 300)
-
     }
 
     private fun like() {
@@ -753,7 +744,7 @@ class CardActivity : Fragment(), BillingProcessor.IBillingHandler, View.OnClickL
 
     override fun onClick(v: View?) {
         if (v == touchGps) {
-            startActivityForResult(Intent(context, Setting2Activity::class.java), 1112)
+            startActivityForResult(Intent(context, FilterSettingActivity::class.java), 1112)
         }
         if (v == like) {
             like()

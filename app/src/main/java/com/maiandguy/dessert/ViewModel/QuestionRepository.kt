@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
-import com.maiandguy.dessert.Functions.LoadingDialog
+import com.maiandguy.dessert.utils.LoadingDialog
 import com.maiandguy.dessert.QAStore.QAObject
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers

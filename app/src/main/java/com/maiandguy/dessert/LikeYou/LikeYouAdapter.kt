@@ -16,8 +16,8 @@ import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.maiandguy.dessert.Functions.TimeStampToDate
-import com.maiandguy.dessert.ProfileUserOppositeActivity2
+import com.maiandguy.dessert.utils.TimeStampToDate
+import com.maiandguy.dessert.ProfileInformationOppositeUserActivity
 import com.maiandguy.dessert.R
 import java.text.DecimalFormat
 
@@ -63,7 +63,7 @@ class LikeYouAdapter(private val Like: MutableList<LikeYouObject>, private val c
             container.setOnClickListener{
                 seeDB = FirebaseDatabase.getInstance().reference.child("Users").child(Like[position].userId!!).child("see_profile").child(userID)
                 seeDB!!.setValue(true)
-                val intent = Intent(context, ProfileUserOppositeActivity2::class.java)
+                val intent = Intent(context, ProfileInformationOppositeUserActivity::class.java)
                 intent.putExtra("User_opposite", Like[position].userId)
                 intent.putExtra("form_like", "1")
                 intent.putExtra("position",position)

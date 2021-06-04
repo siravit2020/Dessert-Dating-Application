@@ -12,15 +12,15 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.maiandguy.dessert.R
-import com.maiandguy.dessert.ShowGpsOpen
-import com.maiandguy.dessert.utils.Status
+import com.maiandguy.dessert.ui.show_gps_open.view.ShowGpsOpen
+import com.maiandguy.constants.Status
 
 class LocationService(private var activity: Activity) {
     private lateinit var mLocationManager: LocationManager
-    fun checkPermission(): Status {
+    fun checkPermission(notChange:Boolean = false): Status {
         mLocationManager = activity.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if (!mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            showGPSDisabledDialog()
+            showGPSDisabledDialog(notChange)
             return Status.LOADING
         } else if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -34,7 +34,7 @@ class LocationService(private var activity: Activity) {
         return Status.SUCCESS
     }
 
-    private fun showGPSDisabledDialog() {
+    private fun showGPSDisabledDialog(notChange:Boolean= false) {
         val builder = AlertDialog.Builder(activity)
         builder.setTitle(R.string.GPS_Disabled)
         builder.setMessage(R.string.GPS_open)
@@ -43,6 +43,7 @@ class LocationService(private var activity: Activity) {
                     .startActivityForResult(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS), 0)
         }
                 .setNegativeButton(R.string.report_close) { dialog, which ->
+                    if(notChange) return@setNegativeButton
                     val intent = Intent(activity, ShowGpsOpen::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     (activity).finish()

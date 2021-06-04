@@ -4,7 +4,6 @@ import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.util.Patterns
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -14,18 +13,17 @@ import com.facebook.CallbackManager
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.maiandguy.dessert.BandUser
-import com.maiandguy.dessert.Functions.ChangLanguage
-import com.maiandguy.dessert.Functions.LoadingDialog
+import com.maiandguy.dessert.utils.ChangLanguage
+import com.maiandguy.dessert.utils.LoadingDialog
 import com.maiandguy.dessert.MainActivity
 import com.maiandguy.dessert.R
-import com.maiandguy.dessert.services.TransparentStatusBar
 import com.maiandguy.dessert.ui.forgot_password.view.ForgotPasswordActivity
 import com.maiandguy.dessert.ui.register.PhoneActivity
 import com.maiandguy.dessert.ui.register.view.RegisterNameActivity
 import com.maiandguy.dessert.ui.sign_in_activity.view_model.SignInViewModel
 import com.maiandguy.dessert.ui.register.view.RegistrationActivity
 import com.maiandguy.dessert.ui.register.view.SendVerificationActivity
-import com.maiandguy.dessert.utils.Status
+import com.maiandguy.constants.Status
 import java.util.*
 
 
@@ -94,9 +92,12 @@ class SignInActivity : AppCompatActivity() {
                         startActivity(intent)
                     }
                     "verification" -> {
-                        val intent = Intent(this@SignInActivity, SendVerificationActivity::class.java)
-                        intent.putExtra("login", true)
+                        val intent = Intent(this@SignInActivity, RegisterNameActivity::class.java)
+                        intent.putExtra("Type", "face")
                         startActivity(intent)
+//                        val intent = Intent(this@SignInActivity, SendVerificationActivity::class.java)
+//                        intent.putExtra("login", true)
+//                        startActivity(intent)
                     }
 
                 }

@@ -9,7 +9,7 @@ import androidx.appcompat.widget.Toolbar
 import com.google.android.material.card.MaterialCardView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.maiandguy.dessert.Functions.CloseDialog
+import com.maiandguy.dessert.utils.CloseDialog
 
 class CloseAccount : AppCompatActivity(), View.OnClickListener {
     private lateinit var toolbar: Toolbar
@@ -43,49 +43,54 @@ class CloseAccount : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View) {
 
 
-            if (v == cardRe) {
-                dB.child("restart").addListenerForSingleValueEvent(object : ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        fun send() {
+        if (v == cardRe) {
+            dB.child("restart").addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    fun send() {
+                        if (snapshot.value != null) {
                             val count = snapshot.value.toString().toInt() + 1
-                            dB.child("restart").setValue(count)}
-                        CloseDialog(this@CloseAccount, FirebaseAuth.getInstance().uid!!) { send() }.show()
-
-
+                            dB.child("restart").setValue(count)
+                        } else dB.child("restart").setValue(1)
                     }
+                    CloseDialog(this@CloseAccount, FirebaseAuth.getInstance().uid!!) { send() }.show()
 
-                    override fun onCancelled(error: DatabaseError) {
 
-                    }
-                })
-            }
-            if (v == cardLove) {
-                dB.child("love").addListenerForSingleValueEvent(object : ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        fun send(){
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+
+                }
+            })
+        }
+        if (v == cardLove) {
+            dB.child("love").addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    fun send() {
+                        if (snapshot.value != null) {
                             val count = snapshot.value.toString().toInt() + 1
                             dB.child("love").setValue(count)
-                        }
-                        CloseDialog(this@CloseAccount, FirebaseAuth.getInstance().uid!!) { send() }.show()
+                        } else dB.child("love").setValue(1)
                     }
+                    CloseDialog(this@CloseAccount, FirebaseAuth.getInstance().uid!!) { send() }.show()
+                }
 
-                    override fun onCancelled(error: DatabaseError) {
+                override fun onCancelled(error: DatabaseError) {
 
-                    }
-                })
-            }
-            if (v == cardBad) {
-                val intent = Intent(applicationContext, IDontLike::class.java)
-                startActivity(intent)
-            }
-            if (v == cardProblem) {
-                val intent = Intent(applicationContext, ProblemList::class.java)
-                startActivity(intent)
-            }
-            if (v == cardOther) {
-                val intent = Intent(applicationContext, SendProblem::class.java)
-                startActivity(intent)
-            }
+                }
+            })
+        }
+        if (v == cardBad) {
+            val intent = Intent(applicationContext, IDontLike::class.java)
+            startActivity(intent)
+        }
+        if (v == cardProblem) {
+            val intent = Intent(applicationContext, ProblemList::class.java)
+            startActivity(intent)
+        }
+        if (v == cardOther) {
+            val intent = Intent(applicationContext, SendProblem::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

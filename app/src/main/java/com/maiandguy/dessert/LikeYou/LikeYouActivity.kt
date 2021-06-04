@@ -20,8 +20,12 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
-import com.maiandguy.dessert.Functions.*
+
 import com.maiandguy.dessert.R
+import com.maiandguy.dessert.utils.CalculateDistance
+import com.maiandguy.dessert.utils.City
+import com.maiandguy.dessert.utils.CloseLoading
+import com.maiandguy.dessert.utils.GlobalVariable
 import eightbitlab.com.blurview.BlurView
 import eightbitlab.com.blurview.RenderScriptBlur
 import kotlinx.android.synthetic.main.activity_chat.*

@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.akexorcist.localizationactivity.core.LocalizationActivityDelegate
-import com.maiandguy.dessert.Functions.ChangLanguage
+import com.maiandguy.dessert.utils.ChangLanguage
 import com.maiandguy.dessert.QAStore.QAActivityAdapter
 import com.maiandguy.dessert.R
 import com.maiandguy.dessert.ViewModel.QuestionViewModel
@@ -28,7 +28,7 @@ class QuestionActivity : AppCompatActivity() {
     private var age: Int = 18
     private lateinit var toolbar: Toolbar
     private lateinit var intent1: Intent
-    private var language:ChangLanguage = ChangLanguage(this)
+    private var language: ChangLanguage = ChangLanguage(this)
     private lateinit var questionViewModel:QuestionViewModel
     private val localizationDelegate = LocalizationActivityDelegate(this)
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -19,7 +19,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.maiandguy.dessert.Functions.LoadingDialog
+import com.maiandguy.dessert.utils.LoadingDialog
 import com.maiandguy.dessert.R
 import com.maiandguy.dessert.MainActivity
 import com.maiandguy.dessert.ui.register.view.RegisterNameActivity

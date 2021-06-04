@@ -127,7 +127,7 @@ dependencies {
 //    nfs
     api "com.google.firebase:firebase-ml-vision:"
     implementation "com.google.firebase:firebase-ml-vision-automl:18.0.6"
-    implementation "com.google.firebase:firebase-ml-model-interpreter:22.0.4"
+    implementation "com.google.firebase:firebase-ml-model-interpreter:"
     implementation 'com.github.nipunru:nsfw-detector-android:1.0.0'
     
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'

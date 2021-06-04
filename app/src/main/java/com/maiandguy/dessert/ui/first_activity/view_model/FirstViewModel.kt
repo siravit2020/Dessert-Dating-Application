@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.maiandguy.dessert.data.api.FirstAuthentication
-import com.maiandguy.dessert.utils.CheckStatusUser
+import com.maiandguy.constants.CheckStatusUser
 
 class FirstViewModel : ViewModel() {
     private var mAuth: FirebaseAuth = FirebaseAuth.getInstance()

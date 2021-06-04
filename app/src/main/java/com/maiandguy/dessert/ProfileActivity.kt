@@ -1,284 +1,283 @@
 package com.maiandguy.dessert
 
+import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
+import android.location.Address
+import android.location.Geocoder
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
-import android.widget.GridLayout
-import android.widget.LinearLayout
-import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.viewpager.widget.ViewPager.OnPageChangeListener
-import com.google.android.flexbox.FlexDirection
-import com.google.android.flexbox.FlexboxLayout
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import android.view.ViewGroup
+import android.widget.*
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import com.anjlab.android.iab.v3.BillingProcessor
+import com.anjlab.android.iab.v3.TransactionDetails
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.Target
+
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
-import com.maiandguy.dessert.Functions.City
-import com.maiandguy.dessert.Functions.DRAWABLE_IS_NOT_NULL
-import com.maiandguy.dessert.Functions.DRAWABLE_IS_NULL
-import com.maiandguy.dessert.Functions.PROFILE_TO_SETTING
-import kotlinx.android.synthetic.main.activity_profile_user_opposite2.*
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.maiandguy.dessert.utils.DialogSlide
+import com.maiandguy.dessert.utils.GlobalVariable
+import com.maiandguy.dessert.LikeYou.LikeYouActivity
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.io.IOException
 import java.util.*
 
-class ProfileActivity : AppCompatActivity() {
-    private lateinit var findImage: DatabaseReference
-    private lateinit var mUserDatabase: DatabaseReference
-    private lateinit var mLinear: LinearLayout
-    private lateinit var l1: LinearLayout
-    private lateinit var l2: LinearLayout
-    private lateinit var l3: LinearLayout
-    private lateinit var l4: LinearLayout
-    private lateinit var l5: LinearLayout
-    private lateinit var l6: LinearLayout
-    private var Url0: String? = null
-    private var Url1: String? = null
-    private var Url2: String? = null
-    private var Url3: String? = null
-    private var Url4: String? = null
-    private var Url5: String? = null
-    private lateinit var userId: String
-    private lateinit var listItems: Array<String?>
-    private lateinit var listItems2: Array<String?>
-    private lateinit var listItems3: Array<String?>
+class ProfileActivity : Fragment(), BillingProcessor.IBillingHandler {
+    private lateinit var setting: TextView
     private lateinit var name: TextView
     private lateinit var age: TextView
-    private lateinit var gender: TextView
-    private lateinit var study: TextView
-    private lateinit var career: TextView
-    private lateinit var religion: TextView
-    private lateinit var myself: TextView
-    private lateinit var language: TextView
     private lateinit var mcity: TextView
+    private lateinit var count: TextView
+    private lateinit var see: TextView
+    private lateinit var vip: TextView
+
+    private lateinit var setting2: LinearLayout
+    private lateinit var edit: LinearLayout
+    private lateinit var likeYou: LinearLayout
+    private lateinit var seeProfileYou: LinearLayout
     private lateinit var mAuth: FirebaseAuth
-    private lateinit var flexboxLayout: FlexboxLayout
-    private lateinit var params: GridLayout.LayoutParams
-    private var i = 0
-    private var chk = 11
-    private lateinit var viewPager: WrapContentHeightViewPager
-    private lateinit var adapter: ScreenAdapter
-    override fun onCreate(savedInstanceState: Bundle?) {
+    private lateinit var userId: String
+    private lateinit var imageView: ImageView
+    private lateinit var mUserDatabase: DatabaseReference
+    private lateinit var p1: ProgressBar
+    private lateinit var dialog: Dialog
+    private lateinit var dialog2: Dialog
+    private lateinit var bp: BillingProcessor
+
+    private var statusDialog = false
+    private lateinit var setimage: ImageView
+    private var gotoProfile = true
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view = inflater.inflate(R.layout.activity_profile, container, false)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_profile)
+        bp = BillingProcessor(requireContext(), Id.Id, this)
+        bp.initialize()
+        dialog = Dialog(requireContext())
+        val view2 = inflater.inflate(R.layout.progress_dialog, null)
+        dialog2 = Dialog(requireContext())
+        dialog2.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog2.setContentView(view2)
+        val width = (resources.displayMetrics.widthPixels * 0.80).toInt()
+        dialog2.window!!.setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT)
+        imageView = view.findViewById(R.id.pre_Image_porfile)
+        name = view.findViewById(R.id.pre_name_profile)
+        age = view.findViewById(R.id.pre_age_profile)
+        count = view.findViewById(R.id.count_like)
+        see = view.findViewById(R.id.see_porfile)
         mAuth = FirebaseAuth.getInstance()
         userId = mAuth.currentUser!!.uid
+        mcity = view.findViewById(R.id.aa)
+        p1 = view.findViewById(R.id.progress_bar_pre_pro)
         mUserDatabase = FirebaseDatabase.getInstance().reference.child("Users").child(userId)
-        flexboxLayout = findViewById(R.id.Grid_profile)
-        flexboxLayout.flexDirection = FlexDirection.ROW
-        params = GridLayout.LayoutParams()
-        name = findViewById(R.id.name_profile)
-        age = findViewById(R.id.age_profile)
-        gender = findViewById(R.id.gender_profile)
-        study = findViewById(R.id.study_profile)
-        career = findViewById(R.id.career_profile)
-        religion = findViewById(R.id.religion_profile)
-        myself = findViewById(R.id.myself_profile)
-        language = findViewById(R.id.language_profile)
-        viewPager = findViewById(R.id.slide_main)
-        mcity = findViewById(R.id.city_profile)
-        mLinear = findViewById(R.id.main)
-        listItems = resources.getStringArray(R.array.shopping_item)
-        listItems2 = resources.getStringArray(R.array.pasa_item)
-        listItems3 = resources.getStringArray(R.array.religion_item)
-        l1 = findViewById(R.id.linearLayout33)
-        l2 = findViewById(R.id.linearLayout34)
-        l3 = findViewById(R.id.linearLayout35)
-        l4 = findViewById(R.id.linearLayout36)
-        l5 = findViewById(R.id.linearLayout37)
-        l6 = findViewById(R.id.linearLayout38)
-        l1.visibility = View.GONE
-        l2.visibility = View.GONE
-        l3.visibility = View.GONE
-        l4.visibility = View.GONE
-        l5.visibility = View.GONE
-        l6.visibility = View.GONE
-        val fab = findViewById<FloatingActionButton>(R.id.floatingActionButton)
-        fab.setOnClickListener {
-            val intent = Intent(this@ProfileActivity, SettingActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            startActivityForResult(intent, PROFILE_TO_SETTING)
+        setting = view.findViewById(R.id.b1)
+        setting2 = view.findViewById(R.id.linearLayout20)
+        edit = view.findViewById(R.id.linearLayout21)
+        likeYou = view.findViewById(R.id.like_you)
+        seeProfileYou = view.findViewById(R.id.see_porfile_you)
+        vip = view.findViewById(R.id.vip)
+
+        setimage = view.findViewById(R.id.goto_set_image)
+
+        vip.setOnClickListener{
+            openDialog()
         }
-        viewPager.addOnPageChangeListener(object : OnPageChangeListener {
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-                if (chk == 11) {
-                    if (i > 1) {
-                        val dd:LinearLayout = findViewById(position)
-                        dd.background = ContextCompat.getDrawable(this@ProfileActivity, R.drawable.image_selected)
-                    }
-                }
-                chk = 0
-            }
 
-            override fun onPageSelected(position: Int) {
-                val total = adapter.count
-                for (jk in total - 1 downTo 0) {
-                    if (jk == position) {
-                        val dd:LinearLayout = findViewById(position)
-                        dd.background = ContextCompat.getDrawable(this@ProfileActivity, R.drawable.image_selected)
-                    } else {
-                        val dd:LinearLayout = findViewById(jk)
-                        dd.background = ContextCompat.getDrawable(this@ProfileActivity, R.drawable.image_notselector)
-                    }
-                }
+        likeYou.setOnClickListener{
+            val intent = Intent(context, LikeYouActivity::class.java)
+            intent.putExtra("Like", count.text.toString().toInt())
+            startActivity(intent)
+        }
+        seeProfileYou.setOnClickListener{
+            
+            val intent = Intent(context, LikeYouActivity::class.java)
+            intent.putExtra("See", see.text.toString().toInt())
+            startActivity(intent)
+        }
+        setting2.setOnClickListener{
+            val intent = Intent(context, FilterSettingActivity::class.java)
+            startActivityForResult(intent, 15)
+        }
+        edit.setOnClickListener{
+            val intent = Intent(context, EditProfileActivity::class.java)
+            startActivityForResult(intent, 14)
+        }
+        imageView.setOnClickListener{
+            if (gotoProfile) {
+                val intent = Intent(context, ProfileInformationsActivity::class.java)
+                startActivity(intent)
+            } else {
+                val intent = Intent(context, EditProfileActivity::class.java)
+                startActivity(intent)
             }
+        }
+        setimage.setOnClickListener{
+            val intent = Intent(context, EditProfileActivity::class.java)
+            intent.putExtra("setImage", "1")
+            startActivity(intent)
+        }
+        view.findViewById<LinearLayout>(R.id.linearLayout22).setOnClickListener {
+            val intent = Intent(context, SendProblem::class.java)
+            startActivityForResult(intent,14)
+        }
 
-            override fun onPageScrollStateChanged(state: Int) {}
-        })
-        findIamge()
-        getUserinfo()
+        return view
     }
 
-    private fun findIamge() {
-        findImage = FirebaseDatabase.getInstance().reference.child("Users").child(userId).child("ProfileImage")
-        findImage.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                Url0 = "null"
-                Url1 = "null"
-                Url2 = "null"
-                Url3 = "null"
-                Url4 = "null"
-                Url5 = "null"
-                if (dataSnapshot.hasChild("profileImageUrl0")) {
-                    Url0 = dataSnapshot.child("profileImageUrl0").value.toString()
-                    ++i
-                }
-                if (dataSnapshot.hasChild("profileImageUrl1")) {
-                    Url1 = dataSnapshot.child("profileImageUrl1").value.toString()
-                    ++i
-                }
-                if (dataSnapshot.hasChild("profileImageUrl2")) {
-                    Url2 = dataSnapshot.child("profileImageUrl2").value.toString()
-                    ++i
-                }
-                if (dataSnapshot.hasChild("profileImageUrl3")) {
-                    Url3 = dataSnapshot.child("profileImageUrl3").value.toString()
-                    ++i
-                }
-                if (dataSnapshot.hasChild("profileImageUrl4")) {
-                    Url4 = dataSnapshot.child("profileImageUrl4").value.toString()
-                    ++i
-                }
-                if (dataSnapshot.hasChild("profileImageUrl5")) {
-                    Url5 = dataSnapshot.child("profileImageUrl5").value.toString()
-                    ++i
-                }
-                if (i > 1) {
-                    for (j in 0 until i) {
-                        val layoutParams = LinearLayout.LayoutParams(50, 12, 0.5f)
-                        layoutParams.setMargins(5, 0, 5, 0)
-                        val layout = LinearLayout(this@ProfileActivity)
-                        layout.background = ContextCompat.getDrawable(this@ProfileActivity, R.drawable.image_notselector)
-                        layout.layoutParams = LinearLayout.LayoutParams(50, 12)
-                        layout.id = j
-                        mLinear.addView(layout, layoutParams)
-                    }
-                }
-                adapter = ScreenAdapter(this@ProfileActivity, i, Url0, Url1, Url2, Url3, Url4, Url5, 0)
-                viewPager.adapter = adapter
-            }
+    @SuppressLint("InflateParams")
+    fun openDialog() {
 
-            override fun onCancelled(databaseError: DatabaseError) {}
-        })
+        val inflater = layoutInflater
+        val view = inflater.inflate(R.layout.vip_dialog, null)
+        val b1 = view.findViewById<Button>(R.id.buy)
+        val b2 = view.findViewById<Button>(R.id.admob)
+        val text = view.findViewById<TextView>(R.id.test_de)
+        if (!statusDialog) {
+            b1.setOnClickListener {
+                bp.subscribe(requireActivity(), "YOUR SUBSCRIPTION ID FROM GOOGLE PLAY CONSOLE HERE")
+                mUserDatabase.child("Vip").setValue(1)
+                GlobalVariable.vip = true
+                getData()
+                dialog.dismiss()
+            }
+        } else {
+            b1.setText(R.string.back)
+            b1.setOnClickListener { dialog.dismiss() }
+        }
+        b2.visibility = View.GONE
+        text.text = "สมัคร Desert VIP เพื่อรับสิทธิพิเศษต่างๆ"
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.setContentView(view)
+        DialogSlide(requireContext(), dialog, view).start()
+        val width = (resources.displayMetrics.widthPixels * 0.90).toInt()
+        dialog.window!!.setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT)
+        dialog.show()
+
     }
 
-    private fun getUserinfo() {
-        mUserDatabase.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                if (dataSnapshot.exists() && dataSnapshot.childrenCount > 0) {
-                    val map = dataSnapshot.value as MutableMap<*, *>
-                    if (map["myself"] != null && map["myself"] != "") {
-                        l3.visibility = View.VISIBLE
-                        myself.text = map["myself"].toString()
-                    }
-                    if (map["sex"] != null) {
-                        if (map["sex"].toString() == "Male") gender.setText(R.string.Male_gender) else gender.setText(R.string.Female_gender)
-                    }
-                    if (map["name"] != null) {
-                        name.text = map["name"].toString()
-                    }
-                    if (map["Age"] != null) {
-                        age.text = map["Age"].toString()
-                    }
-                    if (map["career"] != null && map["career"] != "") {
-                        l1.visibility = View.VISIBLE
-                        career.text = map["career"].toString()
-                    }
-                    if (map["study"] != null && map["study"] != "") {
-                        l2.visibility = View.VISIBLE
-                        study.text = map["study"].toString()
-                    }
-                    if (map["language"] != null && map["language"] != "") {
-                        l4.visibility = View.VISIBLE
-                        val size = dataSnapshot.child("language").childrenCount.toInt()
-                        var str = ""
-                        for (u in 0 until size) {
-                            val position = dataSnapshot.child("language").child("language$u").value.toString().toInt()
-                            str += listItems2[position]
-                            if (u != size - 1) {
-                                str = "$str, "
-                            }
+
+    @SuppressLint("SetTextI18n")
+    private fun getData() {
+
+        val gender = if (GlobalVariable.image == "Male") {
+            R.drawable.ic_man
+        } else R.drawable.ic_woman
+        if (GlobalVariable.image.isNotEmpty()) {
+            Glide.with(requireContext()).load(GlobalVariable.image)
+                    .placeholder(R.color.background_gray).listener(object : RequestListener<Drawable?> {
+                        override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable?>?, isFirstResource: Boolean): Boolean {
+                            return false
                         }
-                        language.text = str
-                    }
-                    if (map["religion"] != null && map["religion"] != "") {
-                        l5.visibility = View.VISIBLE
-                        religion.text = listItems3[map["religion"].toString().toInt()]
-                    }
-                    if (map["hobby"] != null && map["hobby"] != "") {
-                        l6.visibility = View.VISIBLE
-                        val size = dataSnapshot.child("hobby").childrenCount.toInt()
-                        val str = ""
-                        for (u in 0 until size) {
-                            val position = dataSnapshot.child("hobby").child("hobby$u").value.toString().toInt()
-                            addT(listItems[position])
-                        }
-                    }
-                    if (dataSnapshot.hasChild("Location")) {
-                        val lat = dataSnapshot.child("Location").child("X").value.toString().toDouble()
-                        val lon = dataSnapshot.child("Location").child("Y").value.toString().toDouble()
-                        val preferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
-                        val langure = preferences.getString("My_Lang", "")
-                        mcity.text = City(langure!!,this@ProfileActivity,lat,lon).invoke()
-                    }
-                    val logoMoveAnimation: Animation = AnimationUtils.loadAnimation(this@ProfileActivity, R.anim.fade_in2)
-                    information.visibility = View.VISIBLE
-                    informationIn.visibility = View.VISIBLE
-                    informationIn.startAnimation(logoMoveAnimation)
-                }
-            }
 
-            override fun onCancelled(databaseError: DatabaseError) {}
-        })
+                        override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable?>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                            p1.visibility = View.GONE
+                            return false
+                        }
+                    })
+                    .apply(RequestOptions().override(300, 300)).into(imageView)
+        } else {
+            gotoProfile = false
+            Glide.with(requireContext()).load(gender).placeholder(R.color.background_gray)
+                    .listener(object : RequestListener<Drawable?> {
+                        override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable?>?, isFirstResource: Boolean): Boolean {
+                            return false
+                        }
+
+                        override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable?>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                            p1.visibility = View.GONE
+                            return false
+                        }
+                    })
+                    .apply(RequestOptions().override(300, 300)).into(imageView)
+        }
+        if (GlobalVariable.vip) {
+            vip.setText(R.string.You_are_vip)
+            statusDialog = true
+        }
+        count.text = GlobalVariable.c.toString()
+        see.text = GlobalVariable.s.toString()
+        name.text = GlobalVariable.name
+        age.text = ", " + GlobalVariable.age.toString()
+        val latDouble = GlobalVariable.x.toDouble()
+        val lonDouble = GlobalVariable.y.toDouble()
+        val preferences2 = requireActivity().getSharedPreferences("Settings", Context.MODE_PRIVATE)
+        val language = preferences2.getString("My_Lang", "")
+        val geoCoder: Geocoder = if (language == "th") {
+            Geocoder(context)
+        } else {
+            Geocoder(context, Locale.UK)
+        }
+        var addresses: MutableList<Address?>? = null
+        try {
+            addresses = geoCoder.getFromLocation(latDouble, lonDouble, 1)
+            val city = addresses[0]!!.adminArea
+            mcity.text = city
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+
     }
 
-    private fun addT(string: String?) {
-        flexboxLayout = findViewById(R.id.Grid_profile)
-        params = GridLayout.LayoutParams()
-        val textView = TextView(this)
-        textView.text = string
-        textView.setTextColor(ContextCompat.getColor(applicationContext, R.color.c2))
-        textView.setPadding(13, 10, 13, 10)
-        textView.setBackgroundResource(R.drawable.tag)
-        params.setMargins(10, 10, 10, 10)
-        textView.layoutParams = params
-        flexboxLayout.addView(textView)
+
+    override fun onResume() {
+        super.onResume()
+        gotoProfile = true
+        getData()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        dialog2.dismiss()
+    }
+
+    override fun onDestroy() {
+        bp.release()
+        super.onDestroy()
+    }
+
+    override fun onBillingInitialized() {
+
+    }
+
+    override fun onPurchaseHistoryRestored() {
+
+    }
+
+    override fun onProductPurchased(productId: String, details: TransactionDetails?) {
+
+    }
+
+    override fun onBillingError(errorCode: Int, error: Throwable?) {
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == PROFILE_TO_SETTING) {
-            if (resultCode == DRAWABLE_IS_NOT_NULL) {
-                finish()
-                overridePendingTransition(0, 0)
-                startActivity(intent)
-                overridePendingTransition(0, 0)
-            } else if (resultCode == DRAWABLE_IS_NULL) {
-                onBackPressed()
+        if (!bp.handleActivityResult(requestCode, resultCode, data)) {
+            super.onActivityResult(requestCode, resultCode, data)
+            if (requestCode == 14) {
+                getData()
+                onAttach(requireContext())
+            }
+        }
+        if(requestCode == 14){
+            if(resultCode == 14){
+                Snackbar.make(likeYou,"ขอบคุณ",Snackbar.LENGTH_SHORT).show()
             }
         }
     }
-
 }

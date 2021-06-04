@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
-import com.maiandguy.dessert.Functions.GlobalVariable
+import com.maiandguy.dessert.utils.GlobalVariable
 import com.maiandguy.dessert.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -183,10 +183,10 @@ class ListCardActivity : Fragment() {
         yUser = GlobalVariable.y.toDouble()
         distanceUser = when (GlobalVariable.distance) {
             "true" -> {
-                1000.0
+                10000.0
             }
             "Untitled" -> {
-                1000.0
+                10000.0
             }
             else -> {
                 GlobalVariable.distance.toDouble()
