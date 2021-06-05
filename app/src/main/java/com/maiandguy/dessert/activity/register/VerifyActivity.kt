@@ -21,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.maiandguy.dessert.utils.LoadingDialog
 import com.maiandguy.dessert.R
+import com.maiandguy.dessert.activity.band_user.view.BandUser
 import com.maiandguy.dessert.activity.main.view.MainActivity
 import com.maiandguy.dessert.activity.register.view.RegisterNameActivity
 import com.tapadoo.alerter.Alerter
@@ -56,22 +57,31 @@ class VerifyActivity : AppCompatActivity() {
         firebaseAuthStateListener = AuthStateListener {
             val user = FirebaseAuth.getInstance().currentUser
             if (user != null) {
-                val userDb = FirebaseDatabase.getInstance().reference.child("Users").child(user.uid)
+                val userDb = FirebaseDatabase.getInstance().reference
+
                 userDb.addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
                         dialog.dismiss()
-                        if (dataSnapshot.hasChild("sex")) {
+                        if(dataSnapshot.child("BlackList").hasChild(user.uid)) {
+                            mAuth.signOut()
+                            val intent = Intent(this@VerifyActivity, BandUser::class.java)
+                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                            startActivity(intent)
+                            return
+                        }
+                        if (dataSnapshot.child("Users").child(user.uid).hasChild("sex")) {
                             val intent = Intent(this@VerifyActivity, MainActivity::class.java)
                             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                             intent.putExtra("first", "0")
                             startActivity(intent)
                             finish()
-                            return
+
                         } else {
                             val intent = Intent(this@VerifyActivity, RegisterNameActivity::class.java)
+                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                             intent.putExtra("Type", "face")
                             startActivity(intent)
-                            return
+
                         }
                     }
 

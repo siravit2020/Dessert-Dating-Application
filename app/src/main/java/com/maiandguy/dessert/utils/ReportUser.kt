@@ -65,30 +65,30 @@ class ReportUser(private var context: Activity, private var matchId: String) {
                 }
                 Log.d("test_boolean", "$dateBefore , $matchId")
                 if (dateBefore) {
-                        report(Child)
-//                    Alerter.create(context)
-//                            .setTitle(context.getString(R.string.report_suc))
-//                            .setText(context.getString(R.string.report_suc2))
-//                            .setBackgroundColorInt(ContextCompat.getColor(context, R.color.c3))
-//                            .setIcon(ContextCompat.getDrawable(context, R.drawable.ic_baseline_done_24)!!)
-//                            .show()
-//                    if (!dataSnapshot.child(matchId).hasChild("Report")) {
-//                        val jj = hashMapOf<String, Any>()
-//                        jj[Child] = "1"
-//                        usersDb.child(matchId).child("Report").updateChildren(jj)
-//                    } else if (dataSnapshot.child(matchId).hasChild("Report")) {
-//                        if (dataSnapshot.child(matchId).child("Report").hasChild(Child)) {
-//                            val countRep = Integer.valueOf(dataSnapshot.child(matchId).child("Report").child(Child).value.toString()) + 1
-//                            val inputCount = countRep.toString()
-//                            val jj = hashMapOf<String, Any>()
-//                            jj[Child] = inputCount
-//                            usersDb.child(matchId).child("Report").updateChildren(jj)
-//                        } else {
-//                            val jj = hashMapOf<String, Any>()
-//                            jj[Child] = "1"
-//                            usersDb.child(matchId).child("Report").updateChildren(jj)
-//                        }
-//                    }
+                        //report(Child)
+                    Alerter.create(context)
+                            .setTitle(context.getString(R.string.report_suc))
+                            .setText(context.getString(R.string.report_suc2))
+                            .setBackgroundColorInt(ContextCompat.getColor(context, R.color.c3))
+                            .setIcon(ContextCompat.getDrawable(context, R.drawable.ic_baseline_done_24)!!)
+                            .show()
+                    if (!dataSnapshot.child(matchId).hasChild("Report")) {
+                        val jj = hashMapOf<String, Any>()
+                        jj[Child] = "1"
+                        usersDb.child(matchId).child("Report").updateChildren(jj)
+                    } else if (dataSnapshot.child(matchId).hasChild("Report")) {
+                        if (dataSnapshot.child(matchId).child("Report").hasChild(Child)) {
+                            val countRep = Integer.valueOf(dataSnapshot.child(matchId).child("Report").child(Child).value.toString()) + 1
+                            val inputCount = countRep.toString()
+                            val jj = hashMapOf<String, Any>()
+                            jj[Child] = inputCount
+                            usersDb.child(matchId).child("Report").updateChildren(jj)
+                        } else {
+                            val jj = hashMapOf<String, Any>()
+                            jj[Child] = "1"
+                            usersDb.child(matchId).child("Report").updateChildren(jj)
+                        }
+                    }
                 } else {
 
                     Alerter.create(context)

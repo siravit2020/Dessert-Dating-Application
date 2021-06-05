@@ -42,7 +42,7 @@ class RegistrationActivity : AppCompatActivity() {
             val confirmPassword = confirmPassword.text.toString()
             if (email.trim().isEmpty() && password.trim().isEmpty() && confirmPassword.trim().isEmpty())
                 Snackbar.make(this.email, "กรุณากรอกข้อมูลให้ครบถ้วน", Snackbar.LENGTH_SHORT).show().also { return@OnClickListener }
-            else if (password !== confirmPassword)
+            else if (password != confirmPassword)
                 Snackbar.make(this.email, "กรุณากรอกรหัสผ่านให้ตรงกัน", Snackbar.LENGTH_SHORT).show().also { return@OnClickListener }
             else if (!email.isValidEmail())
                 Snackbar.make(this.email, "กรุณากรอกอีเมลให้ถูกต้อง", Snackbar.LENGTH_SHORT).show().also { return@OnClickListener }

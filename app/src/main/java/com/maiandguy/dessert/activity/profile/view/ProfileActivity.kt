@@ -15,6 +15,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.anjlab.android.iab.v3.BillingProcessor
 import com.anjlab.android.iab.v3.TransactionDetails
 import com.bumptech.glide.Glide
@@ -37,6 +38,7 @@ import com.maiandguy.dessert.R
 import com.maiandguy.dessert.activity.send_problem.view.SendProblemActivity
 import com.maiandguy.dessert.activity.edit_profile.view.EditProfileActivity
 import com.maiandguy.dessert.activity.profile_information.view.ProfileInformationsActivity
+import kotlinx.android.synthetic.main.activity_profile.*
 import java.io.IOException
 import java.util.*
 
@@ -137,6 +139,12 @@ class ProfileActivity : Fragment(), BillingProcessor.IBillingHandler {
         view.findViewById<LinearLayout>(R.id.linearLayout22).setOnClickListener {
             val intent = Intent(context, SendProblemActivity::class.java)
             startActivityForResult(intent,14)
+        }
+        view.findViewById<SwipeRefreshLayout>(R.id.swipe_refresh).setOnRefreshListener {
+            requireActivity().finish()
+            requireActivity().overridePendingTransition(0, 0)
+            requireActivity().startActivity(requireActivity().intent)
+            requireActivity().overridePendingTransition(0, 0)
         }
 
         return view
