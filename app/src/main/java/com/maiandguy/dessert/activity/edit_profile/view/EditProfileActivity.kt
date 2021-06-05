@@ -37,8 +37,8 @@ import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
 import com.google.firebase.ml.vision.face.FirebaseVisionFaceDetectorOptions
 import com.google.firebase.storage.FirebaseStorage
-import com.maiandguy.dessert.CustomEdittext
-import com.maiandguy.dessert.EditTextImeBackListener
+import com.maiandguy.dessert.utils.CustomEdittext
+import com.maiandguy.dessert.utils.EditTextImeBackListener
 import com.maiandguy.dessert.R
 import com.maiandguy.dessert.activity.card.view.CardActivity
 import com.maiandguy.dessert.utils.DRAWABLE_IS_NOT_NULL

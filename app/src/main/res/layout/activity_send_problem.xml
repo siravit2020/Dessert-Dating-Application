@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/background_white"
     android:orientation="vertical"
-    tools:context=".SendProblemActivity">
+    tools:context=".activity.send_problem.view.SendProblemActivity">
 
     <LinearLayout
         android:id="@+id/include"

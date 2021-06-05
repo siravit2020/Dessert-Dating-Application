@@ -15,7 +15,7 @@
     <uses-permission android:name="com.android.vending.BILLING" />
 
     <application
-        android:name=".App"
+        android:name=".utils.App"
         android:allowBackup="true"
         android:icon="@drawable/ic_candy"
         android:label="@string/app_name"
@@ -25,16 +25,16 @@
         tools:replace="android:icon">
         <activity android:name=".activity.forgot_password.view.ForgotPasswordActivity"></activity>
         <activity android:name=".activity.register.view.SendVerificationActivity" />
-        <activity android:name=".IDontLike" />
-        <activity android:name=".activity.send_ploblem.ProblemListActivity" />
-        <activity android:name=".SendProblemActivity" />
-        <activity android:name=".CloseAccount" />
+        <activity android:name=".activity.dis_like.view.DisLike" />
+        <activity android:name=".activity.problem_list.ProblemListActivity" />
+        <activity android:name=".activity.send_problem.view.SendProblemActivity" />
+        <activity android:name=".activity.close_account.view.CloseAccount" />
         <activity android:name=".activity.register.QuestionActivity" /> <!-- Include the AdActivity configChanges and theme. -->
         <activity
             android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:theme="@android:style/Theme.Translucent" />
-        <activity android:name=".BandUser" />
+        <activity android:name=".activity.band_user.view.BandUser" />
         <activity android:name=".activity.show_gps_open.view.ShowGpsOpen" />
         <activity
             android:name=".LikeYou.LikeYouActivity"
@@ -114,7 +114,7 @@
             android:value="face" />
 
         <service
-            android:name=".MyFirebaseMessagingService"
+            android:name=".services.MyFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

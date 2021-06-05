@@ -1,9 +1,10 @@
-package com.maiandguy.dessert
+package com.maiandguy.dessert.activity.band_user.view
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import com.maiandguy.dessert.R
 import com.maiandguy.dessert.activity.sign_in.view.SignInActivity
 
 class BandUser : AppCompatActivity() {

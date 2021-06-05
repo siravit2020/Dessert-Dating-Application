@@ -1,4 +1,4 @@
-package com.maiandguy.dessert
+package com.maiandguy.dessert.services
 
 import android.app.PendingIntent
 import android.content.Intent
@@ -10,7 +10,9 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import com.maiandguy.dessert.utils.App
 import com.maiandguy.dessert.Chat.ChatActivity
+import com.maiandguy.dessert.R
 import com.maiandguy.dessert.activity.main.view.MainActivity
 import java.io.IOException
 import java.net.URL
@@ -72,7 +74,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         val id = ++idPlus2
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         val pendingIntent = PendingIntent.getActivity(this, 1, intent, PendingIntent.FLAG_ONE_SHOT)
-        val notification = NotificationCompat.Builder(this, App.Companion.CHANNEL_ID!!)
+        val notification = NotificationCompat.Builder(this, App.CHANNEL_ID!!)
                 .setSmallIcon(R.drawable.ic_love)
                 .setContentTitle(getString(R.string.You_have_a_new_match))
                 .setColor(0xFFCC00)
@@ -83,7 +85,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
                 .build()
-        val sum = NotificationCompat.Builder(this, App.Companion.CHANNEL_ID)
+        val sum = NotificationCompat.Builder(this, App.CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_love)
                 .setStyle(NotificationCompat.InboxStyle().setBigContentTitle(getString(R.string.Matched)).setSummaryText(getString(R.string.new_matching)))
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
@@ -173,7 +175,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         intent.putExtras(b)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         val pendingIntent = PendingIntent.getActivity(this, 1, intent, PendingIntent.FLAG_ONE_SHOT)
-        val notification = NotificationCompat.Builder(this, App.Companion.CHANNEL_ID!!)
+        val notification = NotificationCompat.Builder(this, App.CHANNEL_ID!!)
                 .setSmallIcon(R.drawable.ic_love)
                 .setContentTitle(name)
                 .setGroup("Chat")
@@ -185,7 +187,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
                 .build()
-        val sum = NotificationCompat.Builder(this, App.Companion.CHANNEL_ID)
+        val sum = NotificationCompat.Builder(this, App.CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_love)
                 .setStyle(NotificationCompat.InboxStyle().setBigContentTitle(getString(R.string.New_message)).setSummaryText(getString(R.string.You_have_new_message)))
                 .setPriority(NotificationCompat.PRIORITY_HIGH)

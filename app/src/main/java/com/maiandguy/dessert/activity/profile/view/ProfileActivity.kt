@@ -29,12 +29,12 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.maiandguy.dessert.activity.filter_setting.view.FilterSettingActivity
-import com.maiandguy.dessert.Id
+import com.maiandguy.dessert.constants.Id
 import com.maiandguy.dessert.utils.DialogSlide
 import com.maiandguy.dessert.utils.GlobalVariable
 import com.maiandguy.dessert.LikeYou.LikeYouActivity
 import com.maiandguy.dessert.R
-import com.maiandguy.dessert.SendProblemActivity
+import com.maiandguy.dessert.activity.send_problem.view.SendProblemActivity
 import com.maiandguy.dessert.activity.edit_profile.view.EditProfileActivity
 import com.maiandguy.dessert.activity.profile_information.view.ProfileInformationsActivity
 import java.io.IOException

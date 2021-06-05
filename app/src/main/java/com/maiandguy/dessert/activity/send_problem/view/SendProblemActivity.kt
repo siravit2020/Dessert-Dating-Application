@@ -1,4 +1,4 @@
-package com.maiandguy.dessert
+package com.maiandguy.dessert.activity.send_problem.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ServerValue
+import com.maiandguy.dessert.R
 import com.maiandguy.dessert.utils.CloseDialog
 
 class SendProblemActivity : AppCompatActivity() {

@@ -1,4 +1,4 @@
-package com.maiandguy.dessert
+package com.maiandguy.dessert.utils
 
 import android.annotation.SuppressLint
 import android.content.Context

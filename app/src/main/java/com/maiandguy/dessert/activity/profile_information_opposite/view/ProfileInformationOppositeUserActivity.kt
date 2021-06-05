@@ -40,6 +40,9 @@ import com.google.firebase.database.*
 import com.maiandguy.dessert.*
 import com.maiandguy.dessert.Chat.ChatActivity
 import com.maiandguy.dessert.R
+import com.maiandguy.dessert.constants.Id
+import com.maiandguy.dessert.dialogs.adapter.VipSlideAdapter
+import com.maiandguy.dessert.model.PagerModel
 import com.maiandguy.dessert.utils.adapter.ScreenAdapter
 import com.maiandguy.dessert.utils.*
 
@@ -311,9 +314,9 @@ class ProfileInformationOppositeUserActivity : AppCompatActivity(), BillingProce
                         add(PagerModel("ปัดขวาได้เต็มที่ ไม่ต้องรอเวลา", "ถูกใจได้ไม่จำกัด", R.drawable.ic_heart))
                         add(PagerModel("คนที่คุณส่งดาวให้จะเห็นคุณก่อนใคร", "รับ 5 Star ฟรีทุกวัน", R.drawable.ic_starss))
                         add(PagerModel("ดูว่าใครบ้างที่เข้ามากดถูกใจให้คุณ", "ใครถูกใจคุณ", R.drawable.ic_love2))
-                        add(PagerModel("ดูว่าใครบ้างที่เข้าชมโปรไฟล์ของคุณ", "ใครเข้ามาดูโปรไฟล์คุณ", R.drawable.ic_vision))
+
                     }
-                    val adapter = VipSlide(this@ProfileInformationOppositeUserActivity, pagerModels)
+                    val adapter = VipSlideAdapter(this@ProfileInformationOppositeUserActivity, pagerModels)
                     val pager: AutoScrollViewPager = dialog.findViewById(R.id.viewpage)
                     pager.adapter = adapter
                     pager.startAutoScroll()

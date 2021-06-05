@@ -1,4 +1,4 @@
-package com.maiandguy.dessert.activity.send_ploblem
+package com.maiandguy.dessert.activity.problem_list
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

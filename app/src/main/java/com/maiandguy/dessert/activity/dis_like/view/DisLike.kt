@@ -1,4 +1,4 @@
-package com.maiandguy.dessert
+package com.maiandguy.dessert.activity.dis_like.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,23 +9,21 @@ import android.widget.Button
 import androidx.appcompat.widget.Toolbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.maiandguy.dessert.R
 import com.maiandguy.dessert.utils.CloseDialog
-import kotlinx.android.synthetic.main.activity_i_dont_like.*
-import kotlinx.android.synthetic.main.activity_i_dont_like.c1
-import kotlinx.android.synthetic.main.activity_i_dont_like.c2
-import kotlinx.android.synthetic.main.activity_i_dont_like.c3
-import kotlinx.android.synthetic.main.activity_i_dont_like.c4
-import kotlinx.android.synthetic.main.activity_i_dont_like.c5
+import kotlinx.android.synthetic.main.activity_dis_like.*
 
 
 
-class IDontLike : AppCompatActivity(),View.OnClickListener {
+
+
+class DisLike : AppCompatActivity(),View.OnClickListener {
     private lateinit var button: Button
     private lateinit var toolbar: Toolbar
     private lateinit var dB: DatabaseReference
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_i_dont_like)
+        setContentView(R.layout.activity_dis_like)
         button = findViewById(R.id.button_send)
         dB = FirebaseDatabase.getInstance().reference.child("CloseAccount").child("bad")
         toolbar = findViewById(R.id.my_tools)
@@ -41,22 +39,24 @@ class IDontLike : AppCompatActivity(),View.OnClickListener {
         button.setOnClickListener(this)
     }
     private fun check(){
-        if (c1.isChecked) {
-            button.isEnabled = true
+        when {
+            c1.isChecked -> {
+                button.isEnabled = true
+            }
+            c2.isChecked -> {
+                button.isEnabled = true
+            }
+            c3.isChecked -> {
+                button.isEnabled = true
+            }
+            c4.isChecked -> {
+                button.isEnabled = true
+            }
+            c5.isChecked -> {
+                button.isEnabled = true
+            }
+            else -> button.isEnabled = c6.isChecked
         }
-        else if (c2.isChecked) {
-            button.isEnabled = true
-        }
-        else if (c3.isChecked) {
-            button.isEnabled = true
-        }
-        else if (c4.isChecked) {
-            button.isEnabled = true
-        }
-        else if (c5.isChecked) {
-            button.isEnabled = true
-        }
-        else button.isEnabled = c6.isChecked
     }
     override fun onClick(v: View) {
         check()

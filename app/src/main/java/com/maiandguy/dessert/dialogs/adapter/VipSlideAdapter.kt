@@ -1,4 +1,4 @@
-package com.maiandguy.dessert
+package com.maiandguy.dessert.dialogs.adapter
 
 import android.app.Activity
 import android.content.Context
@@ -10,8 +10,10 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
+import com.maiandguy.dessert.R
+import com.maiandguy.dessert.model.PagerModel
 
-class VipSlide(var context: Context, private var List: ArrayList<PagerModel?>) : PagerAdapter() {
+class VipSlideAdapter(var context: Context, private var List: ArrayList<PagerModel?>) : PagerAdapter() {
     private var inflater: LayoutInflater? = (context as Activity?)!!.layoutInflater
     override fun getCount(): Int {
         return List.size

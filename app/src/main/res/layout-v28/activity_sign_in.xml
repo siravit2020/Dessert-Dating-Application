@@ -39,7 +39,7 @@
             android:layout_marginTop="@dimen/View32dp"
             android:layout_marginBottom="@dimen/View16dp"
             android:background="@drawable/input_field"
-            android:hint="อีเมล"
+            android:hint="@string/email"
             android:importantForAutofill="no"
             android:inputType="textEmailAddress"
             android:paddingLeft="@dimen/View20dp"
@@ -83,6 +83,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/View8dp"
                     android:text="ผู้ใช้ใหม่?"
+                    android:textColor="@color/text_black_gray"
                     android:textSize="@dimen/Text14sp" />
 
                 <TextView
@@ -100,6 +101,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ลืมรหัสผ่าน"
+                android:textColor="@color/text_black_gray"
                 android:textSize="@dimen/Text14sp" />
 
 
@@ -121,12 +123,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="@dimen/View32dp"
-            android:layout_marginRight="@dimen/View20dp"
+
+            android:layout_marginBottom="@dimen/View24dp"
+
             android:gravity="center"
             android:orientation="horizontal"
-            android:visibility="gone">
+            >
 
             <View
                 android:layout_width="20dp"
@@ -139,7 +141,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="@dimen/View20dp"
-                android:text="Login with"
+                android:text="เข้าสู่ระบบด้วย"
                 android:textColor="@color/text_black_gray"
                 android:textSize="@dimen/Text16sp"
 
@@ -174,7 +176,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="google"
+                    android:text="Google"
                     android:textColor="@color/text_black_gray"
                     android:textSize="@dimen/Text16sp" />
             </LinearLayout>
@@ -205,37 +207,6 @@
         </LinearLayout>
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/View40dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:visibility="gone">
-
-            <ImageView
-
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:clickable="false"
-                android:src="@drawable/ic_facebook" />
-
-            <ImageView
-
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_marginLeft="@dimen/View32dp"
-                android:layout_marginRight="@dimen/View32dp"
-                android:clickable="false"
-                android:src="@drawable/ic_search" />
-
-            <ImageView
-
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:clickable="false"
-                android:src="@drawable/ic_phone" />
-        </LinearLayout>
 
 
     </LinearLayout>

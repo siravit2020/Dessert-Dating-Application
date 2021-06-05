@@ -1,4 +1,4 @@
-package com.maiandguy.dessert
+package com.maiandguy.dessert.activity.close_account.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -9,7 +9,10 @@ import androidx.appcompat.widget.Toolbar
 import com.google.android.material.card.MaterialCardView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.maiandguy.dessert.activity.send_ploblem.ProblemListActivity
+import com.maiandguy.dessert.R
+import com.maiandguy.dessert.activity.send_problem.view.SendProblemActivity
+import com.maiandguy.dessert.activity.dis_like.view.DisLike
+import com.maiandguy.dessert.activity.problem_list.ProblemListActivity
 import com.maiandguy.dessert.utils.CloseDialog
 
 class CloseAccount : AppCompatActivity(), View.OnClickListener {
@@ -81,7 +84,7 @@ class CloseAccount : AppCompatActivity(), View.OnClickListener {
             })
         }
         if (v == cardBad) {
-            val intent = Intent(applicationContext, IDontLike::class.java)
+            val intent = Intent(applicationContext, DisLike::class.java)
             startActivity(intent)
         }
         if (v == cardProblem) {

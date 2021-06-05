@@ -1,4 +1,4 @@
-package com.maiandguy.dessert
+package com.maiandguy.dessert.constants
 
 class Id {
     companion object idPayment {

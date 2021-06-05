@@ -62,7 +62,7 @@ class SignInViewModel(application: Application) : AndroidViewModel(application) 
                                 resource.value = Resource.success("register")
                             }
                         }
-                        onCleared()
+
 
                         dialog.value = false
                     }

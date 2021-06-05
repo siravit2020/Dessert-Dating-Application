@@ -20,7 +20,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.maiandguy.dessert.CloseAccount
+import com.maiandguy.dessert.activity.close_account.view.CloseAccount
 import com.maiandguy.dessert.R
 import com.maiandguy.dessert.activity.main.view.MainActivity
 import com.maiandguy.dessert.utils.ChangLanguage

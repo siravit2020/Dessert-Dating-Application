@@ -37,7 +37,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
-import com.maiandguy.dessert.*
 import com.maiandguy.dessert.activity.card.adapter.CardAdapter
 import com.maiandguy.dessert.activity.card.model.CardModel
 import com.maiandguy.dessert.Chat.ChatActivity
@@ -47,6 +46,9 @@ import com.maiandguy.dessert.ViewModel.QuestionViewModel
 import com.maiandguy.dessert.activity.filter_setting.view.FilterSettingActivity
 import com.maiandguy.dessert.activity.main.view.MainActivity
 import com.maiandguy.dessert.activity.sign_in.view.SignInActivity
+import com.maiandguy.dessert.constants.Id
+import com.maiandguy.dessert.dialogs.adapter.VipSlideAdapter
+import com.maiandguy.dessert.model.PagerModel
 import com.maiandguy.dessert.utils.CloseLoading
 import com.maiandguy.dessert.utils.GlobalVariable
 import com.yuyakaido.android.cardstackview.*
@@ -363,9 +365,9 @@ class CardActivity : Fragment(), BillingProcessor.IBillingHandler, View.OnClickL
             add(PagerModel("คนที่คุณส่งดาวให้จะเห็นคุณก่อนใคร", "รับ 5 Star ฟรีทุกวัน", R.drawable.ic_starss))
             add(PagerModel("สามารถทักทายได้เต็มที ไม่จำกัดจำนวน", "ทักทายได้ไม่จำกัด", R.drawable.ic_hand))
             add(PagerModel("ดูว่าใครบ้างที่เข้ามากดถูกใจให้คุณ", "ใครถูกใจคุณ", R.drawable.ic_love2))
-            add(PagerModel("ดูว่าใครบ้างที่เข้าชมโปรไฟล์ของคุณ", "ใครเข้ามาดูโปรไฟล์คุณ", R.drawable.ic_vision))
+
         }
-        val adapter = VipSlide(requireContext(), pagerModels)
+        val adapter = VipSlideAdapter(requireContext(), pagerModels)
         val pager: AutoScrollViewPager = dialog.findViewById(R.id.viewpage)
         pager.adapter = adapter
         pager.startAutoScroll()

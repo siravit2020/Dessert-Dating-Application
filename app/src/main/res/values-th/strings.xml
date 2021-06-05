@@ -270,5 +270,6 @@
     <string name="aleartGPSopen">คุณต้องเปิด GPS เพื่อเข้าใช้งานแอปพลิเคชัน กรุณาลองใหม่อีกครั้ง</string>
     <string name="feedback">Feedback</string>
     <string name="blacklist">บีญชีของคุณถูกระงับการใช้งาน</string>
+    <string name="email">อีเมล</string>
 
 </resources>

@@ -21,7 +21,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
         setContentView(R.layout.activity_forgot_password)
         toolbar = findViewById(R.id.my_tools)
         setSupportActionBar(toolbar)
-        supportActionBar!!.setTitle("Forgot Password")
+        supportActionBar!!.setTitle("ลืมรหัสผ่าน")
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
         val button:Button = findViewById(R.id.send_button)

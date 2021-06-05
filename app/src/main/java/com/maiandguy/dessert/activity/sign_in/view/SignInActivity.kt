@@ -12,7 +12,7 @@ import com.akexorcist.localizationactivity.core.LocalizationActivityDelegate
 import com.facebook.CallbackManager
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
-import com.maiandguy.dessert.BandUser
+import com.maiandguy.dessert.activity.band_user.view.BandUser
 import com.maiandguy.dessert.utils.ChangLanguage
 import com.maiandguy.dessert.utils.LoadingDialog
 import com.maiandguy.dessert.activity.main.view.MainActivity
@@ -22,6 +22,7 @@ import com.maiandguy.dessert.activity.register.PhoneActivity
 import com.maiandguy.dessert.activity.register.view.RegisterNameActivity
 import com.maiandguy.dessert.activity.sign_in.view_model.SignInViewModel
 import com.maiandguy.dessert.activity.register.view.RegistrationActivity
+import com.maiandguy.dessert.activity.register.view.SendVerificationActivity
 import com.maiandguy.dessert.constants.Status
 import java.util.*
 
@@ -91,12 +92,12 @@ class SignInActivity : AppCompatActivity() {
                         startActivity(intent)
                     }
                     "verification" -> {
-                        val intent = Intent(this@SignInActivity, RegisterNameActivity::class.java)
-                        intent.putExtra("Type", "face")
-                        startActivity(intent)
-//                        val intent = Intent(this@SignInActivity, SendVerificationActivity::class.java)
-//                        intent.putExtra("login", true)
+//                        val intent = Intent(this@SignInActivity, RegisterNameActivity::class.java)
+//                        intent.putExtra("Type", "face")
 //                        startActivity(intent)
+                        val intent = Intent(this@SignInActivity, SendVerificationActivity::class.java)
+                        intent.putExtra("login", true)
+                        startActivity(intent)
                     }
 
                 }
