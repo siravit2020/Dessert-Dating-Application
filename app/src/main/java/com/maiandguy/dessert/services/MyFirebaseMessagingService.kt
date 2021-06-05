@@ -40,7 +40,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         Log.d("NotificationMessage", datatype.toString())
         Log.d("NotificationMessage", message1.toString())
         //Log.d("NotificationMessage",message2)
-        // Log.d("NotificationMessage",message3)
+        //Log.d("NotificationMessage",message3)
         //Notification_match(p0.data.get("name_user"))
         when (datatype) {
             "direct_message" -> {

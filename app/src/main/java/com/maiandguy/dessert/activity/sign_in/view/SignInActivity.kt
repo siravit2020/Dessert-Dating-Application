@@ -92,12 +92,12 @@ class SignInActivity : AppCompatActivity() {
                         startActivity(intent)
                     }
                     "verification" -> {
-//                        val intent = Intent(this@SignInActivity, RegisterNameActivity::class.java)
-//                        intent.putExtra("Type", "face")
-//                        startActivity(intent)
-                        val intent = Intent(this@SignInActivity, SendVerificationActivity::class.java)
-                        intent.putExtra("login", true)
-                        startActivity(intent)
+                       val intent = Intent(this@SignInActivity, RegisterNameActivity::class.java)
+                       intent.putExtra("Type", "face")
+                       startActivity(intent)
+                       // val intent = Intent(this@SignInActivity, SendVerificationActivity::class.java)
+                       // intent.putExtra("login", true)
+                       // startActivity(intent)
                     }
 
                 }

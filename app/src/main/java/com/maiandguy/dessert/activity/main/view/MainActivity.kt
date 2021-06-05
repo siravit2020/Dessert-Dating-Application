@@ -25,6 +25,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.functions.HttpsCallableResult
@@ -230,8 +231,13 @@ class MainActivity : AppCompatActivity() ,LocationListener {
                     val statusUp = HashMap<String?, Any?>()
                     statusUp["status"] = 1
                     userDb.updateChildren(statusUp)
-                } else {
-                    Log.d("TAG112", "not connected")
+                    userDb.onDisconnect().let {
+                        val statusUp2 = HashMap<String?, Any?>()
+                        statusUp2["date"] = ServerValue.TIMESTAMP
+                        statusUp2["status"] = 0
+                        it.updateChildren(statusUp2)
+                    }
+
                 }
             }
 
@@ -239,12 +245,6 @@ class MainActivity : AppCompatActivity() ,LocationListener {
                 Log.w("TAG112", "Listener was cancelled")
             }
         })
-        userDb.onDisconnect().let {
-            val statusUp2 = HashMap<String?, Any?>()
-            statusUp2["date"] = ServerValue.TIMESTAMP
-            statusUp2["status"] = 0
-            it.updateChildren(statusUp2)
-        }
 
         userDb.addListenerForSingleValueEvent(object : ValueEventListener {
             @SuppressLint("SetTextI18n")
