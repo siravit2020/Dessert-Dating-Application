@@ -117,9 +117,11 @@ class LikeYouActivity : AppCompatActivity() {
         co.launch {
             withContext(Dispatchers.Default) {
                 GlobalVariable.apply {
+                    Log.d("check",vip.toString())
+                    Log.d("check",buyLike.toString())
                     if (!vip)
                         if (!intent.hasExtra("See")) {
-                            if (buyLike) {
+                            if (!buyLike) {
                                 blurView.visibility = View.VISIBLE
                                 button.visibility = View.VISIBLE
                                 progress_like.visibility = View.GONE
@@ -241,29 +243,7 @@ class LikeYouActivity : AppCompatActivity() {
             button.visibility = View.GONE
             dialog.dismiss()
             buyLike()
-//        if (intent.hasExtra("See")) {
-//            imageView.setImageDrawable(ContextCompat.getDrawable(applicationContext, R.drawable.ic_vision))
-//            textView.text = "ใครเข้ามาดูโปรไฟล์คุณ"
-//            textView2.text = "ดูว่าใครบ้างที่เข้าชมโปรไฟล์ของคุณ"
-//            b1.text = "฿20.00 / เดือน"
-//            b1.setOnClickListener {
-//                dialog.dismiss()
-//                buySee()
-//            }
-//        }
-//        else {
-//            imageView.setImageDrawable(ContextCompat.getDrawable(applicationContext, R.drawable.ic_love2))
-//            textView.text = "ใครถูกใจคุณ"
-//            textView2.text = "ดูว่าใครบ้างที่เข้ามากดถูกใจให้คุณ"
-//            b1.setOnClickListener {
-//                val myUser = getSharedPreferences("MyUser", Context.MODE_PRIVATE).edit()
-//                myUser.putBoolean("buy_like", true)
-//                myUser.apply()
-//                blurView.visibility = View.GONE
-//                button.visibility = View.GONE
-//                dialog.dismiss()
-//                buyLike()
-//            }
+
         }
         dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.setContentView(view)
@@ -344,16 +324,6 @@ class LikeYouActivity : AppCompatActivity() {
     }
 
 
-    private fun buySee() {
-        val currentUserId = FirebaseAuth.getInstance().currentUser!!.uid
-        val databaseReference = FirebaseDatabase.getInstance().reference.child("Users").child(currentUserId)
-        databaseReference.child("buy_see").setValue(true).addOnSuccessListener {
-            activity.finish()
-            activity.overridePendingTransition(0, 0)
-            activity.startActivity(activity.intent)
-            activity.overridePendingTransition(0, 0)
-        }
-    }
 
     private fun buyLike() {
         val currentUserId = FirebaseAuth.getInstance().currentUser!!.uid
