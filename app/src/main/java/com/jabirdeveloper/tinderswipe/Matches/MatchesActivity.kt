@@ -16,8 +16,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.jabirdeveloper.tinderswipe.R
-import com.jabirdeveloper.tinderswipe.SwitchpageActivity
+import com.maiandguy.dessert.R
+import com.maiandguy.dessert.activity.main.view.MainActivity
+import com.maiandguy.dessert.utils.TimeStampToDate
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -163,16 +164,16 @@ class MatchesActivity : Fragment() {
                     latestChat(uid, chatId)
                 }else{
                     latestChat(uid, chatId)
-                    fetchMatchFormation(uid, last_chat = "", time="-1", count_unread = -1) } }
+                    fetchMatchFormation(uid, last_chat = "", time=null, count_unread = -1) } }
             override fun onCancelled(error: DatabaseError) {} })
     }
-    private fun startNode(key: String?, keyNode: String?, lastChat: String?, time: String?, count: Int) {
+    private fun startNode(key: String?, keyNode: String?, lastChat: String?, time:Long?, count: Int) {
         val startDb = FirebaseDatabase.getInstance().reference.child("Users").child(currentUserId).child("connection").child("matches").child(key.toString()).child("Start")
         startDb.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if (dataSnapshot.value != null) {
                     if (dataSnapshot.value.toString() == keyNode) {
-                        fetchMatchFormation(key, last_chat = "", time = "-1", count)
+                        fetchMatchFormation(key, last_chat = "", time = null, count)
                     } else {
                         fetchMatchFormation(key, lastChat, time, count) }
                 } else {
@@ -186,10 +187,11 @@ class MatchesActivity : Fragment() {
         chatDb.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
                 val lastChat = dataSnapshot.child("text").value.toString()
-                var time = dataSnapshot.child("time").value.toString()
-                val date = dataSnapshot.child("date").value.toString()
+                val dateConvert = TimeStampToDate(dataSnapshot.child("date").value as Long)
+                val dateCurrent = TimeStampToDate(System.currentTimeMillis())
+                var time = dataSnapshot.child("date").value as Long
                 val createBy = dataSnapshot.child("createByUser").value.toString()
-                if (date != dateUser) { time = date.substring(0, 5) }
+                if (dateConvert.date() != dateCurrent.date()) { time = dataSnapshot.child("date").value as Long }
                 createByBoolean = dataSnapshot.child("createByUser").value.toString() != (currentUserId)
                 if (createBy != currentUserId) {
                     chatCheckRead(chatID, key, time, lastChat)
@@ -204,7 +206,7 @@ class MatchesActivity : Fragment() {
 
     private var countRead = 0
     private var mDatabaseChat: DatabaseReference? = null
-    private fun chatCheckRead(ChatId: String?, key: String?, time: String?, last_chat: String?) {
+    private fun chatCheckRead(ChatId: String?, key: String?, time: Long?, last_chat: String?) {
         mDatabaseChat = FirebaseDatabase.getInstance().reference.child("Chat").child(ChatId.toString())
         val dd = mDatabaseChat!!.orderByChild("read").equalTo("Unread")
         dd.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -275,7 +277,7 @@ class MatchesActivity : Fragment() {
         chatDb.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
                 val lastChat:String = dataSnapshot.child("text").value.toString()
-                val time:String = dataSnapshot.child("time").value.toString()
+                val time = dataSnapshot.child("date").value as Long
                 checkSentBack(key, lastChat, time, ChatId) }
             override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {}
             override fun onChildRemoved(dataSnapshot: DataSnapshot) {}
@@ -283,7 +285,7 @@ class MatchesActivity : Fragment() {
             override fun onCancelled(databaseError: DatabaseError) {}
         })
     }
-    private fun checkSentBack(key: String?, lastChat: String?, time: String?, ChatId: String?) {
+    private fun checkSentBack(key: String?, lastChat: String?, time: Long?, ChatId: String?) {
         val chatDb:Query = FirebaseDatabase.getInstance().reference.child("Chat").child(ChatId.toString()).orderByChild("createByUser").equalTo(currentUserId).limitToLast(1)
         chatDb.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -320,7 +322,7 @@ class MatchesActivity : Fragment() {
     }
 
     private var inception = false
-    private fun fetchHi(key: String?, lastChat: String?, time: String?, ChatId: String?) {
+    private fun fetchHi(key: String?, lastChat: String?, time: Long?, ChatId: String?) {
         FirebaseDatabase.getInstance().reference
                 .child("Users")
                 .child(key.toString())
@@ -381,7 +383,7 @@ class MatchesActivity : Fragment() {
     }
 
 
-    private fun fetchMatchFormation(key: String?, last_chat: String?, time: String?, count_unread: Int) {
+    private fun fetchMatchFormation(key: String?, last_chat: String?, time: Long?, count_unread: Int) {
         FirebaseDatabase.getInstance().reference
                 .child("Users")
                 .child(key.toString())
@@ -453,59 +455,62 @@ class MatchesActivity : Fragment() {
                     }
                 }
                 if (resultMatches.size > 1) {
-                    if (resultMatches.elementAt(resultMatches.size - 1).time != "-1") {
-                        val compare1 = resultMatches.elementAt(resultMatches.size - 1).time
-                        val compare2 = resultMatches.elementAt(resultMatches.size - 2).time
-                        if (compare2 == "-1" && compare1 != "-1") { local = resultMatches.size - 1 }
-                        else if (compare2 != "-1" && compare1 != "-1" && resultMatches.size == 2) { local = 0 }
-                        resultMatches.sortWith { o1, o2 ->
-                            var b1 = false
-                            var b2 = false
-                            var checkB1 = 0
-                            var checkB2 = 0
-                            if (o1!!.time!! == "-1") {
-                                b1 = true
-                            }
-                            if (o2!!.time!! == "-1") {
-                                b2 = true
-                            }
-                            if (b1) {
-                                checkB1 = 1
-                            }
-                            if (b2) {
-                                checkB2 = 1
-                            }
-                            checkB2 - checkB1
+                    if (resultMatches.elementAt(resultMatches.size - 1).time != null) {
+                        resultMatches.sortWith{ o1 , o2 ->
+                            o1.time!!.compareTo(o2.time!!)
                         }
-                        resultMatches.subList(local, resultMatches.size).sortWith { o1, o2 ->
-                            var b1 = false
-                            var b2 = false
-                            var checkB1 = 0
-                            var checkB2 = 0
-                            if (o1!!.time!!.substring(2, 3) == ":") {
-                                b1 = true
-                            }
-                            if (o2!!.time!!.substring(2, 3) == ":") {
-                                b2 = true
-                            }
-                            if (b1) {
-                                checkB1 = 1
-                            }
-                            if (b2) {
-                                checkB2 = 1
-                            }
-                            checkB2 - checkB1
-                        }
-                        resultMatches.sortWith(Comparator { o1, o2 ->
-                            try { return@Comparator SimpleDateFormat("HH:mm").parse(o2!!.time)
-                                       .compareTo(SimpleDateFormat("HH:mm").parse(o1!!.time))
-                            } catch (e: ParseException) { return@Comparator 0 }
-                        })
-                        resultMatches.sortWith(Comparator { o1, o2 ->
-                            try { return@Comparator SimpleDateFormat("dd/MM").parse(o2!!.time)
-                                    .compareTo(SimpleDateFormat("dd/MM").parse(o1!!.time))
-                            } catch (e: ParseException) { return@Comparator 0 }
-                        })
+//                        val compare1 = resultMatches.elementAt(resultMatches.size - 1).time
+//                        val compare2 = resultMatches.elementAt(resultMatches.size - 2).time
+//                        if (compare2 == "-1" && compare1 != "-1") { local = resultMatches.size - 1 }
+//                        else if (compare2 != "-1" && compare1 != "-1" && resultMatches.size == 2) { local = 0 }
+//                        resultMatches.sortWith { o1, o2 ->
+//                            var b1 = false
+//                            var b2 = false
+//                            var checkB1 = 0
+//                            var checkB2 = 0
+//                            if (o1!!.time!! == "-1") {
+//                                b1 = true
+//                            }
+//                            if (o2!!.time!! == "-1") {
+//                                b2 = true
+//                            }
+//                            if (b1) {
+//                                checkB1 = 1
+//                            }
+//                            if (b2) {
+//                                checkB2 = 1
+//                            }
+//                            checkB2 - checkB1
+//                        }
+//                        resultMatches.subList(local, resultMatches.size).sortWith { o1, o2 ->
+//                            var b1 = false
+//                            var b2 = false
+//                            var checkB1 = 0
+//                            var checkB2 = 0
+//                            if (o1!!.time!!.substring(2, 3) == ":") {
+//                                b1 = true
+//                            }
+//                            if (o2!!.time!!.substring(2, 3) == ":") {
+//                                b2 = true
+//                            }
+//                            if (b1) {
+//                                checkB1 = 1
+//                            }
+//                            if (b2) {
+//                                checkB2 = 1
+//                            }
+//                            checkB2 - checkB1
+//                        }
+//                        resultMatches.sortWith(Comparator { o1, o2 ->
+//                            try { return@Comparator SimpleDateFormat("HH:mm").parse(o2!!.time)
+//                                       .compareTo(SimpleDateFormat("HH:mm").parse(o1!!.time))
+//                            } catch (e: ParseException) { return@Comparator 0 }
+//                        })
+//                        resultMatches.sortWith(Comparator { o1, o2 ->
+//                            try { return@Comparator SimpleDateFormat("dd/MM").parse(o2!!.time)
+//                                    .compareTo(SimpleDateFormat("dd/MM").parse(o1!!.time))
+//                            } catch (e: ParseException) { return@Comparator 0 }
+//                        })
                     }
                 }
                 if (resultMatches.size == userMatchCount) {
@@ -545,13 +550,13 @@ class MatchesActivity : Fragment() {
             if (resultMatches.size > 0) {
                 resultMatches.apply {
                     elementAt(index).late = ""
-                    elementAt(index).time = "-1"
+                    elementAt(index).time = null
                 }
                 mMatchesAdapter.notifyDataSetChanged()
             } else {
                 resultMatches.apply {
                     elementAt(0).late = ""
-                    elementAt(0).time = "-1"
+                    elementAt(0).time = null
                 }
                 mMatchesAdapter.notifyDataSetChanged() }
             myDelete.edit().clear().apply() }

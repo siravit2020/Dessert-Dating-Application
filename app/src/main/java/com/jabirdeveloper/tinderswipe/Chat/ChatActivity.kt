@@ -49,6 +49,7 @@ import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+import com.maiandguy.dessert.utils.TimeStampToDate
 
 class ChatActivity : AppCompatActivity() {
     private lateinit var mRecyclerView: RecyclerView
@@ -358,7 +359,7 @@ class ChatActivity : AppCompatActivity() {
                     "createByUser" to currentUserId,
                     "text" to sendMessageText,
                     "time" to d.time(),
-                    "date" to d.date(),
+                    "date" to ServerValue.TIMESTAMP,
                     "read" to "Unread")
             newMessageDb.setValue(newMessage)
         }
@@ -417,20 +418,6 @@ class ChatActivity : AppCompatActivity() {
     }
 
     private var countNodeD = 0
-    /*private fun getCount() {
-        val dd = FirebaseDatabase.getInstance().reference.child("Chat")
-        dd.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                if (!dataSnapshot.hasChild(chatId.toString())) {
-                    pro!!.visibility = View.INVISIBLE
-                }
-                fetchSharedPreference()
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {}
-        })
-    }*/
-
     private var c = 0
     private var firstConnect = true
     private var start: String? = "null"
@@ -567,8 +554,10 @@ class ChatActivity : AppCompatActivity() {
                             if (dataSnapshot.child("createByUser").value != null) {
                                 createdByUser = dataSnapshot.child("createByUser").value.toString()
                             }
-                            if (dataSnapshot.child("time").value != null) {
-                                time = dataSnapshot.child("time").value.toString()
+                            if (dataSnapshot.child("date").value != null) {
+                                val timeConvert = TimeStampToDate(dataSnapshot.child("date").value as Long).time()
+                                Log.d("TAG_COUNT",timeConvert)
+                                time = timeConvert
                             }
                             if (dataSnapshot.child("image").value != null) {
                                 urlSend = dataSnapshot.child("image").value.toString()
@@ -642,8 +631,10 @@ class ChatActivity : AppCompatActivity() {
                         if (dataSnapshot.child("createByUser").value != null) {
                             createdByUser = dataSnapshot.child("createByUser").value.toString()
                         }
-                        if (dataSnapshot.child("time").value != null) {
-                            time = dataSnapshot.child("time").value.toString()
+                        if (dataSnapshot.child("date").value != null) {
+                            val timeConvert = TimeStampToDate(dataSnapshot.child("date").value as Long).time()
+                            Log.d("TAG_COUNT",timeConvert)
+                            time = timeConvert
                         }
                         if (dataSnapshot.child("image").value != null) {
                             urlSend = dataSnapshot.child("image").value.toString()
@@ -737,7 +728,7 @@ class ChatActivity : AppCompatActivity() {
                         val newMessage = hashMapOf(
                                 "createByUser" to currentUserId,
                                 "time" to d.time(),
-                                "date" to d.date(),
+                                "date" to ServerValue.TIMESTAMP,
                                 "text" to "photo$currentUserId",
                                 "read" to "Unread",
                                 "image" to uri.toString())
@@ -779,7 +770,7 @@ class ChatActivity : AppCompatActivity() {
                         val newMessage = hashMapOf(
                                 "createByUser" to currentUserId,
                                 "time" to d.time(),
-                                "date" to d.date(),
+                                "date" to ServerValue.TIMESTAMP,
                                 "text" to "photo$currentUserId",
                                 "read" to "Unread",
                                 "image" to uri.toString())
@@ -833,7 +824,7 @@ class ChatActivity : AppCompatActivity() {
                 val newMessage = hashMapOf(
                         "createByUser" to currentUserId,
                         "time" to timeUser,
-                        "date" to dateUser,
+                        "date" to ServerValue.TIMESTAMP,
                         "audio_length" to timeCount.toString(),
                         "audio" to downloadUrl.toString(),
                         "text" to "audio$currentUserId",
