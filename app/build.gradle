@@ -5,7 +5,7 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 30
     defaultConfig {
-        applicationId "com.jabirdeveloper.tinderswipe"
+        applicationId "com.siravit.dessert"
         minSdkVersion 26
         targetSdkVersion 30
         versionCode 1
@@ -122,13 +122,18 @@ dependencies {
     implementation 'com.google.firebase:firebase-functions-ktx:19.2.0'
     implementation 'com.google.firebase:firebase-storage:19.2.2'
 
-    implementation 'com.github.nipunru:nsfw-detector-android:1.0.0'
+
     implementation 'com.google.firebase:firebase-ml-vision:'
+//    nfs
     api "com.google.firebase:firebase-ml-vision:"
     implementation "com.google.firebase:firebase-ml-vision-automl:18.0.6"
-    implementation "com.google.firebase:firebase-ml-model-interpreter:22.0.4"
+    implementation "com.google.firebase:firebase-ml-model-interpreter:"
+    implementation 'com.github.nipunru:nsfw-detector-android:1.0.0'
+    
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
+
+    implementation 'com.google.android.gms:play-services-mlkit-face-detection:16.1.6'
 
 
 }

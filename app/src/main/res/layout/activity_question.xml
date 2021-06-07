@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/background_gray"
-    tools:context=".Register.QuestionActivity">
+    tools:context=".activity.register.QuestionActivity">
     <include layout="@layout/toolsbar" />
     <ProgressBar
         style="?android:attr/progressBarStyleHorizontal"

@@ -37,13 +37,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/Text16sp"
-        android:hint="@string/Send_a_message_to"
-        android:gravity="center"
+        android:hint="ข้อความ"
+        android:background="@drawable/input_field"
+        android:paddingLeft="@dimen/View20dp"
+        android:paddingTop="@dimen/View8dp"
+        android:paddingRight="@dimen/View20dp"
+        android:paddingBottom="@dimen/View8dp"
+        android:gravity="left"
         />
+
 
     <Button
 
-        android:layout_marginTop="@dimen/View8dp"
+        android:layout_marginTop="@dimen/View16dp"
         android:paddingStart="@dimen/View16dp"
         android:paddingEnd="@dimen/View16dp"
         android:id="@+id/buy"

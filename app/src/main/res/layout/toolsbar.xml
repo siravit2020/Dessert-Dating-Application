@@ -11,6 +11,4 @@
     android:id="@+id/my_tools"
     android:theme="@style/AppTheme2"
     >
-
-
 </androidx.appcompat.widget.Toolbar>

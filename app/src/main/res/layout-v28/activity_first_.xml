@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/background_white"
     android:gravity="center"
-    tools:context=".First_Activity">
+    tools:context=".activity.first.view.FirstActivity">
 
     <ImageView
         android:visibility="gone"

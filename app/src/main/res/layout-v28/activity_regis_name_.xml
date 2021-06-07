@@ -8,7 +8,7 @@
     android:background="@color/background_white"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".Register.Regis_name_Activity">
+    tools:context=".activity.register.view.RegisterNameActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout23"
@@ -52,7 +52,7 @@
             android:layout_marginBottom="@dimen/View4dp"
             android:text="@string/name_regis"
             android:textColor="@color/text_black_gray"
-            android:textSize="30dp" />
+            android:textSize="@dimen/Text24sp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -89,7 +89,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/View8dp"
-            android:layout_marginTop="@dimen/View20dp"
+            android:layout_marginTop="@dimen/View32dp"
             android:text="@string/next_button"
             android:textColor="@color/cpb_white"
             android:textSize="@dimen/Text16sp" />

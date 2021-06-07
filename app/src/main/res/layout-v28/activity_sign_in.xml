@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".activity.sign_in.view.SignInActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/View40dp"
+        android:paddingRight="@dimen/View40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <ImageView
+            android:layout_width="124dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:layout_marginRight="100dp"
+            android:adjustViewBounds="true"
+            android:clickable="false"
+
+            android:src="@drawable/ic_candy" />
+
+        <EditText
+            android:id="@+id/email_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/View32dp"
+            android:layout_marginBottom="@dimen/View16dp"
+            android:background="@drawable/input_field"
+            android:hint="@string/email"
+            android:importantForAutofill="no"
+            android:inputType="textEmailAddress"
+            android:paddingLeft="@dimen/View20dp"
+            android:paddingTop="@dimen/View8dp"
+            android:paddingRight="@dimen/View20dp"
+            android:paddingBottom="@dimen/View8dp"
+            android:textSize="@dimen/Text16sp" />
+
+        <EditText
+            android:id="@+id/password_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/View8dp"
+            android:background="@drawable/input_field"
+            android:hint="รหัสผ่าน"
+            android:importantForAutofill="no"
+            android:inputType="textPassword"
+            android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            android:maxLength="20"
+            android:paddingLeft="@dimen/View20dp"
+            android:paddingTop="@dimen/View8dp"
+            android:paddingRight="@dimen/View20dp"
+            android:paddingBottom="@dimen/View8dp"
+            android:textSize="@dimen/Text16sp" />
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/View8dp"
+            android:layout_marginBottom="@dimen/View16dp"
+            android:orientation="horizontal"
+            app:justifyContent="space_between">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/View8dp"
+                    android:text="ผู้ใช้ใหม่?"
+                    android:textColor="@color/text_black_gray"
+                    android:textSize="@dimen/Text14sp" />
+
+                <TextView
+                    android:id="@+id/register_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="สมัครสมาชิก"
+                    android:textColor="@color/c3"
+                    android:textSize="@dimen/Text14sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/forgot_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ลืมรหัสผ่าน"
+                android:textColor="@color/text_black_gray"
+                android:textSize="@dimen/Text14sp" />
+
+
+        </com.google.android.flexbox.FlexboxLayout>
+
+        <Button
+            android:id="@+id/login_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/View24dp"
+
+            android:maxLength="30"
+
+            android:paddingLeft="@dimen/View20dp"
+            android:paddingRight="@dimen/View20dp"
+            android:text="เข้าสู่ระบบ"
+            android:textSize="@dimen/Text16sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginBottom="@dimen/View24dp"
+
+            android:gravity="center"
+            android:orientation="horizontal"
+            >
+
+            <View
+                android:layout_width="20dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="#80000000" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="@dimen/View20dp"
+                android:text="เข้าสู่ระบบด้วย"
+                android:textColor="@color/text_black_gray"
+                android:textSize="@dimen/Text16sp"
+
+                />
+
+            <View
+                android:layout_width="20dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="#80000000" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/google"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/View16dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/View40dp"
+                    android:layout_height="@dimen/View40dp"
+                    android:src="@drawable/ic_search" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Google"
+                    android:textColor="@color/text_black_gray"
+                    android:textSize="@dimen/Text16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/button7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/View40dp"
+                    android:layout_height="@dimen/View40dp"
+
+                    android:foregroundTint="@color/c3"
+                    android:src="@drawable/ic_phone" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Phone No."
+                    android:textColor="@color/text_black_gray"
+                    android:textSize="@dimen/Text16sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/View16dp"
+        android:layout_marginEnd="@dimen/View16dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <TextView
+            android:id="@+id/thai_lang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" ไทย"
+            android:textColor="@color/c4"
+            android:textSize="@dimen/Text16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="@dimen/View4dp"
+            android:text="|"
+            android:textColor="@color/text_black_gray"
+            android:textSize="@dimen/Text16sp" />
+
+        <TextView
+            android:id="@+id/eng_lang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="EN"
+            android:textColor="@color/c4"
+            android:textSize="@dimen/Text16sp" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

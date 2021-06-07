@@ -15,7 +15,8 @@
         <item name="extendedFloatingActionButtonStyle">@style/Widget.App.ExtendedFloatingActionButton</item>
         <item name="floatingActionButtonStyle">@style/Widget.App.FloatingActionButton</item>
         <item  name="android:windowActivityTransitions">true</item>
-        <item name="android:windowBackground">@drawable/splash_screen</item>
+
+<!--        <item name="android:windowBackground">@drawable/splash_screen</item>-->
 
     </style>
 

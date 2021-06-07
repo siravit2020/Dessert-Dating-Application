@@ -4,44 +4,138 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Register.RegistrationActivity">
 
-    <EditText
-        android:id="@+id/Edit_R_email"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toBottomOf="parent"
+    tools:context=".activity.register.view.RegistrationActivity">
+
+    <androidx.appcompat.widget.Toolbar
+
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/background_white"
+        app:titleTextColor="@color/c3"
+        app:subtitleTextColor="@color/c1"
+        android:elevation="3dp"
+        android:id="@+id/my_tools"
+        android:theme="@style/AppTheme2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.41000003" />
+        >
+    </androidx.appcompat.widget.Toolbar>
 
-    <EditText
-        android:id="@+id/Edit_R_password"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/View16dp"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.508"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Edit_R_email" />
 
-    <Button
-        android:id="@+id/BRegis"
-        android:layout_width="200dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/View24dp"
-        android:text="Button"
+        android:layout_marginHorizontal="@dimen/View32dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Edit_R_password" />
+        app:layout_constraintTop_toBottomOf="@+id/my_tools">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginLeft="@dimen/View20dp"
+            android:layout_marginBottom="@dimen/View8dp"
+            android:text="อีเมล"
+            android:textColor="@color/text_black_gray"
+            android:textSize="@dimen/Text14sp" />
+
+        <EditText
+            android:id="@+id/email_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/View12dp"
+            android:background="@drawable/input_field"
+            android:importantForAutofill="no"
+            android:inputType="textEmailAddress"
+            android:maxLength="50"
+            android:paddingLeft="@dimen/View20dp"
+            android:paddingTop="@dimen/View8dp"
+            android:paddingRight="@dimen/View20dp"
+            android:paddingBottom="@dimen/View8dp"
+            android:textSize="@dimen/Text16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginLeft="@dimen/View20dp"
+            android:layout_marginBottom="@dimen/View8dp"
+            android:text="รหัสผ่าน"
+            android:textColor="@color/text_black_gray"
+            android:textSize="@dimen/Text14sp" />
+
+        <EditText
+            android:id="@+id/password_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/View12dp"
+            android:background="@drawable/input_field"
+            android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            android:importantForAutofill="no"
+            android:inputType="textPassword"
+            android:maxLength="20"
+            android:paddingLeft="@dimen/View20dp"
+            android:paddingTop="@dimen/View8dp"
+            android:paddingRight="@dimen/View20dp"
+            android:paddingBottom="@dimen/View8dp"
+            android:textSize="@dimen/Text16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginLeft="@dimen/View20dp"
+            android:layout_marginBottom="@dimen/View8dp"
+            android:text="ยืนยันรหัสผ่าน"
+            android:textColor="@color/text_black_gray"
+            android:textSize="@dimen/Text14sp" />
+
+        <EditText
+            android:id="@+id/confirm_password_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/input_field"
+            android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            android:importantForAutofill="no"
+            android:inputType="textPassword"
+            android:maxLength="20"
+            android:paddingLeft="@dimen/View20dp"
+            android:paddingTop="@dimen/View8dp"
+            android:paddingRight="@dimen/View20dp"
+            android:paddingBottom="@dimen/View8dp"
+            android:textSize="@dimen/Text16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="@dimen/View24dp"
+            android:gravity="center"
+
+            android:text="โปรดใช้อีเมลที่สามารถใช้งานได้จริง เนื่องจากต้องมีการยืนยันบัญชีผู้ใช้งาน"
+            android:textAlignment="center"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/Text14sp" />
+
+        <Button
+            android:id="@+id/finish_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/View32dp"
+            android:text="@string/finish"
+            android:textColor="@color/cpb_white"
+            android:textSize="@dimen/Text16sp" />
+    </LinearLayout>
+
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

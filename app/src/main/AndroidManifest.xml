@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.jabirdeveloper.tinderswipe">
+    package="com.maiandguy.dessert">
     <!-- Include required permissions for Google Mobile Ads to run. -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -15,7 +15,7 @@
     <uses-permission android:name="com.android.vending.BILLING" />
 
     <application
-        android:name=".App"
+        android:name=".utils.App"
         android:allowBackup="true"
         android:icon="@drawable/ic_candy"
         android:label="@string/app_name"
@@ -23,73 +23,72 @@
         android:theme="@style/AppTheme"
         tools:ignore="LockedOrientationActivity"
         tools:replace="android:icon">
-        <activity android:name=".IDontLike"></activity>
-        <activity android:name=".ProblemList" />
-        <activity android:name=".SendProblem" />
-        <activity android:name=".CloseAccount" />
-        <activity android:name=".Register.QuestionActivity" /> <!-- Include the AdActivity configChanges and theme. -->
+        <activity android:name=".activity.forgot_password.view.ForgotPasswordActivity"></activity>
+        <activity android:name=".activity.register.view.SendVerificationActivity" />
+        <activity android:name=".activity.dis_like.view.DisLike" />
+        <activity android:name=".activity.problem_list.ProblemListActivity" />
+        <activity android:name=".activity.send_problem.view.SendProblemActivity" />
+        <activity android:name=".activity.close_account.view.CloseAccount" />
+        <activity android:name=".activity.register.QuestionActivity" /> <!-- Include the AdActivity configChanges and theme. -->
         <activity
             android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:theme="@android:style/Theme.Translucent" />
-        <activity android:name=".BandUser" />
-        <activity android:name=".ShowGpsOpen" />
+        <activity android:name=".activity.band_user.view.BandUser" />
+        <activity android:name=".activity.show_gps_open.view.ShowGpsOpen" />
         <activity
-            android:name="com.jabirdeveloper.tinderswipe.LikeYou.LikeYouActivity"
+            android:name=".LikeYou.LikeYouActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Register.RegisGpsActivity"
+            android:name=".activity.register.view.RegisterGpsActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ImageChat.ItemImageActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SwitchpageActivity"
+            android:name=".activity.main.view.MainActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".Register.Regis_ageActivity" />
+        <activity android:name=".activity.register.view.RegisterAgeActivity" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Base.Theme.AppCompat" />
         <activity
-            android:name=".Setting2Activity"
+            android:name=".activity.filter_setting.view.FilterSettingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ProfileActivity"
+            android:name=".activity.profile_information.view.ProfileInformationsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ProfileUserOppositeActivity2"
+            android:name=".activity.profile_information_opposite.view.ProfileInformationOppositeUserActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Register.PhoneActivity"
+            android:name=".activity.register.PhoneActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Register.VerifyActivity"
+            android:name=".activity.register.VerifyActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ChooseLoginRegistrationActivity"
+            android:name=".activity.sign_in.view.SignInActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Register.Regis_target_Acivity"
+            android:name=".activity.register.view.RegisterFinishAcivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Register.Regis_name_Activity"
+            android:name=".activity.register.view.RegisterNameActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Register.Regis_Sex_Activity"
+            android:name=".activity.register.view.RegisterSexActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Chat.ChatActivity"
             android:hardwareAccelerated="true" />
         <activity
-            android:name=".SettingActivity"
+            android:name=".activity.edit_profile.view.EditProfileActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".activity.register.view.RegistrationActivity" />
         <activity
-            android:name=".LoginActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name=".Register.RegistrationActivity" />
-        <activity
-            android:name=".First_Activity"
+            android:name=".activity.first.view.FirstActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -100,7 +99,7 @@
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-6552917645420581~7846747654" />
+            android:value="ca-app-pub-2758646335463464~2957201525" />
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -110,9 +109,12 @@
         <meta-data
             android:name="com.google.android.gms.wallet.api.enabled"
             android:value="true" />
+        <meta-data
+            android:name="com.google.mlkit.vision.DEPENDENCIES"
+            android:value="face" />
 
         <service
-            android:name=".MyFirebaseMessagingService"
+            android:name=".services.MyFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

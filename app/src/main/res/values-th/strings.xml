@@ -97,7 +97,7 @@
     <string name="verification">แอปพลิเคชั่นได้ส่งรหัสยืนยันไปที่</string>
     <string name="please">โปรดกรอกด้านล่าง</string>
     <string name="finish">เสร็จสิ้น</string>
-    <string name="registered">ลงทะเบียน</string>
+    <string name="register">ลงทะเบียน</string>
     <string name="See_who_like">ดูว่าใครถูกใจคุณคุณ</string>
     <string name="Searching">กำลังค้นหา</string>
     <string name="chatna_empty">ยังไม่มีใครทักทายคุณ \n รออีกหน่อยนะ</string>
@@ -270,5 +270,6 @@
     <string name="aleartGPSopen">คุณต้องเปิด GPS เพื่อเข้าใช้งานแอปพลิเคชัน กรุณาลองใหม่อีกครั้ง</string>
     <string name="feedback">Feedback</string>
     <string name="blacklist">บีญชีของคุณถูกระงับการใช้งาน</string>
+    <string name="email">อีเมล</string>
 
 </resources>
