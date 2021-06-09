@@ -38,7 +38,6 @@ class MatchesActivity : Fragment() {
     private lateinit var mHiLayout: RecyclerView.LayoutManager
     private lateinit var layoutChatNa: LinearLayout
     private lateinit var currentUserId: String
-    private lateinit var dateUser: String
     private var count = 0
     private var startNode = 20
     private lateinit var textEmpty: TextView
@@ -68,9 +67,6 @@ class MatchesActivity : Fragment() {
         mHiRecyclerView.layoutManager = mHiLayout
         mHiAdapter = HiAdapter(getDataSetHi(), requireContext())
         mHiRecyclerView.adapter = mHiAdapter
-        val calendar = Calendar.getInstance()
-        val currentDate = SimpleDateFormat("dd/MM/yyyy")
-        dateUser = currentDate.format(calendar.time)
         mRecyclerView.visibility = View.GONE
         chatNaCheck()
         checkFirst()
@@ -455,7 +451,7 @@ class MatchesActivity : Fragment() {
                         }
                         resultMatchNode.sortWith { o1, o2 ->
                             when {
-                                o1.time === null -> 1
+                                o1.time === null -> -1
                                 o2.time === null -> 1
                                 else -> o2.time!!.compareTo(o1.time!!)
                             }
@@ -469,7 +465,7 @@ class MatchesActivity : Fragment() {
                     mRecyclerView.visibility = View.VISIBLE
                     resultMatches.sortWith { o1, o2 ->
                         when {
-                            o1.time === null -> 1
+                            o1.time === null -> -1
                             o2.time === null -> 1
                             else -> o2.time!!.compareTo(o1.time!!)
                         }
