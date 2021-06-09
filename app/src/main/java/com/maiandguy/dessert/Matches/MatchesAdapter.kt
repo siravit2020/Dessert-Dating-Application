@@ -25,7 +25,7 @@ class MatchesAdapter(private val matchesList: ArrayList<MatchesObject>, private 
     override fun onBindViewHolder(holder: MatchesViewHolders, position: Int) {
         holder.set(position)
         if (matchesList.elementAt(position).time != null) {
-            holder.mLateView?.hint =  TimeStampToDate(matchesList[position].time as Long).date()
+            holder.mLateView?.hint =  TimeStampToDate(matchesList[position].time as Long).time()
             holder.mLateView?.visibility = View.VISIBLE
         } else {
             holder.mLateView?.visibility = View.INVISIBLE }
