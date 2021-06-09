@@ -9,10 +9,17 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.facebook.AccessToken
+import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
+import com.facebook.login.LoginManager
+import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.database.DataSnapshot
@@ -122,7 +129,33 @@ class SignInViewModel(application: Application) : AndroidViewModel(application) 
 
                 }
     }
+    fun facebookSigIn(activity: Activity, mCallbackManager: CallbackManager) {
+        LoginManager.getInstance().logInWithReadPermissions(activity, listOf("email", "public_profile", "user_friends"))
+        LoginManager.getInstance().registerCallback(mCallbackManager, object : FacebookCallback<LoginResult?> {
+            override fun onSuccess(loginResult: LoginResult?) {
+                handleFacebookToken(loginResult?.accessToken)
+            }
 
+            override fun onCancel() {
+
+            }
+            override fun onError(exception: FacebookException?) {
+
+                resource.value = Resource.error(exception.toString(), null)
+            }
+        })
+    }
+
+    private fun handleFacebookToken(token: AccessToken?) {
+        dialog.value = true
+        val credential = FacebookAuthProvider.getCredential(token!!.token)
+        mAuth.signInWithCredential(credential).addOnCompleteListener(ContextCompat.getMainExecutor(app)) { task ->
+            if (!task.isSuccessful) {
+
+                resource.value = Resource.error("Please try again later", "face")
+            }
+        }
+    }
     fun result(requestCode: Int?, data: Intent?) {
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
