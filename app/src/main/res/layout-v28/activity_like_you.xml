@@ -63,7 +63,7 @@
         android:layout_marginRight="@dimen/View32dp"
         android:layout_marginLeft="@dimen/View32dp"
         android:background="@drawable/roundlike"
-        android:textColor="@color/cpb_white"
+        android:textColor="@color/white"
         android:translationZ="10dp"
         android:text="@string/See_who_like"
         android:layout_marginBottom="@dimen/View32dp"/>

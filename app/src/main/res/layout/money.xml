@@ -45,7 +45,7 @@
         android:layout_marginTop="@dimen/View20dp"
         android:layout_marginBottom="@dimen/View8dp"
         android:text="฿50.00 / เดือน"
-        android:textColor="@color/cpb_white"
+        android:textColor="@color/white"
 
         />
 </LinearLayout>

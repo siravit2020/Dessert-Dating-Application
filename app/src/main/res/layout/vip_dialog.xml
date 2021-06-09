@@ -14,7 +14,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/cpb_white"
+            android:background="@color/white"
             android:gravity="center"
             android:paddingTop="@dimen/View20dp"
             android:text="@string/dessert_vip"
@@ -29,7 +29,7 @@
                 android:id="@+id/viewpage"
                 android:layout_width="match_parent"
                 android:layout_height="228dp"
-                android:background="@color/cpb_white"
+                android:background="@color/white"
                 app:cycle="true"
                 app:slideDirection="right"
                 app:slideDuration="1000"
@@ -43,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/View20dp"
             android:layout_marginBottom="@dimen/View20dp"
-            android:background="@color/cpb_white"
+            android:background="@color/white"
             app:ci_drawable="@drawable/circle_pager"
             app:ci_drawable_unselected="@drawable/circle_pager2" />
 

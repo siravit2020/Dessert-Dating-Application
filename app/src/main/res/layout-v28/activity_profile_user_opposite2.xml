@@ -70,7 +70,7 @@
                 android:id="@+id/linearLayout30"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/cpb_white"
+                android:background="@color/white"
                 android:orientation="vertical"
 
                 app:layout_constraintTop_toBottomOf="@+id/slide_main"
@@ -113,7 +113,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
-                android:background="@color/cpb_white"
+                android:background="@color/white"
                 android:orientation="vertical"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout30"
                 tools:layout_editor_absoluteX="35dp">
@@ -154,7 +154,7 @@
                 android:id="@+id/linearLayout33"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/cpb_white"
+                android:background="@color/white"
                 android:orientation="vertical"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout31"
                 tools:layout_editor_absoluteX="35dp">
@@ -192,7 +192,7 @@
                 android:id="@+id/linearLayout34"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/cpb_white"
+                android:background="@color/white"
                 android:orientation="vertical"
                 >
 
@@ -230,7 +230,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/cpb_white"
+                android:background="@color/white"
                 android:orientation="vertical"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout31"
                 tools:layout_editor_absoluteX="35dp">
@@ -269,7 +269,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
-                android:background="@color/cpb_white"
+                android:background="@color/white"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -306,7 +306,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
-                android:background="@color/cpb_white"
+                android:background="@color/white"
                 android:orientation="vertical"
 
                 app:layout_constraintEnd_toEndOf="parent"
@@ -345,7 +345,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
-                android:background="@color/cpb_white"
+                android:background="@color/white"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -382,7 +382,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
-                android:background="@color/cpb_white"
+                android:background="@color/white"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -445,7 +445,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/cpb_white"
+                android:background="@color/white"
                 android:orientation="vertical"
                 android:paddingBottom="100dp" />
         </LinearLayout>

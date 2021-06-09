@@ -31,7 +31,7 @@
         android:layout_marginTop="40dp"
         android:text="@string/back"
         android:backgroundTint="@color/c1"
-        android:textColor="@color/cpb_white"
+        android:textColor="@color/white"
         android:textSize="@dimen/Text16sp" />
 
 

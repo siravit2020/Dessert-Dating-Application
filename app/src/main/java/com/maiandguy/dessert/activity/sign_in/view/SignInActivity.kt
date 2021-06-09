@@ -39,7 +39,7 @@ class SignInActivity : AppCompatActivity() {
     private val language: ChangLanguage = ChangLanguage(this)
     private lateinit var thai: TextView
     private lateinit var eng: TextView
-
+    private lateinit var facebook: LinearLayout
     private lateinit var google: LinearLayout
     private lateinit var phoneButton: LinearLayout
     private lateinit var dialog: Dialog
@@ -61,6 +61,7 @@ class SignInActivity : AppCompatActivity() {
         forgotButton = findViewById(R.id.forgot_button)
         phoneButton = findViewById(R.id.button7)
         google = findViewById(R.id.google)
+        facebook = findViewById(R.id.facebook_login)
         dialog = LoadingDialog(this).dialog()
         if (localizationDelegate.getLanguage(this).toLanguageTag() == "th") {
             thai.setTextColor(ContextCompat.getColor(applicationContext, R.color.c4))
@@ -131,6 +132,9 @@ class SignInActivity : AppCompatActivity() {
         phoneButton.setOnClickListener {
             val intent = Intent(this@SignInActivity, PhoneActivity::class.java)
             startActivity(intent)
+        }
+        facebook.setOnClickListener {
+            signInViewModel.facebookSigIn(this,mCallbackManager)
         }
         thai.setOnClickListener {
             localizationDelegate.setLanguage(this, "th")
