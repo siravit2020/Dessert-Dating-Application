@@ -15,7 +15,7 @@
         android:layout_gravity="bottom"
         android:layout_marginTop="0dp"
         android:background="@color/background_white"
-        app:cnb_backgroundColor="@color/cpb_white"
+        app:cnb_backgroundColor="@color/white"
         app:cnb_badgeColor="@color/c4"
         app:cnb_menuResource="@menu/menu" />
 
@@ -33,7 +33,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
-        android:background="@color/cpb_white"
+        android:background="@color/white"
         >
         <ProgressBar
             android:layout_width="wrap_content"

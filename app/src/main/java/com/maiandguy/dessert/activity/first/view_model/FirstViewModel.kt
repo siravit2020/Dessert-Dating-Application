@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
-import com.maiandguy.dessert.data.api.FirstAuthentication
+import com.maiandguy.dessert.services.FirstAuthentication
 import com.maiandguy.dessert.constants.CheckStatusUser
 
 class FirstViewModel : ViewModel() {

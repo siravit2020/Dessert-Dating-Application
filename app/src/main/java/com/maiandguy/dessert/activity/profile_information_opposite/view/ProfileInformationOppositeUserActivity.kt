@@ -41,6 +41,7 @@ import com.maiandguy.dessert.*
 import com.maiandguy.dessert.Chat.ChatActivity
 import com.maiandguy.dessert.R
 import com.maiandguy.dessert.constants.Id
+import com.maiandguy.dessert.dialogs.ReportUser
 import com.maiandguy.dessert.dialogs.adapter.VipSlideAdapter
 import com.maiandguy.dessert.model.PagerModel
 import com.maiandguy.dessert.utils.adapter.ScreenAdapter

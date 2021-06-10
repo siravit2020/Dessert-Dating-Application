@@ -163,7 +163,7 @@
                 android:id="@+id/google"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/View16dp"
+                android:layout_marginEnd="@dimen/View16dp"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -185,7 +185,7 @@
                 android:id="@+id/button7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                android:layout_marginEnd="@dimen/View16dp"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -201,6 +201,29 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="Phone No."
+                    android:textColor="@color/text_black_gray"
+                    android:textSize="@dimen/Text16sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/facebook_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/View40dp"
+                    android:layout_height="@dimen/View40dp"
+
+                    android:foregroundTint="@color/c3"
+                    android:src="@drawable/ic_facebook" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Facebook"
                     android:textColor="@color/text_black_gray"
                     android:textSize="@dimen/Text16sp" />
             </LinearLayout>

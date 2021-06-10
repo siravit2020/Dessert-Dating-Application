@@ -13,7 +13,7 @@ import com.maiandguy.dessert.R
 import com.maiandguy.dessert.activity.send_problem.view.SendProblemActivity
 import com.maiandguy.dessert.activity.dis_like.view.DisLike
 import com.maiandguy.dessert.activity.problem_list.ProblemListActivity
-import com.maiandguy.dessert.utils.CloseDialog
+import com.maiandguy.dessert.dialogs.CloseDialog
 
 class CloseAccount : AppCompatActivity(), View.OnClickListener {
     private lateinit var toolbar: Toolbar

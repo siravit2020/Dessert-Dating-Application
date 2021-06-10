@@ -27,7 +27,7 @@
             android:includeFontPadding="false"
             android:ellipsize="end"
             android:maxLines="1"
-            android:textColor="@color/cpb_white"
+            android:textColor="@color/white"
             android:textSize="@dimen/Text16sp"/>
 
     </com.google.android.material.card.MaterialCardView>

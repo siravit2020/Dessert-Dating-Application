@@ -50,13 +50,6 @@ class Close(private var currentUid: String, private var context: Context) {
                                  .addOnFailureListener {
                                      Log.d("CloseAccountEvent",it.toString())
                                  }
-                         //val userDb = FirebaseDatabase.getInstance().reference.child("Users").child(currentUid)
-                         /*if(userDb.removeValue().isSuccessful){
-                             val intent = Intent(context, SignInActivity::class.java)
-                             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                             context.startActivity(intent)
-                             FirebaseAuth.getInstance().signOut()
-                         }*/
 
                      }
                  }

@@ -180,7 +180,7 @@
                 android:shadowDx="1"
                 android:shadowDy="1"
                 android:shadowRadius="2"
-                android:textColor="@color/cpb_white"
+                android:textColor="@color/white"
                 android:textSize="@dimen/Text16sp" />
 
         </LinearLayout>

@@ -81,7 +81,7 @@
             android:layout_marginBottom="@dimen/View8dp"
             android:layout_marginTop="@dimen/View20dp"
             android:text="Send"
-            android:textColor="@color/cpb_white"
+            android:textColor="@color/white"
             android:textSize="@dimen/Text16sp" />
 
     </LinearLayout>

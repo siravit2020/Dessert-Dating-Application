@@ -14,7 +14,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ServerValue
 import com.maiandguy.dessert.R
-import com.maiandguy.dessert.utils.CloseDialog
+import com.maiandguy.dessert.dialogs.CloseDialog
 
 class SendProblemActivity : AppCompatActivity() {
     private lateinit var editText: EditText

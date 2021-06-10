@@ -21,6 +21,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.maiandguy.dessert.ImageChat.ItemImageActivity
 import com.maiandguy.dessert.R
 import com.ldoublem.loadingviewlib.LVCircularCD
@@ -37,6 +38,7 @@ class ChatViewHolders(itemView: View, private val context: Context) : RecyclerVi
     private var mMatchIdReal: TextView = itemView.match_id_real_image
     private var audioUrl: TextView = itemView.audio_url
     var beginAudio: TextView = itemView.begin_audio
+
     //var mContainer: LinearLayout = itemView.container
     var buttonAudio: Button = itemView.play_audio
     var mchk: RelativeLayout = itemView.lilili
@@ -44,12 +46,15 @@ class ChatViewHolders(itemView: View, private val context: Context) : RecyclerVi
     private var mchk3: RelativeLayout = itemView.li
     private var imageOpposite: ImageView = itemView.image_holder
     private var mImageSent: ImageView = itemView.img_sent
+
     //var stop_Animate: ImageView? = null
     private var progressBarAudio: ProgressBar = itemView.progressBar_playAudio
-    private var play:Boolean = false
+    private var play: Boolean = false
+
     //var mRecycler: RecyclerView?
     private var mChk: TextView = itemView.chk_image
     private var mChk2: TextView = itemView.chk_image_2
+
     //private val loading: AVLoadingIndicatorView? = null
     private lateinit var myClipboard: ClipboardManager
     private lateinit var myClip: ClipData
@@ -58,10 +63,11 @@ class ChatViewHolders(itemView: View, private val context: Context) : RecyclerVi
     private var length = 0
     private var totalLength = 0
     private lateinit var countDownTimer: CountDownTimer
+
     //private var card: CardView = itemView.findViewById(R.id.card)
     private var check = true
     private lateinit var alertDialog: AlertDialog
-    
+
     @SuppressLint("SetTextI18n")
     fun start(chatList: ChatObject) {
 
@@ -112,6 +118,10 @@ class ChatViewHolders(itemView: View, private val context: Context) : RecyclerVi
                 chatList.url !== "default" -> {
                     b()
                     imageOpposite.visibility = View.VISIBLE
+                    if (chatList.profileImageUrl == "")
+                        Glide.with(context).load(R.drawable.ic_woman).thumbnail(0.1f).into(imageOpposite)
+                    else
+                        Glide.with(context).load(chatList.profileImageUrl).thumbnail(0.1f).into(imageOpposite)
                     Glide.with(context).load(chatList.profileImageUrl).thumbnail(0.1f).into(imageOpposite)
                     Glide.with(context).load(chatList.url).thumbnail(0.1f).into(mImageSent)
                     mchk3.background = ContextCompat.getDrawable(context, R.drawable.chat_2_photo)
@@ -134,7 +144,7 @@ class ChatViewHolders(itemView: View, private val context: Context) : RecyclerVi
                     }
                     beginAudio.setTextColor(Color.parseColor("#292929"))
                     mMessage.setTextColor(Color.parseColor("#292929"))
-                   b1()
+                    b1()
                 }
                 else -> {
                     mMessage.text = chatList.message
@@ -142,7 +152,11 @@ class ChatViewHolders(itemView: View, private val context: Context) : RecyclerVi
                     cd.visibility = View.GONE
                     beginAudio.visibility = View.GONE
                     mMessage.setTextColor(Color.parseColor("#292929"))
-                    Glide.with(context).load(chatList.profileImageUrl).into(imageOpposite)
+
+                    if (chatList.profileImageUrl == "")
+                        Glide.with(context).load(R.drawable.ic_woman).into(imageOpposite)
+                    else
+                        Glide.with(context).load(chatList.profileImageUrl).into(imageOpposite)
                     mchk3.visibility = View.GONE
                     mchk.visibility = View.VISIBLE
                     mchk2.visibility = View.VISIBLE
@@ -155,9 +169,9 @@ class ChatViewHolders(itemView: View, private val context: Context) : RecyclerVi
         val itemImage = context.resources.getStringArray(R.array.chat_item_image)
         val builder = AlertDialog.Builder(context)
         myClipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        buttonAudio.setOnClickListener{
-            if(!play){
-                play =true
+        buttonAudio.setOnClickListener {
+            if (!play) {
+                play = true
                 cd.startAnim()
                 if (check) {
                     val minute = Integer.valueOf(mMessage.text.toString().substring(0, 2))
@@ -177,7 +191,9 @@ class ChatViewHolders(itemView: View, private val context: Context) : RecyclerVi
                 try {
                     mediaPlayer.setDataSource(audioUrl.text.toString())
                     mediaPlayer.prepare()
-                } catch (e: IOException) { e.printStackTrace() }
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
                 if (length == 0) {
                     mediaPlayer.start()
                 } else {
@@ -223,15 +239,15 @@ class ChatViewHolders(itemView: View, private val context: Context) : RecyclerVi
                     }
                 }.start()
 
-            }else{
-                play =false
-                Log.d("audioBackground","$play")
+            } else {
+                play = false
+                Log.d("audioBackground", "$play")
                 cd.stopAnim()
                 countDownTimer.cancel()
                 buttonAudio.background = ContextCompat.getDrawable(context, R.drawable.ic_play_circle_outline_black_24dp)
                 mediaPlayer.stop()
                 length = mediaPlayer.currentPosition
-                Log.d("audioBackground","$length")
+                Log.d("audioBackground", "$length")
                 if (mchk2.background.constantState === ContextCompat.getDrawable(context, R.drawable.chat_1_selected)!!.constantState) {
                     mchk2.background = ContextCompat.getDrawable(context, R.drawable.chat_1)
                 } else {
@@ -271,7 +287,7 @@ class ChatViewHolders(itemView: View, private val context: Context) : RecyclerVi
             }
             true
         }
-        mImageSent.setOnClickListener{
+        mImageSent.setOnClickListener {
             val intent = Intent(context, ItemImageActivity::class.java)
             intent.putExtra("matchIdReal", mMatchIdReal.text.toString())
             intent.putExtra("matchId", mMatchId.text.toString())
@@ -315,7 +331,8 @@ class ChatViewHolders(itemView: View, private val context: Context) : RecyclerVi
             true
         }
     }
-    private fun a(){
+
+    private fun a() {
         mchk3.visibility = View.VISIBLE
         mchk.visibility = View.VISIBLE
         mchk2.visibility = View.GONE
@@ -328,14 +345,15 @@ class ChatViewHolders(itemView: View, private val context: Context) : RecyclerVi
         val params = mchk3.layoutParams as RelativeLayout.LayoutParams
         params.addRule(RelativeLayout.ALIGN_PARENT_END, RelativeLayout.TRUE)
     }
-    private fun a1(){
+
+    private fun a1() {
         mchk3.visibility = View.GONE
         mchk.visibility = View.VISIBLE
         mchk2.visibility = View.VISIBLE
         val params2 = mchk2.layoutParams as RelativeLayout.LayoutParams
         params2.addRule(RelativeLayout.ALIGN_PARENT_END, RelativeLayout.TRUE)
         val params3 = mchk.layoutParams as RelativeLayout.LayoutParams
-        params2.setMargins(0,0,0,0)
+        params2.setMargins(0, 0, 0, 0)
         params3.apply {
             addRule(RelativeLayout.END_OF, 0)
             addRule(RelativeLayout.START_OF, mchk2.id)
@@ -344,7 +362,8 @@ class ChatViewHolders(itemView: View, private val context: Context) : RecyclerVi
         imageOpposite.visibility = View.GONE
         mchk2.background = ContextCompat.getDrawable(context, R.drawable.chat_1)
     }
-    private fun b(){
+
+    private fun b() {
         mchk3.visibility = View.VISIBLE
         mchk.visibility = View.VISIBLE
         mchk2.visibility = View.GONE
@@ -359,12 +378,13 @@ class ChatViewHolders(itemView: View, private val context: Context) : RecyclerVi
         imageOpposite.visibility = View.VISIBLE
         mchk2.background = ContextCompat.getDrawable(context, R.drawable.chat_2)
     }
-    private fun b1(){
+
+    private fun b1() {
         mchk3.visibility = View.GONE
         mchk.visibility = View.VISIBLE
         mchk2.visibility = View.VISIBLE
         val params2 = mchk2.layoutParams as RelativeLayout.LayoutParams
-        params2.setMargins(0,0,0,0)
+        params2.setMargins(0, 0, 0, 0)
         params2.addRule(RelativeLayout.ALIGN_PARENT_END, 0)
         val params3 = mchk.layoutParams as RelativeLayout.LayoutParams
         params3.apply {

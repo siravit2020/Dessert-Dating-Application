@@ -14,7 +14,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.maiandguy.dessert.activity.band_user.view.BandUser
 import com.maiandguy.dessert.utils.ChangLanguage
-import com.maiandguy.dessert.utils.LoadingDialog
+import com.maiandguy.dessert.dialogs.LoadingDialog
 import com.maiandguy.dessert.activity.main.view.MainActivity
 import com.maiandguy.dessert.R
 import com.maiandguy.dessert.activity.forgot_password.view.ForgotPasswordActivity
@@ -22,7 +22,6 @@ import com.maiandguy.dessert.activity.register.PhoneActivity
 import com.maiandguy.dessert.activity.register.view.RegisterNameActivity
 import com.maiandguy.dessert.activity.sign_in.view_model.SignInViewModel
 import com.maiandguy.dessert.activity.register.view.RegistrationActivity
-import com.maiandguy.dessert.activity.register.view.SendVerificationActivity
 import com.maiandguy.dessert.constants.Status
 import java.util.*
 
@@ -39,7 +38,7 @@ class SignInActivity : AppCompatActivity() {
     private val language: ChangLanguage = ChangLanguage(this)
     private lateinit var thai: TextView
     private lateinit var eng: TextView
-
+    private lateinit var facebook: LinearLayout
     private lateinit var google: LinearLayout
     private lateinit var phoneButton: LinearLayout
     private lateinit var dialog: Dialog
@@ -61,6 +60,7 @@ class SignInActivity : AppCompatActivity() {
         forgotButton = findViewById(R.id.forgot_button)
         phoneButton = findViewById(R.id.button7)
         google = findViewById(R.id.google)
+        facebook = findViewById(R.id.facebook_login)
         dialog = LoadingDialog(this).dialog()
         if (localizationDelegate.getLanguage(this).toLanguageTag() == "th") {
             thai.setTextColor(ContextCompat.getColor(applicationContext, R.color.c4))
@@ -132,6 +132,9 @@ class SignInActivity : AppCompatActivity() {
             val intent = Intent(this@SignInActivity, PhoneActivity::class.java)
             startActivity(intent)
         }
+        facebook.setOnClickListener {
+            signInViewModel.facebookSigIn(this,mCallbackManager)
+        }
         thai.setOnClickListener {
             localizationDelegate.setLanguage(this, "th")
             language.setLanguage()
@@ -149,7 +152,6 @@ class SignInActivity : AppCompatActivity() {
             overridePendingTransition(0, 0)
         }
     }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         mCallbackManager.onActivityResult(requestCode, resultCode, data)

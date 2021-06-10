@@ -15,6 +15,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import com.akexorcist.localizationactivity.core.LocalizationActivityDelegate
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -69,6 +72,7 @@ class  FilterSettingActivity : AppCompatActivity(),View.OnClickListener {
     private val language: ChangLanguage = ChangLanguage(this)
     private var valCh = false
     private lateinit var job:Job
+    private lateinit var googleSignInClient: GoogleSignInClient
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         job = CoroutineScope(Job()).launch(Dispatchers.IO) {
@@ -336,6 +340,12 @@ class  FilterSettingActivity : AppCompatActivity(),View.OnClickListener {
             status_up2["status"] = 0
             userDb.updateChildren(status_up2)
             mAuth.signOut()
+            val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestIdToken(application.getString(R.string.default_web_client_id))
+                    .requestEmail()
+                    .build()
+            googleSignInClient = GoogleSignIn.getClient(application, gso)
+            googleSignInClient.signOut()
             val intent = Intent(applicationContext, SignInActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)

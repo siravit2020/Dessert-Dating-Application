@@ -25,7 +25,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.face.FaceDetection
 import com.google.mlkit.vision.face.FaceDetectorOptions
-import com.maiandguy.dessert.utils.LoadingDialog
+import com.maiandguy.dessert.dialogs.LoadingDialog
 import com.maiandguy.dessert.R
 import com.maiandguy.dessert.activity.main.view.MainActivity
 import com.nipunru.nsfwdetector.NSFWDetector

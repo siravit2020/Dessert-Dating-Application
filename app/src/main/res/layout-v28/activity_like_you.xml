@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/background_white"
-    tools:context=".LikeYou.LikeYouActivity">
+    tools:context=".activity.like_you.view.LikeYouActivity">
     <include layout="@layout/toolsbar" />
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
@@ -63,7 +63,7 @@
         android:layout_marginRight="@dimen/View32dp"
         android:layout_marginLeft="@dimen/View32dp"
         android:background="@drawable/roundlike"
-        android:textColor="@color/cpb_white"
+        android:textColor="@color/white"
         android:translationZ="10dp"
         android:text="@string/See_who_like"
         android:layout_marginBottom="@dimen/View32dp"/>

@@ -12,6 +12,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
+import android.provider.VoicemailContract
 import android.view.MenuItem
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
@@ -20,6 +21,8 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import com.maiandguy.dessert.activity.sign_in.view.SignInActivity
 import com.maiandguy.dessert.R
+import com.maiandguy.dessert.constants.Status
+import com.maiandguy.dessert.services.LocationService
 
 class RegisterGpsActivity : AppCompatActivity(), LocationListener {
     private lateinit var mGPSDialog: Dialog
@@ -43,22 +46,8 @@ class RegisterGpsActivity : AppCompatActivity(), LocationListener {
         supportActionBar!!.setTitle(R.string.register)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
-//        if (LocationService(this).checkPermission() == Status.SUCCESS){
-//            val location =
-//                    mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-//            if(location != null) {
-//                getLocation(location)
-//            }
-//        }
         mLocationManager = this.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf<String?>(
-                    Manifest.permission.ACCESS_COARSE_LOCATION,
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.INTERNET
-            ), 1)
-        } else {
+        if (LocationService(this).checkPermission() == Status.SUCCESS){
             val location =
                     mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
             if(location != null) {
@@ -67,6 +56,7 @@ class RegisterGpsActivity : AppCompatActivity(), LocationListener {
                 mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f, this)
             }
         }
+
     }
 
     private fun getLocation(location: Location) {
@@ -99,28 +89,9 @@ class RegisterGpsActivity : AppCompatActivity(), LocationListener {
     override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {}
     override fun onProviderEnabled(provider: String) {}
     override fun onProviderDisabled(provider: String) {
-        if (provider == LocationManager.GPS_PROVIDER) {
-            showGPSDisabledDialog()
-        }
+
     }
 
-    private fun showGPSDisabledDialog() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle(R.string.GPS_Disabled)
-        builder.setMessage(R.string.GPS_open)
-        builder.setPositiveButton(R.string.open_gps) { _, _ -> startActivityForResult(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS), 0) }.setNegativeButton(R.string.report_close) { _, _ -> }
-        mGPSDialog = builder.create()
-        mGPSDialog.show()
-    }
-
-    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 0) {
-            if (!mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                showGPSDisabledDialog()
-            }
-        }
-    }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)

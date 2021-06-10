@@ -105,7 +105,7 @@
             android:layout_marginTop="@dimen/View32dp"
             android:layout_marginRight="60dp"
             android:text="@string/finish"
-            android:textColor="@color/cpb_white"
+            android:textColor="@color/white"
             android:textSize="@dimen/Text16sp"
             />
     </LinearLayout>

@@ -41,6 +41,8 @@ import com.maiandguy.dessert.*
 import com.maiandguy.dessert.R
 import com.maiandguy.dessert.activity.main.view.MainActivity
 import com.maiandguy.dessert.activity.profile_information_opposite.view.ProfileInformationOppositeUserActivity
+import com.maiandguy.dessert.dialogs.LoadingDialog
+import com.maiandguy.dessert.dialogs.ReportUser
 import com.maiandguy.dessert.utils.*
 import com.tapadoo.alerter.Alerter
 import kotlinx.android.synthetic.main.activity_chat.*
@@ -54,6 +56,7 @@ import com.maiandguy.dessert.utils.TimeStampToDate
 class ChatActivity : AppCompatActivity() {
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mChatAdapter: RecyclerView.Adapter<*>
+
     //private lateinit var mChatLayoutManager: RecyclerView.LayoutManager
     private lateinit var linearLayoutOvalSend: LinearLayout
     private lateinit var menu: LinearLayout
@@ -75,19 +78,19 @@ class ChatActivity : AppCompatActivity() {
     private var chk2 = 0
     private var timeCount = 0
     private lateinit var currentUserId: String
-    private lateinit var matchId:String
+    private lateinit var matchId: String
     private lateinit var chatId: String
     private lateinit var urlImage: String
     private lateinit var nameChat: String
     private lateinit var fileName: String
-    private lateinit var uriCamera:Uri
+    private lateinit var uriCamera: Uri
     private lateinit var mSendEditText: CustomEdittext
     private var checkBack = 0
     private lateinit var pro: ProgressBar
     private lateinit var proAudio: ProgressBar
     private lateinit var recorder: MediaRecorder
     private var active = true
-    private lateinit var timer:Timer
+    private lateinit var timer: Timer
     private lateinit var dialog: Dialog
     private lateinit var mDatabaseUser: DatabaseReference
     private lateinit var mDatabaseChat: DatabaseReference
@@ -145,9 +148,9 @@ class ChatActivity : AppCompatActivity() {
         } else {
             FirebaseDatabase.getInstance().reference.child("Users").child(currentUserId).child("connection").child("matches").child(matchId).child("ChatId")
         }
-        mDatabaseImage = FirebaseDatabase.getInstance().reference.child("Users").child(matchId).child("ProfileImage").child("profileImageUrl0")
+        mDatabaseImage = FirebaseDatabase.getInstance().reference.child("Users").child(matchId).child("ProfileImage")
         mDatabaseChat = FirebaseDatabase.getInstance().reference.child("Chat")
-        mRecord.setOnClickListener{
+        mRecord.setOnClickListener {
             if (ActivityCompat.checkSelfPermission(this@ChatActivity, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this@ChatActivity, arrayOf<String?>(
                         Manifest.permission.RECORD_AUDIO), 72)
@@ -272,7 +275,7 @@ class ChatActivity : AppCompatActivity() {
         mRecyclerView.layoutManager = mChatLayoutManager
         mChatAdapter = ChatAdapter(getDataSetChat(), this@ChatActivity)
         mSendButton = findViewById(R.id.send)
-        mSendImage.setOnClickListener{
+        mSendImage.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             intent.type = "image/*"
             startActivityForResult(Intent.createChooser(intent, "เลือกรูปภาพ"), 23)
@@ -309,7 +312,7 @@ class ChatActivity : AppCompatActivity() {
             }
         }
         mSendButton.setOnClickListener { sendMessage() }
-        linearLayoutOvalSend.setOnClickListener{ sendMessage() }
+        linearLayoutOvalSend.setOnClickListener { sendMessage() }
         mCameraOpen.setOnClickListener {
             if (ActivityCompat.checkSelfPermission(this@ChatActivity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this@ChatActivity, arrayOf<String?>(
@@ -329,19 +332,27 @@ class ChatActivity : AppCompatActivity() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val logoMoveAnimation: Animation = AnimationUtils.loadAnimation(this@ChatActivity, R.anim.fade_in2)
                 if (dataSnapshot.exists()) {
-                    urlImage = dataSnapshot.value.toString()
-                    Glide.with(applicationContext).load(urlImage).apply(RequestOptions().override(100, 100)).placeholder(R.color.background_gray).listener(object : RequestListener<Drawable?> {
-                        override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable?>?, isFirstResource: Boolean): Boolean {
-                            return false
-                        }
+                    if (dataSnapshot.child("profileImageUrl0").exists()) {
+                        urlImage = dataSnapshot.child("profileImageUrl0").value.toString()
+                        Glide.with(applicationContext).load(urlImage).apply(RequestOptions().override(100, 100)).placeholder(R.color.background_gray).listener(object : RequestListener<Drawable?> {
+                            override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable?>?, isFirstResource: Boolean): Boolean {
+                                return false
+                            }
 
-                        override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable?>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                            profile.startAnimation(logoMoveAnimation)
-                            return false
-                        }
-                    }).into(profile)
+                            override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable?>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                                profile.startAnimation(logoMoveAnimation)
+                                return false
+                            }
+                        }).into(profile)
+
+                    } else {
+                        urlImage = ""
+                        if (intent.getStringExtra("gender") == "Female") Glide.with(applicationContext).load(R.drawable.ic_woman).into(profile) else Glide.with(applicationContext).load(R.drawable.ic_man).apply(RequestOptions()).into(profile)
+                    }
+
                 } else {
-                    if (intent.getStringExtra("gender") == "Female") Glide.with(applicationContext).load(R.drawable.ic_woman).apply(RequestOptions().override(100, 100)).into(profile) else Glide.with(applicationContext).load(R.drawable.ic_man).apply(RequestOptions().override(100, 100)).into(profile)
+                    urlImage = ""
+                    if (intent.getStringExtra("gender") == "Female") Glide.with(applicationContext).load(R.drawable.ic_woman).into(profile) else Glide.with(applicationContext).load(R.drawable.ic_man).apply(RequestOptions()).into(profile)
                 }
                 getChatId()
             }
@@ -457,7 +468,7 @@ class ChatActivity : AppCompatActivity() {
         setMessage()
     }
 
-    private fun closeProgress(){
+    private fun closeProgress() {
         val logoMoveAnimation: Animation = AnimationUtils.loadAnimation(this, R.anim.fade_out2)
         logoMoveAnimation.setAnimationListener(object : Animation.AnimationListener {
             override fun onAnimationStart(animation: Animation?) {
@@ -483,7 +494,7 @@ class ChatActivity : AppCompatActivity() {
             var time: String
             var urlSend = "default"
             var audio: String
-           // var read: String
+            // var read: String
             var audioLength: String
             val myInNode = getSharedPreferences(fetchId.elementAt(i), Context.MODE_PRIVATE)
             message = myInNode.getString("text", "null")!!
@@ -508,13 +519,13 @@ class ChatActivity : AppCompatActivity() {
             val newMessage = ChatObject(message, currentUserBoolean, urlImage, time, chatId, urlSend, chk2, matchId, audio, audioLength, currentUserId)
             resultChat.add(newMessage)
             ++chk
-                if (fetchId.size == chk) {
-                    mChatAdapter.notifyDataSetChanged()
-                    mRecyclerView.adapter = mChatAdapter
-                    mRecyclerView.scrollToPosition(resultChat.size - 1)
-                    pro.visibility = View.INVISIBLE
-                    countNodeD = fetchId.size
-                }
+            if (fetchId.size == chk) {
+                mChatAdapter.notifyDataSetChanged()
+                mRecyclerView.adapter = mChatAdapter
+                mRecyclerView.scrollToPosition(resultChat.size - 1)
+                pro.visibility = View.INVISIBLE
+                countNodeD = fetchId.size
+            }
 
         }
         getFirstNode()
@@ -749,9 +760,9 @@ class ChatActivity : AppCompatActivity() {
                 val bitmap = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
                     ImageDecoder.decodeBitmap(ImageDecoder.createSource(this.contentResolver, fileUri!!))
                 } else {
-                   MediaStore.Images.Media.getBitmap(
+                    MediaStore.Images.Media.getBitmap(
                             this.contentResolver,
-                           fileUri
+                            fileUri
                     )
                 }
                 val byteOutput = ByteArrayOutputStream()
@@ -875,37 +886,37 @@ class ChatActivity : AppCompatActivity() {
 
     private fun deleteChild() {
         val dataDelete = FirebaseDatabase.getInstance().reference.child("Users")
-         FirebaseDatabase.getInstance().reference
-                 .addListenerForSingleValueEvent(object : ValueEventListener {
-                     override fun onDataChange(dataSnapshot: DataSnapshot) {
-                         val chatId = dataSnapshot.child("Users")
-                                 .child(currentUserId)
-                                 .child("connection")
-                                 .child("matches")
-                                 .child(matchId)
-                                 .child("ChatId")
-                                 .value.toString()
-                         if (dataSnapshot.child("Chat").hasChild(chatId)) {
-                             FirebaseDatabase.getInstance().reference
-                                     .child("Chat")
-                                     .child(chatId).removeValue()
-                         }
-                         dataDelete.child(currentUserId).child("connection")
-                                 .child("matches")
-                                 .child(matchId).removeValue()
-                         dataDelete.child(currentUserId).child("connection")
-                                 .child("yep")
-                                 .child(matchId).removeValue()
-                         dataDelete.child(matchId).child("connection")
-                                 .child("matches")
-                                 .child(currentUserId).removeValue()
-                         dataDelete.child(matchId).child("connection")
-                                 .child("yep")
-                                 .child(currentUserId).removeValue()
-                     }
+        FirebaseDatabase.getInstance().reference
+                .addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                        val chatId = dataSnapshot.child("Users")
+                                .child(currentUserId)
+                                .child("connection")
+                                .child("matches")
+                                .child(matchId)
+                                .child("ChatId")
+                                .value.toString()
+                        if (dataSnapshot.child("Chat").hasChild(chatId)) {
+                            FirebaseDatabase.getInstance().reference
+                                    .child("Chat")
+                                    .child(chatId).removeValue()
+                        }
+                        dataDelete.child(currentUserId).child("connection")
+                                .child("matches")
+                                .child(matchId).removeValue()
+                        dataDelete.child(currentUserId).child("connection")
+                                .child("yep")
+                                .child(matchId).removeValue()
+                        dataDelete.child(matchId).child("connection")
+                                .child("matches")
+                                .child(currentUserId).removeValue()
+                        dataDelete.child(matchId).child("connection")
+                                .child("yep")
+                                .child(currentUserId).removeValue()
+                    }
 
-                     override fun onCancelled(databaseError: DatabaseError) {}
-                 })
+                    override fun onCancelled(databaseError: DatabaseError) {}
+                })
     }
 
     private val resultChat: ArrayList<ChatObject> = ArrayList()
