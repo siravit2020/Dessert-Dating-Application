@@ -25,7 +25,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.functions.HttpsCallableResult
@@ -35,8 +34,8 @@ import com.ismaeldivita.chipnavigation.ChipNavigationBar
 import com.maiandguy.dessert.activity.card.view.CardActivity
 import com.maiandguy.dessert.utils.ChangLanguage
 import com.maiandguy.dessert.utils.GlobalVariable
-import com.maiandguy.dessert.utils.WarningDialog
-import com.maiandguy.dessert.Listcard.ListCardActivity
+import com.maiandguy.dessert.dialogs.WarningDialog
+import com.maiandguy.dessert.activity.list_card.view.ListCardActivity
 import com.maiandguy.dessert.Matches.MatchesActivity
 import com.maiandguy.dessert.activity.profile.view.ProfileActivity
 import com.maiandguy.dessert.R

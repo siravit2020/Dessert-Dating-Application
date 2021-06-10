@@ -53,4 +53,6 @@ class LocationService(private var activity: Activity) {
         mGPSDialog.window!!.setBackgroundDrawable(ContextCompat.getDrawable(activity, R.drawable.myrect2))
         mGPSDialog.show()
     }
+
+
 }

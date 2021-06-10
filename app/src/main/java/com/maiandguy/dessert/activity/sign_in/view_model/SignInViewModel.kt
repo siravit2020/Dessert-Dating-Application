@@ -5,6 +5,7 @@ import android.app.Application
 import android.content.Intent
 import android.util.Log
 import android.util.Patterns
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -187,5 +188,8 @@ class SignInViewModel(application: Application) : AndroidViewModel(application) 
         resource = MutableLiveData<Resource<String>>()
         mAuth.removeAuthStateListener(firebaseAuthStateListener)
     }
+
+
+
     fun CharSequence?.isValidEmail() = !isNullOrEmpty() && Patterns.EMAIL_ADDRESS.matcher(this).matches()
 }

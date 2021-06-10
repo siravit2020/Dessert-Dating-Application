@@ -1,13 +1,14 @@
-package com.maiandguy.dessert.utils
+package com.maiandguy.dessert.dialogs
 
 import android.app.AlertDialog
 import android.content.Context
 import androidx.core.content.ContextCompat
 import com.maiandguy.dessert.R
+import com.maiandguy.dessert.utils.Close
 
 class CloseDialog(private var context: Context, private var currentUid:String, private var FU:() -> Unit) {
     fun show(){
-        var b = false
+
         val mBuilder = AlertDialog.Builder(context)
             mBuilder.setTitle(R.string.Close_account)
             mBuilder.setMessage(R.string.Close_account_confirm)

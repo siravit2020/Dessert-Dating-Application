@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.maiandguy.dessert.Chat.ChatActivity
-import com.maiandguy.dessert.utils.ReportUser
+import com.maiandguy.dessert.dialogs.ReportUser
 import com.maiandguy.dessert.R
 
 @SuppressLint("CutPasteId")

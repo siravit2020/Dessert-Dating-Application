@@ -1,4 +1,4 @@
-package com.maiandguy.dessert.Listcard
+package com.maiandguy.dessert.activity.list_card.view
 
 import android.os.Bundle
 import android.os.Handler
@@ -19,6 +19,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
+import com.maiandguy.dessert.activity.list_card.adapter.ListCardAdapter
+import com.maiandguy.dessert.activity.list_card.model.ListCardModel
 import com.maiandguy.dessert.utils.GlobalVariable
 import com.maiandguy.dessert.R
 import kotlinx.coroutines.Dispatchers
@@ -72,18 +74,14 @@ class ListCardActivity : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) { // launch a new coroutine in background and continue
             percentage()
             detectUserCloseAccount()
-            //getStartAt()
         }
 
         mRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
                     isScroll = true
-
                 }
-
             }
-
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 currentItem = mMatchesLayoutManager.childCount
@@ -101,10 +99,7 @@ class ListCardActivity : Fragment() {
                         callFunction(countLimit, false, resultMatches.size)
                         startNode = 20
                     }
-
-
                 }
-
             }
         })
 
@@ -114,10 +109,7 @@ class ListCardActivity : Fragment() {
             }
             override fun onChildViewDetachedFromWindow(view: View) {}
         })
-
         return view
-
-
     }
 
 
@@ -170,15 +162,13 @@ class ListCardActivity : Fragment() {
     }
 
     private fun getStartAt() {
-        getUsergender()
+        getUserGender()
     }
 
-    private fun getUsergender() {
-
+    private fun getUserGender() {
         oppositeUserSex = GlobalVariable.oppositeUserSex
         oppositeUserAgeMin = GlobalVariable.oppositeUserAgeMin
         oppositeUserAgeMax = GlobalVariable.oppositeUserAgeMax
-
         xUser = GlobalVariable.x.toDouble()
         yUser = GlobalVariable.y.toDouble()
         distanceUser = when (GlobalVariable.distance) {
@@ -192,10 +182,7 @@ class ListCardActivity : Fragment() {
                 GlobalVariable.distance.toDouble()
             }
         }
-
         callFunction(countLimit, true, 0)
-
-
     }
 
     private fun percentage(){
@@ -206,9 +193,9 @@ class ListCardActivity : Fragment() {
                     .getHttpsCallable("getPercentageMatching")
                     .call(data)
                     .addOnSuccessListener { task ->
-                        val datau = task.data as Map<*, *>
-                        Log.d("testDatatatat", datau.toString())
-                        percentageMath = datau["dictionary"] as Map<*, *>
+                        val dataResult = task.data as Map<*, *>
+                        Log.d("testDatatatat", dataResult.toString())
+                        percentageMath = dataResult["dictionary"] as Map<*, *>
                         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
                             getStartAt()
                         }
@@ -243,11 +230,9 @@ class ListCardActivity : Fragment() {
                             if (resultLimit.isNotEmpty())
                                 if (type){
                                     getUser(resultLimit, 0, type, 0)
-                                    Log.d("ghu","Not empty")
                                 }
                                 else{
                                     getUser(resultLimit, 0, type, resultMatches.size - 1)
-                                    Log.d("ghu","Empty")
                                 }
                         }
 
@@ -297,7 +282,7 @@ class ListCardActivity : Fragment() {
                     if (percentageMath!![user["key"].toString()] != null) {
                         percentAdd = percentageMath!![user["key"].toString()].toString()
                     }
-                    val obj = ListCardObject(user["key"].toString(), user["name"].toString(), profileImageUrl, dis, status, user["Age"].toString(), user["sex"].toString(), myself, offStatus, typeTime, time, percentAdd)
+                    val obj = ListCardModel(user["key"].toString(), user["name"].toString(), profileImageUrl, dis, status, user["Age"].toString(), user["sex"].toString(), myself, offStatus, typeTime, time, percentAdd)
                     resultMatches.add(obj)
 
                 }
@@ -319,8 +304,8 @@ class ListCardActivity : Fragment() {
         }
     }
 
-    private val resultMatches: ArrayList<ListCardObject?> = ArrayList()
-    private fun getDataSetMatches(): ArrayList<ListCardObject?> {
+    private val resultMatches: ArrayList<ListCardModel?> = ArrayList()
+    private fun getDataSetMatches(): ArrayList<ListCardModel?> {
         return resultMatches
     }
 

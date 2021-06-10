@@ -1,4 +1,4 @@
-package com.maiandguy.dessert.utils
+package com.maiandguy.dessert.dialogs
 
 import android.app.Dialog
 import android.content.Context

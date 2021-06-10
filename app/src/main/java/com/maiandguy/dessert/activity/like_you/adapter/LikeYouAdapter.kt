@@ -1,4 +1,4 @@
-package com.maiandguy.dessert.LikeYou
+package com.maiandguy.dessert.activity.like_you.adapter
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -19,11 +19,12 @@ import com.google.firebase.database.FirebaseDatabase
 import com.maiandguy.dessert.utils.TimeStampToDate
 import com.maiandguy.dessert.activity.profile_information_opposite.view.ProfileInformationOppositeUserActivity
 import com.maiandguy.dessert.R
+import com.maiandguy.dessert.activity.LikeYou.LikeYouModel
 import java.text.DecimalFormat
 
-class LikeYouAdapter(private val Like: MutableList<LikeYouObject>, private val context: Activity) : RecyclerView.Adapter<LikeYouAdapter.Holder?>() {
+class LikeYouAdapter(private val like: MutableList<LikeYouModel>, private val context: Activity) : RecyclerView.Adapter<LikeYouAdapter.ViewHolder?>() {
 
-    inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val imageView: ImageView = itemView.findViewById(R.id.Match_Image)
         private val status: ImageView = itemView.findViewById(R.id.on_off_matches)
         private val name: TextView = itemView.findViewById(R.id.Matches_name)
@@ -38,52 +39,52 @@ class LikeYouAdapter(private val Like: MutableList<LikeYouObject>, private val c
         fun set(position: Int) {
             val df2 = DecimalFormat("#.#")
 
-            val t = TimeStampToDate(Like[position].time)
-            val dateUser = t.date()
-            if (t.getCurrentTime() != dateUser) {
-                time.text = dateUser
+            val time = TimeStampToDate(like[position].time)
+            val dateUser = time.date()
+            if (time.getCurrentTime() != dateUser) {
+                this.time.text = dateUser
             } else {
-                time.text = context.getString(R.string.today) + " " + t.time()
+                this.time.text = context.getString(R.string.today) + " " + time.time()
             }
 
-            Glide.with(context).load(Like[position].profileImageUrl).apply(RequestOptions().override(100, 100)).into(imageView)
+            Glide.with(context).load(like[position].profileImageUrl).apply(RequestOptions().override(100, 100)).into(imageView)
             container.animation = AnimationUtils.loadAnimation(context, R.anim.item_animation_fall_down)
-            name.text = Like[position].name
-            if (Like[position].status == "0") {
+            name.text = like[position].name
+            if (like[position].status == "0") {
                 Glide.with(context).load(R.drawable.offline_user).into(status)
             } else {
                 Glide.with(context).load(R.drawable.online_user).into(status)
             }
-            if (Like[position].gender == "Male") {
-                tag.text = context.getString(R.string.Male_semi) + " " + Like[position].Age
+            if (like[position].gender == "Male") {
+                tag.text = context.getString(R.string.Male_semi) + " " + like[position].Age
             } else {
-                tag.text = context.getString(R.string.Female_semi) + " " + Like[position].Age
+                tag.text = context.getString(R.string.Female_semi) + " " + like[position].Age
             }
-            city.text = Like[position].city + ", " + df2.format(Like[position].distance) + " km"
-            container.setOnClickListener{
-                seeDB = FirebaseDatabase.getInstance().reference.child("Users").child(Like[position].userId!!).child("see_profile").child(userID)
+            city.text = like[position].city + ", " + df2.format(like[position].distance) + " km"
+            container.setOnClickListener {
+                seeDB = FirebaseDatabase.getInstance().reference.child("Users").child(like[position].userId!!).child("see_profile").child(userID)
                 seeDB!!.setValue(true)
                 val intent = Intent(context, ProfileInformationOppositeUserActivity::class.java)
-                intent.putExtra("User_opposite", Like[position].userId)
+                intent.putExtra("User_opposite", like[position].userId)
                 intent.putExtra("form_like", "1")
-                intent.putExtra("position",position)
-                context.startActivityForResult(intent,11)
+                intent.putExtra("position", position)
+                context.startActivityForResult(intent, 11)
             }
         }
 
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_likeyou, parent, false)
-        return Holder(view)
+        return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.set(position)
+    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
+        viewHolder.set(position)
     }
 
     override fun getItemCount(): Int {
-        return Like.size
+        return like.size
     }
 
 

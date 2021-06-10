@@ -1,4 +1,4 @@
-package com.maiandguy.dessert.utils
+package com.maiandguy.dessert.dialogs
 
 import android.annotation.SuppressLint
 import android.app.Activity

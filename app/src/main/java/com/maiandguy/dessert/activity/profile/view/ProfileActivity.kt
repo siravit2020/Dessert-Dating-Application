@@ -33,12 +33,11 @@ import com.maiandguy.dessert.activity.filter_setting.view.FilterSettingActivity
 import com.maiandguy.dessert.constants.Id
 import com.maiandguy.dessert.utils.DialogSlide
 import com.maiandguy.dessert.utils.GlobalVariable
-import com.maiandguy.dessert.LikeYou.LikeYouActivity
+import com.maiandguy.dessert.activity.like_you.view.LikeYouActivity
 import com.maiandguy.dessert.R
 import com.maiandguy.dessert.activity.send_problem.view.SendProblemActivity
 import com.maiandguy.dessert.activity.edit_profile.view.EditProfileActivity
 import com.maiandguy.dessert.activity.profile_information.view.ProfileInformationsActivity
-import kotlinx.android.synthetic.main.activity_profile.*
 import java.io.IOException
 import java.util.*
 

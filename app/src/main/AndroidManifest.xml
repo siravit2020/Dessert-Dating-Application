@@ -37,7 +37,7 @@
         <activity android:name=".activity.band_user.view.BandUser" />
         <activity android:name=".activity.show_gps_open.view.ShowGpsOpen" />
         <activity
-            android:name=".LikeYou.LikeYouActivity"
+            android:name="com.maiandguy.dessert.activity.like_you.view.LikeYouActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.register.view.RegisterGpsActivity"

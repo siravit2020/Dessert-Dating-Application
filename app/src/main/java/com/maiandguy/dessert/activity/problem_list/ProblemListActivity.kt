@@ -13,7 +13,7 @@ import androidx.appcompat.widget.Toolbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.maiandguy.dessert.R
-import com.maiandguy.dessert.utils.CloseDialog
+import com.maiandguy.dessert.dialogs.CloseDialog
 import kotlinx.android.synthetic.main.activity_problem_list.c1
 import kotlinx.android.synthetic.main.activity_problem_list.c2
 import kotlinx.android.synthetic.main.activity_problem_list.c3

@@ -1,5 +1,6 @@
-package com.maiandguy.dessert.LikeYou
+package com.maiandguy.dessert.activity.like_you.view
 
+import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
@@ -11,6 +12,7 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
@@ -18,10 +20,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.google.firebase.functions.ktx.functions
-import com.google.firebase.ktx.Firebase
 
 import com.maiandguy.dessert.R
+import com.maiandguy.dessert.activity.LikeYou.DateModel
+import com.maiandguy.dessert.activity.LikeYou.LikeYouModel
+import com.maiandguy.dessert.activity.like_you.adapter.LikeYouAdapter
 import com.maiandguy.dessert.utils.CalculateDistance
 import com.maiandguy.dessert.utils.City
 import com.maiandguy.dessert.utils.CloseLoading
@@ -35,14 +38,14 @@ import java.util.*
 
 @Suppress("TYPE_INFERENCE_ONLY_INPUT_TYPES_WARNING")
 class LikeYouActivity : AppCompatActivity() {
-    private lateinit var LikeYouRecycleview: RecyclerView
-    private lateinit var LikeYouAdapter: RecyclerView.Adapter<*>
-    private lateinit var LikeYouLayoutManager: RecyclerView.LayoutManager
+    private lateinit var likeYouRecycleview: RecyclerView
+    private lateinit var likeYouAdapter: RecyclerView.Adapter<*>
+    private lateinit var likeYouLayoutManager: RecyclerView.LayoutManager
     private lateinit var currentUserId: String
     private lateinit var connectionDb: DatabaseReference
     private lateinit var userDb: DatabaseReference
-    private var x_user = 0.0
-    private var y_user = 0.0
+    private var xUser = 0.0
+    private var yUser = 0.0
     private lateinit var blurView: BlurView
     private lateinit var button: Button
     private lateinit var empty: TextView
@@ -50,7 +53,6 @@ class LikeYouActivity : AppCompatActivity() {
     private lateinit var ff: Geocoder
     private var activity = this
     var toolbar: Toolbar? = null
-    private var functions = Firebase.functions
     private lateinit var language: String
     private var countUser = 0
     private var countU = 0
@@ -59,7 +61,7 @@ class LikeYouActivity : AppCompatActivity() {
     private var limit = 0
     private var status = false
     private lateinit var co: CoroutineScope
-    private lateinit var resultlimit: ArrayList<data>
+    private lateinit var resultlimit: ArrayList<DateModel>
     private var isScroll = false
     private var currentItem = 0
     private var totalItem = 0
@@ -73,6 +75,7 @@ class LikeYouActivity : AppCompatActivity() {
         button = findViewById(R.id.buttonsee)
         empty = findViewById(R.id.empty)
         toolbar = findViewById(R.id.my_tools)
+
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         button.setOnClickListener { openDialog() }
@@ -80,8 +83,8 @@ class LikeYouActivity : AppCompatActivity() {
         currentUserId = FirebaseAuth.getInstance().currentUser!!.uid
         userDb = FirebaseDatabase.getInstance().reference.child("Users")
         connectionDb = userDb.child(currentUserId).child("connection").child("yep")
-        s = GlobalVariable.s//intent.getIntExtra("See", 0)
-        c = GlobalVariable.c//intent.getIntExtra("Like", 0)
+        s = GlobalVariable.s
+        c = GlobalVariable.c
         val preferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
         language = preferences.getString("My_Lang", "").toString()
         ff = if (language == "th") {
@@ -117,8 +120,8 @@ class LikeYouActivity : AppCompatActivity() {
         co.launch {
             withContext(Dispatchers.Default) {
                 GlobalVariable.apply {
-                    Log.d("check",vip.toString())
-                    Log.d("check",buyLike.toString())
+                    Log.d("check", vip.toString())
+                    Log.d("check", buyLike.toString())
                     if (!vip)
                         if (!intent.hasExtra("See")) {
                             if (!buyLike) {
@@ -127,8 +130,8 @@ class LikeYouActivity : AppCompatActivity() {
                                 progress_like.visibility = View.GONE
                             }
                         }
-                    x_user = x.toDouble()
-                    y_user = y.toDouble()
+                    xUser = x.toDouble()
+                    yUser = y.toDouble()
                 }
             }
             if (status)
@@ -142,7 +145,7 @@ class LikeYouActivity : AppCompatActivity() {
                                 time = dataSnapshot.child("date").value.toString().toLong()
                             }
 
-                            resultlimit.add(data(dataSnapshot.key.toString(), time))
+                            resultlimit.add(DateModel(dataSnapshot.key.toString(), time))
 
                             Log.d("ttt", "" + resultlimit.size + " :" + limit)
                             if (resultlimit.size == limit) {
@@ -150,10 +153,10 @@ class LikeYouActivity : AppCompatActivity() {
                                     (t2.time - t1.time).toInt()
                                 }
                                 starTarget = startNode + 20
-                                if(limit <= 20) starTarget = limit
+                                if (limit <= 20) starTarget = limit
                                 for (i in startNode until starTarget) {
                                     Log.d("num", i.toString())
-                                    fecthHi(resultlimit[i].key, resultlimit[i].time, 0, 0)
+                                    readData(resultlimit[i].key, resultlimit[i].time, 0, 0)
                                 }
                             }
 
@@ -177,14 +180,14 @@ class LikeYouActivity : AppCompatActivity() {
 
 
         }
-        LikeYouRecycleview = findViewById(R.id.like_you_recycle)
-        LikeYouRecycleview.isNestedScrollingEnabled = false
-        LikeYouRecycleview.setHasFixedSize(true)
-        LikeYouLayoutManager = LinearLayoutManager(this@LikeYouActivity)
-        LikeYouRecycleview.layoutManager = LikeYouLayoutManager
-        LikeYouAdapter = LikeYouAdapter(getDataSetMatches(), this@LikeYouActivity)
-        LikeYouRecycleview.adapter = LikeYouAdapter
-        LikeYouRecycleview.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        likeYouRecycleview = findViewById(R.id.like_you_recycle)
+        likeYouRecycleview.isNestedScrollingEnabled = false
+        likeYouRecycleview.setHasFixedSize(true)
+        likeYouLayoutManager = LinearLayoutManager(this@LikeYouActivity)
+        likeYouRecycleview.layoutManager = likeYouLayoutManager
+        likeYouAdapter = LikeYouAdapter(getDataSetMatches(), this@LikeYouActivity)
+        likeYouRecycleview.adapter = likeYouAdapter
+        likeYouRecycleview.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
                     isScroll = true
@@ -195,31 +198,26 @@ class LikeYouActivity : AppCompatActivity() {
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                currentItem = LikeYouLayoutManager.childCount
-                totalItem = LikeYouLayoutManager.itemCount
-                scrollOutItem = (LikeYouLayoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+                currentItem = likeYouLayoutManager.childCount
+                totalItem = likeYouLayoutManager.itemCount
+                scrollOutItem = (likeYouLayoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
 
                 if (isScroll && currentItem + scrollOutItem == totalItem && totalItem >= countU) {
                     countU = 0
                     isScroll = false
                     if (startNode < limit) {
                         startNode += 20
-                        Log.d("ffgh", "$startNode,$limit,$currentItem,$totalItem,$scrollOutItem")
                         var target = startNode + 20
                         if (startNode + 20 > limit)
                             target = limit
                         for (i in startNode until target) {
                             if (i == target - 1)
-                                fecthHi(resultlimit[i].key, resultlimit[i].time, resultLike.size - 1, 1)
+                                readData(resultlimit[i].key, resultlimit[i].time, resultLike.size - 1, 1)
                             else
-                                fecthHi(resultlimit[i].key, resultlimit[i].time, resultLike.size - 1, 0)
-
+                                readData(resultlimit[i].key, resultlimit[i].time, resultLike.size - 1, 0)
                         }
-
                     }
-
                 }
-
             }
         })
 
@@ -252,13 +250,10 @@ class LikeYouActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    private fun fecthHi(key: String, time: Long, count: Int, li: Int) {
+    private fun readData(key: String, time: Long, count: Int, li: Int) {
 
         userDb.child(key).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-
-
-                Log.d("count", "" + resultLike.size + "==" + countUser)
                 countUser++
                 if (dataSnapshot.exists()) {
                     countU++
@@ -276,40 +271,32 @@ class LikeYouActivity : AppCompatActivity() {
                     }
                     val x: Double = dataSnapshot.child("Location").child("X").value.toString().toDouble()
                     val y: Double = dataSnapshot.child("Location").child("Y").value.toString().toDouble()
-                    val distance = CalculateDistance.calculate(x_user, y_user, x, y)
+                    val distance = CalculateDistance.calculate(xUser, yUser, x, y)
                     city = City(language, this@LikeYouActivity, x, y).invoke()
-                    resultLike.add(LikeYouObject(
-                            userId, profileImageUrl, name, status, age, gender, myself, distance, city, time))
+                    resultLike.add(LikeYouModel(
+                            userId, profileImageUrl, name, status, age, gender, myself, distance, city, time,
+                    ))
                     Log.d("add", name)
                 } else {
-                    Log.d("delete",dataSnapshot.key.toString())
+                    Log.d("delete", dataSnapshot.key.toString())
                     connectionDb.child(dataSnapshot.key.toString()).removeValue().addOnSuccessListener {
                         if (intent.hasExtra("See")) GlobalVariable.s-- else GlobalVariable.c--
                     }
                 }
-
-
                 Log.d("start", startNode.toString() + resultLike.size)
                 if (countUser == starTarget) {
-                   // startNode = resultLike.size
-                    LikeYouAdapter.notifyDataSetChanged()
+                    likeYouAdapter.notifyDataSetChanged()
                     CloseLoading(this@LikeYouActivity, progress_like).invoke()
-
-
                 }
-                if (li == 1) LikeYouAdapter.notifyItemRangeChanged(count, resultLike.size)
-
-                //LikeYouRecycleview.scheduleLayoutAnimation()
-
-
+                if (li == 1) likeYouAdapter.notifyItemRangeChanged(count, resultLike.size)
             }
 
             override fun onCancelled(databaseError: DatabaseError) {}
         })
     }
 
-    private val resultLike: ArrayList<LikeYouObject> = ArrayList()
-    private fun getDataSetMatches(): MutableList<LikeYouObject> {
+    private val resultLike: ArrayList<LikeYouModel> = ArrayList()
+    private fun getDataSetMatches(): MutableList<LikeYouModel> {
         return resultLike
     }
 
@@ -324,7 +311,6 @@ class LikeYouActivity : AppCompatActivity() {
     }
 
 
-
     private fun buyLike() {
         val currentUserId = FirebaseAuth.getInstance().currentUser!!.uid
         val databaseReference = FirebaseDatabase.getInstance().reference.child("Users").child(currentUserId)
@@ -336,22 +322,24 @@ class LikeYouActivity : AppCompatActivity() {
         }
     }
 
+
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode == 11){
-            if(resultCode == 11){
-                Log.d("result","re11")
-                val status = data!!.getBooleanExtra("status",false)
-                if(status){
-                    Log.d("result",LikeYouAdapter.itemCount.toString() + resultLike.size)
-                    val result = data.getIntExtra("result",0)
+        if (requestCode == 11) {
+            if (resultCode == 11) {
+                Log.d("result", "re11")
+                val status = data!!.getBooleanExtra("status", false)
+                if (status) {
+                    Log.d("result", likeYouAdapter.itemCount.toString() + resultLike.size)
+                    val result = data.getIntExtra("result", 0)
                     resultLike.removeAt(result)
-                    LikeYouAdapter.notifyDataSetChanged()
-                    Log.d("result",LikeYouAdapter.itemCount.toString() +resultLike.size)
+                    likeYouAdapter.notifyDataSetChanged()
+                    Log.d("result", likeYouAdapter.itemCount.toString() + resultLike.size)
 
                 }
             }
-            Log.d("result","11")
+            Log.d("result", "11")
         }
     }
 

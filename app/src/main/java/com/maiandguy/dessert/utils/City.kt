@@ -9,7 +9,6 @@ import java.util.*
 class City(private var language: String,private var context:Context,private var x:Double,private var y:Double) {
 
     private var ff: Geocoder? = null
-
     operator fun invoke(): String {
         ff = if (language == "th") {
             Geocoder(context)
@@ -26,7 +25,5 @@ class City(private var language: String,private var context:Context,private var 
         }
         return "null"
     }
-
-
 
 }
