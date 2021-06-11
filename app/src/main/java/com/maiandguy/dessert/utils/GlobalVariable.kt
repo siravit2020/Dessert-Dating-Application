@@ -18,8 +18,8 @@ class GlobalVariable : Application(){
         var age: Int = 0
         var name: String = ""
         var buyLike: Boolean = false
-        var s: Int = 0
+        var seeYou: Int = 0
         var vip = false
-        var c = 0
+        var likeYou = 0
     }
 }

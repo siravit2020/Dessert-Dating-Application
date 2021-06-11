@@ -1,6 +1,5 @@
 package com.maiandguy.dessert.activity.like_you.view
 
-import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
@@ -12,7 +11,6 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
@@ -83,8 +81,8 @@ class LikeYouActivity : AppCompatActivity() {
         currentUserId = FirebaseAuth.getInstance().currentUser!!.uid
         userDb = FirebaseDatabase.getInstance().reference.child("Users")
         connectionDb = userDb.child(currentUserId).child("connection").child("yep")
-        s = GlobalVariable.s
-        c = GlobalVariable.c
+        s = GlobalVariable.seeYou
+        c = GlobalVariable.likeYou
         val preferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
         language = preferences.getString("My_Lang", "").toString()
         ff = if (language == "th") {
@@ -280,7 +278,7 @@ class LikeYouActivity : AppCompatActivity() {
                 } else {
                     Log.d("delete", dataSnapshot.key.toString())
                     connectionDb.child(dataSnapshot.key.toString()).removeValue().addOnSuccessListener {
-                        if (intent.hasExtra("See")) GlobalVariable.s-- else GlobalVariable.c--
+                        if (intent.hasExtra("See")) GlobalVariable.seeYou-- else GlobalVariable.likeYou--
                     }
                 }
                 Log.d("start", startNode.toString() + resultLike.size)

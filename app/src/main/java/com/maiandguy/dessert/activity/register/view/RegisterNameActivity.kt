@@ -7,9 +7,11 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.google.android.material.snackbar.Snackbar
 
 import com.google.firebase.auth.FirebaseAuth
 import com.maiandguy.dessert.R
+import com.maiandguy.dessert.utils.ScanString
 import com.tapadoo.alerter.Alerter
 
 
@@ -32,14 +34,19 @@ class RegisterNameActivity : AppCompatActivity() {
         b1.setOnClickListener {
             if (t1.text.toString().trim { it <= ' ' }.isNotEmpty()) {
                 Alerter.hide()
-                val intent = Intent(this@RegisterNameActivity, RegisterGpsActivity::class.java)
-                intent.apply {
-                    putExtra("Name", t1.text.toString())
-                    putExtra("Type", getIntent().getStringExtra("Type"))
-                    putExtra("email", getIntent().getStringExtra("email"))
-                    putExtra("password", getIntent().getStringExtra("password"))
+                if (ScanString.scan(t1.text.toString())) {
+                    val intent = Intent(this@RegisterNameActivity, RegisterGpsActivity::class.java)
+                    intent.apply {
+                        putExtra("Name", t1.text.toString())
+
+                        putExtra("email", getIntent().getStringExtra("email"))
+                        putExtra("password", getIntent().getStringExtra("password"))
+                    }
+                    startActivity(intent)
+                } else {
+                    Snackbar.make(t1, "โปรดใช้คำที่เเหมาะสม", Snackbar.LENGTH_SHORT).show()
                 }
-                startActivity(intent)
+
             } else {
                 Alerter.create(this@RegisterNameActivity)
                         .setTitle(R.string.Noti)
@@ -52,7 +59,7 @@ class RegisterNameActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-       FirebaseAuth.getInstance().signOut()
+        FirebaseAuth.getInstance().signOut()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

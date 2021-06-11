@@ -10,7 +10,7 @@ import com.maiandguy.dessert.R
 
 class LoadingDialog(private var context: Context) {
     fun dialog(): Dialog {
-        val dialog = Dialog(context)
+        val dialog = Dialog(context,android.R.style.Theme_Black_NoTitleBar_Fullscreen)
         val inflater = LayoutInflater.from(context)
         val view = inflater.inflate(R.layout.progress_dialog, null)
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))

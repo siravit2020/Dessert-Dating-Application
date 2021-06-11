@@ -50,7 +50,6 @@ class RegisterSexActivity : AppCompatActivity() {
                 intent.putExtra("Sex", sex)
                 intent.putExtra("X", getIntent().getDoubleExtra("X", 0.0))
                 intent.putExtra("Y", getIntent().getDoubleExtra("Y", 0.0))
-                intent.putExtra("Type", getIntent().getStringExtra("Type"))
                 intent.putExtra("Name", getIntent().getStringExtra("Name"))
                 intent.putExtra("email", getIntent().getStringExtra("email"))
                 intent.putExtra("password", getIntent().getStringExtra("password"))

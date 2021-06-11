@@ -427,7 +427,7 @@ class ProfileInformationOppositeUserActivity : AppCompatActivity(), BillingProce
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if (dataSnapshot.exists()) {
                     delete=true
-                    GlobalVariable.c = GlobalVariable.c - 1
+                    GlobalVariable.likeYou = GlobalVariable.likeYou - 1
                     val key = FirebaseDatabase.getInstance().reference.child("Chat").push().key
                     usersDb.child(dataSnapshot.key!!).child("connection").child("matches").child(currentUid).child("ChatId").setValue(key)
                     usersDb.child(currentUid).child("connection").child("matches").child(dataSnapshot.key!!).child("ChatId").setValue(key)

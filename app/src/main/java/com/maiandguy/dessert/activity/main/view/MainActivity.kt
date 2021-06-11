@@ -30,6 +30,8 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.functions.HttpsCallableResult
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.remoteconfig.ktx.remoteConfig
+import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 import com.ismaeldivita.chipnavigation.ChipNavigationBar
 import com.maiandguy.dessert.activity.card.view.CardActivity
 import com.maiandguy.dessert.utils.ChangLanguage
@@ -63,6 +65,7 @@ class MainActivity : AppCompatActivity() ,LocationListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         language.setLanguage()
+        remote()
         permissionCheck()
         setContentView(R.layout.activity_main)
         load = findViewById(R.id.candyCane)
@@ -180,6 +183,23 @@ class MainActivity : AppCompatActivity() ,LocationListener {
             }
         }
     }
+
+    private fun remote(){
+        val remoteConfig = Firebase.remoteConfig
+        val configSettings = remoteConfigSettings {
+
+            minimumFetchIntervalInSeconds = 10
+        }
+        remoteConfig.setConfigSettingsAsync(configSettings)
+        remoteConfig.fetchAndActivate()
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        Log.d("show_vip",remoteConfig.getBoolean("show_vip").toString())
+                        Log.d("show_vip",remoteConfig.getString("show"))
+                    }
+                }
+
+    }
     private fun getUnreadFunction(): Task<HttpsCallableResult> {
         val data = hashMapOf(
                 "uid" to "test"
@@ -258,18 +278,18 @@ class MainActivity : AppCompatActivity() ,LocationListener {
                 }
                 if (dataSnapshot.child("connection").hasChild("yep")) {
 
-                    GlobalVariable.c = dataSnapshot.child("connection").child("yep").childrenCount.toInt()
+                    GlobalVariable.likeYou = dataSnapshot.child("connection").child("yep").childrenCount.toInt()
                 } else {
 
-                    GlobalVariable.c = 0
+                    GlobalVariable.likeYou = 0
 
                 }
                 if (dataSnapshot.hasChild("see_profile")) {
 
-                    GlobalVariable.s = dataSnapshot.child("see_profile").childrenCount.toInt()
+                    GlobalVariable.seeYou = dataSnapshot.child("see_profile").childrenCount.toInt()
                 } else {
 
-                    GlobalVariable.s = 0
+                    GlobalVariable.seeYou = 0
                 }
                 GlobalVariable.buyLike = dataSnapshot.hasChild("buy_like")
                 GlobalVariable.name = dataSnapshot.child("name").value.toString()
@@ -325,6 +345,7 @@ class MainActivity : AppCompatActivity() ,LocationListener {
         }
     }
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == 8) {
             if (grantResults.isNotEmpty() && grantResults[0] != PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this@MainActivity, "fail GPS", Toast.LENGTH_SHORT).show()
