@@ -175,7 +175,7 @@
     <string name="out_of_questions">Sorry, Out of question !!</string>
     <string name="out_of_questions_description">Out of question</string>
     <string name="email">email</string>
-
+    <string name="error_title">Error, Something went wrong !!</string>
 
     <string-array name="shopping_item">
         <item>จัดดอกไม้-ทำสวน</item>

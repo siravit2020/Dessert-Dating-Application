@@ -3,23 +3,22 @@ package com.maiandguy.dessert.utils
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import com.facebook.bolts.Task
-import com.google.android.gms.tasks.Tasks.await
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.functions.FirebaseFunctions
-import com.google.firebase.functions.HttpsCallableResult
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.maiandguy.dessert.activity.sign_in.view.SignInActivity
-import kotlinx.coroutines.*
+import com.maiandguy.dessert.dialogs.LoadingDialog
 
 class Close(private var currentUid: String, private var context: Context) {
     private var functions: FirebaseFunctions = Firebase.functions
+    private val loadingDialog = LoadingDialog(context).dialog()
+    private val errorDialog = ErrorDialog(context)
     fun delete() {
+        loadingDialog.show()
         val userDb = Firebase.database.reference.child("Users").child(FirebaseAuth.getInstance().uid.toString())
         val user = Firebase.auth.currentUser!!
         val data = hashMapOf(
@@ -46,15 +45,21 @@ class Close(private var currentUid: String, private var context: Context) {
                                      intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                                      context.startActivity(intent)
                                      FirebaseAuth.getInstance().signOut()
+                                     errorDialog.questionAskDialog(it.data.toString()).show()
+                                     loadingDialog.dismiss()
                                  }
                                  .addOnFailureListener {
                                      Log.d("CloseAccountEvent",it.toString())
+                                     errorDialog.questionAskDialog(it.toString()).show()
+                                     loadingDialog.dismiss()
                                  }
 
                      }
                  }
                  .addOnFailureListener{
                      Log.d("CloseAccountEvent",it.toString())
+                     errorDialog.questionAskDialog("กรุณาล็อคอินใหม่และลองใหม่อีกครั้ง").show()
+                     loadingDialog.dismiss()
                  }
 
     }

@@ -535,11 +535,11 @@ class ChatActivity : AppCompatActivity() {
         var chatDatabase: Query? = mDatabaseChat
         closeProgress()
         if (fetchId!!.size > 0) {
-            Toast.makeText(this@ChatActivity, "Size > 1 :" + fetchId.elementAt(fetchId.size - 1), Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this@ChatActivity, "Size > 1 :" + fetchId.elementAt(fetchId.size - 1), Toast.LENGTH_SHORT).show()
             chatDatabase = mDatabaseChat.orderByKey().startAt(fetchId.elementAt(fetchId.size - 1))
 
         } else if (start != "null" && fetchId.size == 0) {
-            Toast.makeText(this@ChatActivity, "Size == 0 :$start", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this@ChatActivity, "Size == 0 :$start", Toast.LENGTH_SHORT).show()
             chatDatabase = mDatabaseChat.orderByKey().startAt(start)
 
         }

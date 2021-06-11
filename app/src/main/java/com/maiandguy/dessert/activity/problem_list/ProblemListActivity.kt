@@ -89,31 +89,39 @@ class ProblemListActivity : AppCompatActivity(), View.OnClickListener {
             fun send() {
                 dB.addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
-                        val sendMap = hashMapOf<String, Any>()
-                        val sendMap2 = hashMapOf<String, Any>()
-                        val map: Map<*, *> = snapshot.value as Map<*, *>
-                        Log.d("map", map.toString())
-                        if (c1.isChecked) {
-                            sendMap["notFound"] = map["notFound"].toString().toInt() + 1
-                        }
-                        if (c2.isChecked) {
-                            sendMap["badApp"] = map["badApp"].toString().toInt() + 1
-                        }
-                        if (c3.isChecked) {
-                            sendMap["MatchMiss"] = map["MatchMiss"].toString().toInt() + 1
-                        }
-                        if (c4.isChecked) {
-                            sendMap["overAndOver"] = map["overAndOver"].toString().toInt() + 1
-                        }
-                        if (c5.isChecked) {
-                            sendMap["badChat"] = map["badChat"].toString().toInt() + 1
-                        }
-                        if (st) {
-                            sendMap2[editText.text.toString()] = ServerValue.TIMESTAMP
-                        }
-                        dB.updateChildren(sendMap)
-                        dB.child("other").updateChildren(sendMap2)
+                        try{
+                            val sendMap = hashMapOf<String, Any>()
+                            val sendMapOther = hashMapOf<String, Any>()
+                            val map: Map<*, *> = snapshot.value as Map<*, *>
+                            Log.d("map", map.toString())
+                            if (c1.isChecked) {
+                                sendMap["notFound"] = map["notFound"].toString().toInt() + 1
+                            }
+                            if (c2.isChecked) {
+                                sendMap["badApp"] = map["badApp"].toString().toInt() + 1
+                            }
+                            if (c3.isChecked) {
+                                sendMap["MatchMiss"] = map["MatchMiss"].toString().toInt() + 1
+                            }
+                            if (c4.isChecked) {
+                                sendMap["overAndOver"] = map["overAndOver"].toString().toInt() + 1
+                            }
+                            if (c5.isChecked) {
+                                sendMap["badChat"] = map["badChat"].toString().toInt() + 1
+                            }
+                            if (st) {
+                                sendMapOther.let {
+                                    it["date"] = ServerValue.TIMESTAMP
+                                    it["message"]= editText.text.toString()
+                                }
+                            }
 
+                            dB.updateChildren(sendMap)
+                            val newNode = dB.child("other").push()
+                            newNode.setValue(sendMapOther)
+                        }catch (e:Exception){
+                            Log.e("CloseAccountEvent" , e.toString())
+                        }
                     }
 
                     override fun onCancelled(error: DatabaseError) {
