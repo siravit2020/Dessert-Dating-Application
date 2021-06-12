@@ -237,7 +237,7 @@
 
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
 
-                <com.maiandguy.dessert.utils.CustomEdittext
+                <com.siravit.dessert.utils.CustomEdittext
                     android:id="@+id/editText2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -303,7 +303,7 @@
                     android:textColor="@color/text_black_gray"
                     android:textSize="@dimen/Text16sp" />
 
-                <com.maiandguy.dessert.utils.CustomEdittext
+                <com.siravit.dessert.utils.CustomEdittext
                     android:id="@+id/career"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -344,7 +344,7 @@
                     android:textColor="@color/text_black_gray"
                     android:textSize="@dimen/Text16sp" />
 
-                <com.maiandguy.dessert.utils.CustomEdittext
+                <com.siravit.dessert.utils.CustomEdittext
                     android:id="@+id/study"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -404,7 +404,7 @@
                     android:textColor="@color/text_black_gray"
                     android:textSize="@dimen/Text16sp" />
 
-                <com.maiandguy.dessert.utils.CustomEdittext
+                <com.siravit.dessert.utils.CustomEdittext
                     android:id="@+id/name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

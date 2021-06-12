@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.maiandguy.dessert">
+    package="com.siravit.dessert">
     <!-- Include required permissions for Google Mobile Ads to run. -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -15,7 +15,7 @@
     <uses-permission android:name="com.android.vending.BILLING" />
 
     <application
-        android:name=".utils.App"
+        android:name="com.siravit.dessert.utils.App"
         android:allowBackup="true"
         android:icon="@drawable/ic_candy"
         android:label="@string/app_name"
@@ -23,72 +23,72 @@
         android:theme="@style/AppTheme"
         tools:ignore="LockedOrientationActivity"
         tools:replace="android:icon">
-        <activity android:name=".activity.forgot_password.view.ForgotPasswordActivity"></activity>
-        <activity android:name=".activity.register.view.SendVerificationActivity" />
-        <activity android:name=".activity.dis_like.view.DisLike" />
-        <activity android:name=".activity.problem_list.ProblemListActivity" />
-        <activity android:name=".activity.send_problem.view.SendProblemActivity" />
-        <activity android:name=".activity.close_account.view.CloseAccount" />
-        <activity android:name=".activity.register.QuestionActivity" /> <!-- Include the AdActivity configChanges and theme. -->
+        <activity android:name="com.siravit.dessert.activity.forgot_password.view.ForgotPasswordActivity"></activity>
+        <activity android:name="com.siravit.dessert.activity.register.view.SendVerificationActivity" />
+        <activity android:name="com.siravit.dessert.activity.dis_like.view.DisLike" />
+        <activity android:name="com.siravit.dessert.activity.problem_list.ProblemListActivity" />
+        <activity android:name="com.siravit.dessert.activity.send_problem.view.SendProblemActivity" />
+        <activity android:name="com.siravit.dessert.activity.close_account.view.CloseAccount" />
+        <activity android:name="com.siravit.dessert.activity.register.QuestionActivity" /> <!-- Include the AdActivity configChanges and theme. -->
         <activity
             android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:theme="@android:style/Theme.Translucent" />
-        <activity android:name=".activity.band_user.view.BandUser" />
-        <activity android:name=".activity.show_gps_open.view.ShowGpsOpen" />
+        <activity android:name="com.siravit.dessert.activity.band_user.view.BandUser" />
+        <activity android:name="com.siravit.dessert.activity.show_gps_open.view.ShowGpsOpen" />
         <activity
-            android:name="com.maiandguy.dessert.activity.like_you.view.LikeYouActivity"
+            android:name="com.siravit.dessert.activity.like_you.view.LikeYouActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.register.view.RegisterGpsActivity"
+            android:name="com.siravit.dessert.activity.register.view.RegisterGpsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ImageChat.ItemImageActivity"
+            android:name="com.siravit.dessert.ImageChat.ItemImageActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.main.view.MainActivity"
+            android:name="com.siravit.dessert.activity.main.view.MainActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.register.view.RegisterAgeActivity" />
+        <activity android:name="com.siravit.dessert.activity.register.view.RegisterAgeActivity" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Base.Theme.AppCompat" />
         <activity
-            android:name=".activity.filter_setting.view.FilterSettingActivity"
+            android:name="com.siravit.dessert.activity.filter_setting.view.FilterSettingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.profile_information.view.ProfileInformationsActivity"
+            android:name="com.siravit.dessert.activity.profile_information.view.ProfileInformationsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.profile_information_opposite.view.ProfileInformationOppositeUserActivity"
+            android:name="com.siravit.dessert.activity.profile_information_opposite.view.ProfileInformationOppositeUserActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.register.PhoneActivity"
+            android:name="com.siravit.dessert.activity.register.PhoneActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.register.VerifyActivity"
+            android:name="com.siravit.dessert.activity.register.VerifyActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.sign_in.view.SignInActivity"
+            android:name="com.siravit.dessert.activity.sign_in.view.SignInActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.register.view.RegisterFinishAcivity"
+            android:name="com.siravit.dessert.activity.register.view.RegisterFinishAcivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.register.view.RegisterNameActivity"
+            android:name="com.siravit.dessert.activity.register.view.RegisterNameActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.register.view.RegisterSexActivity"
+            android:name="com.siravit.dessert.activity.register.view.RegisterSexActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Chat.ChatActivity"
+            android:name="com.siravit.dessert.Chat.ChatActivity"
             android:hardwareAccelerated="true" />
         <activity
-            android:name=".activity.edit_profile.view.EditProfileActivity"
+            android:name="com.siravit.dessert.activity.edit_profile.view.EditProfileActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.register.view.RegistrationActivity" />
+        <activity android:name="com.siravit.dessert.activity.register.view.RegistrationActivity" />
         <activity
-            android:name=".activity.first.view.FirstActivity"
+            android:name="com.siravit.dessert.activity.first.view.FirstActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -114,7 +114,7 @@
             android:value="face" />
 
         <service
-            android:name=".services.MyFirebaseMessagingService"
+            android:name="com.siravit.dessert.services.MyFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

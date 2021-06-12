@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/background_white">
 
-                <com.maiandguy.dessert.utils.WrapContentHeightViewPager
+                <com.siravit.dessert.utils.WrapContentHeightViewPager
                     android:id="@+id/slide_main"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
