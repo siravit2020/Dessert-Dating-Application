@@ -1,5 +1,6 @@
 package com.siravit.dessert.activity.card.view
 
+import android.app.Activity
 import android.app.Dialog
 import android.content.ContentValues.TAG
 import android.content.Context
@@ -492,7 +493,6 @@ class CardActivity : Fragment(), View.OnClickListener {
         skuList.add("dessert_vip")
         val params = SkuDetailsParams.newBuilder()
         params.setSkusList(skuList).setType(BillingClient.SkuType.SUBS)
-
         // leverage querySkuDetails Kotlin extension function
         val skuDetailsResult = withContext(Dispatchers.IO) {
             billingClient.querySkuDetails(params.build())
@@ -509,7 +509,7 @@ class CardActivity : Fragment(), View.OnClickListener {
     }
 
     private fun startBilling(){
-        // An activity reference from which the billing flow will be launched.
+//        // An activity reference from which the billing flow will be launched.
 //        val activity: Activity = requireActivity()
 //
 //        // Retrieve a value for "skuDetails" by calling querySkuDetailsAsync().

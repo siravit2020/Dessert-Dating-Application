@@ -5,7 +5,7 @@ apply plugin: 'kotlin-android-extensions'
 android {
     signingConfigs {
         release {
-            storeFile file('C:\\Users\\mai_z\\AndroidStudioProjects\\Dessert-Dating-Application\\keystore.jks')
+            storeFile file('keystore.jks')
             storePassword '0851325654'
             keyAlias 'Dessert'
             keyPassword '0851325654'
