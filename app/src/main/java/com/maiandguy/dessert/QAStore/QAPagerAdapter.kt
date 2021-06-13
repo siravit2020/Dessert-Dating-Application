@@ -24,7 +24,6 @@ class QAPagerAdapter(val context: Context, private val choice: ArrayList<QAObjec
 
     private val uid = FirebaseAuth.getInstance().currentUser!!.uid
     private val db = FirebaseDatabase.getInstance().reference.child("Users").child(uid)
-    var maxLike = GlobalVariable.maxLike
     val userId = FirebaseAuth.getInstance().currentUser!!.uid
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -51,6 +50,7 @@ class QAPagerAdapter(val context: Context, private val choice: ArrayList<QAObjec
         holder.choice2.text = choice[position].choice[1]
         when (position) {
             0 -> {
+                holder.dismissButton.visibility = View.GONE
                 holder.confirmButton.text = context.getString(R.string.next_QA)
                 holder.dismissButton.text = context.getString(R.string.dismiss_label)
                 holder.dismissButton.setOnClickListener {
@@ -67,6 +67,7 @@ class QAPagerAdapter(val context: Context, private val choice: ArrayList<QAObjec
                 }
             }
             else -> {
+                holder.dismissButton.visibility = View.VISIBLE
                 holder.confirmButton.text = context.getString(R.string.next_QA)
                 holder.dismissButton.text = context.getString(R.string.previous_QA)
                 holder.dismissButton.setOnClickListener {
@@ -82,6 +83,7 @@ class QAPagerAdapter(val context: Context, private val choice: ArrayList<QAObjec
             hashMapQA[choice[position].questionId] = inputMap
             val obj = JSONObject(inputMap)
             json.put(obj)
+            Toast.makeText(context, context.getString(R.string.warning_skip), Toast.LENGTH_SHORT).show()
             if(itemCount-1 == position){
                 finish()
             }
@@ -110,7 +112,6 @@ class QAPagerAdapter(val context: Context, private val choice: ArrayList<QAObjec
                 hashMapQA[choice[position].questionId] = inputMap
                 val obj = JSONObject(inputMap)
                 json.put(obj)
-                Log.d("Check_IsCheck", json.toString())
                 viewpager.setCurrentItem(++viewpager.currentItem, false)
                 if (position == itemCount - 1) {
                     finish()
@@ -122,10 +123,19 @@ class QAPagerAdapter(val context: Context, private val choice: ArrayList<QAObjec
     }
 
     private fun finish() {
-        GlobalVariable.apply {
-            maxLike = ++maxLike
+        var check = true
+        for(i in 0 until json.length()){
+            val item = json.getJSONObject(i)["question"]
+            if(item == -1){
+                check = false
+            }
+            Log.d("GET_QUESTION", item.toString())
         }
-        db.child("MaxLike").setValue(maxLike)
+        if(check){
+            GlobalVariable.maxLike = ++GlobalVariable.maxLike
+            Log.d("GLOBAL_MAX_LIKE__Adapter",GlobalVariable.maxLike.toString())
+            db.child("MaxLike").setValue(GlobalVariable.maxLike)
+        }
         StatusQuestions().questionStats(json)
         FirebaseDatabase.getInstance().reference.child("Users").child(userId).child("Questions").updateChildren(hashMapQA)
         dialog.dismiss()

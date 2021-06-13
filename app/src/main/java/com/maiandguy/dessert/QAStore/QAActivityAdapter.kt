@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 
 import android.view.View
 import android.view.ViewGroup
@@ -44,6 +45,7 @@ class QAActivityAdapter(private val context: Context, private val result: ArrayL
         holder.question.text = "${position + 1}. ${result[position].questions}"
         holder.choiceOne.text = result[position].choice[0]
         holder.choiceTwo.text = result[position].choice[1]
+        holder.skipButton.visibility = View.GONE
         holder.skipButton.setOnClickListener {
             viewPager.setCurrentItem(++viewPager.currentItem, false)
             val inputMap = mapOf("id" to result[position].questionId, "question" to -1, "weight" to -1)
@@ -88,6 +90,7 @@ class QAActivityAdapter(private val context: Context, private val result: ArrayL
             0 -> {
                 holder.confirmButton.text = context.getString(R.string.next_QA)
                 holder.dismissButton.text = context.getString(R.string.dismiss_label)
+                holder.dismissButton.visibility = View.GONE
                 holder.dismissButton.setOnClickListener {
                     intent.apply {
                         putExtra("MapQA", hashMapQA)
@@ -104,6 +107,7 @@ class QAActivityAdapter(private val context: Context, private val result: ArrayL
                 }
             }
             else -> {
+                holder.dismissButton.visibility = View.VISIBLE
                 holder.confirmButton.text = context.getString(R.string.next_QA)
                 holder.dismissButton.text = context.getString(R.string.previous_QA)
                 json.remove(json.length() - 1)
@@ -121,11 +125,10 @@ class QAActivityAdapter(private val context: Context, private val result: ArrayL
 
     private fun finish() {
         StatusQuestions().questionStats(json)
-
-        intent.apply {
-            putExtra("MapQA", hashMapQA)
-        }
+        intent.putExtra("MapQA", hashMapQA)
         context.startActivity(intent)
+
+
     }
 
 }

@@ -50,14 +50,15 @@ class QuestionRepository(context: Context) {
                                 addData.add(ob)
                             }
                         }
-                        Observable.just(addData)
-                                .subscribeOn(Schedulers.io())
-                                .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe{
-                                    result.value = it
-                                    loadingDialog.dismiss()
-                                }
+
                     }
+                    Observable.just(addData)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe{
+                                result.value = it
+                                loadingDialog.dismiss()
+                            }
                 }.addOnFailureListener{error -> error.printStackTrace()}
     }
 

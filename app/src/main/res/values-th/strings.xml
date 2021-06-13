@@ -159,6 +159,9 @@
     <string name="QA_choice5">เป็นเรื่องคอขาดบาดตาย</string>
     <string name="questionActivityTitle">คำถาม</string>
     <string name="questionActivitySubTitle">ตอบคำถามของเราเพื่อการจับคู่กับคนที่เข้ากันกับคุณ</string>
+    <string name="question_call">ตอบคำถามเพิ่มไลค์</string>
+    <string name="warning_skip">ถ้าคุณกดข้ามคุณจะไม่ได้โควตาของวันนี้เพิ่ม</string>
+    <string name="out_of_qa_description">ขออภัย คำถามของเราหมดแล้วกรุณาเลือกดูโฆษณาหรือซื้อ VIP เพื่อเพิ่มโควตาในวันนี้</string>
     <string name="record">กดเพื่ออีดเสียง</string>
     <string name="uploading">กำลังอัปโหลด</string>
     <string name="selected_questions">กรุณาเลือกคำตอบและตอบให้ครบถ้วน</string>
