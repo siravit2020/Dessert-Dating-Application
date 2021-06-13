@@ -70,17 +70,17 @@ class MatchesActivity : Fragment() {
         mRecyclerView.visibility = View.GONE
         chatNaCheck()
         checkFirst()
-        nest.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, _, scrollY, _, _ ->
-            if (scrollY == (v.getChildAt(0).measuredHeight - v.measuredHeight)) {
-                if(resultMatches.size > (startNode+20)){
-                    startNode += 20
-                    setRecyclerView()
-                }
-             /**
-              * add somethings went scroll to the bottom,.
-              * */
-            }
-        })
+//        nest.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, _, scrollY, _, _ ->
+//            if (scrollY == (v.getChildAt(0).measuredHeight - v.measuredHeight)) {
+//                if(resultMatches.size > (startNode+20)){
+//                    startNode += 20
+//                    setRecyclerView()
+//                }
+//             /**
+//              * add somethings went scroll to the bottom,.
+//              * */
+//            }
+//        })
         return view
     }
 
@@ -112,6 +112,7 @@ class MatchesActivity : Fragment() {
                 ++userMatchCount
                 if(userMatchCount == 1) chatEmpty.visibility = View.GONE
                 val chatID = dataSnapshot.child("ChatId").value.toString()
+                Log.d("MatchingUser",dataSnapshot.key.toString())
                 getChatNode(chatID, dataSnapshot.key.toString()) }
             override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {}
             override fun onChildRemoved(dataSnapshot: DataSnapshot) {
@@ -133,23 +134,22 @@ class MatchesActivity : Fragment() {
         })
     }
     private fun unMatch(key: String?) {
-        val index:Int = resultMatches.map { T -> T.userId.equals(key) }.indexOf(element = true)
+        val index:Int = resultMatchNode.map { T -> T.userId.equals(key) }.indexOf(element = true)
         val matchIDStored:SharedPreferences = mContext!!.getSharedPreferences(currentUserId + "Match_first", Context.MODE_PRIVATE)
-        val editor2:SharedPreferences.Editor = matchIDStored.edit()
-        editor2.remove(key).apply()
-        val myUnread2:SharedPreferences = mContext!!.getSharedPreferences("TotalMessage", Context.MODE_PRIVATE)
-        val dd:Int = myUnread2.getInt("total", 0)
-        var unread:Int = resultMatches[index].count_unread
-        if (unread == -1) { unread = 0 }
-        val total:Int = dd - unread
+        val editorMatching:SharedPreferences.Editor = matchIDStored.edit()
+        editorMatching.remove(key).apply()
+        val unreadShared:SharedPreferences = mContext!!.getSharedPreferences("TotalMessage", Context.MODE_PRIVATE)
+        val unreadTotal:Int = unreadShared.getInt("total", 0)
+        var unread:Int = resultMatchNode[index].count_unread
+        if (unread == -1) unread = 0
+        val total:Int = unreadTotal - unread
         (mContext as MainActivity?)!!.setCurrentIndex(total)
-        val myUnread1:SharedPreferences = mContext!!.getSharedPreferences("TotalMessage", Context.MODE_PRIVATE)
-        val editorRead:SharedPreferences.Editor = myUnread1.edit()
+        val editorRead:SharedPreferences.Editor = unreadShared.edit()
         editorRead.putInt("total", total)
         editorRead.apply()
-        resultMatches.removeAt(index)
+        resultMatchNode.removeAt(index)
         mMatchesAdapter.notifyItemRemoved(index)
-        mMatchesAdapter.notifyItemRangeChanged(index, resultMatches.size)
+        mMatchesAdapter.notifyItemRangeChanged(index, resultMatchNode.size)
     }
     private fun getChatNode(chatId:String,uid:String){
         FirebaseDatabase.getInstance().reference
@@ -395,24 +395,11 @@ class MatchesActivity : Fragment() {
                     } else {
                         obj = MatchesObject(userId, name, profileImageUrl, status, last_chat, time, count_unread)
                     }
-                    resultMatches.add(obj)
                     mMatchesAdapter.notifyDataSetChanged()
                     if (checkHi) {
                         mRecyclerView.visibility = View.VISIBLE
                         chatEmpty.visibility = View.GONE
                     }
-//                    if (resultMatches.size > userMatchCount) {
-//                        if(createByBoolean) {
-//                            Log.d("ReadAlready", "+1")
-//                            val myUnread = mContext!!.getSharedPreferences("TotalMessage", Context.MODE_PRIVATE)
-//                            var dd2 = myUnread.getInt("total", 0)
-//                            ++dd2
-//                            (mContext as MainActivity).setCurrentIndex(dd2)
-//                            val myUnread2 = mContext!!.getSharedPreferences("TotalMessage", Context.MODE_PRIVATE)
-//                            val editorRead = myUnread2.edit()
-//                            editorRead.putInt("total", dd2)
-//                            editorRead.apply()
-//                        }
 //                        Log.d("chatNotificationTest","+1 $createByBoolean")
 //                        for (j in 0 until (resultMatches.size-1)) {
 //                            Log.d("loop1","$j ${resultMatches.elementAt(j).userId} , ${resultMatches.size} , $count")
@@ -435,19 +422,18 @@ class MatchesActivity : Fragment() {
 //                            }
 //                        }
 //                    }
-
-                    if (resultMatches.size > userMatchCount) {
-                        resultMatchNode.find {
-                            it.userId == obj.userId
-                        }.let {
-                            if(it != null){
-                                it.status = obj.status
-                                it.late = obj.late
-                                it.count_unread = obj.count_unread
-                                it.time = obj.time
-                            }else{
-                                resultMatchNode.add(obj)
-                            }
+                    resultMatchNode.find {
+                        it.userId == obj.userId
+                    }.let {
+                        Log.d("MatchingUser",it.toString())
+                        if(createByBoolean) addBadgeOnTabBar()
+                        if(it != null){
+                            it.status = obj.status
+                            it.late = obj.late
+                            it.count_unread = obj.count_unread
+                            it.time = obj.time
+                        }else{
+                            resultMatchNode.add(obj)
                         }
                         resultMatchNode.sortWith { o1, o2 ->
                             when {
@@ -457,21 +443,9 @@ class MatchesActivity : Fragment() {
                             }
                         }
                         mMatchesAdapter.notifyDataSetChanged()
-                        Log.d("TAG_MESSAGE", last_chat as String)
                     }
                 }
-
-                if (resultMatches.size == userMatchCount) {
-                    mRecyclerView.visibility = View.VISIBLE
-                    resultMatches.sortWith { o1, o2 ->
-                        when {
-                            o1.time === null -> -1
-                            o2.time === null -> 1
-                            else -> o2.time!!.compareTo(o1.time!!)
-                        }
-                    }
-                    setRecyclerView()
-                }
+                if (resultMatchNode.size == userMatchCount) mRecyclerView.visibility = View.VISIBLE
             }
             override fun onCancelled(databaseError: DatabaseError) {}
         })
@@ -483,31 +457,39 @@ class MatchesActivity : Fragment() {
     private val resultHi: ArrayList<HiObject> = ArrayList()
     private fun getDataSetHi(): ArrayList<HiObject> { return resultHi }
 
+    private fun addBadgeOnTabBar() {
+        val shareUnread = mContext!!.getSharedPreferences("TotalMessage", Context.MODE_PRIVATE)
+        var unread  = shareUnread.getInt("total", 0)
+        (mContext as MainActivity).setCurrentIndex(++unread)
+        val editorRead = shareUnread.edit()
+        editorRead.putInt("total", unread)
+        editorRead.apply()
+    }
 
     override fun onResume() {
         super.onResume()
         val myUnread = mContext!!.getSharedPreferences("NotificationActive", Context.MODE_PRIVATE)
         val s1 = myUnread.getString("ID", "null")
-        if (s1 != "null") { val index = resultMatches.map { T -> T.userId.equals(s1) }.indexOf(element = true)
-            if (resultMatches.size > 0) {
-                resultMatches.elementAt(index).count_unread = 0
+        if (s1 != "null") { val index = resultMatchNode.map { T -> T.userId.equals(s1) }.indexOf(element = true)
+            if (resultMatchNode.size > 0) {
+                resultMatchNode.elementAt(index).count_unread = 0
                 mMatchesAdapter.notifyDataSetChanged()
             } else {
-                resultMatches.elementAt(0).count_unread = 0
+                resultMatchNode.elementAt(0).count_unread = 0
                 mMatchesAdapter.notifyDataSetChanged() }
             myUnread.edit().clear().apply() }
         val myDelete = mContext!!.getSharedPreferences("DeleteChatActive", Context.MODE_PRIVATE)
         val s2 = myDelete.getString("ID", "null")
         if (s2 != "null") {
-            val index = resultMatches.map { T -> T.userId.equals(s2) }.indexOf(element = true)
-            if (resultMatches.size > 0) {
-                resultMatches.apply {
+            val index = resultMatchNode.map { T -> T.userId.equals(s2) }.indexOf(element = true)
+            if (resultMatchNode.size > 0) {
+                resultMatchNode.apply {
                     elementAt(index).late = ""
                     elementAt(index).time = null
                 }
                 mMatchesAdapter.notifyDataSetChanged()
             } else {
-                resultMatches.apply {
+                resultMatchNode.apply {
                     elementAt(0).late = ""
                     elementAt(0).time = null
                 }

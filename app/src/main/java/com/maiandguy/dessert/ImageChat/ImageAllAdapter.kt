@@ -3,6 +3,7 @@ package com.maiandguy.dessert.ImageChat
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,13 +24,11 @@ class ImageAllAdapter(private val image_all: MutableList<ScreenObject?>?, privat
     }
 
     override fun getItemCount(): Int {
-        var size = image_all!!.size
-        size = if (image_all.size % 3 == 0) {
+        return if (image_all!!.size % 3 == 0) {
             image_all.size / 3
         } else {
             image_all.size / 3 + 1
         }
-        return size
     }
 
     inner class Holder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {

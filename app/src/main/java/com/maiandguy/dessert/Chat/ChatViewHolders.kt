@@ -53,7 +53,6 @@ class ChatViewHolders(itemView: View, private val context: Context) : RecyclerVi
 
     //var mRecycler: RecyclerView?
     private var mChk: TextView = itemView.chk_image
-    private var mChk2: TextView = itemView.chk_image_2
 
     //private val loading: AVLoadingIndicatorView? = null
     private lateinit var myClipboard: ClipboardManager
@@ -73,7 +72,6 @@ class ChatViewHolders(itemView: View, private val context: Context) : RecyclerVi
 
         mMatchIdReal.text = chatList.createByUser
         mMatchId.text = chatList.Match_id
-        mChk2.text = "" + chatList.chk
         mChk.text = "" + chatList.chk
         timeSend.text = chatList.time
         if (chatList.currentUser!!) {
@@ -289,10 +287,9 @@ class ChatViewHolders(itemView: View, private val context: Context) : RecyclerVi
         }
         mImageSent.setOnClickListener {
             val intent = Intent(context, ItemImageActivity::class.java)
-            intent.putExtra("matchIdReal", mMatchIdReal.text.toString())
-            intent.putExtra("matchId", mMatchId.text.toString())
+            intent.putExtra("matchId", mMatchIdReal.text.toString())
+            intent.putExtra("chatId", mMatchId.text.toString())
             intent.putExtra("ChkImage", mChk.text.toString())
-            intent.putExtra("ChkImage2", mChk2.text.toString())
             context.startActivity(intent)
         }
         mImageSent.setOnLongClickListener {

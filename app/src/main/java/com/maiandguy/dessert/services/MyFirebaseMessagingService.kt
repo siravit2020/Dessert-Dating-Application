@@ -154,7 +154,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             }
             if (!twoItems) {
                 id = ++idPlus
-                Toast.makeText(this, "id :$id", Toast.LENGTH_SHORT).show()
                 idNotification.add(ID)
                 indexNotification!!.add(id)
                 try {
