@@ -72,7 +72,6 @@ class RegisterAgeActivity : AppCompatActivity() {
                     intent1.putExtra("Birth", date.time)
                 }
                 intent1.putExtra("Sex", intent.getStringExtra("Sex"))
-                intent1.putExtra("Type", intent.getStringExtra("Type"))
                 intent1.putExtra("X", intent.getDoubleExtra("X", 0.0))
                 intent1.putExtra("Y", intent.getDoubleExtra("Y", 0.0))
                 intent1.putExtra("Name", intent.getStringExtra("Name"))

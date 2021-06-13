@@ -37,13 +37,9 @@ import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
 import com.google.firebase.ml.vision.face.FirebaseVisionFaceDetectorOptions
 import com.google.firebase.storage.FirebaseStorage
-import com.maiandguy.dessert.utils.CustomEdittext
-import com.maiandguy.dessert.utils.EditTextImeBackListener
 import com.maiandguy.dessert.R
 import com.maiandguy.dessert.activity.card.view.CardActivity
-import com.maiandguy.dessert.utils.DRAWABLE_IS_NOT_NULL
-import com.maiandguy.dessert.utils.DRAWABLE_IS_NULL
-import com.maiandguy.dessert.utils.GlobalVariable
+import com.maiandguy.dessert.utils.*
 import com.nipunru.nsfwdetector.NSFWDetector
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
@@ -456,6 +452,31 @@ open class EditProfileActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
+    private fun scanText(): Boolean {
+        print("scan")
+       if (!ScanString.scan(editname.text.toString()))
+        {
+            Snackbar.make(editname, "โปรดใช้คำที่เเหมาะสม", Snackbar.LENGTH_SHORT).show()
+            return false
+        }
+        else if (!ScanString.scan(editmy.text.toString()))
+       {
+           Snackbar.make(editmy, "โปรดใช้คำที่เเหมาะสม", Snackbar.LENGTH_SHORT).show()
+           return false
+       }
+       else if (!ScanString.scan(editcareer.text.toString()))
+       {
+           Snackbar.make(image1, "โปรดใช้คำที่เเหมาะสม", Snackbar.LENGTH_SHORT).show()
+           return false
+       }
+       else if (!ScanString.scan(editstudy.text.toString()))
+       {
+           Snackbar.make(image1, "โปรดใช้คำที่เเหมาะสม", Snackbar.LENGTH_SHORT).show()
+           return false
+       }
+       return true
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
@@ -620,18 +641,19 @@ open class EditProfileActivity : AppCompatActivity(), View.OnClickListener {
         Glide.with(application).load(profile).placeholder(R.drawable.tran).transition(DrawableTransitionOptions.withCrossFade(100)).into(img)
     }
 
-    override fun onStop() {
-        super.onStop()
-        saveUserInformation()
-    }
-
+    
     override fun onBackPressed() {
         if (this::map.isInitialized) {
-            saveUserInformation()
+            if(scanText()) {
+                saveUserInformation()
+                super.onBackPressed()
+            }
         }
         if (image1.tag == 1) {
-            setResult(DRAWABLE_IS_NOT_NULL)
-            super.onBackPressed()
+            if(scanText()) {
+                setResult(DRAWABLE_IS_NOT_NULL)
+                super.onBackPressed()
+            }
         } else {
             val mBuilder = AlertDialog.Builder(this@EditProfileActivity)
             mBuilder.setTitle(R.string.profile_image)

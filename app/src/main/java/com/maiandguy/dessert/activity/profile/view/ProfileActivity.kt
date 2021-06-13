@@ -219,8 +219,8 @@ class ProfileActivity : Fragment(), BillingProcessor.IBillingHandler {
             vip.setText(R.string.You_are_vip)
             statusDialog = true
         }
-        count.text = GlobalVariable.c.toString()
-        see.text = GlobalVariable.s.toString()
+        count.text = GlobalVariable.likeYou.toString()
+        see.text = GlobalVariable.seeYou.toString()
         name.text = GlobalVariable.name
         age.text = ", " + GlobalVariable.age.toString()
         val latDouble = GlobalVariable.x.toDouble()

@@ -49,7 +49,6 @@ class QuestionActivity : AppCompatActivity() {
         intent.apply {
             x = getDoubleExtra("X", x)
             y = getDoubleExtra("Y", y)
-            type = getStringExtra("Type")
             email = getStringExtra("email")
             pass = getStringExtra("password")
             name = getStringExtra("Name")
@@ -59,7 +58,6 @@ class QuestionActivity : AppCompatActivity() {
         intent1 = Intent(this@QuestionActivity, RegisterFinishAcivity::class.java)
         intent1.apply {
             putExtra("Sex", intent.getStringExtra("Sex"))
-            putExtra("Type", intent.getStringExtra("Type"))
             putExtra("X", intent.getDoubleExtra("X", 0.0))
             putExtra("Y", intent.getDoubleExtra("Y", 0.0))
             putExtra("Name", intent.getStringExtra("Name"))

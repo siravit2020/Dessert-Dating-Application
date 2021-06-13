@@ -64,7 +64,6 @@ class RegisterGpsActivity : AppCompatActivity(), LocationListener {
         intent.putExtra("X", location.latitude)
         intent.putExtra("Y", location.longitude)
         intent.putExtra("Name", getIntent().getStringExtra("Name"))
-        intent.putExtra("Type", getIntent().getStringExtra("Type"))
         intent.putExtra("email", getIntent().getStringExtra("email"))
         intent.putExtra("password", getIntent().getStringExtra("password"))
         startActivity(intent)
