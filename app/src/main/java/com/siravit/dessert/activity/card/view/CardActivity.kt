@@ -38,6 +38,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
+import com.maiandguy.dessert.utils.ErrorDialog
 import com.siravit.dessert.activity.card.adapter.CardAdapter
 import com.siravit.dessert.activity.card.model.CardModel
 import com.siravit.dessert.Chat.ChatActivity
@@ -84,7 +85,6 @@ class CardActivity : Fragment(), View.OnClickListener {
     private lateinit var textgps: TextView
     private lateinit var textGps2: TextView
     private lateinit var handler: Handler
-    private var maxLike = 0
     private var maxStar = 0
     private var maxAdmob = 0
     private lateinit var dialog: Dialog
@@ -110,6 +110,7 @@ class CardActivity : Fragment(), View.OnClickListener {
     private var countEmpty = 0
     private lateinit var localizationDelegate: LocalizationActivityDelegate
     private lateinit var questionViewModel: QuestionViewModel
+    private lateinit var errorDialog: ErrorDialog
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -124,7 +125,7 @@ class CardActivity : Fragment(), View.OnClickListener {
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }
-        billing()
+//        billing()
         localizationDelegate = LocalizationActivityDelegate(requireActivity())
         layoutGps = view.findViewById(R.id.layout_in)
         textgps = view.findViewById(R.id.textView8)
@@ -153,7 +154,6 @@ class CardActivity : Fragment(), View.OnClickListener {
         handler = Handler()
         return view
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         questionViewModel = ViewModelProvider(requireActivity(), object : ViewModelProvider.Factory {
@@ -163,10 +163,16 @@ class CardActivity : Fragment(), View.OnClickListener {
         }).get(QuestionViewModel::class.java)
 
         questionViewModel.fetchQA.observe(requireActivity(), {
-            val dialogFragment: DialogFragment = DialogFragment()
-            dialogFragment.setData(it)
-            //localizationDelegate.getLanguage(requireContext()).toLanguageTag()
-            dialogFragment.show(requireActivity().supportFragmentManager, "example Dialog")
+            Log.d("GET_QUESTION",it.size.toString())
+            if(it.size > 0){
+                val dialogFragment = DialogFragment()
+                dialogFragment.setData(it)
+                dialogFragment.show(requireActivity().supportFragmentManager, "example Dialog")
+            }else{
+                errorDialog = ErrorDialog(requireContext())
+                errorDialog.outOfQuestionDialog().show()
+            }
+
         })
     }
 
@@ -176,20 +182,17 @@ class CardActivity : Fragment(), View.OnClickListener {
             override fun onCardSwiped(direction: Direction?) {
                 po = rowItem[manager.topPosition - 1]
                 val userId = po.userId!!
-
+                Log.d("GLOBAL_MAX_LIKE__cardActivity",GlobalVariable.maxLike.toString())
                 if (direction == Direction.Right) {
-                    if (maxLike > 0 || statusVip) {
+                    if (GlobalVariable.maxLike > 0 || statusVip) {
                         val datetime = hashMapOf<String, Any>()
                         datetime["date"] = ServerValue.TIMESTAMP
                         usersDb.child(userId).child("connection").child("yep").child(currentUid).updateChildren(datetime)
-                        maxLike--
-                        GlobalVariable.maxLike = maxLike
-                        usersDb.child(currentUid).child("MaxLike").setValue(maxLike)
+                        GlobalVariable.maxLike = --GlobalVariable.maxLike
+                        usersDb.child(currentUid).child("MaxLike").setValue(GlobalVariable.maxLike)
                         isConnectionMatches(userId)
                     } else {
                         handler.postDelayed(Runnable { cardStackView.rewind() }, 200)
-                        //DialogAskQuestion(requireContext()).dialogOutOfQuestion().show()
-                        questionAskDialog().show()
                         openDialog()
                     }
                 }
@@ -208,7 +211,6 @@ class CardActivity : Fragment(), View.OnClickListener {
                         isConnectionMatches(userId)
                     } else {
                         handler.postDelayed(Runnable { cardStackView.rewind() }, 200)
-                        //questionAskDialog().show()
                         openDialog()
                     }
                 }
@@ -278,7 +280,7 @@ class CardActivity : Fragment(), View.OnClickListener {
 
     }
 
-    fun questionAskDialog(): Dialog {
+    private fun questionAskDialog(): Dialog {
         val view = layoutInflater.inflate(R.layout.question_ask_dialog, null)
         val btnConfirm = view.findViewById<Button>(R.id.confirm_button_askDialog)
         val btnDismiss = view.findViewById<Button>(R.id.dismiss_button_askDialog)
@@ -300,6 +302,7 @@ class CardActivity : Fragment(), View.OnClickListener {
     fun openDialog() {
         val inflater = layoutInflater
         val view = inflater.inflate(R.layout.vip_dialog, null)
+        val bQA = view.findViewById<Button>(R.id.question_call)
         val b1 = view.findViewById<Button>(R.id.buy)
         val b2 = view.findViewById<Button>(R.id.admob)
         val text = view.findViewById<TextView>(R.id.test_de)
@@ -326,20 +329,22 @@ class CardActivity : Fragment(), View.OnClickListener {
             }
 
         }
-
+        bQA.setOnClickListener {
+            questionAskDialog().show()
+            dialog.dismiss()
+        }
         b2.setOnClickListener {
             if (rewardedAd != null) {
                 rewardedAd?.show(requireActivity(), OnUserEarnedRewardListener() {
-                    Log.d("TAG", maxLike.toString())
-                    maxLike += 1
+                    ++GlobalVariable.maxLike
                     maxAdmob -= 1
-                    if (maxLike >= 10)
+                    if (GlobalVariable.maxLike >= 10)
                         dialog.dismiss()
                     else if (maxAdmob <= 0) {
                         b2.visibility = View.GONE
                     }
 
-                    usersDb.child(currentUid).child("MaxLike").setValue(maxLike)
+                    usersDb.child(currentUid).child("MaxLike").setValue(GlobalVariable.maxLike)
                     usersDb.child(currentUid).child("MaxAdmob").setValue(maxAdmob)
 
                 })
@@ -527,7 +532,6 @@ class CardActivity : Fragment(), View.OnClickListener {
 
         xUser = GlobalVariable.x.toDouble()
         yUser = GlobalVariable.y.toDouble()
-        maxLike = GlobalVariable.maxLike
         maxAdmob = GlobalVariable.maxAdmob
         maxStar = GlobalVariable.maxStar
         statusVip = GlobalVariable.vip

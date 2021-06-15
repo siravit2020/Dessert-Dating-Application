@@ -16,12 +16,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+
 import com.siravit.dessert.R
 import com.siravit.dessert.activity.main.view.MainActivity
+
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.json.JSONStringer
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -36,7 +39,6 @@ class MatchesActivity : Fragment() {
     private lateinit var mHiLayout: RecyclerView.LayoutManager
     private lateinit var layoutChatNa: LinearLayout
     private lateinit var currentUserId: String
-    private lateinit var dateUser: String
     private var count = 0
     private var startNode = 20
     private lateinit var textEmpty: TextView
@@ -66,23 +68,20 @@ class MatchesActivity : Fragment() {
         mHiRecyclerView.layoutManager = mHiLayout
         mHiAdapter = HiAdapter(getDataSetHi(), requireContext())
         mHiRecyclerView.adapter = mHiAdapter
-        val calendar = Calendar.getInstance()
-        val currentDate = SimpleDateFormat("dd/MM/yyyy")
-        dateUser = currentDate.format(calendar.time)
         mRecyclerView.visibility = View.GONE
         chatNaCheck()
         checkFirst()
-        nest.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, _, scrollY, _, _ ->
-            if (scrollY == (v.getChildAt(0).measuredHeight - v.measuredHeight)) {
-                if(resultMatches.size > (startNode+20)){
-                    startNode += 20
-                    setRecyclerView()
-                }
-             /**
-              * add somethings went scroll to the bottom,.
-              * */
-            }
-        })
+//        nest.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, _, scrollY, _, _ ->
+//            if (scrollY == (v.getChildAt(0).measuredHeight - v.measuredHeight)) {
+//                if(resultMatches.size > (startNode+20)){
+//                    startNode += 20
+//                    setRecyclerView()
+//                }
+//             /**
+//              * add somethings went scroll to the bottom,.
+//              * */
+//            }
+//        })
         return view
     }
 
@@ -114,7 +113,8 @@ class MatchesActivity : Fragment() {
                 ++userMatchCount
                 if(userMatchCount == 1) chatEmpty.visibility = View.GONE
                 val chatID = dataSnapshot.child("ChatId").value.toString()
-                testChatNode(chatID, dataSnapshot.key.toString()) }
+                Log.d("MatchingUser",dataSnapshot.key.toString())
+                getChatNode(chatID, dataSnapshot.key.toString()) }
             override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {}
             override fun onChildRemoved(dataSnapshot: DataSnapshot) {
                 if (checkFirstRemove == "null") { --userMatchCount
@@ -135,66 +135,52 @@ class MatchesActivity : Fragment() {
         })
     }
     private fun unMatch(key: String?) {
-        val index:Int = resultMatches.map { T -> T.userId.equals(key) }.indexOf(element = true)
+        val index:Int = resultMatchNode.map { T -> T.userId.equals(key) }.indexOf(element = true)
         val matchIDStored:SharedPreferences = mContext!!.getSharedPreferences(currentUserId + "Match_first", Context.MODE_PRIVATE)
-        val editor2:SharedPreferences.Editor = matchIDStored.edit()
-        editor2.remove(key).apply()
-        val myUnread2:SharedPreferences = mContext!!.getSharedPreferences("TotalMessage", Context.MODE_PRIVATE)
-        val dd:Int = myUnread2.getInt("total", 0)
-        var unread:Int = resultMatches[index].count_unread
-        if (unread == -1) { unread = 0 }
-        val total:Int = dd - unread
+        val editorMatching:SharedPreferences.Editor = matchIDStored.edit()
+        editorMatching.remove(key).apply()
+        val unreadShared:SharedPreferences = mContext!!.getSharedPreferences("TotalMessage", Context.MODE_PRIVATE)
+        val unreadTotal:Int = unreadShared.getInt("total", 0)
+        var unread:Int = resultMatchNode[index].count_unread
+        if (unread == -1) unread = 0
+        val total:Int = unreadTotal - unread
         (mContext as MainActivity?)!!.setCurrentIndex(total)
-        val myUnread1:SharedPreferences = mContext!!.getSharedPreferences("TotalMessage", Context.MODE_PRIVATE)
-        val editorRead:SharedPreferences.Editor = myUnread1.edit()
+        val editorRead:SharedPreferences.Editor = unreadShared.edit()
         editorRead.putInt("total", total)
         editorRead.apply()
-        resultMatches.removeAt(index)
+        resultMatchNode.removeAt(index)
         mMatchesAdapter.notifyItemRemoved(index)
-        mMatchesAdapter.notifyItemRangeChanged(index, resultMatches.size)
+        mMatchesAdapter.notifyItemRangeChanged(index, resultMatchNode.size)
     }
-    private fun testChatNode(chatId:String,uid:String){
+    private fun getChatNode(chatId:String,uid:String){
         FirebaseDatabase.getInstance().reference
                 .child("Chat")
-                .child(chatId)
-                .addListenerForSingleValueEvent(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if(snapshot.exists()){
-                    latestChat(uid, chatId)
-                }else{
-                    latestChat(uid, chatId)
-                    fetchMatchFormation(uid, last_chat = "", time="-1", count_unread = -1) } }
-            override fun onCancelled(error: DatabaseError) {} })
-    }
-    private fun startNode(key: String?, keyNode: String?, lastChat: String?, time: String?, count: Int) {
-        val startDb = FirebaseDatabase.getInstance().reference.child("Users").child(currentUserId).child("connection").child("matches").child(key.toString()).child("Start")
-        startDb.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                if (dataSnapshot.value != null) {
-                    if (dataSnapshot.value.toString() == keyNode) {
-                        fetchMatchFormation(key, last_chat = "", time = "-1", count)
-                    } else {
-                        fetchMatchFormation(key, lastChat, time, count) }
-                } else {
-                    fetchMatchFormation(key, lastChat, time, count) } }
-            override fun onCancelled(databaseError: DatabaseError) {}
-        })
+                .child(chatId).addListenerForSingleValueEvent(object : ValueEventListener{
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if(snapshot.exists()){
+                            latestChat(uid, chatId)
+                        }else{
+                            latestChat(uid, chatId)
+                            fetchMatchFormation(uid, last_chat = "", time=null, count_unread = -1)
+                        }
+                    }
+                    override fun onCancelled(error: DatabaseError) {}
+                })
     }
     private var createByBoolean:Boolean = true
     private fun latestChat(key: String?, chatID: String?) {
         val chatDb = FirebaseDatabase.getInstance().reference.child("Chat").child(chatID.toString()).orderByKey().limitToLast(1)
         chatDb.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
+                Log.d("ChatAdd",dataSnapshot.child("text").value.toString() )
                 val lastChat = dataSnapshot.child("text").value.toString()
-                var time = dataSnapshot.child("time").value.toString()
-                val date = dataSnapshot.child("date").value.toString()
+                val time = dataSnapshot.child("date").value as Long
                 val createBy = dataSnapshot.child("createByUser").value.toString()
-                if (date != dateUser) { time = date.substring(0, 5) }
                 createByBoolean = dataSnapshot.child("createByUser").value.toString() != (currentUserId)
                 if (createBy != currentUserId) {
                     chatCheckRead(chatID, key, time, lastChat)
                 } else {
-                    startNode(key, dataSnapshot.key, lastChat, time, 0) } }
+                    fetchMatchFormation(key,  lastChat, time, 0) } }
             override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {}
             override fun onChildRemoved(dataSnapshot: DataSnapshot) {}
             override fun onChildMoved(dataSnapshot: DataSnapshot, s: String?) {}
@@ -203,14 +189,13 @@ class MatchesActivity : Fragment() {
     }
 
     private var countRead = 0
-    private var mDatabaseChat: DatabaseReference? = null
-    private fun chatCheckRead(ChatId: String?, key: String?, time: String?, last_chat: String?) {
-        mDatabaseChat = FirebaseDatabase.getInstance().reference.child("Chat").child(ChatId.toString())
-        val dd = mDatabaseChat!!.orderByChild("read").equalTo("Unread")
-        dd.addListenerForSingleValueEvent(object : ValueEventListener {
+    private fun chatCheckRead(ChatId: String?, key: String?, time: Long?, last_chat: String?) {
+        val mDatabaseChat = FirebaseDatabase.getInstance().reference.child("Chat").child(ChatId.toString())
+        val countUnread = mDatabaseChat.orderByChild("read").equalTo("Unread")
+        countUnread.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val countRead = dataSnapshot.childrenCount.toInt()
-                startNode(key, dataSnapshot.key, last_chat, time, countRead) }
+                fetchMatchFormation(key, last_chat, time, countRead) }
             override fun onCancelled(databaseError: DatabaseError) {}
         })
     }
@@ -275,7 +260,7 @@ class MatchesActivity : Fragment() {
         chatDb.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
                 val lastChat:String = dataSnapshot.child("text").value.toString()
-                val time:String = dataSnapshot.child("time").value.toString()
+                val time = dataSnapshot.child("date").value as Long
                 checkSentBack(key, lastChat, time, ChatId) }
             override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {}
             override fun onChildRemoved(dataSnapshot: DataSnapshot) {}
@@ -283,7 +268,7 @@ class MatchesActivity : Fragment() {
             override fun onCancelled(databaseError: DatabaseError) {}
         })
     }
-    private fun checkSentBack(key: String?, lastChat: String?, time: String?, ChatId: String?) {
+    private fun checkSentBack(key: String?, lastChat: String?, time: Long?, ChatId: String?) {
         val chatDb:Query = FirebaseDatabase.getInstance().reference.child("Chat").child(ChatId.toString()).orderByChild("createByUser").equalTo(currentUserId).limitToLast(1)
         chatDb.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -320,7 +305,7 @@ class MatchesActivity : Fragment() {
     }
 
     private var inception = false
-    private fun fetchHi(key: String?, lastChat: String?, time: String?, ChatId: String?) {
+    private fun fetchHi(key: String?, lastChat: String?, time: Long?, ChatId: String?) {
         FirebaseDatabase.getInstance().reference
                 .child("Users")
                 .child(key.toString())
@@ -335,7 +320,7 @@ class MatchesActivity : Fragment() {
                     if (sentBack) {
                         inception = false
                         sentBack =false
-                        startNode(key, ChatId, lastChat, time, 0)
+                        fetchMatchFormation(key, lastChat, time, 0)
                     } else {
                         val obj2 = HiObject(userId, profileImageUrl, name, gender)
                         resultHi.add(obj2)
@@ -372,7 +357,6 @@ class MatchesActivity : Fragment() {
                         }
                     }
                     withContext(Dispatchers.Main) {
-                        Log.d("TAG_COUNT","${size-1},${resultMatchNode.size}")
                         mMatchesAdapter.notifyDataSetChanged()
                     }
                 }
@@ -381,7 +365,7 @@ class MatchesActivity : Fragment() {
     }
 
 
-    private fun fetchMatchFormation(key: String?, last_chat: String?, time: String?, count_unread: Int) {
+    private fun fetchMatchFormation(key: String?, last_chat: String?, time: Long?, count_unread: Int) {
         FirebaseDatabase.getInstance().reference
                 .child("Users")
                 .child(key.toString())
@@ -412,107 +396,57 @@ class MatchesActivity : Fragment() {
                     } else {
                         obj = MatchesObject(userId, name, profileImageUrl, status, last_chat, time, count_unread)
                     }
-                    resultMatches.add(obj)
+                    mMatchesAdapter.notifyDataSetChanged()
                     if (checkHi) {
                         mRecyclerView.visibility = View.VISIBLE
                         chatEmpty.visibility = View.GONE
                     }
-                    if (resultMatches.size > userMatchCount) {
-                        if(createByBoolean) {
-                            Log.d("ReadAlready", "+1")
-                            val myUnread = mContext!!.getSharedPreferences("TotalMessage", Context.MODE_PRIVATE)
-                            var dd2 = myUnread.getInt("total", 0)
-                            ++dd2
-                            (mContext as MainActivity).setCurrentIndex(dd2)
-                            val myUnread2 = mContext!!.getSharedPreferences("TotalMessage", Context.MODE_PRIVATE)
-                            val editorRead = myUnread2.edit()
-                            editorRead.putInt("total", dd2)
-                            editorRead.apply()
+//                        Log.d("chatNotificationTest","+1 $createByBoolean")
+//                        for (j in 0 until (resultMatches.size-1)) {
+//                            Log.d("loop1","$j ${resultMatches.elementAt(j).userId} , ${resultMatches.size} , $count")
+//                            if (resultMatches.elementAt(j).userId == key) {
+//                                resultMatches.elementAt(j).late = last_chat
+//                                resultMatches.elementAt(j).count_unread = resultMatches.elementAt(resultMatches.size - 1).count_unread
+//                                resultMatches.elementAt(j).time = time
+//                                if (j > 0) {
+//                                    for (b in j downTo 1) {
+//                                        Collections.swap(resultMatches, b, b - 1) }
+//                                }
+//                                resultMatches.removeAt(resultMatches.size - 1)
+//                                if (count == resultMatches.size) { --count }
+//                                inception = true
+//                            }
+//                        }
+//                        if (!inception) {
+//                            if (resultMatches.size > 1) {
+//                                for (b in resultMatches.size - 1 downTo 1) { Collections.swap(resultMatches, b, b - 1) }
+//                            }
+//                        }
+//                    }
+                    resultMatchNode.find {
+                        it.userId == obj.userId
+                    }.let {
+                        Log.d("MatchingUser",it.toString())
+                        if(createByBoolean) addBadgeOnTabBar()
+                        if(it != null){
+                            it.status = obj.status
+                            it.late = obj.late
+                            it.count_unread = obj.count_unread
+                            it.time = obj.time
+                        }else{
+                            resultMatchNode.add(obj)
                         }
-                        Log.d("chatNotificationTest","+1 $createByBoolean")
-                        for (j in 0 until (resultMatches.size-1)) {
-                            Log.d("loop1","$j ${resultMatches.elementAt(j).userId} , ${resultMatches.size} , $count")
-                            if (resultMatches.elementAt(j).userId == key) {
-                                resultMatches.elementAt(j).late = last_chat
-                                resultMatches.elementAt(j).count_unread = resultMatches.elementAt(resultMatches.size - 1).count_unread
-                                resultMatches.elementAt(j).time = time
-                                if (j > 0) {
-                                    for (b in j downTo 1) {
-                                        Collections.swap(resultMatches, b, b - 1) }
-                                }
-                                resultMatches.removeAt(resultMatches.size - 1)
-                                if (count == resultMatches.size) { --count }
-                                inception = true
+                        resultMatchNode.sortWith { o1, o2 ->
+                            when {
+                                o1.time === null -> -1
+                                o2.time === null -> 1
+                                else -> o2.time!!.compareTo(o1.time!!)
                             }
                         }
-                        if (!inception) {
-                            if (resultMatches.size > 1) {
-                                for (b in resultMatches.size - 1 downTo 1) { Collections.swap(resultMatches, b, b - 1) }
-                            }
-                        }
+                        mMatchesAdapter.notifyDataSetChanged()
                     }
                 }
-                if (resultMatches.size > 1) {
-                    if (resultMatches.elementAt(resultMatches.size - 1).time != "-1") {
-                        val compare1 = resultMatches.elementAt(resultMatches.size - 1).time
-                        val compare2 = resultMatches.elementAt(resultMatches.size - 2).time
-                        if (compare2 == "-1" && compare1 != "-1") { local = resultMatches.size - 1 }
-                        else if (compare2 != "-1" && compare1 != "-1" && resultMatches.size == 2) { local = 0 }
-                        resultMatches.sortWith { o1, o2 ->
-                            var b1 = false
-                            var b2 = false
-                            var checkB1 = 0
-                            var checkB2 = 0
-                            if (o1!!.time!! == "-1") {
-                                b1 = true
-                            }
-                            if (o2!!.time!! == "-1") {
-                                b2 = true
-                            }
-                            if (b1) {
-                                checkB1 = 1
-                            }
-                            if (b2) {
-                                checkB2 = 1
-                            }
-                            checkB2 - checkB1
-                        }
-                        resultMatches.subList(local, resultMatches.size).sortWith { o1, o2 ->
-                            var b1 = false
-                            var b2 = false
-                            var checkB1 = 0
-                            var checkB2 = 0
-                            if (o1!!.time!!.substring(2, 3) == ":") {
-                                b1 = true
-                            }
-                            if (o2!!.time!!.substring(2, 3) == ":") {
-                                b2 = true
-                            }
-                            if (b1) {
-                                checkB1 = 1
-                            }
-                            if (b2) {
-                                checkB2 = 1
-                            }
-                            checkB2 - checkB1
-                        }
-                        resultMatches.sortWith(Comparator { o1, o2 ->
-                            try { return@Comparator SimpleDateFormat("HH:mm").parse(o2!!.time)
-                                       .compareTo(SimpleDateFormat("HH:mm").parse(o1!!.time))
-                            } catch (e: ParseException) { return@Comparator 0 }
-                        })
-                        resultMatches.sortWith(Comparator { o1, o2 ->
-                            try { return@Comparator SimpleDateFormat("dd/MM").parse(o2!!.time)
-                                    .compareTo(SimpleDateFormat("dd/MM").parse(o1!!.time))
-                            } catch (e: ParseException) { return@Comparator 0 }
-                        })
-                    }
-                }
-                if (resultMatches.size == userMatchCount) {
-                    mRecyclerView.visibility = View.VISIBLE
-                    Log.d("TAG_COUNT","ok")
-                    setRecyclerView()
-                }
+                if (resultMatchNode.size == userMatchCount) mRecyclerView.visibility = View.VISIBLE
             }
             override fun onCancelled(databaseError: DatabaseError) {}
         })
@@ -521,37 +455,44 @@ class MatchesActivity : Fragment() {
     private var resultMatchNode: ArrayList<MatchesObject> = ArrayList()
     private fun getDataSetMatchesNode(): ArrayList<MatchesObject> { return resultMatchNode }
     private var resultMatches: ArrayList<MatchesObject> = ArrayList()
-    //private fun getDataSetMatches(): ArrayList<MatchesObject> { return resultMatches }
     private val resultHi: ArrayList<HiObject> = ArrayList()
     private fun getDataSetHi(): ArrayList<HiObject> { return resultHi }
 
+    private fun addBadgeOnTabBar() {
+        val shareUnread = mContext!!.getSharedPreferences("TotalMessage", Context.MODE_PRIVATE)
+        var unread  = shareUnread.getInt("total", 0)
+        (mContext as MainActivity).setCurrentIndex(++unread)
+        val editorRead = shareUnread.edit()
+        editorRead.putInt("total", unread)
+        editorRead.apply()
+    }
 
     override fun onResume() {
         super.onResume()
         val myUnread = mContext!!.getSharedPreferences("NotificationActive", Context.MODE_PRIVATE)
         val s1 = myUnread.getString("ID", "null")
-        if (s1 != "null") { val index = resultMatches.map { T -> T.userId.equals(s1) }.indexOf(element = true)
-            if (resultMatches.size > 0) {
-                resultMatches.elementAt(index).count_unread = 0
+        if (s1 != "null") { val index = resultMatchNode.map { T -> T.userId.equals(s1) }.indexOf(element = true)
+            if (resultMatchNode.size > 0) {
+                resultMatchNode.elementAt(index).count_unread = 0
                 mMatchesAdapter.notifyDataSetChanged()
             } else {
-                resultMatches.elementAt(0).count_unread = 0
+                resultMatchNode.elementAt(0).count_unread = 0
                 mMatchesAdapter.notifyDataSetChanged() }
             myUnread.edit().clear().apply() }
         val myDelete = mContext!!.getSharedPreferences("DeleteChatActive", Context.MODE_PRIVATE)
         val s2 = myDelete.getString("ID", "null")
         if (s2 != "null") {
-            val index = resultMatches.map { T -> T.userId.equals(s2) }.indexOf(element = true)
-            if (resultMatches.size > 0) {
-                resultMatches.apply {
+            val index = resultMatchNode.map { T -> T.userId.equals(s2) }.indexOf(element = true)
+            if (resultMatchNode.size > 0) {
+                resultMatchNode.apply {
                     elementAt(index).late = ""
-                    elementAt(index).time = "-1"
+                    elementAt(index).time = null
                 }
                 mMatchesAdapter.notifyDataSetChanged()
             } else {
-                resultMatches.apply {
+                resultMatchNode.apply {
                     elementAt(0).late = ""
-                    elementAt(0).time = "-1"
+                    elementAt(0).time = null
                 }
                 mMatchesAdapter.notifyDataSetChanged() }
             myDelete.edit().clear().apply() }

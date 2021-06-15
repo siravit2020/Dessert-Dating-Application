@@ -3,6 +3,7 @@ package com.siravit.dessert.activity.register
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.ProgressBar
 import androidx.appcompat.widget.Toolbar
@@ -76,5 +77,15 @@ class QuestionActivity : AppCompatActivity() {
         questionViewModel.responseRegisterQA(localizationDelegate.getLanguage(this).toLanguageTag())
         questionViewModel.response(localizationDelegate.getLanguage(this).toLanguageTag())
 
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }

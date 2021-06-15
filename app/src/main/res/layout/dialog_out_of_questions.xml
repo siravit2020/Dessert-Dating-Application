@@ -48,7 +48,7 @@
                 android:layout_marginTop="@dimen/View4dp"
                 android:layout_gravity="center"
                 android:textStyle="bold"
-                android:text="@string/primary_profile_alert"
+                android:text="@string/out_of_qa_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <Button

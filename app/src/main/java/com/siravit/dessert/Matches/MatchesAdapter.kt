@@ -13,7 +13,10 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
+
 import com.siravit.dessert.R
+import com.siravit.dessert.utils.TimeStampToDate
+
 
 class MatchesAdapter(private val matchesList: ArrayList<MatchesObject>, private val context: Context?, private val currentUid: String?) : RecyclerView.Adapter<MatchesViewHolders?>() {
     @SuppressLint("InflateParams")
@@ -23,8 +26,12 @@ class MatchesAdapter(private val matchesList: ArrayList<MatchesObject>, private 
         return MatchesViewHolders(layoutView, context, matchesList) }
     override fun onBindViewHolder(holder: MatchesViewHolders, position: Int) {
         holder.set(position)
-        if (matchesList.elementAt(position).time != "-1") {
-            holder.mLateView?.hint = matchesList[position].time
+        if (matchesList.elementAt(position).time != null) {
+            val time = (TimeStampToDate(matchesList[position].time as Long).date() == TimeStampToDate(System.currentTimeMillis()).date()).let {
+                if(it) TimeStampToDate(matchesList[position].time as Long).time()
+                else TimeStampToDate(matchesList[position].time as Long).dateWOYear()
+            }
+            holder.mLateView?.hint = time
             holder.mLateView?.visibility = View.VISIBLE
         } else {
             holder.mLateView?.visibility = View.INVISIBLE }

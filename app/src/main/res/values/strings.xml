@@ -159,6 +159,9 @@
     <string name="QA_choice5">Serious Important!</string>
     <string name="questionActivityTitle">Questions</string>
     <string name="questionActivitySubTitle">Answer the questions for better matching.</string>
+    <string name="question_call">Q&amp;A for more quota</string>
+    <string name="warning_skip">If you skip the question.You will doesn\'t receive a more quota today.</string>
+    <string name="out_of_qa_description">Out of question, Sorry we out of question for quota today.</string>
     <string name="dessert_vip">Dessert VIP</string>
     <string name="LoadingAds">Loading ads</string>
     <string name="match">Match</string>
@@ -175,7 +178,7 @@
     <string name="out_of_questions">Sorry, Out of question !!</string>
     <string name="out_of_questions_description">Out of question</string>
     <string name="email">email</string>
-
+    <string name="error_title">Error, Something went wrong !!</string>
 
     <string-array name="shopping_item">
         <item>จัดดอกไม้-ทำสวน</item>

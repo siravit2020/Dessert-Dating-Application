@@ -51,6 +51,7 @@ import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+import com.siravit.dessert.utils.TimeStampToDate
 
 class ChatActivity : AppCompatActivity() {
     private lateinit var mRecyclerView: RecyclerView
@@ -59,7 +60,7 @@ class ChatActivity : AppCompatActivity() {
     //private lateinit var mChatLayoutManager: RecyclerView.LayoutManager
     private lateinit var linearLayoutOvalSend: LinearLayout
     private lateinit var menu: LinearLayout
-    private val plus: MainActivity? = MainActivity()
+    private val mainActivity: MainActivity = MainActivity()
     private lateinit var linearRecord: LinearLayout
     private lateinit var imgSend: ImageView
     private lateinit var mSendImage: ImageView
@@ -369,7 +370,7 @@ class ChatActivity : AppCompatActivity() {
                     "createByUser" to currentUserId,
                     "text" to sendMessageText,
                     "time" to d.time(),
-                    "date" to d.date(),
+                    "date" to ServerValue.TIMESTAMP,
                     "read" to "Unread")
             newMessageDb.setValue(newMessage)
         }
@@ -384,64 +385,39 @@ class ChatActivity : AppCompatActivity() {
                     mDatabaseChat = mDatabaseChat.child(chatId)
                     userDatabase = FirebaseDatabase.getInstance().reference.child("Chat").child(chatId)
                     fetchSharedPreference()
-                    //getCount()
                 }
             }
-
             override fun onCancelled(databaseError: DatabaseError) {}
         })
     }
-
+    var countUnread = 0
     private fun chatCheckRead() {
-        val dd = mDatabaseChat.orderByChild("read").equalTo("Unread")
-        dd.addListenerForSingleValueEvent(object : ValueEventListener {
+        val db = mDatabaseChat.orderByChild("read").equalTo("Unread")
+        db.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (loop in dataSnapshot.children) {
-                    readAlready(loop.key)
-                    val myUnread = getSharedPreferences("TotalMessage", Context.MODE_PRIVATE)
-                    val dd2 = myUnread.getInt("total", 0)
-                    val count = dd2 - 1
-                    Log.d("chatNotificationTest", "$dd2-1")
-                    plus!!.setCurrentIndex(count)
-                    val myUnread2 = getSharedPreferences("TotalMessage", Context.MODE_PRIVATE)
-                    val editorRead = myUnread2.edit()
-                    editorRead.putInt("total", count)
-                    editorRead.apply()
-                    readAlready(loop.key)
+                    ++countUnread
+                    (dataSnapshot.child(loop.key.toString()).child("createByUser").value.toString() == matchId).let{
+                        mDatabaseChat.child(loop.key.toString()).child("read").setValue("Read")
+                    }
                 }
+                deleteBadgeTabBar(countUnread)
             }
-
             override fun onCancelled(databaseError: DatabaseError) {}
         })
     }
 
-    private fun readAlready(key: String?) {
-        mDatabaseChat.child(key.toString()).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                if (dataSnapshot.child("createByUser").value.toString() == matchId) {
-                    mDatabaseChat.child(key.toString()).child("read").setValue("Read")
-                }
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {}
-        })
+    private fun deleteBadgeTabBar(numberOfUnread:Int) {
+        val shareUnread = getSharedPreferences("TotalMessage", Context.MODE_PRIVATE)
+        val unread = shareUnread.getInt("total", 0)
+        val count = unread - numberOfUnread
+        mainActivity.setCurrentIndex(count)
+        val editorRead = shareUnread.edit()
+        editorRead.putInt("total", count)
+        editorRead.apply()
     }
 
     private var countNodeD = 0
-    /*private fun getCount() {
-        val dd = FirebaseDatabase.getInstance().reference.child("Chat")
-        dd.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                if (!dataSnapshot.hasChild(chatId.toString())) {
-                    pro!!.visibility = View.INVISIBLE
-                }
-                fetchSharedPreference()
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {}
-        })
-    }*/
-
     private var c = 0
     private var firstConnect = true
     private var start: String? = "null"
@@ -513,7 +489,7 @@ class ChatActivity : AppCompatActivity() {
             message = myInNode.getString("text", "null")!!
             //read = myInNode.getString("read", "null")!!
             createdByUser = myInNode.getString("createByUser", "null")!!
-            time = myInNode.getString("time", "null")!!
+            time = TimeStampToDate(myInNode.getLong("time", System.currentTimeMillis())).time()
             val check = myInNode.getString("image", "null")
             Log.d("text_chat", message)
             if (check != "default" && check != "null") {
@@ -548,11 +524,9 @@ class ChatActivity : AppCompatActivity() {
         var chatDatabase: Query? = mDatabaseChat
         closeProgress()
         if (fetchId!!.size > 0) {
-            Toast.makeText(this@ChatActivity, "Size > 1 :" + fetchId.elementAt(fetchId.size - 1), Toast.LENGTH_SHORT).show()
             chatDatabase = mDatabaseChat.orderByKey().startAt(fetchId.elementAt(fetchId.size - 1))
 
         } else if (start != "null" && fetchId.size == 0) {
-            Toast.makeText(this@ChatActivity, "Size == 0 :$start", Toast.LENGTH_SHORT).show()
             chatDatabase = mDatabaseChat.orderByKey().startAt(start)
 
         }
@@ -565,6 +539,7 @@ class ChatActivity : AppCompatActivity() {
                             var message: String? = null
                             var createdByUser: String? = null
                             var time: String? = null
+                            var timeLong: Long? = null
                             var urlSend = "default"
                             var audio = "null"
                             var audioLength = "null"
@@ -578,8 +553,11 @@ class ChatActivity : AppCompatActivity() {
                             if (dataSnapshot.child("createByUser").value != null) {
                                 createdByUser = dataSnapshot.child("createByUser").value.toString()
                             }
-                            if (dataSnapshot.child("time").value != null) {
-                                time = dataSnapshot.child("time").value.toString()
+                            if (dataSnapshot.child("date").value != null) {
+                                val timeConvert = TimeStampToDate(dataSnapshot.child("date").value as Long).time()
+                                timeLong = dataSnapshot.child("date").value as Long
+                                Log.d("TAG_COUNT",timeConvert)
+                                time = timeConvert
                             }
                             if (dataSnapshot.child("image").value != null) {
                                 urlSend = dataSnapshot.child("image").value.toString()
@@ -598,7 +576,7 @@ class ChatActivity : AppCompatActivity() {
                             val nodeChatMessageStored = getSharedPreferences(dataSnapshot.key, Context.MODE_PRIVATE)
                             val nodeEditorRead = nodeChatMessageStored.edit()
                             nodeEditorRead.putString("text", message)
-                            nodeEditorRead.putString("time", time)
+                            nodeEditorRead.putLong("time", timeLong!!)
                             nodeEditorRead.putString("createByUser", createdByUser)
                             nodeEditorRead.putString("image", urlSend)
                             nodeEditorRead.putString("audio", audio)
@@ -643,7 +621,7 @@ class ChatActivity : AppCompatActivity() {
                         var audio = "null"
                         var audioLength = "null"
                         var read = "null"
-                        Log.d("unsave", dataSnapshot.key.toString())
+                        var timeLong:Long = System.currentTimeMillis()
                         if (dataSnapshot.child("read").value != null) {
                             read = dataSnapshot.child("read").value.toString()
                         }
@@ -653,8 +631,11 @@ class ChatActivity : AppCompatActivity() {
                         if (dataSnapshot.child("createByUser").value != null) {
                             createdByUser = dataSnapshot.child("createByUser").value.toString()
                         }
-                        if (dataSnapshot.child("time").value != null) {
-                            time = dataSnapshot.child("time").value.toString()
+                        if (dataSnapshot.child("date").value != null) {
+                            val timeConvert = TimeStampToDate(dataSnapshot.child("date").value as Long).time()
+                            Log.d("TAG_COUNT",timeConvert)
+                            timeLong = dataSnapshot.child("date").value as Long
+                            time = timeConvert
                         }
                         if (dataSnapshot.child("image").value != null) {
                             urlSend = dataSnapshot.child("image").value.toString()
@@ -672,7 +653,7 @@ class ChatActivity : AppCompatActivity() {
                         val nodeChatMessageStored = getSharedPreferences(dataSnapshot.key, Context.MODE_PRIVATE)
                         val nodeEditorRead = nodeChatMessageStored.edit()
                         nodeEditorRead.putString("text", message)
-                        nodeEditorRead.putString("time", time)
+                        nodeEditorRead.putLong("time", timeLong)
                         nodeEditorRead.putString("createByUser", createdByUser)
                         nodeEditorRead.putString("image", urlSend)
                         nodeEditorRead.putString("audio", audio)
@@ -748,7 +729,7 @@ class ChatActivity : AppCompatActivity() {
                         val newMessage = hashMapOf(
                                 "createByUser" to currentUserId,
                                 "time" to d.time(),
-                                "date" to d.date(),
+                                "date" to ServerValue.TIMESTAMP,
                                 "text" to "photo$currentUserId",
                                 "read" to "Unread",
                                 "image" to uri.toString())
@@ -790,7 +771,7 @@ class ChatActivity : AppCompatActivity() {
                         val newMessage = hashMapOf(
                                 "createByUser" to currentUserId,
                                 "time" to d.time(),
-                                "date" to d.date(),
+                                "date" to ServerValue.TIMESTAMP,
                                 "text" to "photo$currentUserId",
                                 "read" to "Unread",
                                 "image" to uri.toString())
@@ -844,7 +825,7 @@ class ChatActivity : AppCompatActivity() {
                 val newMessage = hashMapOf(
                         "createByUser" to currentUserId,
                         "time" to timeUser,
-                        "date" to dateUser,
+                        "date" to ServerValue.TIMESTAMP,
                         "audio_length" to timeCount.toString(),
                         "audio" to downloadUrl.toString(),
                         "text" to "audio$currentUserId",

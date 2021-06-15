@@ -75,7 +75,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         val pendingIntent = PendingIntent.getActivity(this, 1, intent, PendingIntent.FLAG_ONE_SHOT)
         val notification = NotificationCompat.Builder(this, App.CHANNEL_ID!!)
-                .setSmallIcon(R.drawable.ic_love)
+                .setSmallIcon(R.drawable.ic_candy)
                 .setContentTitle(getString(R.string.You_have_a_new_match))
                 .setColor(0xFFCC00)
                 .setContentText(getString(R.string.you_and) + " " + name + " " + getString(R.string.Matched2))
@@ -86,7 +86,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 .setAutoCancel(true)
                 .build()
         val sum = NotificationCompat.Builder(this, App.CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_love)
+                .setSmallIcon(R.drawable.ic_candy)
                 .setStyle(NotificationCompat.InboxStyle().setBigContentTitle(getString(R.string.Matched)).setSummaryText(getString(R.string.new_matching)))
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setGroup("Matches")
@@ -154,7 +154,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             }
             if (!twoItems) {
                 id = ++idPlus
-                Toast.makeText(this, "id :$id", Toast.LENGTH_SHORT).show()
                 idNotification.add(ID)
                 indexNotification!!.add(id)
                 try {
@@ -176,7 +175,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         val pendingIntent = PendingIntent.getActivity(this, 1, intent, PendingIntent.FLAG_ONE_SHOT)
         val notification = NotificationCompat.Builder(this, App.CHANNEL_ID!!)
-                .setSmallIcon(R.drawable.ic_love)
+                .setSmallIcon(R.drawable.ic_candy)
                 .setContentTitle(name)
                 .setGroup("Chat")
                 .setContentText(lastChat)
@@ -188,7 +187,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 .setAutoCancel(true)
                 .build()
         val sum = NotificationCompat.Builder(this, App.CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_love)
+                .setSmallIcon(R.drawable.ic_candy)
                 .setStyle(NotificationCompat.InboxStyle().setBigContentTitle(getString(R.string.New_message)).setSummaryText(getString(R.string.You_have_new_message)))
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setGroup("Chat")

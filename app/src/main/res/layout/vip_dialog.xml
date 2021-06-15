@@ -105,6 +105,14 @@
                 android:layout_marginTop="@dimen/View8dp"
                 android:gravity="center"
                 android:orientation="vertical">
+                <Button
+                    android:id="@+id/question_call"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/c3"
+                    android:text="@string/question_call"
+                    android:textSize="@dimen/Text14sp"
+                    android:textColor="@color/white" />
 
                 <Button
                     android:id="@+id/admob"

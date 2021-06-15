@@ -71,7 +71,7 @@ class SignInActivity : AppCompatActivity() {
         }
         signInViewModel = ViewModelProvider(this).get(SignInViewModel::class.java)
         signInViewModel.getResource().observe(this, androidx.lifecycle.Observer {
-            Log.d("resulttt",it.status.toString())
+            Log.d("resulttt",it.message.toString())
             if (it.status === Status.SUCCESS) {
                 Log.d("result",it.data.toString())
                 when (it.data) {
