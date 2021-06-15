@@ -36,13 +36,13 @@ class LocationService(private var activity: Activity) {
 
     private fun showGPSDisabledDialog(notChange:Boolean= false) {
         val builder = AlertDialog.Builder(activity)
-        builder.setTitle(R.string.GPS_Disabled)
-        builder.setMessage(R.string.GPS_open)
+        builder.setTitle(R.string.gps_disabled)
+        builder.setMessage(R.string.please_open_gps)
         builder.setPositiveButton(R.string.open_gps) { _, _ ->
             (activity)
                     .startActivityForResult(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS), 0)
         }
-                .setNegativeButton(R.string.report_close) { dialog, which ->
+                .setNegativeButton(R.string.close) { dialog, which ->
                     if(notChange) return@setNegativeButton
                     val intent = Intent(activity, ShowGpsOpen::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

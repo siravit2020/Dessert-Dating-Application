@@ -19,7 +19,7 @@
         android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/report_alert"
+        android:text="@string/warning"
         android:textColor="@color/text_black_gray"
         android:textSize="@dimen/Text20sp"
         />

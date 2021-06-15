@@ -71,7 +71,7 @@ class MatchesViewHolders(itemView: View, private val context: Context?, private 
                 item.toString() == context?.getString(R.string.cancel_match) -> {
                     show = mMatchId?.text.toString()
                     val mBuilder = AlertDialog.Builder(context)
-                    mBuilder.setTitle(context.getString(R.string.cancel_match2))
+                    mBuilder.setTitle(context.getString(R.string.cancel_match))
                     mBuilder.setMessage(context.getString(R.string.cancel_match_confirm))
                     mBuilder.setCancelable(true)
                     mBuilder.setPositiveButton(R.string.ok) { _, _ ->

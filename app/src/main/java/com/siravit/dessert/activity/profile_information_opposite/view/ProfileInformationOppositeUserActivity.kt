@@ -590,10 +590,10 @@ class ProfileInformationOppositeUserActivity : AppCompatActivity() {
                                 }
                                 if (map["sex"] != null) {
                                     drawableGender = if (map["sex"].toString() == "Male") {
-                                        gender.setText(R.string.Male_gender)
+                                        gender.setText(R.string.male)
                                         R.drawable.ic_man
                                     } else {
-                                        gender.setText(R.string.Female_gender)
+                                        gender.setText(R.string.female)
                                         R.drawable.ic_woman
                                     }
                                 }

@@ -25,7 +25,7 @@ import java.util.*
  */
 class CardAdapter(private var items: ArrayList<CardModel>, private val context: Context?, private val activity: CardActivity) : RecyclerView.Adapter<CardAdapter.Holder?>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_card, parent, false)
         return Holder(view)
     }
 

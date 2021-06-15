@@ -199,7 +199,7 @@ class ChatActivity : AppCompatActivity() {
                 when (item.itemId) {
                     R.id.menu_unmatch -> {
                         Alerter.create(this@ChatActivity)
-                                .setTitle(getString(R.string.cancel_match2))
+                                .setTitle(getString(R.string.cancel_match))
                                 .setText(getString(R.string.cancel_match_confirm))
                                 .setIconColorFilter(Color.parseColor("#FFFFFF"))
                                 .setBackgroundColorInt(Color.parseColor("#FF5050"))

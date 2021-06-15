@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 
 import android.view.View
 import android.view.ViewGroup
@@ -88,8 +87,8 @@ class QAActivityAdapter(private val context: Context, private val result: ArrayL
         }
         when (position) {
             0 -> {
-                holder.confirmButton.text = context.getString(R.string.next_QA)
-                holder.dismissButton.text = context.getString(R.string.dismiss_label)
+                holder.confirmButton.text = context.getString(R.string.next)
+                holder.dismissButton.text = context.getString(R.string.cancel)
                 holder.dismissButton.visibility = View.GONE
                 holder.dismissButton.setOnClickListener {
                     intent.apply {
@@ -99,8 +98,8 @@ class QAActivityAdapter(private val context: Context, private val result: ArrayL
                 }
             }
             itemCount - 1 -> {
-                holder.confirmButton.text = context.getString(R.string.ok_QA)
-                holder.dismissButton.text = context.getString(R.string.previous_QA)
+                holder.confirmButton.text = context.getString(R.string.ok)
+                holder.dismissButton.text = context.getString(R.string.previous)
                 json.remove(json.length() - 1)
                 holder.dismissButton.setOnClickListener {
                     viewPager.setCurrentItem(--viewPager.currentItem, false)
@@ -108,8 +107,8 @@ class QAActivityAdapter(private val context: Context, private val result: ArrayL
             }
             else -> {
                 holder.dismissButton.visibility = View.VISIBLE
-                holder.confirmButton.text = context.getString(R.string.next_QA)
-                holder.dismissButton.text = context.getString(R.string.previous_QA)
+                holder.confirmButton.text = context.getString(R.string.next)
+                holder.dismissButton.text = context.getString(R.string.previous)
                 json.remove(json.length() - 1)
                 holder.dismissButton.setOnClickListener {
                     viewPager.setCurrentItem(--viewPager.currentItem, false)

@@ -133,7 +133,7 @@
                         android:clickable="true"
                         android:gravity="center"
                         android:padding="@dimen/View8dp"
-                        android:text="@string/vip"
+                        android:text="@string/get_vip"
                         android:textColor="@color/white"
                         android:textSize="@dimen/Text16sp"
                         android:translationZ="4dp" />
@@ -197,7 +197,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/People_like_you"
+                                    android:text="@string/people_like_you"
                                     android:textColor="@color/text_black_gray"
                                     android:textSize="@dimen/Text16sp" />
 
@@ -222,8 +222,8 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="@dimen/View20dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="@dimen/View20dp"
                         android:background="@color/background_gray" />
 
                     <LinearLayout
@@ -261,7 +261,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/People_view"
+                                    android:text="@string/people_view"
                                     android:textColor="@color/text_black_gray"
                                     android:textSize="@dimen/Text16sp" />
 
@@ -325,7 +325,7 @@
                             android:layout_weight="1"
                             android:gravity="center_vertical"
                             android:paddingStart="4dp"
-                            android:text="@string/Setting"
+                            android:text="@string/setting"
                             android:textColor="@color/defaultContentColor"
                             android:textSize="@dimen/Text16sp" />
 
@@ -374,7 +374,7 @@
                             android:layout_weight="1"
                             android:gravity="center_vertical"
                             android:paddingStart="4dp"
-                            android:text="@string/Edit"
+                            android:text="@string/edit"
                             android:textColor="@color/defaultContentColor"
                             android:textSize="@dimen/Text16sp" />
 

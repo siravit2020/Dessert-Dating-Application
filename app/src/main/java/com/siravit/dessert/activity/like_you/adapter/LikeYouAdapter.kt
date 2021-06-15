@@ -56,9 +56,9 @@ class LikeYouAdapter(private val like: MutableList<LikeYouModel>, private val co
                 Glide.with(context).load(R.drawable.online_user).into(status)
             }
             if (like[position].gender == "Male") {
-                tag.text = context.getString(R.string.Male_semi) + " " + like[position].Age
+                tag.text = context.getString(R.string.male_semi) + " " + like[position].Age
             } else {
-                tag.text = context.getString(R.string.Female_semi) + " " + like[position].Age
+                tag.text = context.getString(R.string.female_semi) + " " + like[position].Age
             }
             city.text = like[position].city + ", " + df2.format(like[position].distance) + " km"
             container.setOnClickListener {

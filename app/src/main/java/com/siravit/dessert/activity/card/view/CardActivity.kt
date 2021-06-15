@@ -1,6 +1,5 @@
 package com.siravit.dessert.activity.card.view
 
-import android.app.Activity
 import android.app.Dialog
 import android.content.ContentValues.TAG
 import android.content.Context
@@ -114,7 +113,7 @@ class CardActivity : Fragment(), View.OnClickListener {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        Log.d("ghj", "สร้างละ")
+
         val view = inflater.inflate(R.layout.activity_card, container, false)
         checkStart()
 
@@ -132,7 +131,7 @@ class CardActivity : Fragment(), View.OnClickListener {
         textGps2 = view.findViewById(R.id.textView9)
         touchGps = view.findViewById(R.id.imageView3)
         textgps.setText(R.string.touch_settings)
-        textGps2.setText(R.string.Area)
+        textGps2.setText(R.string.area_not_found)
         like = view.findViewById(R.id.like_button)
         dislike = view.findViewById(R.id.dislike_button)
         star = view.findViewById(R.id.star_button)

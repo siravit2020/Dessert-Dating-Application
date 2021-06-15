@@ -94,7 +94,7 @@ class  FilterSettingActivity : AppCompatActivity(),View.OnClickListener {
         onOffCard = findViewById(R.id.on_off_card)
         onOffList = findViewById(R.id.on_off_list)
         setSupportActionBar(toolbar)
-        supportActionBar!!.setTitle(R.string.Setting)
+        supportActionBar!!.setTitle(R.string.setting)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         currentUid = mAuth.uid.toString()
         textSeekAge = findViewById(R.id.seek_age_text)
@@ -359,8 +359,8 @@ class  FilterSettingActivity : AppCompatActivity(),View.OnClickListener {
         if(v == onOffCard){
             if (!onOffCard.isChecked) {
                 val mBuilder = AlertDialog.Builder(this@FilterSettingActivity)
-                mBuilder.setTitle(R.string.Vision_closed)
-                mBuilder.setMessage(R.string.Vision_closed_match)
+                mBuilder.setTitle(R.string.vision_closed)
+                mBuilder.setMessage(R.string.vision_closed_match)
                 mBuilder.setCancelable(true)
                 mBuilder.setOnCancelListener { onOffCard.isChecked = true }
                 mBuilder.setPositiveButton(R.string.ok) { _, _ -> onOffCard.isChecked = false; }
@@ -373,8 +373,8 @@ class  FilterSettingActivity : AppCompatActivity(),View.OnClickListener {
         if(v == onOffList){
             if (!onOffList.isChecked) {
                 val mBuilder = AlertDialog.Builder(this@FilterSettingActivity)
-                mBuilder.setTitle(R.string.Vision_closed)
-                mBuilder.setMessage(R.string.Vision_closed_nearby)
+                mBuilder.setTitle(R.string.vision_closed)
+                mBuilder.setMessage(R.string.vision_closed_nearby)
                 mBuilder.setCancelable(true)
                 mBuilder.setOnCancelListener { onOffList.isChecked = true }
                 mBuilder.setPositiveButton(R.string.ok) { _, _ -> onOffList.isChecked = false; }

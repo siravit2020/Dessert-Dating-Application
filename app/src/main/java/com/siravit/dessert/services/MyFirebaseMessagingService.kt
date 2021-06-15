@@ -5,7 +5,6 @@ import android.content.Intent
 import android.graphics.*
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -78,7 +77,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 .setSmallIcon(R.drawable.ic_candy)
                 .setContentTitle(getString(R.string.You_have_a_new_match))
                 .setColor(0xFFCC00)
-                .setContentText(getString(R.string.you_and) + " " + name + " " + getString(R.string.Matched2))
+                .setContentText(getString(R.string.you_and) + " " + name + " " + getString(R.string.matched2))
                 .setGroup("Matches")
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
@@ -87,7 +86,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 .build()
         val sum = NotificationCompat.Builder(this, App.CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_candy)
-                .setStyle(NotificationCompat.InboxStyle().setBigContentTitle(getString(R.string.Matched)).setSummaryText(getString(R.string.new_matching)))
+                .setStyle(NotificationCompat.InboxStyle().setBigContentTitle(getString(R.string.matched)).setSummaryText(getString(R.string.new_match)))
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setGroup("Matches")
                 .setGroupAlertBehavior(NotificationCompat.GROUP_ALERT_CHILDREN)
@@ -188,7 +187,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 .build()
         val sum = NotificationCompat.Builder(this, App.CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_candy)
-                .setStyle(NotificationCompat.InboxStyle().setBigContentTitle(getString(R.string.New_message)).setSummaryText(getString(R.string.You_have_new_message)))
+                .setStyle(NotificationCompat.InboxStyle().setBigContentTitle(getString(R.string.new_message)).setSummaryText(getString(R.string.you_have_new_message)))
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setGroup("Chat")
                 .setGroupAlertBehavior(NotificationCompat.GROUP_ALERT_CHILDREN)

@@ -30,7 +30,7 @@
                 android:paddingTop="@dimen/View8dp"
                 android:paddingEnd="@dimen/View8dp"
                 android:paddingBottom="@dimen/View8dp"
-                android:text="@string/Search_settings"
+                android:text="@string/search_settings"
                 android:textColor="@color/text_black_gray"
                 android:textSize="@dimen/Text20sp" />
 
@@ -71,7 +71,7 @@
                         android:layoutDirection="rtl"
                         android:paddingTop="@dimen/View8dp"
                         android:paddingBottom="@dimen/View8dp"
-                        android:text="@string/Male"
+                        android:text="@string/male"
                         android:textAlignment="textStart"
                         android:textSize="@dimen/Text16sp" />
 
@@ -83,7 +83,7 @@
                         android:layoutDirection="rtl"
                         android:paddingTop="@dimen/View8dp"
                         android:paddingBottom="@dimen/View8dp"
-                        android:text="@string/Female"
+                        android:text="@string/female"
                         android:textAlignment="textStart"
                         android:textSize="@dimen/Text16sp" />
 
@@ -95,7 +95,7 @@
                         android:layoutDirection="rtl"
                         android:paddingTop="@dimen/View8dp"
                         android:paddingBottom="@dimen/View8dp"
-                        android:text="@string/Everyone"
+                        android:text="@string/everyone"
                         android:textAlignment="textStart"
                         android:textSize="@dimen/Text16sp" />
 
@@ -126,7 +126,7 @@
                         android:paddingTop="@dimen/View8dp"
                         android:paddingEnd="@dimen/View8dp"
                         android:paddingBottom="@dimen/View8dp"
-                        android:text="@string/Distance"
+                        android:text="@string/distance"
                         android:textColor="@color/text_black_gray"
                         android:textSize="@dimen/Text16sp" />
                     <TextView
@@ -197,7 +197,7 @@
                         android:paddingTop="@dimen/View8dp"
                         android:paddingEnd="@dimen/View8dp"
                         android:paddingBottom="@dimen/View8dp"
-                        android:text="@string/age_range"
+                        android:text="@string/age"
                         android:textSize="@dimen/Text16sp" />
                     <TextView
                         android:id="@+id/seek_age_text"
@@ -255,7 +255,7 @@
                 android:paddingTop="@dimen/View8dp"
                 android:paddingEnd="@dimen/View8dp"
                 android:paddingBottom="@dimen/View8dp"
-                android:text="@string/Application_settings"
+                android:text="@string/application_settings"
                 android:textColor="@color/text_black_gray"
                 android:textSize="@dimen/Text20sp" />
             <LinearLayout
@@ -271,7 +271,7 @@
                     android:paddingTop="@dimen/View20dp"
                     android:paddingEnd="@dimen/View8dp"
                     android:paddingBottom="@dimen/View8dp"
-                    android:text="@string/Notifications"
+                    android:text="@string/notifications"
                     android:textColor="@color/text_black_gray"
                     android:includeFontPadding="false"
                     android:textSize="@dimen/Text16sp" />
@@ -324,7 +324,7 @@
                 android:paddingTop="@dimen/View8dp"
                 android:paddingEnd="@dimen/View8dp"
                 android:paddingBottom="@dimen/View8dp"
-                android:text="@string/Active_status_settings"
+                android:text="@string/active_status_settings"
                 android:textColor="@color/text_black_gray"
                 android:textSize="@dimen/Text20sp" />
             <LinearLayout
@@ -340,7 +340,7 @@
                     android:paddingStart="@dimen/View16dp"
                     android:paddingEnd="@dimen/View16dp"
                     android:paddingBottom="@dimen/View8dp"
-                    android:text="@string/Active_status"
+                    android:text="@string/active_status"
                     android:textColor="@color/text_black_gray"
                     android:includeFontPadding="false"
                     android:textSize="@dimen/Text16sp" />
@@ -352,7 +352,7 @@
                     android:paddingTop="@dimen/View8dp"
                     android:paddingEnd="@dimen/View16dp"
                     android:paddingBottom="@dimen/View20dp"
-                    android:text="@string/Show_Active_status_recently"
+                    android:text="@string/show_active_status_recently"
                     android:textSize="@dimen/Text16sp"
                     android:textColor="@color/text_black_gray" />
 
@@ -366,7 +366,7 @@
                 android:paddingTop="@dimen/View8dp"
                 android:paddingEnd="@dimen/View8dp"
                 android:paddingBottom="@dimen/View8dp"
-                android:text="@string/Visibility_settings"
+                android:text="@string/visibility_settings"
                 android:textColor="@color/text_black_gray"
                 android:textSize="@dimen/Text20sp" />
             <LinearLayout
@@ -382,7 +382,7 @@
                     android:paddingTop="@dimen/View20dp"
                     android:paddingEnd="@dimen/View16dp"
                     android:paddingBottom="@dimen/View8dp"
-                    android:text="@string/Visibility"
+                    android:text="@string/visibility"
                     android:textColor="@color/text_black_gray"
                     android:includeFontPadding="false"
                     android:textSize="@dimen/Text16sp" />
@@ -394,7 +394,7 @@
                     android:paddingTop="@dimen/View8dp"
                     android:paddingEnd="@dimen/View16dp"
                     android:paddingBottom="@dimen/View8dp"
-                    android:text="@string/Matching_mode"
+                    android:text="@string/matching_mode"
                     android:textSize="@dimen/Text16sp"
                     android:switchPadding="20dp"
                     android:textColor="@color/text_black_gray" />
@@ -427,7 +427,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="@string/Signout"
+                    android:text="@string/signout"
                     android:textColor="@color/text_gray"
                     android:textSize="@dimen/Text16sp" />
 
@@ -448,7 +448,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@string/Close_account"
+                    android:text="@string/close_account"
                     android:textColor="@color/text_gray"
                     android:textSize="@dimen/Text16sp" />
             </LinearLayout>

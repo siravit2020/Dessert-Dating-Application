@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/View32dp"
         android:layout_marginBottom="@dimen/View32dp"
-        android:text="กรุณายืนยันบัญชีผู้ใช้ ที่อีเมลของท่าน"
+        android:text="@string/verify_email"
         android:gravity="center"
         android:textColor="@color/text_black_gray"
         android:textSize="@dimen/Text16sp"
@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/View8dp"
         android:layout_marginTop="@dimen/View20dp"
-        android:text="กำลังส่งไปที่อีเมล..."
+        android:text="@string/sending_to_email"
         android:textColor="@color/white"
         android:textSize="@dimen/Text16sp" />
 

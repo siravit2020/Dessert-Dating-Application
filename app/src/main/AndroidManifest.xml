@@ -23,7 +23,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="LockedOrientationActivity"
         tools:replace="android:icon">
-        <activity android:name="com.siravit.dessert.activity.forgot_password.view.ForgotPasswordActivity"></activity>
+        <activity android:name="com.siravit.dessert.activity.forgot_password.view.ForgotPasswordActivity"/>
         <activity android:name="com.siravit.dessert.activity.register.view.SendVerificationActivity" />
         <activity android:name="com.siravit.dessert.activity.dis_like.view.DisLike" />
         <activity android:name="com.siravit.dessert.activity.problem_list.ProblemListActivity" />

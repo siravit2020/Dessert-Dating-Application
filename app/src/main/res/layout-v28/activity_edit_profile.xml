@@ -64,7 +64,7 @@
                         android:paddingTop="1dp"
                         android:paddingEnd="@dimen/View4dp"
                         android:paddingBottom="1dp"
-                        android:text="@string/tag_profile"
+                        android:text="@string/main_image"
                         android:textColor="@color/white"
                         android:textSize="@dimen/Text14sp" />
 
@@ -299,7 +299,7 @@
                     android:paddingTop="@dimen/View8dp"
                     android:paddingEnd="@dimen/View16dp"
                     android:paddingBottom="@dimen/View8dp"
-                    android:text="@string/work"
+                    android:text="@string/current_work"
                     android:textColor="@color/text_black_gray"
                     android:textSize="@dimen/Text16sp" />
 
@@ -377,7 +377,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/basic_info"
+                    android:text="@string/basic_infomation"
                     android:textSize="@dimen/Text14sp" />
 
             </LinearLayout>

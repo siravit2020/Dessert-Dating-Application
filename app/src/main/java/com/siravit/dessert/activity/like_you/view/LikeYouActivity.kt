@@ -98,13 +98,13 @@ class LikeYouActivity : AppCompatActivity() {
             intent.extras!!.remove("See")
             connectionDb = FirebaseDatabase.getInstance().reference.child("Users").child(currentUserId).child("see_profile")
             empty.setText(R.string.see_empty)
-            supportActionBar!!.setTitle(R.string.People_view)
+            supportActionBar!!.setTitle(R.string.people_view)
         } else {
             limit = c
             if (c > 0) status = true
             button.setText(R.string.see_like)
             empty.setText(R.string.like_empty)
-            supportActionBar!!.setTitle(R.string.People_like_you)
+            supportActionBar!!.setTitle(R.string.people_like_you)
         }
         val radius = 10f
         val decorView = window.decorView

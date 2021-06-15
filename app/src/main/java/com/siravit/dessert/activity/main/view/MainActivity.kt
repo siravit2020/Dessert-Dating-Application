@@ -417,9 +417,9 @@ class MainActivity : AppCompatActivity() ,LocationListener {
     private fun showGPSDisabledDialog() {
         val mGPSDialog:Dialog
         val builder = AlertDialog.Builder(this)
-        builder.setTitle(R.string.GPS_Disabled)
-        builder.setMessage(R.string.GPS_open)
-        builder.setPositiveButton(R.string.open_gps) { _, _ -> startActivityForResult(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS), 0) }.setNegativeButton(R.string.report_close) { _, _ ->
+        builder.setTitle(R.string.gps_disabled)
+        builder.setMessage(R.string.please_open_gps)
+        builder.setPositiveButton(R.string.open_gps) { _, _ -> startActivityForResult(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS), 0) }.setNegativeButton(R.string.close) { _, _ ->
             val intent = Intent(this, ShowGpsOpen::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             this.finish()

@@ -125,7 +125,7 @@ class VerifyActivity : AppCompatActivity() {
                 Log.d("Vericom", "2")
                 singInTheUserByCredentials(credential)
                 Alerter.create(this@VerifyActivity)
-                        .setTitle(getString(R.string.Sign))
+                        .setTitle(getString(R.string.Sign_in))
                         .setText(getString(R.string.logging))
                         .setBackgroundColorRes(R.color.c2)
                         .show()

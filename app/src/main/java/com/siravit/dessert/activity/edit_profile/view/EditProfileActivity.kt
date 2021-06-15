@@ -107,7 +107,7 @@ open class EditProfileActivity : AppCompatActivity(), View.OnClickListener {
         religion = findViewById(R.id.religion)
         toolbar = findViewById(R.id.my_tools)
         setSupportActionBar(toolbar)
-        supportActionBar!!.setTitle(R.string.Edit)
+        supportActionBar!!.setTitle(R.string.edit)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         val inflater = layoutInflater
         val view = inflater.inflate(R.layout.progress_dialog, null)
@@ -172,7 +172,7 @@ open class EditProfileActivity : AppCompatActivity(), View.OnClickListener {
         flexLayout.setOnClickListener{
             val mBuilder = AlertDialog.Builder(this@EditProfileActivity)
             mBuilder.apply {
-                setTitle(R.string.dialog_title)
+                setTitle(R.string.hobby)
                 setMultiChoiceItems(listItems, checkedItems) { _, position, isChecked ->
                     if (isChecked) {
                         mUserItems.add(position)
@@ -188,7 +188,7 @@ open class EditProfileActivity : AppCompatActivity(), View.OnClickListener {
                     }
                     buttonAdd()
                 }
-                setNeutralButton(R.string.clear_all_label) { _, _ ->
+                setNeutralButton(R.string.clear) { _, _ ->
                     for (i in checkedItems.indices) {
                         checkedItems[i] = false
                         mUserItems.clear()

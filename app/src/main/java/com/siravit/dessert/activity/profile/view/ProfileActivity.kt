@@ -214,7 +214,7 @@ class ProfileActivity : Fragment(){
                     .apply(RequestOptions().override(300, 300)).into(imageView)
         }
         if (GlobalVariable.vip) {
-            vip.setText(R.string.You_are_vip)
+            vip.setText(R.string.you_are_vip)
             statusDialog = true
         }
         count.text = GlobalVariable.likeYou.toString()

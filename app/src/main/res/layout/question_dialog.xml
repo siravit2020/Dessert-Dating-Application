@@ -18,7 +18,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/Text16sp"
                     android:textColor="#000000"
-                    android:text="Message"/>
+                    android:text="@string/message"/>
                 <RadioGroup
                     android:id="@+id/radioGroup_QA"
                     android:layout_width="wrap_content"
@@ -41,7 +41,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/Text16sp"
                     android:textColor="#000000"
-                    android:text="@string/QA_improtant"/>
+                    android:text="@string/qa_improtant"/>
                 <RadioGroup
                     android:id="@+id/radioGroup_QAWeight"
                     android:layout_width="wrap_content"
@@ -50,27 +50,27 @@
                         android:id="@+id/radioButton_QAWeight1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/QA_choice1"/>
+                        android:text="@string/qa_choice1"/>
                     <RadioButton
                         android:id="@+id/radioButton_QAWeight2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/QA_choice2"/>
+                        android:text="@string/qa_choice2"/>
                     <RadioButton
                         android:id="@+id/radioButton_QAWeight3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/QA_choice3"/>
+                        android:text="@string/qa_choice3"/>
                     <RadioButton
                         android:id="@+id/radioButton_QAWeight4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/QA_choice4"/>
+                        android:text="@string/qa_choice4"/>
                     <RadioButton
                         android:id="@+id/radioButton_QAWeight5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/QA_choice5"/>
+                        android:text="@string/qa_choice5"/>
                 </RadioGroup>
         <LinearLayout
             android:layout_marginTop="@dimen/View8dp"
@@ -88,7 +88,7 @@
                 android:textColor="@color/white"
                 android:id="@+id/QA_dismiss"
                 android:padding="@dimen/View8dp"
-                android:text="@string/dismiss_label"
+                android:text="@string/cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <Button
@@ -99,7 +99,7 @@
                 android:textColor="@color/white"
                 android:id="@+id/QA_skip"
                 android:padding="@dimen/View8dp"
-                android:text="@string/skip_QA"
+                android:text="@string/skip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <Button
@@ -111,7 +111,7 @@
                 android:textColor="@color/white"
                 android:id="@+id/QA_confirm"
                 android:padding="@dimen/View8dp"
-                android:text="@string/next_QA"
+                android:text="@string/next"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 

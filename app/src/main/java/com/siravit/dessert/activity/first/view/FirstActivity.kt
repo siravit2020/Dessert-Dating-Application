@@ -40,7 +40,7 @@ class FirstActivity : AppCompatActivity() {
             firstViewModel.addListener()
         }
         firstViewModel.getStatus().observe(this, Observer {
-            Log.d("test observe",it.name)
+
             aniFade.setAnimationListener(null)
             aniFade2.setAnimationListener(null)
             if(it == CheckStatusUser.CHOOSE){
@@ -54,7 +54,7 @@ class FirstActivity : AppCompatActivity() {
             }
         })
         firstViewModel.getCheckUser().observe(this, Observer {
-            Log.d("test observe",it.toString())
+
             if(!it){
                 aniFade.setAnimationListener(null)
                 aniFade2.setAnimationListener(null)
@@ -111,6 +111,7 @@ class FirstActivity : AppCompatActivity() {
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == 1) {
             if (grantResults.isNotEmpty()
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {

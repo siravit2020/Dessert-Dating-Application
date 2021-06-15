@@ -51,15 +51,15 @@ class QAPagerAdapter(val context: Context, private val choice: ArrayList<QAObjec
         when (position) {
             0 -> {
                 holder.dismissButton.visibility = View.GONE
-                holder.confirmButton.text = context.getString(R.string.next_QA)
-                holder.dismissButton.text = context.getString(R.string.dismiss_label)
+                holder.confirmButton.text = context.getString(R.string.next)
+                holder.dismissButton.text = context.getString(R.string.cancel)
                 holder.dismissButton.setOnClickListener {
                     dialog.dismiss()
                 }
             }
             itemCount - 1 -> {
-                holder.confirmButton.text = context.getString(R.string.ok_QA)
-                holder.dismissButton.text = context.getString(R.string.previous_QA)
+                holder.confirmButton.text = context.getString(R.string.ok)
+                holder.dismissButton.text = context.getString(R.string.previous)
                 holder.dismissButton.setOnClickListener {
                     viewpager.setCurrentItem(--viewpager.currentItem, false)
                     json.remove(json.length()-1)
@@ -68,8 +68,8 @@ class QAPagerAdapter(val context: Context, private val choice: ArrayList<QAObjec
             }
             else -> {
                 holder.dismissButton.visibility = View.VISIBLE
-                holder.confirmButton.text = context.getString(R.string.next_QA)
-                holder.dismissButton.text = context.getString(R.string.previous_QA)
+                holder.confirmButton.text = context.getString(R.string.next)
+                holder.dismissButton.text = context.getString(R.string.previous)
                 holder.dismissButton.setOnClickListener {
                     viewpager.setCurrentItem(--viewpager.currentItem, false)
                     json.remove(json.length()-1)

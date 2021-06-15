@@ -10,8 +10,8 @@ class CloseDialog(private var context: Context, private var currentUid:String, p
     fun show(){
 
         val mBuilder = AlertDialog.Builder(context)
-            mBuilder.setTitle(R.string.Close_account)
-            mBuilder.setMessage(R.string.Close_account_confirm)
+            mBuilder.setTitle(R.string.close_account)
+            mBuilder.setMessage(R.string.close_account_confirm)
             mBuilder.setCancelable(true)
             mBuilder.setPositiveButton(R.string.ok) { _, _ -> Close(currentUid,context).delete();  FU()}
             mBuilder.setNegativeButton(R.string.cancle) { _, _ -> }

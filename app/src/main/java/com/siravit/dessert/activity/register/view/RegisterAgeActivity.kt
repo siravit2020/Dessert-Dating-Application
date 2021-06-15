@@ -82,7 +82,7 @@ class RegisterAgeActivity : AppCompatActivity() {
                 return@OnClickListener
             } else {
                 Alerter.create(this@RegisterAgeActivity)
-                        .setTitle(getString(R.string.Noti))
+                        .setTitle(getString(R.string.Notification))
                         .setText(getString(R.string.up18))
                         .setBackgroundColorRes(R.color.c3)
                         .show()

@@ -49,7 +49,7 @@ class RegisterNameActivity : AppCompatActivity() {
 
             } else {
                 Alerter.create(this@RegisterNameActivity)
-                        .setTitle(R.string.Noti)
+                        .setTitle(R.string.Notification)
                         .setText(getString(R.string.enter_name))
                         .setBackgroundColorRes(R.color.c3)
                         .show()

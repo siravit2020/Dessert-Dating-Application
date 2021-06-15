@@ -116,7 +116,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/View16dp"
         android:layout_marginBottom="@dimen/View16dp"
-        android:text="ข้าม >"
+        android:text="@string/skip_arrow"
         android:textColor="#B8B8B8"
         android:textSize="@dimen/Text14sp"
         app:layout_constraintBottom_toBottomOf="parent"

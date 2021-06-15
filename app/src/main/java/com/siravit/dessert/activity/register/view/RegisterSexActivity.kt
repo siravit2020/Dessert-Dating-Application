@@ -57,7 +57,7 @@ class RegisterSexActivity : AppCompatActivity() {
                 return@OnClickListener
             } else {
                 Alerter.create(this@RegisterSexActivity)
-                        .setTitle(R.string.Noti)
+                        .setTitle(R.string.Notification)
                         .setText(getString(R.string.choose_gender))
                         .setBackgroundColorRes(R.color.c3)
                         .show()

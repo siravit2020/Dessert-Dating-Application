@@ -67,8 +67,8 @@ class ReportUser(private var context: Activity, private var matchId: String) {
                 if (dateBefore) {
                         //report(Child)
                     Alerter.create(context)
-                            .setTitle(context.getString(R.string.report_suc))
-                            .setText(context.getString(R.string.report_suc2))
+                            .setTitle(context.getString(R.string.successful))
+                            .setText(context.getString(R.string.report_successful))
                             .setBackgroundColorInt(ContextCompat.getColor(context, R.color.c3))
                             .setIcon(ContextCompat.getDrawable(context, R.drawable.ic_baseline_done_24)!!)
                             .show()
@@ -92,7 +92,7 @@ class ReportUser(private var context: Activity, private var matchId: String) {
                 } else {
 
                     Alerter.create(context)
-                            .setTitle(context.getString(R.string.report_failed))
+                            .setTitle(context.getString(R.string.failed))
                             .setText(context.getString(R.string.report_reset))
                             .setBackgroundColorInt(ContextCompat.getColor(context, R.color.c1))
                             .setIcon(ContextCompat.getDrawable(context, R.drawable.ic_do_not_disturb_black_24dp)!!)
@@ -112,8 +112,8 @@ class ReportUser(private var context: Activity, private var matchId: String) {
                 reportDb.child(matchId).updateChildren(datetime)
                 val jj = hashMapOf<String, Any>()
                 Alerter.create(context)
-                        .setTitle(context.getString(R.string.report_suc))
-                        .setText(context.getString(R.string.report_suc2))
+                        .setTitle(context.getString(R.string.successful))
+                        .setText(context.getString(R.string.report_successful))
                         .setBackgroundColorInt(ContextCompat.getColor(context, R.color.c3))
                         .setIcon(ContextCompat.getDrawable(context, R.drawable.ic_baseline_done_24)!!)
                         .show()

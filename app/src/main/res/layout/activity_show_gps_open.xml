@@ -26,7 +26,7 @@
         android:gravity="center"
         android:textColor="@color/text_black_gray"
         android:textSize="@dimen/Text16sp"
-        android:text="@string/aleartGPSopen"
+        android:text="@string/aleart_gps_open"
         />
     <Button
         android:id="@+id/open"

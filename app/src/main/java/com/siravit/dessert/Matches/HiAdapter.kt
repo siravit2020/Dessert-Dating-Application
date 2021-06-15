@@ -72,7 +72,7 @@ class HiAdapter(private val Hilist: ArrayList<HiObject>, private val context: Co
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.hi_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_hi, parent, false)
         return Holder(view)
     }
 

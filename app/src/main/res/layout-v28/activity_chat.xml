@@ -203,8 +203,6 @@
             <ProgressBar
                 android:visibility="gone"
                 android:id="@+id/progressBar_audio"
-                android:layout_below="@+id/Linear_top_chat"
-                android:layout_centerHorizontal="true"
                 style="?android:attr/progressBarStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -219,7 +217,7 @@
                 android:id="@+id/record_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Record_Status"/>
+                android:text="@string/record"/>
         </LinearLayout>
 
     </LinearLayout>

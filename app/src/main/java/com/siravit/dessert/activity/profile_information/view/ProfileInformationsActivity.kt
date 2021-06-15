@@ -194,7 +194,7 @@ class ProfileInformationsActivity : AppCompatActivity() {
                         myself.text = map["myself"].toString()
                     }
                     if (map["sex"] != null) {
-                        if (map["sex"].toString() == "Male") gender.setText(R.string.Male_gender) else gender.setText(R.string.Female_gender)
+                        if (map["sex"].toString() == "Male") gender.setText(R.string.male) else gender.setText(R.string.female)
                     }
                     if (map["name"] != null) {
                         name.text = map["name"].toString()
