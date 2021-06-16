@@ -1,4 +1,4 @@
-package com.siravit.dessert.activity.register
+package com.siravit.dessert.activity.register.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -15,7 +15,6 @@ import com.siravit.dessert.utils.ChangLanguage
 import com.siravit.dessert.QAStore.QAActivityAdapter
 import com.siravit.dessert.R
 import com.siravit.dessert.ViewModel.QuestionViewModel
-import com.siravit.dessert.activity.register.view.RegisterFinishAcivity
 
 class QuestionActivity : AppCompatActivity() {
     private var x: Double = 0.0

@@ -1,4 +1,4 @@
-package com.siravit.dessert.Chat
+package com.siravit.dessert.activity.chat.adapter
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -21,9 +21,10 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.siravit.dessert.ImageChat.ItemImageActivity
+import com.siravit.dessert.activity.image_chat.view.ItemImageActivity
 import com.siravit.dessert.R
 import com.ldoublem.loadingviewlib.LVCircularCD
+import com.siravit.dessert.activity.chat.model.ChatModel
 import kotlinx.android.synthetic.main.item_chat.view.*
 import java.io.File
 import java.io.FileOutputStream
@@ -67,7 +68,7 @@ class ChatViewHolders(itemView: View, private val context: Context) : RecyclerVi
     private lateinit var alertDialog: AlertDialog
 
     @SuppressLint("SetTextI18n")
-    fun start(chatList: ChatObject) {
+    fun start(chatList: ChatModel) {
 
         mMatchIdReal.text = chatList.createByUser
         mMatchId.text = chatList.Match_id

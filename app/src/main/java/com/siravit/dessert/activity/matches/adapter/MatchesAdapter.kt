@@ -1,4 +1,4 @@
-package com.siravit.dessert.Matches
+package com.siravit.dessert.activity.matches.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -15,6 +15,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 
 import com.siravit.dessert.R
+import com.siravit.dessert.activity.matches.model.MatchesObject
 import com.siravit.dessert.utils.TimeStampToDate
 
 

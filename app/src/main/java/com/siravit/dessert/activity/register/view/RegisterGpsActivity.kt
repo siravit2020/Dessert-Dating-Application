@@ -98,7 +98,7 @@ class RegisterGpsActivity : AppCompatActivity(), LocationListener {
         }
     }
 
-    private val runnable: Runnable? = object : Runnable {
+    private val runnable: Runnable = object : Runnable {
         override fun run() {
             anime1.animate().scaleX(4f).scaleY(4f).alpha(0f).setDuration(900).withEndAction {
                 anime1.scaleX = 1f

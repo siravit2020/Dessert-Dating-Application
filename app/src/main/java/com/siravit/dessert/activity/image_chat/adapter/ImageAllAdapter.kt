@@ -1,9 +1,8 @@
-package com.siravit.dessert.ImageChat
+package com.siravit.dessert.activity.image_chat.adapter
 
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +10,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.siravit.dessert.R
 
-class ImageAllAdapter(private val image_all: MutableList<ScreenObject?>?, private val context: Context) : RecyclerView.Adapter<ImageAllAdapter.Holder?>() {
+import com.siravit.dessert.R
+import com.siravit.dessert.activity.image_chat.model.ScreenModel
+import com.siravit.dessert.activity.image_chat.view.ItemImageActivity
+
+class ImageAllAdapter(private val image_all: MutableList<ScreenModel?>?, private val context: Context) : RecyclerView.Adapter<ImageAllAdapter.Holder?>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_all_image, parent, false)
         return Holder(view)

@@ -2,6 +2,7 @@ package com.siravit.dessert.activity.sign_in.view_model
 
 import android.app.Activity
 import android.app.Application
+import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.util.Patterns
@@ -27,6 +28,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.siravit.dessert.R
+import com.siravit.dessert.utils.ChangLanguage
 import com.siravit.dessert.utils.Resource
 
 class SignInViewModel(application: Application) : AndroidViewModel(application) {
@@ -40,7 +42,7 @@ class SignInViewModel(application: Application) : AndroidViewModel(application) 
     private var dialog = MutableLiveData<Boolean>()
     private var app = application
     private var thisEmail:Boolean = false
-
+    private var error:Int = 0
     init {
         firebaseAuthStateListener = FirebaseAuth.AuthStateListener {
             val user = FirebaseAuth.getInstance().currentUser
@@ -89,17 +91,21 @@ class SignInViewModel(application: Application) : AndroidViewModel(application) 
 
     fun authenticationWithEmail(email: String, password: String) {
         if (email.trim().isEmpty() && password.trim().isEmpty()) {
-            resource.value = Resource.error(app.getString(R.string.information_alert), "email")
+            error = R.string.information_alert
+            resource.value = Resource.error( "R.string.try_again","email")
             return
         }
         else if (!email.isValidEmail()) {
-            resource.value = Resource.error(app.getString(R.string.valid_email), "email")
+            error = R.string.valid_email
+            resource.value = Resource.error("", "email")
             return
         }
         thisEmail = true
         if (email.trim { it <= ' ' } != "" && password.trim { it <= ' ' } != "") {
+            dialog.value = true
             mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(ContextCompat.getMainExecutor(app)) { task ->
                 if (!task.isSuccessful) {
+                    error = R.string.email_or_password_incorrect
                     resource.value = Resource.error(app.getString(R.string.email_or_password_incorrect), "email")
                 }
             }
@@ -109,6 +115,11 @@ class SignInViewModel(application: Application) : AndroidViewModel(application) 
 
     fun googleSignIn(activity: Activity) {
         signIn(activity)
+    }
+
+    fun setLanguage(context: Context){
+        val language: ChangLanguage = ChangLanguage(context)
+        language.setLanguage()
     }
 
     private fun signIn(activity: Activity) {
@@ -123,7 +134,7 @@ class SignInViewModel(application: Application) : AndroidViewModel(application) 
                 .addOnCompleteListener(ContextCompat.getMainExecutor(app)) { task ->
                     dialog.value = true
                     if (!task.isSuccessful) {
-
+                        error = R.string.try_again
                         resource.value = Resource.error(app.getString(R.string.try_again), "google")
                     }
 
@@ -151,7 +162,7 @@ class SignInViewModel(application: Application) : AndroidViewModel(application) 
         val credential = FacebookAuthProvider.getCredential(token!!.token)
         mAuth.signInWithCredential(credential).addOnCompleteListener(ContextCompat.getMainExecutor(app)) { task ->
             if (!task.isSuccessful) {
-
+                error = R.string.try_again
                 resource.value = Resource.error(app.getString(R.string.try_again), "face")
             }
         }
@@ -167,10 +178,15 @@ class SignInViewModel(application: Application) : AndroidViewModel(application) 
             } catch (e: ApiException) {
 
                 Log.d("TAG", "Google sign in failed", e)
+                error = R.string.try_again
                 resource.value = Resource.error(app.getString(R.string.try_again), "google")
             }
         }
 
+    }
+
+    fun getError():Int{
+        return error
     }
 
     fun getResource(): LiveData<Resource<String>> {

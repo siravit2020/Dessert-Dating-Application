@@ -44,7 +44,7 @@ class RegisterNameActivity : AppCompatActivity() {
                     }
                     startActivity(intent)
                 } else {
-                    Snackbar.make(t1, "โปรดใช้คำที่เเหมาะสม", Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(t1, getString(R.string.appropriate_words), Snackbar.LENGTH_SHORT).show()
                 }
 
             } else {

@@ -1,4 +1,4 @@
-package com.siravit.dessert.Matches
+package com.siravit.dessert.activity.matches.adapter
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -14,9 +14,11 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.siravit.dessert.Chat.ChatActivity
+import com.siravit.dessert.activity.chat.view.ChatActivity
 import com.siravit.dessert.dialogs.ReportUser
 import com.siravit.dessert.R
+import com.siravit.dessert.activity.matches.view.MatchesActivity
+import com.siravit.dessert.activity.matches.model.MatchesObject
 
 @SuppressLint("CutPasteId")
 class MatchesViewHolders(itemView: View, private val context: Context?, private val matchesList: ArrayList<MatchesObject>) : RecyclerView.ViewHolder(itemView) {

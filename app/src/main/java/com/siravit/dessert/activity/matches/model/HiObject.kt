@@ -1,4 +1,4 @@
-package com.siravit.dessert.Matches
+package com.siravit.dessert.activity.matches.model
 
 data class HiObject(var userId: String?,
                var profileImageUrl: String?,

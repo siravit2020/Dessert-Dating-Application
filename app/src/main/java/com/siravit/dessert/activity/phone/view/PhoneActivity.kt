@@ -1,4 +1,4 @@
-package com.siravit.dessert.activity.register
+package com.siravit.dessert.activity.phone.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.hbb20.CountryCodePicker
 import com.siravit.dessert.R
+import com.siravit.dessert.activity.register.view.OtpVerificationActivity
 
 class PhoneActivity : AppCompatActivity() {
     private lateinit var b1: Button
@@ -33,7 +34,7 @@ class PhoneActivity : AppCompatActivity() {
                 e1.requestFocus()
                 return@OnClickListener
             } else {
-                val intent = Intent(this@PhoneActivity, VerifyActivity::class.java)
+                val intent = Intent(this@PhoneActivity, OtpVerificationActivity::class.java)
                 intent.putExtra("Phone", "+" + ccp.selectedCountryCode + e1.text.toString().trim { it <= ' ' })
                 startActivity(intent)
             }

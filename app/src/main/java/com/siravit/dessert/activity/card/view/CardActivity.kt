@@ -40,7 +40,7 @@ import com.google.firebase.ktx.Firebase
 import com.maiandguy.dessert.utils.ErrorDialog
 import com.siravit.dessert.activity.card.adapter.CardAdapter
 import com.siravit.dessert.activity.card.model.CardModel
-import com.siravit.dessert.Chat.ChatActivity
+import com.siravit.dessert.activity.chat.view.ChatActivity
 import com.siravit.dessert.QAStore.DialogFragment
 import com.siravit.dessert.R
 import com.siravit.dessert.ViewModel.QuestionViewModel

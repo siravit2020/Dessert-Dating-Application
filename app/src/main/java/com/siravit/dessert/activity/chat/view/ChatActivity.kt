@@ -1,4 +1,4 @@
-package com.siravit.dessert.Chat
+package com.siravit.dessert.activity.chat.view
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -38,7 +38,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.siravit.dessert.*
+import com.siravit.dessert.activity.chat.model.ChatModel
 import com.siravit.dessert.R
+import com.siravit.dessert.activity.chat.adapter.ChatAdapter
 import com.siravit.dessert.activity.main.view.MainActivity
 import com.siravit.dessert.activity.profile_information_opposite.view.ProfileInformationOppositeUserActivity
 import com.siravit.dessert.dialogs.LoadingDialog
@@ -505,7 +507,7 @@ class ChatActivity : AppCompatActivity() {
                 if (createdByUser != currentUserId)
                     chatCheckRead()
             }
-            val newMessage = ChatObject(message, currentUserBoolean, urlImage, time, chatId, urlSend, chk2, matchId, audio, audioLength, currentUserId)
+            val newMessage = ChatModel(message, currentUserBoolean, urlImage, time, chatId, urlSend, chk2, matchId, audio, audioLength, currentUserId)
             resultChat.add(newMessage)
             ++chk
             if (fetchId.size == chk) {
@@ -595,7 +597,7 @@ class ChatActivity : AppCompatActivity() {
                                         }
                                     }
                                 }
-                                val newMessage = ChatObject(message, currentUserBoolean, urlImage, time, chatId, urlSend, chk2, matchId, audio, audioLength, currentUserId)
+                                val newMessage = ChatModel(message, currentUserBoolean, urlImage, time, chatId, urlSend, chk2, matchId, audio, audioLength, currentUserId)
                                 resultChat.add(newMessage)
                                 mChatAdapter.notifyDataSetChanged()
                                 ++chk
@@ -671,7 +673,7 @@ class ChatActivity : AppCompatActivity() {
                                     }
                                 }
                             }
-                            val newMessage = ChatObject(message, currentUserBoolean, urlImage, time, chatId, urlSend, chk2, matchId, audio, audioLength, currentUserId)
+                            val newMessage = ChatModel(message, currentUserBoolean, urlImage, time, chatId, urlSend, chk2, matchId, audio, audioLength, currentUserId)
                             resultChat.add(newMessage)
                             mChatAdapter.notifyDataSetChanged()
                             ++chk
@@ -909,8 +911,8 @@ class ChatActivity : AppCompatActivity() {
                 })
     }
 
-    private val resultChat: ArrayList<ChatObject> = ArrayList()
-    private fun getDataSetChat(): ArrayList<ChatObject> {
+    private val resultChat: ArrayList<ChatModel> = ArrayList()
+    private fun getDataSetChat(): ArrayList<ChatModel> {
         return resultChat
     }
 }

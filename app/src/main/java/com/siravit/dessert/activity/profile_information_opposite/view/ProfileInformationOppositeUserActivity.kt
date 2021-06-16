@@ -37,7 +37,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.siravit.dessert.*
-import com.siravit.dessert.Chat.ChatActivity
+import com.siravit.dessert.activity.chat.view.ChatActivity
 import com.siravit.dessert.R
 import com.siravit.dessert.dialogs.ReportUser
 import com.siravit.dessert.dialogs.adapter.VipSlideAdapter

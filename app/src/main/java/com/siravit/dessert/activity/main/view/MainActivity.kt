@@ -38,7 +38,7 @@ import com.siravit.dessert.utils.ChangLanguage
 import com.siravit.dessert.utils.GlobalVariable
 import com.siravit.dessert.dialogs.WarningDialog
 import com.siravit.dessert.activity.list_card.view.ListCardActivity
-import com.siravit.dessert.Matches.MatchesActivity
+import com.siravit.dessert.activity.matches.view.MatchesActivity
 import com.siravit.dessert.activity.profile.view.ProfileActivity
 import com.siravit.dessert.R
 import com.siravit.dessert.activity.show_gps_open.view.ShowGpsOpen

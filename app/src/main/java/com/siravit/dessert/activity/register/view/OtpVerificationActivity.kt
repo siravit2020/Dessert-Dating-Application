@@ -1,4 +1,4 @@
-package com.siravit.dessert.activity.register
+package com.siravit.dessert.activity.register.view
 
 import android.annotation.SuppressLint
 import android.app.Dialog
@@ -23,12 +23,11 @@ import com.siravit.dessert.dialogs.LoadingDialog
 import com.siravit.dessert.R
 import com.siravit.dessert.activity.band_user.view.BandUser
 import com.siravit.dessert.activity.main.view.MainActivity
-import com.siravit.dessert.activity.register.view.RegisterNameActivity
 import com.tapadoo.alerter.Alerter
 import java.util.concurrent.TimeUnit
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-class VerifyActivity : AppCompatActivity() {
+class OtpVerificationActivity : AppCompatActivity() {
     private var verificationCodeBysystem: String? = ""
     private lateinit var b1: Button
 
@@ -42,7 +41,7 @@ class VerifyActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n", "InflateParams")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_verify_)
+        setContentView(R.layout.activity_otp_verification)
         toolbar = findViewById(R.id.my_tools)
         setSupportActionBar(toolbar)
         supportActionBar!!.setTitle(R.string.signin_phone)
@@ -64,20 +63,20 @@ class VerifyActivity : AppCompatActivity() {
                         dialog.dismiss()
                         if(dataSnapshot.child("BlackList").hasChild(user.uid)) {
                             mAuth.signOut()
-                            val intent = Intent(this@VerifyActivity, BandUser::class.java)
+                            val intent = Intent(this@OtpVerificationActivity, BandUser::class.java)
                             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                             startActivity(intent)
                             return
                         }
                         if (dataSnapshot.child("Users").child(user.uid).hasChild("sex")) {
-                            val intent = Intent(this@VerifyActivity, MainActivity::class.java)
+                            val intent = Intent(this@OtpVerificationActivity, MainActivity::class.java)
                             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                             intent.putExtra("first", "0")
                             startActivity(intent)
                             finish()
 
                         } else {
-                            val intent = Intent(this@VerifyActivity, RegisterNameActivity::class.java)
+                            val intent = Intent(this@OtpVerificationActivity, RegisterNameActivity::class.java)
                             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                             intent.putExtra("Type", "face")
                             startActivity(intent)
@@ -90,7 +89,7 @@ class VerifyActivity : AppCompatActivity() {
             }
         }
         val phoneNo = intent.getStringExtra("Phone")!!
-        Toast.makeText(this@VerifyActivity, phoneNo, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this@OtpVerificationActivity, phoneNo, Toast.LENGTH_SHORT).show()
         sendVerification(phoneNo)
         commend.text = "${getString(R.string.verification)} $phoneNo ${getString(R.string.please)}"
         b1.setOnClickListener(View.OnClickListener {
@@ -124,7 +123,7 @@ class VerifyActivity : AppCompatActivity() {
             } else {
                 Log.d("Vericom", "2")
                 singInTheUserByCredentials(credential)
-                Alerter.create(this@VerifyActivity)
+                Alerter.create(this@OtpVerificationActivity)
                         .setTitle(getString(R.string.Sign_in))
                         .setText(getString(R.string.logging))
                         .setBackgroundColorRes(R.color.c2)
@@ -174,7 +173,7 @@ class VerifyActivity : AppCompatActivity() {
     }
 
     private fun singInTheUserByCredentials(credential: PhoneAuthCredential?) {
-        mAuth.signInWithCredential(credential!!).addOnCompleteListener(this@VerifyActivity) { task ->
+        mAuth.signInWithCredential(credential!!).addOnCompleteListener(this@OtpVerificationActivity) { task ->
             if (task.isSuccessful) {
                 dialog.show()
             } else {

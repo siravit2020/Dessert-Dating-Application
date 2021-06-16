@@ -154,13 +154,13 @@
         <com.google.android.flexbox.FlexboxLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/View32dp"
+
             app:justifyContent="space_evenly"
             android:orientation="horizontal">
 
             <LinearLayout
                 android:id="@+id/google"
-                android:layout_width="wrap_content"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
 
                 android:gravity="center"
@@ -181,7 +181,7 @@
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/facebook_login"
-                android:layout_width="wrap_content"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
 
                 android:gravity="center"
@@ -204,7 +204,7 @@
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/button7"
-                android:layout_width="wrap_content"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
 
                 android:gravity="center"

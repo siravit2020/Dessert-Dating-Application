@@ -1,4 +1,4 @@
-package com.siravit.dessert.Matches
+package com.siravit.dessert.activity.matches.model
 
 data class MatchesObject(var userId: String?,
                          var name: String?,

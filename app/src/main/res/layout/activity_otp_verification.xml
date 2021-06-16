@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".activity.register.VerifyActivity">
+    tools:context=".activity.register.view.OtpVerificationActivity">
     <LinearLayout
         android:id="@+id/linearLayout23"
         android:layout_width="match_parent"

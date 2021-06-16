@@ -1,4 +1,4 @@
-package com.siravit.dessert.ImageChat
+package com.siravit.dessert.activity.image_chat.adapter
 
 import android.content.Context
 import android.os.Build
@@ -10,13 +10,14 @@ import android.widget.RelativeLayout
 import androidx.annotation.RequiresApi
 import androidx.viewpager.widget.PagerAdapter
 import com.bumptech.glide.Glide
+import com.siravit.dessert.activity.image_chat.model.ScreenModel
 import com.siravit.dessert.R
 
-class ScreenAdapterImage(private val ctx: Context?, private val ImageList: MutableList<ScreenObject?>?) : PagerAdapter() {
+class ScreenAdapterImage(private val ctx: Context?, private val imageList: MutableList<ScreenModel?>?) : PagerAdapter() {
     private val length = 0
     private val url: String? = null
     override fun getCount(): Int {
-        return ImageList!!.size
+        return imageList!!.size
     }
 
     override fun isViewFromObject(view: View, `object`: Any): Boolean {
@@ -28,7 +29,7 @@ class ScreenAdapterImage(private val ctx: Context?, private val ImageList: Mutab
         val layoutInflater = ctx!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val itemView = layoutInflater.inflate(R.layout.item_image_slide, container, false)
         val imageView = itemView.findViewById<ImageView>(R.id.slide_1)
-        Glide.with(ctx).load(ImageList!![position]!!.Url).into(imageView)
+        Glide.with(ctx).load(imageList!![position]!!.Url).into(imageView)
         container.addView(itemView)
         return itemView
     }

@@ -18,7 +18,7 @@ import com.siravit.dessert.dialogs.LoadingDialog
 import com.siravit.dessert.activity.main.view.MainActivity
 import com.siravit.dessert.R
 import com.siravit.dessert.activity.forgot_password.view.ForgotPasswordActivity
-import com.siravit.dessert.activity.register.PhoneActivity
+import com.siravit.dessert.activity.phone.view.PhoneActivity
 import com.siravit.dessert.activity.register.view.RegisterNameActivity
 import com.siravit.dessert.activity.sign_in.view_model.SignInViewModel
 import com.siravit.dessert.activity.register.view.RegistrationActivity
@@ -44,9 +44,8 @@ class SignInActivity : AppCompatActivity() {
     private lateinit var dialog: Dialog
     private lateinit var signInViewModel: SignInViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
-
-        super.onCreate(savedInstanceState)
         language.setLanguage()
+        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
         //TransparentStatusBar(this)
 
@@ -70,6 +69,7 @@ class SignInActivity : AppCompatActivity() {
             eng.setTextColor(ContextCompat.getColor(applicationContext, R.color.c4))
         }
         signInViewModel = ViewModelProvider(this).get(SignInViewModel::class.java)
+        signInViewModel.setLanguage(this)
         signInViewModel.getResource().observe(this, androidx.lifecycle.Observer {
             Log.d("resulttt",it.message.toString())
             if (it.status === Status.SUCCESS) {
@@ -102,7 +102,7 @@ class SignInActivity : AppCompatActivity() {
 
                 }
             } else {
-                Snackbar.make(google, it.message!!, Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(google, getString( signInViewModel.getError()), Snackbar.LENGTH_SHORT).show();
             }
         })
         signInViewModel.getStatusDialog().observe(this, androidx.lifecycle.Observer {

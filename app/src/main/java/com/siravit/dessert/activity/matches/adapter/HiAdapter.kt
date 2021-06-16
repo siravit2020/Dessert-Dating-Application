@@ -1,4 +1,4 @@
-package com.siravit.dessert.Matches
+package com.siravit.dessert.activity.matches.adapter
 
 import android.content.Context
 import android.content.Intent
@@ -16,8 +16,9 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.siravit.dessert.Chat.ChatActivity
+import com.siravit.dessert.activity.chat.view.ChatActivity
 import com.siravit.dessert.R
+import com.siravit.dessert.activity.matches.model.HiObject
 
 class HiAdapter(private val Hilist: ArrayList<HiObject>, private val context: Context) : RecyclerView.Adapter<HiAdapter.Holder?>() {
 

@@ -29,7 +29,7 @@
         <activity android:name="com.siravit.dessert.activity.problem_list.ProblemListActivity" />
         <activity android:name="com.siravit.dessert.activity.send_problem.view.SendProblemActivity" />
         <activity android:name="com.siravit.dessert.activity.close_account.view.CloseAccount" />
-        <activity android:name="com.siravit.dessert.activity.register.QuestionActivity" /> <!-- Include the AdActivity configChanges and theme. -->
+        <activity android:name="com.siravit.dessert.activity.register.view.QuestionActivity" /> <!-- Include the AdActivity configChanges and theme. -->
         <activity
             android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
@@ -43,7 +43,7 @@
             android:name="com.siravit.dessert.activity.register.view.RegisterGpsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.siravit.dessert.ImageChat.ItemImageActivity"
+            android:name="com.siravit.dessert.activity.image_chat.view.ItemImageActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.siravit.dessert.activity.main.view.MainActivity"
@@ -63,10 +63,10 @@
             android:name="com.siravit.dessert.activity.profile_information_opposite.view.ProfileInformationOppositeUserActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.siravit.dessert.activity.register.PhoneActivity"
+            android:name="com.siravit.dessert.activity.phone.view.PhoneActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.siravit.dessert.activity.register.VerifyActivity"
+            android:name="com.siravit.dessert.activity.register.view.OtpVerificationActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.siravit.dessert.activity.sign_in.view.SignInActivity"
@@ -81,7 +81,7 @@
             android:name="com.siravit.dessert.activity.register.view.RegisterSexActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.siravit.dessert.Chat.ChatActivity"
+            android:name="com.siravit.dessert.activity.chat.view.ChatActivity"
             android:hardwareAccelerated="true" />
         <activity
             android:name="com.siravit.dessert.activity.edit_profile.view.EditProfileActivity"

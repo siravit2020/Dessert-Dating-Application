@@ -21,21 +21,21 @@ class SendVerificationActivity : AppCompatActivity() {
         val user = Firebase.auth.currentUser
         val button: Button = findViewById(R.id.button_back)
         if(intent.hasExtra("forgot")){
-            text.text = "ระบบได้ส่งลิงค์สำหรับรีเซ็ตรหัสผ่านไปที่อีเมลของท่านแล้ว"
+            text.text = getString(R.string.reset_password_2)
         }
         if(intent.hasExtra("register")){
             user!!.sendEmailVerification()
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             Log.d("email send", "Email sent.")
-                            button.text = "กลับสู่หน้าเข้าสู่ระบบ"
+                            button.text = getString(R.string.go_to_sign_in)
                             button.isEnabled = true
                             Firebase.auth.signOut()
                         }
                     }
         }
         else{
-            button.text = "กลับสู่หน้าเข้าสู่ระบบ"
+            button.text = getString(R.string.go_to_sign_in)
             button.isEnabled = true
         }
         button.setOnClickListener {

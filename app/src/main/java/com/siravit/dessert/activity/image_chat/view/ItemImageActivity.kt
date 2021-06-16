@@ -1,8 +1,7 @@
-package com.siravit.dessert.ImageChat
+package com.siravit.dessert.activity.image_chat.view
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -15,6 +14,9 @@ import androidx.viewpager.widget.ViewPager
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.siravit.dessert.activity.image_chat.adapter.ImageAllAdapter
+import com.siravit.dessert.activity.image_chat.adapter.ScreenAdapterImage
+import com.siravit.dessert.activity.image_chat.model.ScreenModel
 
 import com.siravit.dessert.R
 import com.siravit.dessert.utils.TimeStampToDate
@@ -145,7 +147,7 @@ class ItemImageActivity : AppCompatActivity() {
                     val date = myInNode.getLong("time", System.currentTimeMillis())
                     if(create == currentUid) checkUser = true
                     ++count
-                    val obj = ScreenObject(it.toString(), date, checkUser, chatId, matchId)
+                    val obj = ScreenModel(it.toString(), date, checkUser, chatId, matchId)
                     resultImage!!.add(obj)
                 }
             }
@@ -197,8 +199,8 @@ class ItemImageActivity : AppCompatActivity() {
         finish()
     }
 
-    private val resultImage: ArrayList<ScreenObject?>? = ArrayList()
-    private fun getDataSetImage(): MutableList<ScreenObject?>? {
+    private val resultImage: ArrayList<ScreenModel?>? = ArrayList()
+    private fun getDataSetImage(): MutableList<ScreenModel?>? {
         return resultImage
     }
 }

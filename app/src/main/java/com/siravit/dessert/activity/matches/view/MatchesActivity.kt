@@ -1,4 +1,4 @@
-package com.siravit.dessert.Matches
+package com.siravit.dessert.activity.matches.view
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -19,15 +19,15 @@ import com.google.firebase.database.*
 
 import com.siravit.dessert.R
 import com.siravit.dessert.activity.main.view.MainActivity
+import com.siravit.dessert.activity.matches.adapter.HiAdapter
+import com.siravit.dessert.activity.matches.adapter.MatchesAdapter
+import com.siravit.dessert.activity.matches.model.HiObject
+import com.siravit.dessert.activity.matches.model.MatchesObject
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.json.JSONStringer
-import java.text.ParseException
-import java.text.SimpleDateFormat
-import java.util.*
 import kotlin.collections.ArrayList
 
 class MatchesActivity : Fragment() {

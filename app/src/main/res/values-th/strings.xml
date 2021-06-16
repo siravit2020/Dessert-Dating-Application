@@ -317,5 +317,9 @@
     <string name="sending_otp">กำลังส่งรหัส OTP ไป</string>
     <string name="information_alert">กรุณากรอกข้อมูลให้ครบถ้วน</string>
     <string name="email_or_password_incorrect">อีเมลหรือรหัสผ่านไม่ถูกต้อง</string>
+    <string name="appropriate_words">โปรดใช้คำที่เเหมาะสม</string>
+    <string name="same_password">กรุณากรอกรหัสผ่านให้ตรงกัน</string>
+    <string name="reset_password_2">ได้ส่งลิงค์สำหรับรีเซ็ตรหัสผ่านไปที่อีเมลของท่านแล้ว</string>
+    <string name="go_to_sign_in">ไปที่่หน้าเข้าสู่ระบบ</string>
 
 </resources>

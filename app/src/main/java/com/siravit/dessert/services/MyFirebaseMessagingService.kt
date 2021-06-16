@@ -10,7 +10,7 @@ import androidx.core.app.NotificationManagerCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.siravit.dessert.utils.App
-import com.siravit.dessert.Chat.ChatActivity
+import com.siravit.dessert.activity.chat.view.ChatActivity
 import com.siravit.dessert.R
 import com.siravit.dessert.activity.main.view.MainActivity
 import java.io.IOException

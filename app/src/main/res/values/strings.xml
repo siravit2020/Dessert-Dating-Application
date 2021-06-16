@@ -222,6 +222,10 @@
     <string name="sending_otp">Sending OTP code</string>
     <string name="information_alert">Please fill out the information completely.</string>
     <string name="email_or_password_incorrect">Email or Password incorrect</string>
+    <string name="appropriate_words">Please use appropriate words.</string>
+    <string name="same_password">Please enter the same password.</string>
+    <string name="reset_password_2">Dessert has sent a link to reset your password to your email address.</string>
+    <string name="go_to_sign_in">go to sign in page</string>
 
     <string-array name="shopping_item">
         <item>จัดดอกไม้-ทำสวน</item>

@@ -1,7 +1,7 @@
-package com.siravit.dessert.ImageChat
+package com.siravit.dessert.activity.image_chat.model
 
 
-data class ScreenObject(
+data class ScreenModel(
                     var Url: String,
                    var date: Long,
                    var create: Boolean,

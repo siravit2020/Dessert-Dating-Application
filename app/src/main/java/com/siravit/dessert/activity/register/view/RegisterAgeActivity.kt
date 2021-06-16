@@ -12,7 +12,6 @@ import android.widget.DatePicker
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.siravit.dessert.R
-import com.siravit.dessert.activity.register.QuestionActivity
 import com.tapadoo.alerter.Alerter
 import java.text.DateFormat
 import java.text.SimpleDateFormat

@@ -23,6 +23,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import com.akexorcist.localizationactivity.core.LocalizationActivityDelegate
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.google.android.flexbox.FlexDirection
@@ -96,7 +97,7 @@ open class EditProfileActivity : AppCompatActivity(), View.OnClickListener {
     var i = 1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        loadLocal()
+
         setContentView(R.layout.activity_edit_profile)
         getUserinfo()
         editname = findViewById(R.id.name)
@@ -456,22 +457,22 @@ open class EditProfileActivity : AppCompatActivity(), View.OnClickListener {
         print("scan")
        if (!ScanString.scan(editname.text.toString()))
         {
-            Snackbar.make(editname, "โปรดใช้คำที่เเหมาะสม", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(editname, getString(R.string.appropriate_words), Snackbar.LENGTH_SHORT).show()
             return false
         }
         else if (!ScanString.scan(editmy.text.toString()))
        {
-           Snackbar.make(editmy, "โปรดใช้คำที่เเหมาะสม", Snackbar.LENGTH_SHORT).show()
+           Snackbar.make(editmy, getString(R.string.appropriate_words), Snackbar.LENGTH_SHORT).show()
            return false
        }
        else if (!ScanString.scan(editcareer.text.toString()))
        {
-           Snackbar.make(image1, "โปรดใช้คำที่เเหมาะสม", Snackbar.LENGTH_SHORT).show()
+           Snackbar.make(editcareer, getString(R.string.appropriate_words), Snackbar.LENGTH_SHORT).show()
            return false
        }
        else if (!ScanString.scan(editstudy.text.toString()))
        {
-           Snackbar.make(image1, "โปรดใช้คำที่เเหมาะสม", Snackbar.LENGTH_SHORT).show()
+           Snackbar.make(image1, getString(R.string.appropriate_words), Snackbar.LENGTH_SHORT).show()
            return false
        }
        return true
@@ -668,25 +669,6 @@ open class EditProfileActivity : AppCompatActivity(), View.OnClickListener {
             mDialog.window!!.setBackgroundDrawable(ContextCompat.getDrawable(this@EditProfileActivity, R.drawable.myrect2))
             mDialog.show()
         }
-    }
-
-    private fun setLocal(lang: String) {
-        val locale = Locale(lang)
-        Locale.setDefault(locale)
-        val configuration = Configuration()
-        resources.configuration.setLocale(locale)
-        baseContext.resources.updateConfiguration(configuration, baseContext.resources.displayMetrics)
-        val editor = getSharedPreferences("Settings", Context.MODE_PRIVATE).edit()
-        editor.putString("My_Lang", lang)
-        editor.apply()
-        Log.d("My", lang)
-    }
-
-    private fun loadLocal() {
-        val preferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
-        val langure = preferences.getString("My_Lang", "")!!
-        Log.d("My2", langure)
-        setLocal(langure)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

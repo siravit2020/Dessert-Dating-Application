@@ -1,4 +1,4 @@
-package com.siravit.dessert.Chat
+package com.siravit.dessert.activity.chat.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -6,9 +6,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.siravit.dessert.R
+import com.siravit.dessert.activity.chat.model.ChatModel
 import java.util.ArrayList
 
-class ChatAdapter(private val chatList: ArrayList<ChatObject>, private val context: Context) : RecyclerView.Adapter<ChatViewHolders?>() {
+class ChatAdapter(private val chatList: ArrayList<ChatModel>, private val context: Context) : RecyclerView.Adapter<ChatViewHolders?>() {
     @SuppressLint("InflateParams")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatViewHolders {
         val layoutView = LayoutInflater.from(parent.context).inflate(R.layout.item_chat, null, false)

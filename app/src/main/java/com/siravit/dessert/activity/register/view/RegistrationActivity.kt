@@ -13,6 +13,7 @@ import androidx.appcompat.widget.Toolbar
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.siravit.dessert.R
+import com.siravit.dessert.dialogs.LoadingDialog
 
 
 class RegistrationActivity : AppCompatActivity() {
@@ -36,25 +37,28 @@ class RegistrationActivity : AppCompatActivity() {
         email = findViewById(R.id.email_edit_text)
         password = findViewById(R.id.password_edit_text)
         confirmPassword = findViewById(R.id.confirm_password_edit_text)
+        val dialog = LoadingDialog(this).dialog()
         register.setOnClickListener(View.OnClickListener {
             val email = email.text.toString()
             val password = password.text.toString()
             val confirmPassword = confirmPassword.text.toString()
             if (email.trim().isEmpty() && password.trim().isEmpty() && confirmPassword.trim().isEmpty())
-                Snackbar.make(this.email, "กรุณากรอกข้อมูลให้ครบถ้วน", Snackbar.LENGTH_SHORT).show().also { return@OnClickListener }
+                Snackbar.make(this.email, getString(R.string.information_alert), Snackbar.LENGTH_SHORT).show().also { return@OnClickListener }
             else if (password != confirmPassword)
-                Snackbar.make(this.email, "กรุณากรอกรหัสผ่านให้ตรงกัน", Snackbar.LENGTH_SHORT).show().also { return@OnClickListener }
+                Snackbar.make(this.email, getString(R.string.same_password), Snackbar.LENGTH_SHORT).show().also { return@OnClickListener }
             else if (!email.isValidEmail())
-                Snackbar.make(this.email, "กรุณากรอกอีเมลให้ถูกต้อง", Snackbar.LENGTH_SHORT).show().also { return@OnClickListener }
+                Snackbar.make(this.email, getString(R.string.valid_email), Snackbar.LENGTH_SHORT).show().also { return@OnClickListener }
+            dialog.show()
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this) { task ->
+                        dialog.dismiss()
                         if (task.isSuccessful) {
                             val intent = Intent(this@RegistrationActivity, SendVerificationActivity::class.java)
                             intent.putExtra("register", true)
                             startActivity(intent)
                         } else {
                             Log.w("authen failed", "createUserWithEmail:failure", task.exception)
-                            Snackbar.make(this.email, "Authentication failed.", Snackbar.LENGTH_SHORT).show()
+                            Snackbar.make(this.email, getString(R.string.try_again), Snackbar.LENGTH_SHORT).show()
 
                         }
                     }
