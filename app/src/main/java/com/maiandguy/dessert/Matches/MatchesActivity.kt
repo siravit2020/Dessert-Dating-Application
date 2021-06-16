@@ -180,7 +180,9 @@ class MatchesActivity : Fragment() {
                     chatCheckRead(chatID, key, time, lastChat)
                 } else {
                     fetchMatchFormation(key,  lastChat, time, 0) } }
-            override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {}
+            override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {
+                Log.d("CHILD_CHANGE_DETECT__matchList",dataSnapshot.value.toString())
+            }
             override fun onChildRemoved(dataSnapshot: DataSnapshot) {}
             override fun onChildMoved(dataSnapshot: DataSnapshot, s: String?) {}
             override fun onCancelled(databaseError: DatabaseError) {}
@@ -189,7 +191,7 @@ class MatchesActivity : Fragment() {
 
     private var countRead = 0
     private fun chatCheckRead(ChatId: String?, key: String?, time: Long?, last_chat: String?) {
-        val mDatabaseChat = FirebaseDatabase.getInstance().reference.child("Chat").child(ChatId.toString())
+        val mDatabaseChat = FirebaseDatabase.getInstance().reference.child("Chat").child(ChatId.toString())//
         val countUnread = mDatabaseChat.orderByChild("read").equalTo("Unread")
         countUnread.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {

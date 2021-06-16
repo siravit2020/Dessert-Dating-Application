@@ -52,6 +52,7 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 import com.maiandguy.dessert.utils.TimeStampToDate
+import org.json.JSONObject
 
 class ChatActivity : AppCompatActivity() {
     private lateinit var mRecyclerView: RecyclerView
@@ -690,7 +691,14 @@ class ChatActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {}
+            override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {
+                val myInNode = getSharedPreferences(dataSnapshot.key, Context.MODE_PRIVATE).edit()
+                val map =  dataSnapshot.value as Map<*,*>
+                myInNode.putString("text",map["text"].toString())
+                Log.d("CHILD_CHANGE_DETECT",map["text"].toString())
+                Log.d("CHILD_CHANGE_DETECT",dataSnapshot.value.toString())
+                myInNode.apply()
+            }
             override fun onChildRemoved(dataSnapshot: DataSnapshot) {}
             override fun onChildMoved(dataSnapshot: DataSnapshot, s: String?) {}
             override fun onCancelled(databaseError: DatabaseError) {}
