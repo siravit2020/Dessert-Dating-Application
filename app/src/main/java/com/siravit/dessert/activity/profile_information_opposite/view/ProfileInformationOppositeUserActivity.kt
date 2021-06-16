@@ -308,10 +308,10 @@ class ProfileInformationOppositeUserActivity : AppCompatActivity() {
                     dialog.setContentView(view)
                     val pagerModels: ArrayList<PagerModel?> = ArrayList()
                     pagerModels.apply {
-                        add(PagerModel("สมัคร Dessert VIP เพื่อทักทายแบบไม่จำกัดจำนวน", "จำนวนคำทักทายของคุณหมด", R.drawable.ic_hand))
-                        add(PagerModel("ปัดขวาได้เต็มที่ ไม่ต้องรอเวลา", "ถูกใจได้ไม่จำกัด", R.drawable.ic_heart))
-                        add(PagerModel("คนที่คุณส่งดาวให้จะเห็นคุณก่อนใคร", "รับ 5 Star ฟรีทุกวัน", R.drawable.ic_starss))
-                        add(PagerModel("ดูว่าใครบ้างที่เข้ามากดถูกใจให้คุณ", "ใครถูกใจคุณ", R.drawable.ic_love2))
+                        add(PagerModel(getString(R.string.say_hi_out),getString(R.string.unlimited_say_hi), R.drawable.ic_hand))
+                        add(PagerModel(getString(R.string.unlimited_like),getString(R.string.full_right_swipe), R.drawable.ic_heart))
+                        add(PagerModel(getString(R.string.get_5_star),getString(R.string.you_send_star), R.drawable.ic_starss))
+                        add(PagerModel(getString(R.string.who_like_you),getString(R.string.see_who_has_like), R.drawable.ic_love2))
 
                     }
                     val adapter = VipSlideAdapter(this@ProfileInformationOppositeUserActivity, pagerModels)
@@ -396,8 +396,8 @@ class ProfileInformationOppositeUserActivity : AppCompatActivity() {
 
     }
 
-    fun createAndLoadRewardedAd() {
-        var adRequest = AdRequest.Builder().build()
+    private fun createAndLoadRewardedAd() {
+        val adRequest = AdRequest.Builder().build()
 
 
         RewardedAd.load(this,"ca-app-pub-3940256099942544/5224354917", adRequest, object : RewardedAdLoadCallback() {

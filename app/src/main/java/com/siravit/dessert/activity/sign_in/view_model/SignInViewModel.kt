@@ -89,18 +89,18 @@ class SignInViewModel(application: Application) : AndroidViewModel(application) 
 
     fun authenticationWithEmail(email: String, password: String) {
         if (email.trim().isEmpty() && password.trim().isEmpty()) {
-            resource.value = Resource.error("กรุณากรอกข้อมูลให้ครบถ้วน", "email")
+            resource.value = Resource.error(app.getString(R.string.information_alert), "email")
             return
         }
         else if (!email.isValidEmail()) {
-            resource.value = Resource.error("กรุณากรอกอีเมลให้ถูกต้อง", "email")
+            resource.value = Resource.error(app.getString(R.string.valid_email), "email")
             return
         }
         thisEmail = true
         if (email.trim { it <= ' ' } != "" && password.trim { it <= ' ' } != "") {
             mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(ContextCompat.getMainExecutor(app)) { task ->
                 if (!task.isSuccessful) {
-                    resource.value = Resource.error("Email or Password incorrect", "email")
+                    resource.value = Resource.error(app.getString(R.string.email_or_password_incorrect), "email")
                 }
             }
         }
@@ -124,7 +124,7 @@ class SignInViewModel(application: Application) : AndroidViewModel(application) 
                     dialog.value = true
                     if (!task.isSuccessful) {
 
-                        resource.value = Resource.error("Please try again later", "google")
+                        resource.value = Resource.error(app.getString(R.string.try_again), "google")
                     }
 
                 }
@@ -152,7 +152,7 @@ class SignInViewModel(application: Application) : AndroidViewModel(application) 
         mAuth.signInWithCredential(credential).addOnCompleteListener(ContextCompat.getMainExecutor(app)) { task ->
             if (!task.isSuccessful) {
 
-                resource.value = Resource.error("Please try again later", "face")
+                resource.value = Resource.error(app.getString(R.string.try_again), "face")
             }
         }
     }
@@ -167,7 +167,7 @@ class SignInViewModel(application: Application) : AndroidViewModel(application) 
             } catch (e: ApiException) {
 
                 Log.d("TAG", "Google sign in failed", e)
-                resource.value = Resource.error("Please try again later", "google")
+                resource.value = Resource.error(app.getString(R.string.try_again), "google")
             }
         }
 

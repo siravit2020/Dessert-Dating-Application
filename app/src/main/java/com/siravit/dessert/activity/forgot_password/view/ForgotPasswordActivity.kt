@@ -21,7 +21,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
         setContentView(R.layout.activity_forgot_password)
         toolbar = findViewById(R.id.my_tools)
         setSupportActionBar(toolbar)
-        supportActionBar!!.setTitle("ลืมรหัสผ่าน")
+        supportActionBar!!.setTitle(R.string.forgot_password)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
         val button:Button = findViewById(R.id.send_button)
@@ -29,7 +29,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
         button.setOnClickListener {
             val email = editText.text.toString()
             if (!email.isValidEmail())
-                Snackbar.make(editText, "กรุณากรอกอีเมลให้ถูกต้อง", Snackbar.LENGTH_SHORT).show().also { return@setOnClickListener }
+                Snackbar.make(editText, getString(R.string.valid_email), Snackbar.LENGTH_SHORT).show().also { return@setOnClickListener }
             Firebase.auth.sendPasswordResetEmail(editText.text.toString())
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {

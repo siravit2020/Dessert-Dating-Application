@@ -231,8 +231,8 @@ class LikeYouActivity : AppCompatActivity() {
         val textView2 = view.findViewById<TextView>(R.id.text_second)
         val b1 = view.findViewById<Button>(R.id.buy)
         imageView.setImageDrawable(ContextCompat.getDrawable(applicationContext, R.drawable.ic_love2))
-        textView.text = "ใครถูกใจคุณ"
-        textView2.text = "ดูว่าใครบ้างที่เข้ามากดถูกใจให้คุณ"
+        textView.setText(R.string.who_like_you)
+        textView2.setText(R.string.see_who_has_like)
         b1.setOnClickListener {
             GlobalVariable.buyLike = true
             blurView.visibility = View.GONE

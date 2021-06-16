@@ -168,7 +168,7 @@ class VerifyActivity : AppCompatActivity() {
             dialog.show()
         } else {
             dialog.dismiss()
-            Snackbar.make(pinGroup, "กำลังส่งรหัส OTP ไป", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(pinGroup, getString(R.string.sending_otp), Snackbar.LENGTH_SHORT).show()
         }
 
     }
@@ -178,7 +178,7 @@ class VerifyActivity : AppCompatActivity() {
             if (task.isSuccessful) {
                 dialog.show()
             } else {
-                Snackbar.make(pinGroup, "Try again later.", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(pinGroup, getString(R.string.try_again), Snackbar.LENGTH_SHORT).show()
                 dialog.dismiss()
             }
         }

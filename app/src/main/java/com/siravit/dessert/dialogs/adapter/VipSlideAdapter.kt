@@ -27,8 +27,8 @@ class VipSlideAdapter(var context: Context, private var List: ArrayList<PagerMod
         view.tag = position
         (container as ViewPager).addView(view)
         val model = List[position]!!
-        tv.text = model.text
-        textView.text = model.title
+        tv.text = model.title
+        textView.text = model.description
         imageView.setImageDrawable(ContextCompat.getDrawable(context, model.image))
         return view
     }

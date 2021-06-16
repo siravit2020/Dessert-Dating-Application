@@ -19,4 +19,5 @@ class ChangLanguage(val context: Context) : Application() {
         context.resources.configuration.setLocale(locale)
         context.resources.updateConfiguration(configuration, context.resources.displayMetrics)
     }
+
 }

@@ -168,7 +168,7 @@ class ProfileActivity : Fragment(){
             b1.setOnClickListener { dialog.dismiss() }
         }
         b2.visibility = View.GONE
-        text.text = "สมัคร Desert VIP เพื่อรับสิทธิพิเศษต่างๆ"
+        text.setText(R.string.apply_vip_dessert)
         dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.setContentView(view)
         DialogSlide(requireContext(), dialog, view).start()

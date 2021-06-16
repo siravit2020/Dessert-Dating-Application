@@ -93,7 +93,7 @@
     <string name="please">โปรดกรอกด้านล่าง</string>
     <string name="finish">เสร็จสิ้น</string>
     <string name="register">ลงทะเบียน</string>
-    <string name="See_who_like">ดูว่าใครถูกใจคุณคุณ</string>
+    <string name="See_who_like">ดูว่าใครถูกใจคุณ</string>
     <string name="Searching">กำลังค้นหา</string>
     <string name="chatna_empty">ยังไม่มีใครทักทายคุณ \n รออีกหน่อยนะ</string>
     <string name="chat_empty">เมื่อคุณแมทช์กับผู้ใช้งานคนอื่น \n หรือเมื่อคุณยอมรับคำทักทาย \n คู่ของคุณจะปรากฎที่นี่</string>
@@ -304,5 +304,18 @@
     <string name="other_apps">ฉันชอบแอปอื่นมากกว่า</string>
     <string name="not_enough">ฉันหาคนเพื่อจับคู่ได้ไม่มากพอ</string>
     <string name="i_haven_t_dated_anyone">ฉันไม่ได้นัดพบใครเลย</string>
+    <string name="valid_email">กรุณากรอกอีเมลให้ถูกต้อง</string>
+    <string name="who_like_you">ใครถูกใจคุณ</string>
+    <string name="see_who_has_like">ดูว่าใครบ้างที่เข้ามากดถูกใจให้คุณ</string>
+    <string name="apply_vip_dessert">สมัคร Desert VIP เพื่อรับสิทธิพิเศษต่างๆ</string>
+    <string name="say_hi_out">จำนวนการทักทายของคุณหมดลงแล้ว</string>
+    <string name="unlimited_say_hi">สมัคร Dessert VIP เพื่อทักทายแบบไม่จำกัดจำนวน</string>
+    <string name="unlimited_like">ถูกใจได้ไม่จำกัด</string>
+    <string name="full_right_swipe">ปัดขวาได้เต็มที่ ไม่ต้องรอเวลา</string>
+    <string name="get_5_star">รับ 5 Star ฟรีทุกวัน</string>
+    <string name="you_send_star">คนที่คุณส่งดาวให้จะเห็นคุณก่อนใคร</string>
+    <string name="sending_otp">กำลังส่งรหัส OTP ไป</string>
+    <string name="information_alert">กรุณากรอกข้อมูลให้ครบถ้วน</string>
+    <string name="email_or_password_incorrect">อีเมลหรือรหัสผ่านไม่ถูกต้อง</string>
 
 </resources>

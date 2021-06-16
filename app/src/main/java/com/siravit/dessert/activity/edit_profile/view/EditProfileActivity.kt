@@ -302,17 +302,17 @@ open class EditProfileActivity : AppCompatActivity(), View.OnClickListener {
                 if (dataSnapshot.exists() && dataSnapshot.childrenCount > 0) {
                     map = dataSnapshot.value as MutableMap<*, *>
                     if (map.containsKey("myself")) {
-                        editmy.setText(map.get("myself").toString())
+                        editmy.setText(map["myself"].toString())
                     }
                     if (map.containsKey("name")) {
-                        name = map.get("name").toString()
+                        name = map["name"].toString()
                         editname.setText(name)
                     }
                     if (map.containsKey("career")) {
-                        editcareer.setText(map.get("career").toString())
+                        editcareer.setText(map["career"].toString())
                     }
                     if (map.containsKey("study")) {
-                        editstudy.setText(map.get("study").toString())
+                        editstudy.setText(map["study"].toString())
                     }
                     if (map.containsKey("language")) {
                         val size = dataSnapshot.child("language").childrenCount.toInt()
@@ -507,7 +507,7 @@ open class EditProfileActivity : AppCompatActivity(), View.OnClickListener {
                 .start(this)
     }
 
-    private fun save(resulturi: Uri?) {
+    private fun save(resultUri: Uri?) {
 
         Y = (i - 1).toString()
         var bitmap: Bitmap? = null
@@ -515,10 +515,10 @@ open class EditProfileActivity : AppCompatActivity(), View.OnClickListener {
         try {
             Log.d("123", Build.VERSION.SDK_INT.toString())
             bitmap = if (Build.VERSION.SDK_INT >= 29) {
-                val source = ImageDecoder.createSource(this.contentResolver, resulturi!!)
+                val source = ImageDecoder.createSource(this.contentResolver, resultUri!!)
                 ImageDecoder.decodeBitmap(source)
             } else {
-                MediaStore.Images.Media.getBitmap(application.contentResolver, resulturi)
+                MediaStore.Images.Media.getBitmap(application.contentResolver, resultUri)
             }
         } catch (e: IOException) {
             e.printStackTrace()
@@ -550,7 +550,7 @@ open class EditProfileActivity : AppCompatActivity(), View.OnClickListener {
                                         when (i) {
                                             1 -> {
                                                 glide(image1)
-                                                GlobalVariable.image = resulturi.toString()
+                                                GlobalVariable.image = resultUri.toString()
                                                 add1.visibility = View.GONE
                                             }
                                             2 -> {

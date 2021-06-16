@@ -209,6 +209,19 @@
     <string name="other_apps">I prefer other apps.</string>
     <string name="not_enough">I can\'t find enough people to match.</string>
     <string name="i_haven_t_dated_anyone">I haven\'t dated anyone.</string>
+    <string name="valid_email">Please enter a valid email address.</string>
+    <string name="who_like_you">Who like you</string>
+    <string name="see_who_has_like">See who has liked you.</string>
+    <string name="apply_vip_dessert">Apply for Dessert VIP to receive various privileges.</string>
+    <string name="say_hi_out">Your number of say hi has run out.</string>
+    <string name="unlimited_say_hi">Apply Dessert VIP for unlimited say hi.</string>
+    <string name="unlimited_like">unlimited likes</string>
+    <string name="full_right_swipe">full right swipe don\'t wait time</string>
+    <string name="get_5_star">Get 5 Star Free Every Day</string>
+    <string name="you_send_star">The person you send stars to see you first.</string>
+    <string name="sending_otp">Sending OTP code</string>
+    <string name="information_alert">Please fill out the information completely.</string>
+    <string name="email_or_password_incorrect">Email or Password incorrect</string>
 
     <string-array name="shopping_item">
         <item>จัดดอกไม้-ทำสวน</item>
