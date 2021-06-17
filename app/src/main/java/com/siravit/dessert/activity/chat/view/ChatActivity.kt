@@ -54,6 +54,7 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 import com.siravit.dessert.utils.TimeStampToDate
+import kotlinx.android.synthetic.main.show_match.*
 import org.json.JSONObject
 
 class ChatActivity : AppCompatActivity() {
@@ -490,6 +491,7 @@ class ChatActivity : AppCompatActivity() {
             var audioLength: String
             val myInNode = getSharedPreferences(fetchId.elementAt(i), Context.MODE_PRIVATE)
             message = myInNode.getString("text", "null")!!
+            Log.d("textMessage",message)
             //read = myInNode.getString("read", "null")!!
             createdByUser = myInNode.getString("createByUser", "null")!!
             time = TimeStampToDate(myInNode.getLong("time", System.currentTimeMillis())).time()
@@ -542,7 +544,7 @@ class ChatActivity : AppCompatActivity() {
                             var message: String? = null
                             var createdByUser: String? = null
                             var time: String? = null
-                            var timeLong: Long? = null
+                            var timeLong: Long =  System.currentTimeMillis();
                             var urlSend = "default"
                             var audio = "null"
                             var audioLength = "null"

@@ -30,16 +30,15 @@
                 android:orientation="horizontal">
 
                 <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent">
 
                     <RelativeLayout
                         android:id="@+id/lilili"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="1dp"
-                        android:layout_marginEnd="1dp"
-                        android:visibility="gone">
+                        android:visibility="gone"
+                        >
 
                         <TextView
                             android:id="@+id/time_chat_user"
@@ -51,13 +50,14 @@
                             android:textSize="@dimen/Text10sp" />
                     </RelativeLayout>
 
-                    <RelativeLayout
+                    <com.siravit.dessert.utils.LinearMaxWidth
                         android:id="@+id/lili"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingTop="@dimen/View8dp"
                         android:paddingBottom="@dimen/View8dp"
-                        android:visibility="gone">
+                        android:visibility="gone"
+                        >
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -98,14 +98,14 @@
 
                             <TextView
                                 android:id="@+id/chatmessage"
-                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_width="wrap_content"
                                 android:layout_gravity="center"
                                 android:paddingStart="@dimen/View8dp"
-                                android:paddingEnd="@dimen/View8dp" />
+                                android:paddingEnd="@dimen/View8dp"  />
                         </LinearLayout>
 
-                    </RelativeLayout>
+                    </com.siravit.dessert.utils.LinearMaxWidth>
 
                     <RelativeLayout
                         android:id="@+id/li"

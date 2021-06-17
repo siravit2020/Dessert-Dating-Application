@@ -29,6 +29,7 @@ import com.siravit.dessert.dialogs.LoadingDialog
 import com.siravit.dessert.R
 import com.siravit.dessert.activity.main.view.MainActivity
 import com.nipunru.nsfwdetector.NSFWDetector
+import com.siravit.dessert.services.FirstAuthentication
 import com.tapadoo.alerter.Alerter
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView

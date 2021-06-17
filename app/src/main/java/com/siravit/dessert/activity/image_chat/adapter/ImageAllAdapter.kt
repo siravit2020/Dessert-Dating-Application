@@ -70,28 +70,28 @@ class ImageAllAdapter(private val image_all: MutableList<ScreenModel?>?, private
             }
             m1?.setOnClickListener {
                 val intent = Intent(context, ItemImageActivity::class.java)
-                intent.putExtra("matchIdReal", matchId.text.toString())
-                intent.putExtra("matchId", chatid.text.toString())
-                intent.putExtra("ChkImage2", (positionReal2 + 2).toString())
-                intent.putExtra("ChkImage", image_all.size.toString())
+                intent.putExtra("matchId", matchId.text.toString())
+                intent.putExtra("chatId", chatid.text.toString())
+                intent.putExtra("ChkImage", (positionReal2 + 2).toString())
+//                intent.putExtra("ChkImage", image_all.size.toString())
                 (context as Activity?)!!.finish()
                 context.startActivity(intent)
             }
             m2?.setOnClickListener {
                 val intent = Intent(context, ItemImageActivity::class.java)
-                intent.putExtra("matchIdReal", matchId.text.toString())
-                intent.putExtra("matchId", chatid.text.toString())
-                intent.putExtra("ChkImage2", (positionReal2 + 3).toString())
-                intent.putExtra("ChkImage", image_all.size.toString())
+                intent.putExtra("matchId", matchId.text.toString())
+                intent.putExtra("chatId", chatid.text.toString())
+                intent.putExtra("ChkImage", (positionReal2 + 3).toString())
+//                intent.putExtra("ChkImage", image_all.size.toString())
                 (context as Activity?)!!.finish()
                 context.startActivity(intent)
             }
             m3?.setOnClickListener {
                 val intent = Intent(context, ItemImageActivity::class.java)
-                intent.putExtra("matchIdReal", matchId.text.toString())
-                intent.putExtra("matchId", chatid.text.toString())
-                intent.putExtra("ChkImage2", (positionReal2 + 4).toString())
-                intent.putExtra("ChkImage", image_all.size.toString())
+                intent.putExtra("matchId", matchId.text.toString())
+                intent.putExtra("chatId", chatid.text.toString())
+                intent.putExtra("ChkImage", (positionReal2 + 4).toString())
+//                intent.putExtra("ChkImage", image_all.size.toString())
                 (context as Activity?)!!.finish()
                 context.startActivity(intent)
             }
