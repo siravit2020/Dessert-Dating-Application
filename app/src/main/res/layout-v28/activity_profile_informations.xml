@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/background_white">
 
-                <com.maiandguy.dessert.utils.WrapContentHeightViewPager
+                <com.siravit.dessert.utils.WrapContentHeightViewPager
                     android:id="@+id/slide_main"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -444,7 +444,8 @@
         android:layout_marginBottom="@dimen/View8dp"
         android:background="@color/c2"
         android:clickable="true"
-        app:srcCompat="@drawable/ic_mode_edit_black_24dp" />
+        app:srcCompat="@drawable/ic_mode_edit_black_24dp"
+         />
 
 
 </RelativeLayout>

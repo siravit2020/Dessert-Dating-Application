@@ -40,7 +40,7 @@
             android:layout_marginStart="@dimen/View32dp"
             android:layout_marginEnd="@dimen/View32dp"
             android:gravity="center"
-            android:text="คุณแน่ใจหรือไม่ว่าต้องการ ปิดบัญชีของคุณ"
+            android:text="@string/you_want_close_your_account"
             android:textColor="@color/text_black_gray"
             android:textSize="@dimen/Text20sp" />
 
@@ -51,7 +51,7 @@
             android:layout_marginEnd="@dimen/View32dp"
             android:layout_marginBottom="@dimen/View24dp"
             android:gravity="center"
-            android:text="โปรดบอกเหตุผลที่ทำให้คุณเลิกใช้งาน"
+            android:text="@string/reason_stopped"
             android:textColor="@color/text_gray"
             android:textSize="@dimen/Text16sp" />
 
@@ -85,7 +85,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="ฉันอยากเริ่มต้นใหม่อีกครั้ง"
+                    android:text="@string/i_want_to_start_again"
                     android:textColor="@color/text_black_gray"
                     android:textSize="@dimen/Text14sp" />
             </LinearLayout>
@@ -121,7 +121,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="พบคนมี่ใช่แล้ว"
+                    android:text="@string/meet_the_right_person"
                     android:textColor="@color/text_black_gray"
                     android:textSize="@dimen/Text14sp" />
             </LinearLayout>
@@ -159,7 +159,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="ฉันไม่ชอบ Dessert"
+                    android:text="@string/i_don_t_like_dessert"
                     android:textColor="@color/text_black_gray"
                     android:textSize="@dimen/Text14sp" />
             </LinearLayout>
@@ -196,7 +196,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="มีบางอย่างผิดปกติ"
+                    android:text="@string/something_is_wrong"
                     android:textColor="@color/text_black_gray"
                     android:textSize="@dimen/Text14sp" />
             </LinearLayout>
@@ -233,7 +233,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="อื่นๆ"
+                    android:text="@string/other"
                     android:textColor="@color/text_black_gray"
                     android:textSize="@dimen/Text14sp" />
             </LinearLayout>

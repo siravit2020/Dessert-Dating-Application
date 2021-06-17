@@ -43,7 +43,7 @@
         android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="ยังไม่มีใครเข้าชมโปรไฟล์คุณ"
+        android:text="@string/no_one_has_viewed_your_profile_yet"
         android:gravity="center"
         android:textSize="@dimen/Text16sp"
         android:textColor="@color/text_gray"

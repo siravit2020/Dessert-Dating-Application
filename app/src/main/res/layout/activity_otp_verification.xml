@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".activity.register.view.OtpVerificationActivity">
+    <LinearLayout
+        android:id="@+id/linearLayout23"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="3dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <include layout="@layout/toolsbar" />
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:max="2"
+            android:progress="2"
+            android:progressTint="@color/c3" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout23">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginLeft="@dimen/View32dp"
+            android:layout_marginRight="@dimen/View32dp"
+            android:text="@string/otp"
+            android:textColor="@color/text_black_gray"
+            android:textSize="@dimen/Text24sp" />
+
+        <TextView
+            android:id="@+id/commend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/View32dp"
+            android:layout_marginTop="@dimen/View8dp"
+            android:layout_marginRight="@dimen/View32dp"
+            android:layout_marginBottom="@dimen/View40dp"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:text="@string/application_has_sent"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/Text14sp" />
+
+        <com.chaos.view.PinView
+            android:id="@+id/secondPinView"
+            style="@style/PinWidget.PinView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="52dp"
+            android:layout_marginRight="52dp"
+            android:inputType="number"
+            android:textColor="@color/c2"
+            android:textSize="@dimen/Text20sp"
+            app:itemCount="6"
+            app:itemRadius="10dp"
+            app:lineColor="@color/text_black_gray"
+            app:lineWidth="1dp"
+            app:viewType="rectangle" />
+
+        <Button
+            android:id="@+id/button8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/View8dp"
+            android:layout_marginTop="@dimen/View40dp"
+            android:text="@string/next"
+            android:textColor="@color/white"
+            android:textSize="@dimen/Text16sp" />
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

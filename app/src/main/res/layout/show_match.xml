@@ -84,7 +84,7 @@
                 android:shadowDx="1"
                 android:shadowDy="1"
                 android:shadowRadius="2"
-                android:text="@string/Like_you_too"
+                android:text="@string/like_you_too"
                 android:textColor="#FFFFFF"
                 android:textSize="@dimen/Text20sp" />
 
@@ -121,7 +121,7 @@
             android:shadowDx="1"
             android:shadowDy="1"
             android:shadowRadius="2"
-            android:text="@string/See_other_user"
+            android:text="@string/see_other_user"
             android:textColor="#FFFFFF"
             android:textSize="@dimen/Text16sp"
             app:layout_constraintBottom_toBottomOf="@+id/image_match"

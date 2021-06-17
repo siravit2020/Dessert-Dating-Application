@@ -42,7 +42,7 @@
             android:layout_gravity="start"
             android:layout_marginLeft="@dimen/View20dp"
             android:layout_marginBottom="@dimen/View8dp"
-            android:text="อีเมล"
+            android:text="@string/email"
             android:textColor="@color/text_black_gray"
             android:textSize="@dimen/Text14sp" />
 
@@ -67,7 +67,7 @@
             android:layout_gravity="start"
             android:layout_marginLeft="@dimen/View20dp"
             android:layout_marginBottom="@dimen/View8dp"
-            android:text="รหัสผ่าน"
+            android:text="@string/password"
             android:textColor="@color/text_black_gray"
             android:textSize="@dimen/Text14sp" />
 
@@ -93,7 +93,7 @@
             android:layout_gravity="start"
             android:layout_marginLeft="@dimen/View20dp"
             android:layout_marginBottom="@dimen/View8dp"
-            android:text="ยืนยันรหัสผ่าน"
+            android:text="@string/confirm_password"
             android:textColor="@color/text_black_gray"
             android:textSize="@dimen/Text14sp" />
 
@@ -115,11 +115,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:layout_marginTop="@dimen/View24dp"
             android:gravity="center"
-
-            android:text="โปรดใช้อีเมลที่สามารถใช้งานได้จริง เนื่องจากต้องมีการยืนยันบัญชีผู้ใช้งาน"
+            android:text="@string/note_email_register"
             android:textAlignment="center"
             android:textColor="@color/text_gray"
             android:textSize="@dimen/Text14sp" />

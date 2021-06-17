@@ -13,6 +13,7 @@
     <color name="light_red">#ED666B</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#FF000000</color>
+    <color name="black_transparent">#4D000000</color>
     <color name="y1">#ffe07d</color>
     <color name="v1">#bc95e2</color>
     <color name="v2">#ac80dd</color>

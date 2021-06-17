@@ -41,7 +41,7 @@
             android:id="@+id/closeErrorDialog"
             android:layout_marginTop="@dimen/View16dp"
             android:layout_gravity="center"
-            android:text="@string/report_close"
+            android:text="@string/close"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>

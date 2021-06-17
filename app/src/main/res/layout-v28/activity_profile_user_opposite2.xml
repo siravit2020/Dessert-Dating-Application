@@ -31,7 +31,7 @@
                 android:background="@color/background_white"
                 android:layout_height="wrap_content">
 
-                <com.maiandguy.dessert.utils.WrapContentHeightViewPager
+                <com.siravit.dessert.utils.WrapContentHeightViewPager
                     android:id="@+id/slide_main"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -473,7 +473,7 @@
         android:layout_centerHorizontal="true"
         android:orientation="horizontal"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/ssssss"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -545,7 +545,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:background="@color/white"
-            android:text="ไม่มีผู้ใช้งานนี้ในระบบ"/>
+            android:text="@string/not_found_user"/>
 
 
 

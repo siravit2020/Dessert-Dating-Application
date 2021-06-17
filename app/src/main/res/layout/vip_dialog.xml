@@ -95,7 +95,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/View8dp"
                 android:gravity="center"
-                android:text="ดูโฆษณาเพื่อรับ จำนวนกดถูกใจ เพิ่ม \n หรือสมัคร Dessert VIP เพื่อรับสิทธิพิเศษต่างๆ"
+                android:text="@string/get_vip_description"
                 android:textColor="@color/white"
                 android:textSize="@dimen/Text14sp" />
 
@@ -120,7 +120,7 @@
                     android:layout_height="wrap_content"
 
                     android:backgroundTint="@color/c3"
-                    android:text="@string/LoadingAds"
+                    android:text="@string/loading_ads"
                     android:textSize="@dimen/Text14sp"
                     android:textColor="@color/white" />
 

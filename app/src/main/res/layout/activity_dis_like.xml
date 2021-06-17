@@ -47,7 +47,7 @@
                     android:layout_marginStart="@dimen/View32dp"
                     android:layout_marginEnd="@dimen/View32dp"
                     android:gravity="center"
-                    android:text="ส่งคำติชม"
+                    android:text="@string/send_feedback"
                     android:textColor="@color/text_black_gray"
                     android:textSize="@dimen/Text20sp" />
 
@@ -58,7 +58,7 @@
                     android:layout_marginEnd="@dimen/View32dp"
                     android:layout_marginBottom="@dimen/View24dp"
                     android:gravity="center"
-                    android:text="โปรดบอกเหตุผลที่ทำให้คุณเลิกใช้งาน ให้เราทราบ เพื่อนำไปปรับปรุงและมอบประสบการณ์การใช้งานที่ดียิ่งขึ้นให้คุรได้ในอนาคต"
+                    android:text="@string/reason"
                     android:textColor="@color/text_gray"
                     android:textSize="@dimen/Text16sp" />
                 <com.google.android.material.card.MaterialCardView
@@ -83,7 +83,7 @@
                             android:id="@+id/c1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="ฉันไม่เจอคู่แมตช์เลย"
+                            android:text="@string/not_matches"
                             />
                     </LinearLayout>
 
@@ -110,7 +110,7 @@
                             android:id="@+id/c2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="แอพค้างบ่อยเกินไป"
+                            android:text="@string/app_freezes"
                             />
                     </LinearLayout>
 
@@ -137,7 +137,7 @@
                             android:id="@+id/c3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="ฉันมีประสบการณ์ที่ไม่ค่อยดีบน Dessert"
+                            android:text="@string/bad_experience"
                             />
                     </LinearLayout>
 
@@ -164,7 +164,7 @@
                             android:id="@+id/c4"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="ฉันชอบแอปอื่นมากกว่า"
+                            android:text="@string/other_apps"
                             />
                     </LinearLayout>
 
@@ -191,7 +191,7 @@
                             android:id="@+id/c5"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="ฉันหาคนเพื่อจับคู่ได้ไม่มากพอ"
+                            android:text="@string/not_enough"
                             />
                     </LinearLayout>
 
@@ -218,7 +218,7 @@
                             android:id="@+id/c6"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="ฉันไม่ได้นัดพบใครเลย"
+                            android:text="@string/i_haven_t_dated_anyone"
                             />
                     </LinearLayout>
 

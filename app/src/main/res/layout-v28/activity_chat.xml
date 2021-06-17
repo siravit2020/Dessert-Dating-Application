@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Chat.ChatActivity"
+    tools:context=".activity.chat.view.ChatActivity"
     android:background="@color/background_gray">
 
 
@@ -165,7 +165,7 @@
             android:layout_weight="1.5"
             android:layout_height="wrap_content">
 
-            <com.maiandguy.dessert.utils.CustomEdittext
+            <com.siravit.dessert.utils.CustomEdittext
                 android:layout_marginStart="@dimen/View8dp"
                 android:id="@+id/message"
                 android:layout_width="match_parent"
@@ -203,8 +203,6 @@
             <ProgressBar
                 android:visibility="gone"
                 android:id="@+id/progressBar_audio"
-                android:layout_below="@+id/Linear_top_chat"
-                android:layout_centerHorizontal="true"
                 style="?android:attr/progressBarStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -219,7 +217,7 @@
                 android:id="@+id/record_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Record_Status"/>
+                android:text="@string/record"/>
         </LinearLayout>
 
     </LinearLayout>

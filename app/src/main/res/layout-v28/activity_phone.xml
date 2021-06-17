@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".activity.register.PhoneActivity">
+    tools:context=".activity.phone.view.PhoneActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout23"
@@ -104,7 +104,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/View40dp"
             android:layout_marginBottom="@dimen/View8dp"
-            android:text="@string/next_button"
+            android:text="@string/next"
             android:textSize="@dimen/Text16sp" />
     </LinearLayout>
 

@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/View8dp"
             android:background="@drawable/input_field"
-            android:hint="รหัสผ่าน"
+            android:hint="@string/password"
             android:importantForAutofill="no"
             android:inputType="textPassword"
             android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -82,7 +82,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/View8dp"
-                    android:text="ผู้ใช้ใหม่?"
+                    android:text="@string/new_user"
                     android:textColor="@color/text_black_gray"
                     android:textSize="@dimen/Text14sp" />
 
@@ -90,7 +90,7 @@
                     android:id="@+id/register_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="สมัครสมาชิก"
+                    android:text="@string/register"
                     android:textColor="@color/c3"
                     android:textSize="@dimen/Text14sp" />
 
@@ -100,7 +100,7 @@
                 android:id="@+id/forgot_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ลืมรหัสผ่าน"
+                android:text="@string/forgot_password"
                 android:textColor="@color/text_black_gray"
                 android:textSize="@dimen/Text14sp" />
 
@@ -112,12 +112,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/View24dp"
-
-            android:maxLength="30"
-
             android:paddingLeft="@dimen/View20dp"
             android:paddingRight="@dimen/View20dp"
-            android:text="เข้าสู่ระบบ"
+            android:text="@string/Sign_in"
             android:textSize="@dimen/Text16sp" />
 
         <LinearLayout
@@ -141,7 +138,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="@dimen/View20dp"
-                android:text="เข้าสู่ระบบด้วย"
+                android:text="@string/sign_in_with"
                 android:textColor="@color/text_black_gray"
                 android:textSize="@dimen/Text16sp"
 
@@ -154,16 +151,18 @@
                 android:background="#80000000" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <com.google.android.flexbox.FlexboxLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
+            app:justifyContent="space_evenly"
             android:orientation="horizontal">
 
             <LinearLayout
                 android:id="@+id/google"
-                android:layout_width="wrap_content"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/View16dp"
+
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -176,37 +175,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Google"
+                    android:text="@string/google"
                     android:textColor="@color/text_black_gray"
-                    android:textSize="@dimen/Text16sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/button7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/View16dp"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="@dimen/View40dp"
-                    android:layout_height="@dimen/View40dp"
-
-                    android:foregroundTint="@color/c3"
-                    android:src="@drawable/ic_phone" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Phone No."
-                    android:textColor="@color/text_black_gray"
-                    android:textSize="@dimen/Text16sp" />
+                    android:textSize="@dimen/Text14sp" />
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/facebook_login"
-                android:layout_width="wrap_content"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
 
                 android:gravity="center"
@@ -223,11 +198,35 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Facebook"
+                    android:text="@string/facebook"
                     android:textColor="@color/text_black_gray"
-                    android:textSize="@dimen/Text16sp" />
+                    android:textSize="@dimen/Text14sp" />
             </LinearLayout>
-        </LinearLayout>
+            <LinearLayout
+                android:id="@+id/button7"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/View40dp"
+                    android:layout_height="@dimen/View40dp"
+
+                    android:foregroundTint="@color/c3"
+                    android:src="@drawable/ic_phone" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/phone_no"
+                    android:textColor="@color/text_black_gray"
+                    android:textSize="@dimen/Text14sp" />
+            </LinearLayout>
+
+        </com.google.android.flexbox.FlexboxLayout>
 
 
 
@@ -256,8 +255,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="@dimen/View4dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="@dimen/View4dp"
             android:text="|"
             android:textColor="@color/text_black_gray"
             android:textSize="@dimen/Text16sp" />
