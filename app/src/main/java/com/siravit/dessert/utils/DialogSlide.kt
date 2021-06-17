@@ -13,10 +13,12 @@ class DialogSlide(private var context: Context, private var dialog: Dialog, priv
     fun start() {
 
         val pagerModels: ArrayList<PagerModel?> = ArrayList()
-        pagerModels.add(PagerModel("ปัดขวาได้เต็มที่ ไม่ต้องรอเวลา", "ถูกใจได้ไม่จำกัด", R.drawable.ic_heart))
-        pagerModels.add(PagerModel("ทักทายคนที่คุณอยากทำความรู้จักได้ไม่จำกัดจำนวน", "ทักทายได้ไม่จำกัด", R.drawable.ic_hand))
-        pagerModels.add(PagerModel("คนที่คุณส่งดาวให้จะเห็นคุณก่อนใคร", "รับ 5 Star ฟรีทุกวัน", R.drawable.ic_starss))
-        pagerModels.add(PagerModel("ดูว่าใครบ้างที่เข้ามากดถูกใจให้คุณ", "ใครถูกใจคุณ", R.drawable.ic_love2))
+        with(context){
+            pagerModels.add(PagerModel(getString(R.string.unlimited_like), getString(R.string.full_right_swipe), R.drawable.ic_heart))
+            pagerModels.add(PagerModel(getString(R.string.get_5_star), getString(R.string.you_send_star), R.drawable.ic_starss))
+            pagerModels.add(PagerModel(getString(R.string.unlimited_say_hi_2), getString(R.string.unlimited_say_hi_3), R.drawable.ic_hand))
+            pagerModels.add(PagerModel(getString(R.string.who_like_you), getString(R.string.see_who_has_like), R.drawable.ic_love2))
+        }
 
         val adapter = VipSlideAdapter(context, pagerModels)
         val pager: AutoScrollViewPager = dialog.findViewById(R.id.viewpage)

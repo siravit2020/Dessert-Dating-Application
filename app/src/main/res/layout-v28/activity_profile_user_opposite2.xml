@@ -465,15 +465,15 @@
         android:background="@color/c2"
         android:clickable="true"
         app:srcCompat="@drawable/ic_chat_black2_24dp" />
-    <LinearLayout
+    <com.google.android.flexbox.FlexboxLayout
         android:id="@+id/linearLayout17"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:orientation="horizontal"
+        app:justifyContent="space_evenly"
         android:visibility="gone"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -481,9 +481,9 @@
             android:id="@+id/dislike_button"
             android:layout_width="56dp"
             android:layout_height="56dp"
-            android:layout_marginRight="@dimen/View32dp"
+
             android:layout_marginBottom="@dimen/View8dp"
-            android:layout_marginLeft="@dimen/View32dp"
+
             app:iconTint="@null"
             app:icon="@drawable/ic_close2"
             app:iconSize="24dp"
@@ -501,7 +501,7 @@
             android:id="@+id/star_button"
             android:layout_width="56dp"
             android:layout_height="56dp"
-            android:layout_marginEnd="@dimen/View32dp"
+
             android:layout_marginBottom="@dimen/View8dp"
             app:iconTint="@null"
             app:icon="@drawable/ic_star"
@@ -520,7 +520,7 @@
             android:id="@+id/like_button"
             android:layout_width="56dp"
             android:layout_height="56dp"
-            android:layout_marginEnd="@dimen/View32dp"
+
             android:layout_marginBottom="@dimen/View8dp"
             app:iconTint="@null"
             app:icon="@drawable/ic_heart"
@@ -534,7 +534,7 @@
             android:insetBottom="0dp"
             android:backgroundTint="#FFFFFF"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle" />
-    </LinearLayout>
+    </com.google.android.flexbox.FlexboxLayout>
 
 
         <TextView

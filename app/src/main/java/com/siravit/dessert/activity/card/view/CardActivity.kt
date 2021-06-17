@@ -8,7 +8,6 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.location.Address
 import android.location.Geocoder
-import android.location.LocationManager
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -47,8 +46,10 @@ import com.siravit.dessert.ViewModel.QuestionViewModel
 import com.siravit.dessert.activity.filter_setting.view.FilterSettingActivity
 import com.siravit.dessert.activity.main.view.MainActivity
 import com.siravit.dessert.activity.sign_in.view.SignInActivity
+import com.siravit.dessert.constants.VipDialogType
 import com.siravit.dessert.dialogs.adapter.VipSlideAdapter
 import com.siravit.dessert.model.PagerModel
+import com.siravit.dessert.dialogs.VipDialog
 import com.siravit.dessert.utils.CloseLoading
 import com.siravit.dessert.utils.GlobalVariable
 import com.yuyakaido.android.cardstackview.*
@@ -63,18 +64,12 @@ import kotlin.collections.ArrayList
 @Suppress("NAME_SHADOWING")
 class CardActivity : Fragment(), View.OnClickListener {
 
-    private lateinit var mLocationManager: LocationManager
+
     private lateinit var mAuth: FirebaseAuth
-    private lateinit var mGPSDialog: Dialog
-    private lateinit var oppositeUserSex: String
     private var dis: String? = null
-    private var oppositeUserAgeMin = 0
-    private var oppositeUserAgeMax = 0
     private lateinit var cardAdapter: CardAdapter
     private lateinit var usersDb: DatabaseReference
     private var distance = 0.0
-    private var xUser = 0.0
-    private var yUser = 0.0
     private lateinit var like: Button
     private lateinit var dislike: Button
     private lateinit var star: Button
@@ -84,10 +79,7 @@ class CardActivity : Fragment(), View.OnClickListener {
     private lateinit var textgps: TextView
     private lateinit var textGps2: TextView
     private lateinit var handler: Handler
-    private var maxStar = 0
-    private var maxAdmob = 0
     private lateinit var dialog: Dialog
-    private var statusVip = false
     private lateinit var rowItem: ArrayList<CardModel>
     private lateinit var po: CardModel
     private lateinit var currentUid: String
@@ -153,6 +145,7 @@ class CardActivity : Fragment(), View.OnClickListener {
         handler = Handler()
         return view
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         questionViewModel = ViewModelProvider(requireActivity(), object : ViewModelProvider.Factory {
@@ -162,12 +155,12 @@ class CardActivity : Fragment(), View.OnClickListener {
         }).get(QuestionViewModel::class.java)
 
         questionViewModel.fetchQA.observe(requireActivity(), {
-            Log.d("GET_QUESTION",it.size.toString())
-            if(it.size > 0){
+            Log.d("GET_QUESTION", it.size.toString())
+            if (it.size > 0) {
                 val dialogFragment = DialogFragment()
                 dialogFragment.setData(it)
                 dialogFragment.show(requireActivity().supportFragmentManager, "example Dialog")
-            }else{
+            } else {
                 errorDialog = ErrorDialog(requireContext())
                 errorDialog.outOfQuestionDialog().show()
             }
@@ -181,9 +174,9 @@ class CardActivity : Fragment(), View.OnClickListener {
             override fun onCardSwiped(direction: Direction?) {
                 po = rowItem[manager.topPosition - 1]
                 val userId = po.userId!!
-                Log.d("GLOBAL_MAX_LIKE__cardActivity",GlobalVariable.maxLike.toString())
+                Log.d("GLOBAL_MAX_LIKE__cardActivity", GlobalVariable.maxLike.toString())
                 if (direction == Direction.Right) {
-                    if (GlobalVariable.maxLike > 0 || statusVip) {
+                    if (GlobalVariable.maxLike > 0 || GlobalVariable.vip) {
                         val datetime = hashMapOf<String, Any>()
                         datetime["date"] = ServerValue.TIMESTAMP
                         usersDb.child(userId).child("connection").child("yep").child(currentUid).updateChildren(datetime)
@@ -192,25 +185,27 @@ class CardActivity : Fragment(), View.OnClickListener {
                         isConnectionMatches(userId)
                     } else {
                         handler.postDelayed(Runnable { cardStackView.rewind() }, 200)
-                        openDialog()
+                        //openDialog()
+                        VipDialog(activity!!,VipDialogType.Card).openDialog()
                     }
                 }
                 if (direction == Direction.Left) {
                     usersDb.child(userId).child("connection").child("nope").child(currentUid).setValue(true)
                 }
                 if (direction == Direction.Top) {
-                    if (maxStar > 0) {
+                    if (GlobalVariable.maxStar > 0) {
                         val datetime = hashMapOf<String, Any>()
                         datetime["date"] = ServerValue.TIMESTAMP
                         datetime["super"] = true
                         usersDb.child(userId).child("connection").child("yep").child(currentUid).updateChildren(datetime)
                         usersDb.child(currentUid).child("star_s").child(userId).setValue(true)
-                        maxStar--
-                        usersDb.child(currentUid).child("MaxStar").setValue(maxStar)
+                        GlobalVariable.maxStar--
+                        usersDb.child(currentUid).child("MaxStar").setValue(GlobalVariable.maxStar)
                         isConnectionMatches(userId)
                     } else {
                         handler.postDelayed(Runnable { cardStackView.rewind() }, 200)
-                        openDialog()
+                        //openDialog()
+                        VipDialog(activity!!,VipDialogType.Card).openDialog()
                     }
                 }
             }
@@ -273,7 +268,7 @@ class CardActivity : Fragment(), View.OnClickListener {
 
             override fun onAdLoaded(reward: RewardedAd) {
                 rewardedAd = reward
-                b2.text = "ดูโฆษณาเพื่อรับรางวัล"
+                b2.text = getString(R.string.ads_rewards)
             }
         })
 
@@ -305,8 +300,8 @@ class CardActivity : Fragment(), View.OnClickListener {
         val b1 = view.findViewById<Button>(R.id.buy)
         val b2 = view.findViewById<Button>(R.id.admob)
         val text = view.findViewById<TextView>(R.id.test_de)
-        if (maxAdmob <= 0) {
-            text.text = "โฆษณาที่คุณสามารถดูได้ในวันนี้หมดแล้ว \n สมัคร Dessert VIP เพื่อรับสิทธิพิเศษ"
+        if (GlobalVariable.maxAdmob <= 0) {
+            text.text = getString(R.string.ads_out_stock)
             b2.visibility = View.GONE
         }
         createAndLoadRewardedAd(b2)
@@ -336,15 +331,15 @@ class CardActivity : Fragment(), View.OnClickListener {
             if (rewardedAd != null) {
                 rewardedAd?.show(requireActivity(), OnUserEarnedRewardListener() {
                     ++GlobalVariable.maxLike
-                    maxAdmob -= 1
+                    GlobalVariable.maxAdmob -= 1
                     if (GlobalVariable.maxLike >= 10)
                         dialog.dismiss()
-                    else if (maxAdmob <= 0) {
+                    else if (GlobalVariable.maxAdmob <= 0) {
                         b2.visibility = View.GONE
                     }
 
                     usersDb.child(currentUid).child("MaxLike").setValue(GlobalVariable.maxLike)
-                    usersDb.child(currentUid).child("MaxAdmob").setValue(maxAdmob)
+                    usersDb.child(currentUid).child("MaxAdmob").setValue(GlobalVariable.maxAdmob)
 
                 })
             } else {
@@ -365,10 +360,10 @@ class CardActivity : Fragment(), View.OnClickListener {
         dialog.setContentView(view)
         val pagerModels: ArrayList<PagerModel?> = ArrayList()
         with(pagerModels) {
-            add(PagerModel("สมัคร Desert เพื่อกดถูกใจได้ไม่จำกัด ปัดขวาได้เต็มที่ ไม่ต้องรอเวลา", "จำนวนการกดถูกใจของคุณหมด", R.drawable.ic_heart))
-            add(PagerModel("คนที่คุณส่งดาวให้จะเห็นคุณก่อนใคร", "รับ 5 Star ฟรีทุกวัน", R.drawable.ic_starss))
-            add(PagerModel("สามารถทักทายได้เต็มที ไม่จำกัดจำนวน", "ทักทายได้ไม่จำกัด", R.drawable.ic_hand))
-            add(PagerModel("ดูว่าใครบ้างที่เข้ามากดถูกใจให้คุณ", "ใครถูกใจคุณ", R.drawable.ic_love2))
+            add(PagerModel(getString(R.string.like_out_stock), getString(R.string.full_swipe), R.drawable.ic_heart))
+            add(PagerModel(getString(R.string.get_5_star), getString(R.string.you_send_star), R.drawable.ic_starss))
+            add(PagerModel(getString(R.string.unlimited_say_hi_2), getString(R.string.unlimited_say_hi_3), R.drawable.ic_hand))
+            add(PagerModel(getString(R.string.who_like_you), getString(R.string.see_who_has_like), R.drawable.ic_love2))
 
         }
         val adapter = VipSlideAdapter(requireContext(), pagerModels)
@@ -448,8 +443,8 @@ class CardActivity : Fragment(), View.OnClickListener {
                         textView.text = po.name
                         if (dataSnapshot.hasChild("super")) {
                             star.visibility = View.VISIBLE
-                            textView4.text = "  " + "ส่งดาวให้คุณให้คุณ"
-                        } else textView4.text = "  " + "ถูกใจคุณเหมือนกัน"
+                            textView4.text = "  " + getString(R.string.send_star)
+                        } else textView4.text = "  " + getString(R.string.like_you_too)
                         Glide.with(requireContext()).load(po.profileImageUrl).into(imageView)
                         dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                         dialog.setContentView(view)
@@ -476,7 +471,7 @@ class CardActivity : Fragment(), View.OnClickListener {
         billingClient.startConnection(object : BillingClientStateListener {
             override fun onBillingSetupFinished(billingResult: BillingResult) {
                 if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
-                    Log.d("billing","200ok")
+                    Log.d("billing", "200ok")
                     GlobalScope.launch {
                         querySkuDetails()
                     }
@@ -501,9 +496,9 @@ class CardActivity : Fragment(), View.OnClickListener {
         val skuDetailsResult = withContext(Dispatchers.IO) {
             billingClient.querySkuDetails(params.build())
         }
-        Log.d("billing",skuDetailsResult.skuDetailsList!!.size.toString())
+        Log.d("billing", skuDetailsResult.skuDetailsList!!.size.toString())
         skuDetailsResult.skuDetailsList!!.forEach {
-            Log.d("billing",it.title)
+            Log.d("billing", it.title)
         }
 
 
@@ -512,7 +507,7 @@ class CardActivity : Fragment(), View.OnClickListener {
 
     }
 
-    private fun startBilling(){
+    private fun startBilling() {
 //        // An activity reference from which the billing flow will be launched.
 //        val activity: Activity = requireActivity()
 //
@@ -525,15 +520,7 @@ class CardActivity : Fragment(), View.OnClickListener {
 
     private fun getDis() {
 
-        oppositeUserSex = GlobalVariable.oppositeUserSex
-        oppositeUserAgeMin = GlobalVariable.oppositeUserAgeMin
-        oppositeUserAgeMax = GlobalVariable.oppositeUserAgeMax
 
-        xUser = GlobalVariable.x.toDouble()
-        yUser = GlobalVariable.y.toDouble()
-        maxAdmob = GlobalVariable.maxAdmob
-        maxStar = GlobalVariable.maxStar
-        statusVip = GlobalVariable.vip
         distance = when (GlobalVariable.distance) {
             "true" -> {
                 10000.0
@@ -555,11 +542,11 @@ class CardActivity : Fragment(), View.OnClickListener {
             if (!type) pre = 0
 
             val data = hashMapOf(
-                    "sex" to oppositeUserSex,
-                    "min" to oppositeUserAgeMin,
-                    "max" to oppositeUserAgeMax,
-                    "x_user" to xUser,
-                    "y_user" to yUser,
+                    "sex" to GlobalVariable.oppositeUserSex,
+                    "min" to GlobalVariable.oppositeUserAgeMin,
+                    "max" to GlobalVariable.oppositeUserAgeMax,
+                    "x_user" to GlobalVariable.x.toDouble(),
+                    "y_user" to GlobalVariable.y.toDouble(),
                     "distance" to distance,
                     "limit" to pre + limit,
                     "prelimit" to pre

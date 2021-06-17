@@ -176,10 +176,10 @@ class SignInViewModel(application: Application) : AndroidViewModel(application) 
                 Log.d("TAG", "firebaseAuthWithGoogle:" + account.id)
                 firebaseAuthWithGoogle(account.idToken)
             } catch (e: ApiException) {
-
-                Log.d("TAG", "Google sign in failed", e)
-                error = R.string.try_again
-                resource.value = Resource.error(app.getString(R.string.try_again), "google")
+//
+//                Log.d("TAG", "Google sign in failed", e)
+//                error = R.string.try_again
+//                resource.value = Resource.error(app.getString(R.string.try_again), "google")
             }
         }
 

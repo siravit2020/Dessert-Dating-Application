@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -39,7 +40,9 @@ import com.google.firebase.database.*
 import com.siravit.dessert.*
 import com.siravit.dessert.activity.chat.view.ChatActivity
 import com.siravit.dessert.R
+import com.siravit.dessert.constants.VipDialogType
 import com.siravit.dessert.dialogs.ReportUser
+import com.siravit.dessert.dialogs.VipDialog
 import com.siravit.dessert.dialogs.adapter.VipSlideAdapter
 import com.siravit.dessert.model.PagerModel
 import com.siravit.dessert.utils.adapter.ScreenAdapter
@@ -63,7 +66,7 @@ class ProfileInformationOppositeUserActivity : AppCompatActivity() {
     private lateinit var l4: LinearLayout
     private lateinit var l5: LinearLayout
     private lateinit var l6: LinearLayout
-    private lateinit var madoo: LinearLayout
+    private lateinit var madoo: FlexboxLayout
     private var url0: String? = null
     private var url1: String? = null
     private var url2: String? = null
@@ -93,8 +96,6 @@ class ProfileInformationOppositeUserActivity : AppCompatActivity() {
     private lateinit var params: GridLayout.LayoutParams
     private lateinit var fab: FloatingActionButton
     private var click = true
-    private var xUser = 0.0
-    private var yUser = 0.0
     private var xOpposite = 0.0
     private var yOpposite = 0.0
     private lateinit var like: Button
@@ -108,12 +109,7 @@ class ProfileInformationOppositeUserActivity : AppCompatActivity() {
     private lateinit var adapter: ScreenAdapter
     private lateinit var mDatabaseChat: DatabaseReference
     private lateinit var usersDb: DatabaseReference
-    private var maxlike = 0
-    private var maxstar = 0
-    private var maxadmob = 0
     private var drawableGender = 0
-    private var maxChat = 0
-    private var statusVip = false
     private var delete = false
     private var rewardedAd: RewardedAd? = null
 
@@ -170,7 +166,6 @@ class ProfileInformationOppositeUserActivity : AppCompatActivity() {
         l6.visibility = View.GONE
         val preferences2 = getSharedPreferences("notification_match", Context.MODE_PRIVATE)
         notificationMatch = preferences2.getString("noti", "1")
-        getDistance()
         getUserinfo()
 
         fab.visibility = View.GONE
@@ -184,7 +179,7 @@ class ProfileInformationOppositeUserActivity : AppCompatActivity() {
         if (intent.hasExtra("form_list")) {
 
             fab.setOnClickListener {
-                if (click || statusVip) {
+                if (click || GlobalVariable.vip) {
                     val inflater = layoutInflater
                     val view2 = inflater.inflate(R.layout.sayhi_dialog, null)
                     val b1 = view2.findViewById<Button>(R.id.buy)
@@ -206,8 +201,8 @@ class ProfileInformationOppositeUserActivity : AppCompatActivity() {
                             newMessage["read"] = "Unread"
                             newMessageDb.updateChildren(newMessage)
                             dialog.dismiss()
-                            maxChat--
-                            usersDb.child(currentUid).child("MaxChat").setValue(maxChat)
+                            GlobalVariable.maxChat--
+                            usersDb.child(currentUid).child("MaxChat").setValue(GlobalVariable.maxChat)
                         } else {
                             Toast.makeText(this@ProfileInformationOppositeUserActivity, "พิมพ์ข้อความสักหน่อยสิ", Toast.LENGTH_SHORT).show()
                         }
@@ -219,126 +214,44 @@ class ProfileInformationOppositeUserActivity : AppCompatActivity() {
                     dialog.show()
                 } else {
 
-                    val inflater = layoutInflater
-                    val view = inflater.inflate(R.layout.vip_dialog, null)
-                    val b1 = view.findViewById<Button>(R.id.buy)
-                    val b2 = view.findViewById<Button>(R.id.admob)
-                    val text = view.findViewById<TextView>(R.id.test_de)
-                    var adRequest = AdRequest.Builder().build()
-
-                    createAndLoadRewardedAd()
-                    text.text = "ดูโฆษณาเพื่อรับ จำนวนกดทักทาย เพิ่ม \nหรือ สมัคร Dessert VIP เพื่อรับสิทธิพิเศษต่างๆ"
-                    if (maxadmob <= 0) {
-                        text.text = "โฆษณาที่คุณสามารถดูได้ในวันนี้หมดแล้ว \n สมัคร Dessert VIP เพื่อรับสิทธิพิเศษ"
-                        b2.visibility = View.GONE
-                    }
-                    b2.setOnClickListener {
-
-                        rewardedAd?.fullScreenContentCallback = object: FullScreenContentCallback() {
-
-                            override fun onAdDismissedFullScreenContent() {
-                               // Log.d(TAG, "Ad was dismissed.")
-                            }
-
-                            override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
-                                //Log.d(TAG, "Ad failed to show.")
-                            }
-
-                            override fun onAdShowedFullScreenContent() {
-                               // Log.d(TAG, "Ad showed fullscreen content.")
-                                // Called when ad is dismissed.
-                                // Don't set the ad reference to null to avoid showing the ad a second time.
-                                rewardedAd = null
-                                if (rewardedAd != null) {
-                                    rewardedAd?.show(this@ProfileInformationOppositeUserActivity, OnUserEarnedRewardListener() {
-                                        fun onUserEarnedReward(rewardItem: RewardItem) {
-                                            maxChat++
-                                            maxadmob--
-                                            if (maxChat >= 10)
-                                                dialog.dismiss()
-                                            else if (maxadmob <= 0)
-                                                b2.visibility = View.GONE
-                                            usersDb.child(currentUid).child("MaxChat").setValue(maxChat)
-                                            usersDb.child(currentUid).child("MaxAdmob").setValue(maxChat)
-                                        }
-                                    })
-                                } else {
-                                    //Log.d(TAG, "The rewarded ad wasn't ready yet.")
-                                }
-
-                            }
-                        }
-//                        if (rewardedAd.isLoaded) {
-//                            val activityContext: Activity = this
-//                            val adCallback = object : RewardedAdCallback() {
-//                                override fun onRewardedAdOpened() {
-//                                    rewardedAd = createAndLoadRewardedAd()
-//                                }
-//
-//                                override fun onRewardedAdClosed() {
-//
-//                                }
-//
-//                                override fun onUserEarnedReward(@NonNull reward: RewardItem) {
-//                                    maxChat++
-//                                    maxadmob--
-//                                    if (maxChat >= 10)
-//                                        dialog.dismiss()
-//                                    else if (maxadmob <= 0)
-//                                        b2.visibility = View.GONE
-//                                    usersDb.child(currentUid).child("MaxChat").setValue(maxChat)
-//                                    usersDb.child(currentUid).child("MaxAdmob").setValue(maxChat)
-//                                }
-//
-//                                override fun onRewardedAdFailedToShow(errorCode: Int) {
-//                                    // Ad failed to display.
-//                                }
-//                            }
-//                            rewardedAd.show(activityContext, adCallback)
-//                        } else {
-//                            Log.d("TAG", "The rewarded ad wasn't loaded yet.")
-//                        }
-                    }
-                    b1.setOnClickListener {
-                        usersDb.child(currentUid).child("Vip").setValue(1)
-
-                        dialog.dismiss()
-                    }
-                    dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                    dialog.setContentView(view)
-                    val pagerModels: ArrayList<PagerModel?> = ArrayList()
-                    pagerModels.apply {
-                        add(PagerModel(getString(R.string.say_hi_out),getString(R.string.unlimited_say_hi), R.drawable.ic_hand))
-                        add(PagerModel(getString(R.string.unlimited_like),getString(R.string.full_right_swipe), R.drawable.ic_heart))
-                        add(PagerModel(getString(R.string.get_5_star),getString(R.string.you_send_star), R.drawable.ic_starss))
-                        add(PagerModel(getString(R.string.who_like_you),getString(R.string.see_who_has_like), R.drawable.ic_love2))
-
-                    }
-                    val adapter = VipSlideAdapter(this@ProfileInformationOppositeUserActivity, pagerModels)
-                    val pager: AutoScrollViewPager = dialog.findViewById(R.id.viewpage)
-                    pager.adapter = adapter
-                    pager.startAutoScroll()
-                    val indicator: CircleIndicator = view.findViewById(R.id.indicator)
-                    indicator.setViewPager(pager)
-                    val width = (resources.displayMetrics.widthPixels * 0.90).toInt()
-                    dialog.window!!.setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT)
-                    dialog.show()
+                    VipDialog(this, VipDialogType.List).openDialog()
                 }
             }
         }
-        like.setOnClickListener(View.OnClickListener {
+        usersDb.child(matchId).child("connection").addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    if (dataSnapshot.child("yep").exists())
+                        if (dataSnapshot.child("yep").hasChild(currentUid)) {
+                            madoo.visibility = View.GONE
+
+                        }
+                    if (dataSnapshot.child("nope").exists())
+                        if (dataSnapshot.child("nope").hasChild(currentUid)) {
+                            madoo.visibility = View.GONE
+                        }
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {}
+        })
+        like.setOnClickListener {
             if (!intent.hasExtra("form_like")) {
                 setResult(1)
 
             } else {
-                val dateTime = hashMapOf<String, Any>()
-                dateTime["date"] = ServerValue.TIMESTAMP
-                usersDb.child(matchId).child("connection").child("yep").child(currentUid).updateChildren(dateTime)
-                maxlike--
-                usersDb.child(currentUid).child("MaxLike").setValue(maxlike)
+                if (GlobalVariable.maxLike > 0 || GlobalVariable.vip) {
+                    val dateTime = hashMapOf<String, Any>()
+                    dateTime["date"] = ServerValue.TIMESTAMP
+                    usersDb.child(matchId).child("connection").child("yep").child(currentUid).updateChildren(dateTime)
+                    GlobalVariable.maxLike--
+                    usersDb.child(currentUid).child("MaxLike").setValue(GlobalVariable.maxLike)
+                    isConnectionMatches2()
+                } else {
+                    VipDialog(this, VipDialogType.Card).openDialog()
+                }
             }
-            isConnectionMatches2()
-        })
+        }
         dislike.setOnClickListener(View.OnClickListener {
             if (!intent.hasExtra("form_like")) {
                 setResult(2)
@@ -352,15 +265,19 @@ class ProfileInformationOppositeUserActivity : AppCompatActivity() {
             if (!intent.hasExtra("form_like")) {
                 setResult(3)
             } else {
-
-                val datetime = hashMapOf<String, Any>()
-                datetime["date"] = ServerValue.TIMESTAMP
-                datetime["super"] = true
-                usersDb.child(matchId).child("connection").child("yep").child(currentUid).updateChildren(datetime)
-                maxstar--
-                usersDb.child(currentUid).child("MaxStar").setValue(maxstar)
+                if (GlobalVariable.maxStar > 0) {
+                    val datetime = hashMapOf<String, Any>()
+                    datetime["date"] = ServerValue.TIMESTAMP
+                    datetime["super"] = true
+                    usersDb.child(matchId).child("connection").child("yep").child(currentUid).updateChildren(datetime)
+                    GlobalVariable.maxStar--
+                    usersDb.child(currentUid).child("MaxStar").setValue(GlobalVariable.maxStar)
+                    isConnectionMatches2()
+                } else {
+                    VipDialog(this, VipDialogType.Card).openDialog()
+                }
             }
-            isConnectionMatches2()
+
         })
         report.setOnClickListener {
             val mDialog = ReportUser(this@ProfileInformationOppositeUserActivity, matchId).reportDialog()
@@ -400,7 +317,7 @@ class ProfileInformationOppositeUserActivity : AppCompatActivity() {
         val adRequest = AdRequest.Builder().build()
 
 
-        RewardedAd.load(this,"ca-app-pub-3940256099942544/5224354917", adRequest, object : RewardedAdLoadCallback() {
+        RewardedAd.load(this, "ca-app-pub-3940256099942544/5224354917", adRequest, object : RewardedAdLoadCallback() {
             override fun onAdFailedToLoad(adError: LoadAdError) {
                 Log.d("aaa", adError.message)
 
@@ -423,7 +340,7 @@ class ProfileInformationOppositeUserActivity : AppCompatActivity() {
         currentuserConnectionDb.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    delete=true
+                    delete = true
                     GlobalVariable.likeYou = GlobalVariable.likeYou - 1
                     val key = FirebaseDatabase.getInstance().reference.child("Chat").push().key
                     usersDb.child(dataSnapshot.key!!).child("connection").child("matches").child(currentUid).child("ChatId").setValue(key)
@@ -473,32 +390,32 @@ class ProfileInformationOppositeUserActivity : AppCompatActivity() {
     private val df2: DecimalFormat = DecimalFormat("#.#")
     private fun getUserinfo() {
         CoroutineScope(Job() + Dispatchers.Unconfined).launch {
-            if(intent.hasExtra("form_list")){
-                 val task2 = async{ // background thread
-                usersDb.addListenerForSingleValueEvent(object : ValueEventListener {
-                    override fun onDataChange(dataSnapshot: DataSnapshot) {
-                        maxChat = dataSnapshot.child(currentUid).child("MaxChat").value.toString().toInt();
-                        if (dataSnapshot.child(currentUid).child("Vip").value == 1) {
-                            statusVip = true
-                        }
-                        if (maxChat <= 0) {
-                            click = false
-                        }
-                        if (dataSnapshot.child(matchId).child("connection").child("chatna").hasChild(currentUid)) {
-                            fab.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this@ProfileInformationOppositeUserActivity, R.color.text_gray))
-                            fab.isClickable = false
-                        }
-                        fab.visibility = View.VISIBLE
+            if (intent.hasExtra("form_list")) {
+                val task2 = async { // background thread
+                    usersDb.addListenerForSingleValueEvent(object : ValueEventListener {
+                        override fun onDataChange(dataSnapshot: DataSnapshot) {
+                            GlobalVariable.maxChat = dataSnapshot.child(currentUid).child("MaxChat").value.toString().toInt();
+                            if (dataSnapshot.child(currentUid).child("Vip").value == 1) {
+                                GlobalVariable.vip = true
+                            }
+                            if (GlobalVariable.maxChat <= 0) {
+                                click = false
+                            }
+                            if (dataSnapshot.child(matchId).child("connection").child("chatna").hasChild(currentUid)) {
+                                fab.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this@ProfileInformationOppositeUserActivity, R.color.text_gray))
+                                fab.isClickable = false
+                            }
+                            fab.visibility = View.VISIBLE
 
 
-                    }
+                        }
 
-                    override fun onCancelled(databaseError: DatabaseError) {}
-                })
+                        override fun onCancelled(databaseError: DatabaseError) {}
+                    })
+                }
             }
-            }
 
-            val task1 = async{ // background thread
+            val task1 = async { // background thread
                 mUserDatabase.addListenerForSingleValueEvent(object : ValueEventListener {
                     @SuppressLint("SetTextI18n")
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -562,28 +479,11 @@ class ProfileInformationOppositeUserActivity : AppCompatActivity() {
                                 val map = dataSnapshot.value as MutableMap<*, *>
                                 xOpposite = dataSnapshot.child("Location").child("X").value.toString().toDouble()
                                 yOpposite = dataSnapshot.child("Location").child("Y").value.toString().toDouble()
-                                val distance = CalculateDistance.calculate(xUser, yUser, xOpposite, yOpposite)
+                                val distance = CalculateDistance.calculate(GlobalVariable.x.toDouble(), GlobalVariable.y.toDouble(), xOpposite, yOpposite)
                                 val distance1 = df2.format(distance)
                                 val city = City(language2!!, this@ProfileInformationOppositeUserActivity, xOpposite, yOpposite).invoke()
                                 city1.text = "$city ,  $distance1 ${getString(R.string.kilometer)}"
-                                maxlike = if (dataSnapshot.hasChild("MaxLike")) {
-                                    val a = dataSnapshot.child("MaxLike").value.toString()
-                                    a.toInt()
-                                } else {
-                                    0
-                                }
-                                maxadmob = if (dataSnapshot.hasChild("MaxAdmob")) {
-                                    val a = dataSnapshot.child("MaxAdmob").value.toString()
-                                    a.toInt()
-                                } else {
-                                    0
-                                }
-                                maxstar = if (dataSnapshot.hasChild("MaxStar")) {
-                                    val a = dataSnapshot.child("MaxStar").value.toString()
-                                    a.toInt()
-                                } else {
-                                    0
-                                }
+
                                 if (map["myself"] != null && map["myself"] != "") {
                                     l3.visibility = View.VISIBLE
                                     myself.text = map["myself"].toString()
@@ -654,7 +554,6 @@ class ProfileInformationOppositeUserActivity : AppCompatActivity() {
             }
 
 
-
         }
     }
 
@@ -671,18 +570,12 @@ class ProfileInformationOppositeUserActivity : AppCompatActivity() {
         flexboxLayout.addView(textView)
     }
 
-    private fun getDistance() {
-
-        xUser = GlobalVariable.x.toDouble()
-        yUser = GlobalVariable.y.toDouble()
-    }
-
 
     override fun onBackPressed() {
         val returnIntent = Intent()
-        returnIntent.putExtra("result", intent.getIntExtra("position",0))
+        returnIntent.putExtra("result", intent.getIntExtra("position", 0))
         returnIntent.putExtra("status", delete)
-        setResult(11,returnIntent)
+        setResult(11, returnIntent)
         super.onBackPressed()
         //finish()
     }

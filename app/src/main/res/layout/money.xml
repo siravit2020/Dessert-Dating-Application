@@ -44,7 +44,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/View20dp"
         android:layout_marginBottom="@dimen/View8dp"
-
+        android:text="@string/buy"
         android:textColor="@color/white"
 
         />

@@ -107,7 +107,7 @@
                 android:orientation="vertical">
                 <Button
                     android:id="@+id/question_call"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/c3"
                     android:text="@string/question_call"
@@ -116,7 +116,7 @@
 
                 <Button
                     android:id="@+id/admob"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
 
                     android:backgroundTint="@color/c3"
@@ -126,11 +126,11 @@
 
                 <Button
                     android:id="@+id/buy"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/View4dp"
                     android:backgroundTint="@color/c3"
-                    android:text="฿100.00 / เดือน"
+                    android:text="@string/buy"
                     android:textSize="@dimen/Text14sp"
                     android:textColor="@color/white" />
 

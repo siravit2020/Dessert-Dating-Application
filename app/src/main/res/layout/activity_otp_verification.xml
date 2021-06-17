@@ -74,7 +74,7 @@
             android:layout_marginLeft="52dp"
             android:layout_marginRight="52dp"
             android:inputType="number"
-            android:textColor="@color/c2"
+            android:textColor="@color/text_black_gray"
             android:textSize="@dimen/Text20sp"
             app:itemCount="6"
             app:itemRadius="10dp"

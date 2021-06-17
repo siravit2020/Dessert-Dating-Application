@@ -321,5 +321,13 @@
     <string name="same_password">กรุณากรอกรหัสผ่านให้ตรงกัน</string>
     <string name="reset_password_2">ได้ส่งลิงค์สำหรับรีเซ็ตรหัสผ่านไปที่อีเมลของท่านแล้ว</string>
     <string name="go_to_sign_in">ไปที่่หน้าเข้าสู่ระบบ</string>
+    <string name="ads_out_stock">โฆษณาที่คุณสามารถดูได้ในวันนี้หมดแล้ว<br/>สมัคร Dessert VIP เพื่อรับสิทธิพิเศษ</string>
+    <string name="unlimited_say_hi_2">ทักทายได้ไม่จำกัด</string>
+    <string name="unlimited_say_hi_3">สามารถทักทายได้เต็มที ไม่จำกัดจำนวน</string>
+    <string name="like_out_stock">จำนวนการกดถูกใจของคุณหมด</string>
+    <string name="full_swipe">สมัคร Desert เพื่อกดถูกใจได้ไม่จำกัด ปัดขวาได้เต็มที่ ไม่ต้องรอเวลา</string>
+    <string name="send_star">ส่งดาวให้คุณ</string>
+    <string name="ads_rewards">ดูโฆษณาเพื่อรับรางวัล</string>
+    <string name="buy">ซื้อ</string>
 
 </resources>

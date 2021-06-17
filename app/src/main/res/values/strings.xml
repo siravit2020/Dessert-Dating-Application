@@ -226,6 +226,14 @@
     <string name="same_password">Please enter the same password.</string>
     <string name="reset_password_2">Dessert has sent a link to reset your password to your email address.</string>
     <string name="go_to_sign_in">go to sign in page</string>
+    <string name="ads_out_stock">The ads you can see today are out of stock.<br/>Apply for Dessert VIP to receive special privileges.</string>
+    <string name="unlimited_say_hi_2">unlimited say hi</string>
+    <string name="unlimited_say_hi_3">Can say hi you fully unlimited number</string>
+    <string name="like_out_stock">Your number of likes has run out.</string>
+    <string name="full_swipe">Apply for Desert for unlimited likes. full right swipe don\'t wait time</string>
+    <string name="send_star">send you star</string>
+    <string name="ads_rewards">Watch ads to earn rewards.</string>
+    <string name="buy">Buy</string>
 
     <string-array name="shopping_item">
         <item>จัดดอกไม้-ทำสวน</item>
