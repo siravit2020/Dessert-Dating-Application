@@ -377,12 +377,12 @@ class MatchesActivity : Fragment() {
                     val userId = dataSnapshot.key
                     var name = ""
                     var profileImageUrl = ""
-                    var status = ""
+                    var status = false
                     if (dataSnapshot.child("name").value != null) {
                         name = dataSnapshot.child("name").value.toString()
                     }
-                    if (dataSnapshot.child("Status").hasChild("status")) {
-                        status = dataSnapshot.child("Status").child("status").value.toString()
+                    if (dataSnapshot.child("status").value != null) {
+                            (dataSnapshot.child("status").value == 1).let { if(it) status = true }
                     }
                     if (dataSnapshot.child("ProfileImage").hasChild("profileImageUrl0")) {
                         profileImageUrl = dataSnapshot.child("ProfileImage").child("profileImageUrl0").value.toString()
@@ -398,33 +398,13 @@ class MatchesActivity : Fragment() {
                     } else {
                         obj = MatchesObject(userId, name, profileImageUrl, status, last_chat, time, count_unread)
                     }
+
                     mMatchesAdapter.notifyDataSetChanged()
                     if (checkHi) {
                         mRecyclerView.visibility = View.VISIBLE
                         chatEmpty.visibility = View.GONE
                     }
-//                        Log.d("chatNotificationTest","+1 $createByBoolean")
-//                        for (j in 0 until (resultMatches.size-1)) {
-//                            Log.d("loop1","$j ${resultMatches.elementAt(j).userId} , ${resultMatches.size} , $count")
-//                            if (resultMatches.elementAt(j).userId == key) {
-//                                resultMatches.elementAt(j).late = last_chat
-//                                resultMatches.elementAt(j).count_unread = resultMatches.elementAt(resultMatches.size - 1).count_unread
-//                                resultMatches.elementAt(j).time = time
-//                                if (j > 0) {
-//                                    for (b in j downTo 1) {
-//                                        Collections.swap(resultMatches, b, b - 1) }
-//                                }
-//                                resultMatches.removeAt(resultMatches.size - 1)
-//                                if (count == resultMatches.size) { --count }
-//                                inception = true
-//                            }
-//                        }
-//                        if (!inception) {
-//                            if (resultMatches.size > 1) {
-//                                for (b in resultMatches.size - 1 downTo 1) { Collections.swap(resultMatches, b, b - 1) }
-//                            }
-//                        }
-//                    }
+                    // NOTE
                     resultMatchNode.find {
                         it.userId == obj.userId
                     }.let {
