@@ -29,6 +29,7 @@ import com.siravit.dessert.dialogs.LoadingDialog
 import com.siravit.dessert.R
 import com.siravit.dessert.activity.main.view.MainActivity
 import com.nipunru.nsfwdetector.NSFWDetector
+import com.siravit.dessert.services.FirstAuthentication
 import com.tapadoo.alerter.Alerter
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
@@ -55,11 +56,13 @@ class RegisterFinishAcivity : AppCompatActivity() {
     private lateinit var add: ImageView
     private lateinit var skip: TextView
     private lateinit var b1: Button
+    private lateinit var firstAuthentication: FirstAuthentication
 
     var bitmap: Bitmap? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_regis_target__acivity)
+        firstAuthentication = FirstAuthentication()
         mAuth = FirebaseAuth.getInstance()
         toolbar = findViewById(R.id.my_tools)
         skip = findViewById(R.id.skip)
@@ -121,7 +124,9 @@ class RegisterFinishAcivity : AppCompatActivity() {
                 "Vip" to 0,
                 "birth" to intent.getLongExtra("Birth", 0)
         )
-        currentUserDb.updateChildren(userInfo as Map<String, *>)
+        currentUserDb.updateChildren(userInfo as Map<String, *>).addOnSuccessListener {
+            firstAuthentication.check()
+        }
         val location = hashMapOf(
                 "X" to x,
                 "Y" to y

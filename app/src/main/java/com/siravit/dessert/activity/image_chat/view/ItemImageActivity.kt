@@ -2,6 +2,7 @@ package com.siravit.dessert.activity.image_chat.view
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -14,12 +15,15 @@ import androidx.viewpager.widget.ViewPager
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.siravit.dessert.activity.image_chat.adapter.ImageAllAdapter
 import com.siravit.dessert.activity.image_chat.adapter.ScreenAdapterImage
 import com.siravit.dessert.activity.image_chat.model.ScreenModel
 
 import com.siravit.dessert.R
 import com.siravit.dessert.utils.TimeStampToDate
+import org.json.JSONObject
 import java.util.*
 
 class ItemImageActivity : AppCompatActivity() {
@@ -43,8 +47,6 @@ class ItemImageActivity : AppCompatActivity() {
     private lateinit var nameUser: String
     private lateinit var nameMatch: String
     private lateinit var matchId: String
-
-//    private var countImg = 0
     private var count = 0
     private var countReal: Int? = 0
     private var chk1time = false
@@ -54,6 +56,8 @@ class ItemImageActivity : AppCompatActivity() {
         setContentView(R.layout.activity_item_image)
         chatId = intent.extras?.getString("chatId").toString()
         matchId = intent.extras?.getString("matchId").toString()
+        Log.d("ITEM_IMAGE-ChatId",chatId )
+        Log.d("ITEM_IMAGE-MatchId",matchId )
         val countSt = intent.extras!!.getString("ChkImage")
         allImageClick = findViewById(R.id.button_all_image)
         countReal = Integer.valueOf(countSt.toString())
@@ -137,62 +141,51 @@ class ItemImageActivity : AppCompatActivity() {
     }
 
     private fun findImage() {
-        val prefs = getSharedPreferences(chatId, Context.MODE_PRIVATE).all.keys
-        for (chatKey in prefs) {
-            val myInNode = getSharedPreferences(chatKey.toString(), Context.MODE_PRIVATE)
-            (myInNode.getString("image", "default")).let {
-                if(it != "default") {
-                    var checkUser = false
-                    val create = myInNode.getString("createByUser", "default")
-                    val date = myInNode.getLong("time", System.currentTimeMillis())
-                    if(create == currentUid) checkUser = true
-                    ++count
-                    val obj = ScreenModel(it.toString(), date, checkUser, chatId, matchId)
-                    resultImage!!.add(obj)
+        FirebaseDatabase.getInstance().reference.child("Chat").child(chatId)
+            .addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for(i in snapshot.children){
+                    val data:Map<String,Any> =  i.value as Map<String, Any>
+                    (data["image"] != null).let {
+                        if(it){
+                            var checkUser = false
+                            val create = data["createByUser"]
+                            val date = data["date"] as Long
+                            ++count
+                            if(create == currentUid) checkUser = true
+                            val obj = ScreenModel(data["image"].toString(), date, checkUser, chatId, matchId)
+                            resultImage!!.add(obj)
+                        }
+                    }
                 }
-            }
-        }
-        mCountImg.text = ("$countReal/$count")
-        adapter.notifyDataSetChanged()
-        screenAdapterImage.notifyDataSetChanged()
-        viewPager.adapter = screenAdapterImage
-        mRecyclerview.scrollToPosition(count / 3 - 1)
-        viewPager.currentItem = countReal!! - 1
-        viewPager.visibility = View.VISIBLE
-    }
+                mCountImg.text = ("$countReal/$count")
+                adapter.notifyDataSetChanged()
+                screenAdapterImage.notifyDataSetChanged()
+                viewPager.adapter = screenAdapterImage
+                mRecyclerview.scrollToPosition(count / 3 - 1)
+                viewPager.currentItem = countReal!! - 1
+                viewPager.visibility = View.VISIBLE
 
-//    private fun findImage() {
-//        findImage.addChildEventListener(object : ChildEventListener {
-//            override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
-//                if (dataSnapshot.child("image").value != null) {
-//                    val url = dataSnapshot.child("image").value.toString()
-//                    val date = dataSnapshot.child("date").value as Long
-//                    val create = dataSnapshot.child("createByUser").value.toString()
+            }
+            override fun onCancelled(error: DatabaseError) {}
+        })
+//        val prefs = getSharedPreferences(chatId, Context.MODE_PRIVATE).all.keys
+//        for (chatKey in prefs) {
+//            val myInNode = getSharedPreferences(chatKey.toString(), Context.MODE_PRIVATE)
+//            (myInNode.getString("image", "default")).let {
+//                if(it != "default") {
 //                    var checkUser = false
-//                    if (create == currentUid) {
-//                        checkUser = true
-//                    }
-//                    val dd = ScreenObject(url, date, checkUser, chatId, matchId)
-//                    resultImage!!.add(dd)
-//                    ++countImg
-//                }
-//                if (count == countImg) {
-//                    Log.d("ImageAdapter" ,countImg.toString())
-//                    adapter.notifyDataSetChanged()
-//                    screenAdapterImage.notifyDataSetChanged()
-//                    viewPager.adapter = screenAdapterImage
-//                    mRecyclerview.scrollToPosition(count / 3 - 1)
-//                    viewPager.currentItem = countReal!! - 1
-//                    viewPager.visibility = View.VISIBLE
+//                    val create = myInNode.getString("createByUser", "default")
+//                    val date = myInNode.getLong("time", System.currentTimeMillis())
+//                    if(create == currentUid) checkUser = true
+//                    ++count
+//                    val obj = ScreenModel(it.toString(), date, checkUser, chatId, matchId)
+//                    resultImage!!.add(obj)
 //                }
 //            }
-//
-//            override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {}
-//            override fun onChildRemoved(dataSnapshot: DataSnapshot) {}
-//            override fun onChildMoved(dataSnapshot: DataSnapshot, s: String?) {}
-//            override fun onCancelled(databaseError: DatabaseError) {}
-//        })
-//    }
+//        }
+
+    }
 
     override fun onBackPressed() {
         super.onBackPressed()

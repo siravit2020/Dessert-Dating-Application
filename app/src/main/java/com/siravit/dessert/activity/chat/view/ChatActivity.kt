@@ -54,6 +54,8 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 import com.siravit.dessert.utils.TimeStampToDate
+import kotlinx.android.synthetic.main.show_match.*
+import org.json.JSONObject
 
 class ChatActivity : AppCompatActivity() {
     private lateinit var mRecyclerView: RecyclerView
@@ -489,6 +491,7 @@ class ChatActivity : AppCompatActivity() {
             var audioLength: String
             val myInNode = getSharedPreferences(fetchId.elementAt(i), Context.MODE_PRIVATE)
             message = myInNode.getString("text", "null")!!
+            Log.d("textMessage",message)
             //read = myInNode.getString("read", "null")!!
             createdByUser = myInNode.getString("createByUser", "null")!!
             time = TimeStampToDate(myInNode.getLong("time", System.currentTimeMillis())).time()
@@ -541,7 +544,7 @@ class ChatActivity : AppCompatActivity() {
                             var message: String? = null
                             var createdByUser: String? = null
                             var time: String? = null
-                            var timeLong: Long? = null
+                            var timeLong: Long =  System.currentTimeMillis();
                             var urlSend = "default"
                             var audio = "null"
                             var audioLength = "null"
@@ -692,7 +695,14 @@ class ChatActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {}
+            override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {
+                val myInNode = getSharedPreferences(dataSnapshot.key, Context.MODE_PRIVATE).edit()
+                val map =  dataSnapshot.value as Map<*,*>
+                myInNode.putString("text",map["text"].toString())
+                Log.d("CHILD_CHANGE_DETECT",map["text"].toString())
+                Log.d("CHILD_CHANGE_DETECT",dataSnapshot.value.toString())
+                myInNode.apply()
+            }
             override fun onChildRemoved(dataSnapshot: DataSnapshot) {}
             override fun onChildMoved(dataSnapshot: DataSnapshot, s: String?) {}
             override fun onCancelled(databaseError: DatabaseError) {}
