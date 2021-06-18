@@ -16,9 +16,7 @@ import android.os.CountDownTimer
 import android.os.Environment
 import android.util.Log
 import android.view.View
-import android.view.ViewGroup
 import android.widget.*
-import android.widget.FrameLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -27,7 +25,7 @@ import com.ldoublem.loadingviewlib.LVCircularCD
 import com.siravit.dessert.R
 import com.siravit.dessert.activity.chat.model.ChatModel
 import com.siravit.dessert.activity.image_chat.view.ItemImageActivity
-import com.siravit.dessert.utils.LinearMaxWidth
+import com.siravit.dessert.utils.RelativeMaxWidth
 import kotlinx.android.synthetic.main.item_chat.view.*
 import java.io.File
 import java.io.FileOutputStream
@@ -46,7 +44,7 @@ class ChatViewHolders(itemView: View, private val context: Context) : RecyclerVi
     //var mContainer: LinearLayout = itemView.container
     var buttonAudio: Button = itemView.play_audio
     var mchk: RelativeLayout = itemView.lilili
-    var mchk2: LinearMaxWidth = itemView.lili
+    var mchk2: RelativeMaxWidth = itemView.lili
     private var mchk3: RelativeLayout = itemView.li
     private var imageOpposite: ImageView = itemView.image_holder
     private var mImageSent: ImageView = itemView.img_sent
@@ -352,7 +350,7 @@ class ChatViewHolders(itemView: View, private val context: Context) : RecyclerVi
         mchk3.visibility = View.GONE
         mchk.visibility = View.VISIBLE
         mchk2.visibility = View.VISIBLE
-        mchk2.onsetIndex(0);
+        mchk2.onSetIndex(0)
         val params2 = mchk2.layoutParams as RelativeLayout.LayoutParams
         params2.addRule(RelativeLayout.ALIGN_PARENT_END, RelativeLayout.TRUE)
         val params3 = mchk.layoutParams as RelativeLayout.LayoutParams
@@ -386,7 +384,7 @@ class ChatViewHolders(itemView: View, private val context: Context) : RecyclerVi
         mchk3.visibility = View.GONE
         mchk.visibility = View.VISIBLE
         mchk2.visibility = View.VISIBLE
-        mchk2.onsetIndex(1)
+        mchk2.onSetIndex(1)
         val params2 = mchk2.layoutParams as RelativeLayout.LayoutParams
         params2.setMargins(0, 0, 0, 0)
         params2.addRule(RelativeLayout.ALIGN_PARENT_END, 0)
