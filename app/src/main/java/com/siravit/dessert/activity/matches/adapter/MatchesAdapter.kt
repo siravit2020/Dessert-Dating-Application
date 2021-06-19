@@ -3,6 +3,7 @@ package com.siravit.dessert.activity.matches.adapter
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -56,11 +57,11 @@ class MatchesAdapter(private val matchesList: ArrayList<MatchesObject>, private 
         holder.mMatchId?.text = matchesList[position].userId
         holder.mMatchName?.text = matchesList[position].name
         holder.mDistance?.visibility = View.GONE
-        if (matchesList[position].status == "offline") {
-            Glide.with(context!!).load(R.drawable.offline_user).into(holder.mStatus!!)
+        if (matchesList[position].status == true) {
+            Glide.with(context!!).load(R.drawable.online_user).into(holder.mStatus!!)
         }
         else {
-            Glide.with(context!!).load(R.drawable.online_user).into(holder.mStatus!!)
+            Glide.with(context!!).load(R.drawable.offline_user).into(holder.mStatus!!)
         }
         if (matchesList[position].profileImageUrl != "") {
             Glide.with(context).load(matchesList[position].profileImageUrl).listener(object : RequestListener<Drawable?> {

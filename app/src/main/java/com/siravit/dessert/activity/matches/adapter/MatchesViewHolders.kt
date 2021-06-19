@@ -12,6 +12,7 @@ import android.view.View
 import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.siravit.dessert.activity.chat.view.ChatActivity
@@ -62,7 +63,7 @@ class MatchesViewHolders(itemView: View, private val context: Context?, private 
                         putString("first_chat", last?.text.toString())
                         putString("unread", mRead?.text.toString())
                     }
-                    matchesList!!.elementAt(position!!)?.count_unread = 0
+                    matchesList.elementAt(position!!).count_unread = 0
                     intent.putExtras(b)
                     context.startActivity(intent)
                     mRead?.apply {
@@ -159,7 +160,7 @@ class MatchesViewHolders(itemView: View, private val context: Context?, private 
                 putString("first_chat", last?.text.toString())
                 putString("unread", mRead?.text.toString())
             }
-            matchesList?.get(position!!)?.count_unread = 0
+            matchesList[position!!].count_unread = 0
             intent.putExtras(b)
             context?.startActivity(intent)
             mRead?.apply {
