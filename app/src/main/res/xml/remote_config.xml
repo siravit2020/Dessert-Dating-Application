@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<defaultsMap>
+
+    <entry>
+        <key>feedback</key>
+        <value>false</value>
+    </entry>
+
+    <entry>
+        <key>price_vip</key>
+        <value>89</value>
+    </entry>
+
+    <entry>
+        <key>price_like</key>
+        <value>29</value>
+    </entry>
+    <entry>
+        <key>id_ads</key>
+        <value>ca-app-pub-3940256099942544/5224354917</value>
+    </entry>
+
+</defaultsMap>

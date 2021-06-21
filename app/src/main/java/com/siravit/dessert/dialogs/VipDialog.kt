@@ -31,15 +31,12 @@ import com.siravit.dessert.utils.GlobalVariable
 import me.relex.circleindicator.CircleIndicator
 
 class VipDialog(private val activity: Activity, private var type: VipDialogType) {
-    private lateinit var dialog: Dialog
-    private lateinit var mAuth: FirebaseAuth
-    private lateinit var usersDb: DatabaseReference
-    private lateinit var currentUid: String
+    private var dialog: Dialog
+    private var mAuth: FirebaseAuth = FirebaseAuth.getInstance()
+    private var usersDb: DatabaseReference = FirebaseDatabase.getInstance().reference.child("Users")
+    private var currentUid: String = mAuth.currentUser!!.uid
     private var rewardedAd: RewardedAd? = null
     init {
-        mAuth = FirebaseAuth.getInstance()
-        currentUid = mAuth.currentUser!!.uid
-        usersDb = FirebaseDatabase.getInstance().reference.child("Users")
         dialog = Dialog(activity)
     }
 
@@ -150,7 +147,7 @@ class VipDialog(private val activity: Activity, private var type: VipDialogType)
 
     fun createAndLoadRewardedAd(b2: Button) {
         val adRequest = AdRequest.Builder().build()
-        RewardedAd.load(activity, "ca-app-pub-3940256099942544/5224354917", adRequest, object : RewardedAdLoadCallback() {
+        RewardedAd.load(activity, GlobalVariable.idAds, adRequest, object : RewardedAdLoadCallback() {
             override fun onAdFailedToLoad(adError: LoadAdError) {
                 rewardedAd = null
             }

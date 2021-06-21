@@ -105,6 +105,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/View8dp"
                         android:layout_marginStart="@dimen/View8dp"
+                        android:layout_marginBottom="@dimen/View20dp"
                         android:gravity="center"
                         android:layout_marginTop="@dimen/View8dp"
                         android:orientation="horizontal">
@@ -120,13 +121,28 @@
                             android:textSize="@dimen/Text16sp" />
 
                     </LinearLayout>
-
+                    <TextView
+                        android:visibility="gone"
+                        android:id="@+id/result_feedback"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/View32dp"
+                        android:layout_marginBottom="@dimen/View8dp"
+                        android:layout_marginEnd="@dimen/View32dp"
+                        android:background="@drawable/outline"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:padding="@dimen/View8dp"
+                        android:text="ตอบคำถามความพึงพอใจ"
+                        android:textColor="@color/c3"
+                        android:textSize="@dimen/Text16sp"
+                        android:translationZ="4dp" />
                     <TextView
                         android:id="@+id/vip"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/View32dp"
-                        android:layout_marginTop="@dimen/View20dp"
+
                         android:layout_marginEnd="@dimen/View32dp"
                         android:layout_marginBottom="@dimen/View12dp"
                         android:background="@drawable/roundlike"

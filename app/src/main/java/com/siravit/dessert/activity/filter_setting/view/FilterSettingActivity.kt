@@ -29,6 +29,7 @@ import com.siravit.dessert.activity.main.view.MainActivity
 import com.siravit.dessert.utils.ChangLanguage
 import com.siravit.dessert.utils.GlobalVariable
 import com.siravit.dessert.activity.sign_in.view.SignInActivity
+import com.siravit.dessert.activity.web_view.WebViewActivity
 import hearsilent.discreteslider.DiscreteSlider
 import hearsilent.discreteslider.DiscreteSlider.OnValueChangedListener
 import kotlinx.android.synthetic.main.activity_filter_setting.*
@@ -132,6 +133,9 @@ class  FilterSettingActivity : AppCompatActivity(),View.OnClickListener {
 
             override fun onValueChanged(minProgress: Int, maxProgress: Int, fromUser: Boolean) {}
         })
+        findViewById<RelativeLayout>(R.id.policy).setOnClickListener {
+            startActivity(Intent(this@FilterSettingActivity, WebViewActivity::class.java))
+        }
         logout.setOnClickListener(this)
         delete.setOnClickListener(this)
         onOffCard.setOnClickListener(this)
@@ -364,7 +368,7 @@ class  FilterSettingActivity : AppCompatActivity(),View.OnClickListener {
                 mBuilder.setCancelable(true)
                 mBuilder.setOnCancelListener { onOffCard.isChecked = true }
                 mBuilder.setPositiveButton(R.string.ok) { _, _ -> onOffCard.isChecked = false; }
-                mBuilder.setNegativeButton("ยกเลิก") { _, _ -> onOffCard.isChecked = true; }
+                mBuilder.setNegativeButton(R.string.cancel) { _, _ -> onOffCard.isChecked = true; }
                 val mDialog = mBuilder.create()
                 mDialog.window!!.setBackgroundDrawable(ContextCompat.getDrawable(this@FilterSettingActivity, R.drawable.myrect2))
                 mDialog.show()

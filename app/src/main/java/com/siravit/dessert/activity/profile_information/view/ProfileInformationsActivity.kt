@@ -19,6 +19,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.siravit.dessert.activity.edit_profile.view.EditProfileActivity
 import com.siravit.dessert.R
+import com.siravit.dessert.constants.DRAWABLE_IS_NOT_NULL
+import com.siravit.dessert.constants.DRAWABLE_IS_NULL
+import com.siravit.dessert.constants.PROFILE_TO_SETTING
 import com.siravit.dessert.utils.adapter.ScreenAdapter
 import com.siravit.dessert.utils.*
 import kotlinx.android.synthetic.main.activity_profile_user_opposite2.*

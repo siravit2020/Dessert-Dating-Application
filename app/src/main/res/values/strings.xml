@@ -176,7 +176,7 @@
     <string name="new_user">New User ?</string>
     <string name="verify_email">Please verify your account. at your e-mail</string>
     <string name="sending_to_email">Sending to email...</string>
-    <string name="get_vip_description">Watch ads to get more likes<br/>or apply for Dessert VIP to receive various privileges.</string>
+    <string name="get_vip_description">Watch ads to get more likes<br />or apply for Dessert VIP to receive various privileges.</string>
     <string name="forgot_password">Forgot Password</string>
     <string name="sign_in_with">Sign In With</string>
     <string name="google">Google</string>
@@ -226,7 +226,7 @@
     <string name="same_password">Please enter the same password.</string>
     <string name="reset_password_2">Dessert has sent a link to reset your password to your email address.</string>
     <string name="go_to_sign_in">go to sign in page</string>
-    <string name="ads_out_stock">The ads you can see today are out of stock.<br/>Apply for Dessert VIP to receive special privileges.</string>
+    <string name="ads_out_stock">The ads you can see today are out of stock.<br />Apply for Dessert VIP to receive special privileges.</string>
     <string name="unlimited_say_hi_2">unlimited say hi</string>
     <string name="unlimited_say_hi_3">Can say hi you fully unlimited number</string>
     <string name="like_out_stock">Your number of likes has run out.</string>

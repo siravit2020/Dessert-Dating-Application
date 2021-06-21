@@ -10,10 +10,13 @@ import android.graphics.drawable.Drawable
 import android.location.Address
 import android.location.Geocoder
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
@@ -36,10 +39,12 @@ import com.siravit.dessert.R
 import com.siravit.dessert.activity.send_problem.view.SendProblemActivity
 import com.siravit.dessert.activity.edit_profile.view.EditProfileActivity
 import com.siravit.dessert.activity.profile_information.view.ProfileInformationsActivity
+import com.siravit.dessert.dialogs.FeedbackDialog
+import com.siravit.dessert.services.RemoteConfig
 import java.io.IOException
 import java.util.*
 
-class ProfileActivity : Fragment(){
+class ProfileActivity : Fragment() {
     private lateinit var setting: TextView
     private lateinit var name: TextView
     private lateinit var age: TextView
@@ -59,17 +64,21 @@ class ProfileActivity : Fragment(){
     private lateinit var p1: ProgressBar
     private lateinit var dialog: Dialog
     private lateinit var dialog2: Dialog
-
+    private lateinit var resultFeedback:TextView
 
     private var statusDialog = false
     private lateinit var setimage: ImageView
     private var gotoProfile = true
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view = inflater.inflate(R.layout.activity_profile, container, false)
         super.onCreate(savedInstanceState)
 
-
+        RemoteConfig(requireActivity()).remote()
         dialog = Dialog(requireContext())
         val view2 = inflater.inflate(R.layout.progress_dialog, null)
         dialog2 = Dialog(requireContext())
@@ -93,33 +102,40 @@ class ProfileActivity : Fragment(){
         likeYou = view.findViewById(R.id.like_you)
         seeProfileYou = view.findViewById(R.id.see_porfile_you)
         vip = view.findViewById(R.id.vip)
+        resultFeedback = view.findViewById(R.id.result_feedback)
 
         setimage = view.findViewById(R.id.goto_set_image)
 
-        vip.setOnClickListener{
+        Log.d("count",GlobalVariable.countMatch.toString())
+        Log.d("count",GlobalVariable.feedback.toString())
+        if(GlobalVariable.feedback && GlobalVariable.countMatch >= 1){
+            resultFeedback.visibility = View.VISIBLE
+        }
+
+        vip.setOnClickListener {
             openDialog()
         }
 
-        likeYou.setOnClickListener{
+        likeYou.setOnClickListener {
             val intent = Intent(context, LikeYouActivity::class.java)
             intent.putExtra("Like", count.text.toString().toInt())
             startActivity(intent)
         }
-        seeProfileYou.setOnClickListener{
-            
+        seeProfileYou.setOnClickListener {
+
             val intent = Intent(context, LikeYouActivity::class.java)
             intent.putExtra("See", see.text.toString().toInt())
             startActivity(intent)
         }
-        setting2.setOnClickListener{
+        setting2.setOnClickListener {
             val intent = Intent(context, FilterSettingActivity::class.java)
             startActivityForResult(intent, 15)
         }
-        edit.setOnClickListener{
+        edit.setOnClickListener {
             val intent = Intent(context, EditProfileActivity::class.java)
             startActivityForResult(intent, 14)
         }
-        imageView.setOnClickListener{
+        imageView.setOnClickListener {
             if (gotoProfile) {
                 val intent = Intent(context, ProfileInformationsActivity::class.java)
                 startActivity(intent)
@@ -128,20 +144,23 @@ class ProfileActivity : Fragment(){
                 startActivity(intent)
             }
         }
-        setimage.setOnClickListener{
+        setimage.setOnClickListener {
             val intent = Intent(context, EditProfileActivity::class.java)
             intent.putExtra("setImage", "1")
             startActivity(intent)
         }
         view.findViewById<LinearLayout>(R.id.linearLayout22).setOnClickListener {
             val intent = Intent(context, SendProblemActivity::class.java)
-            startActivityForResult(intent,14)
+            startActivityForResult(intent, 14)
         }
         view.findViewById<SwipeRefreshLayout>(R.id.swipe_refresh).setOnRefreshListener {
             requireActivity().finish()
             requireActivity().overridePendingTransition(0, 0)
             requireActivity().startActivity(requireActivity().intent)
             requireActivity().overridePendingTransition(0, 0)
+        }
+        resultFeedback.setOnClickListener {
+            FeedbackDialog(requireContext()).show()
         }
 
         return view
@@ -187,31 +206,53 @@ class ProfileActivity : Fragment(){
         } else R.drawable.ic_woman
         if (GlobalVariable.image.isNotEmpty()) {
             Glide.with(requireContext()).load(GlobalVariable.image)
-                    .placeholder(R.color.background_gray).listener(object : RequestListener<Drawable?> {
-                        override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable?>?, isFirstResource: Boolean): Boolean {
-                            return false
-                        }
+                .placeholder(R.color.background_gray).listener(object : RequestListener<Drawable?> {
+                    override fun onLoadFailed(
+                        e: GlideException?,
+                        model: Any?,
+                        target: Target<Drawable?>?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        return false
+                    }
 
-                        override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable?>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                            p1.visibility = View.GONE
-                            return false
-                        }
-                    })
-                    .apply(RequestOptions().override(300, 300)).into(imageView)
+                    override fun onResourceReady(
+                        resource: Drawable?,
+                        model: Any?,
+                        target: Target<Drawable?>?,
+                        dataSource: DataSource?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        p1.visibility = View.GONE
+                        return false
+                    }
+                })
+                .apply(RequestOptions().override(300, 300)).into(imageView)
         } else {
             gotoProfile = false
             Glide.with(requireContext()).load(gender).placeholder(R.color.background_gray)
-                    .listener(object : RequestListener<Drawable?> {
-                        override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable?>?, isFirstResource: Boolean): Boolean {
-                            return false
-                        }
+                .listener(object : RequestListener<Drawable?> {
+                    override fun onLoadFailed(
+                        e: GlideException?,
+                        model: Any?,
+                        target: Target<Drawable?>?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        return false
+                    }
 
-                        override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable?>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                            p1.visibility = View.GONE
-                            return false
-                        }
-                    })
-                    .apply(RequestOptions().override(300, 300)).into(imageView)
+                    override fun onResourceReady(
+                        resource: Drawable?,
+                        model: Any?,
+                        target: Target<Drawable?>?,
+                        dataSource: DataSource?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        p1.visibility = View.GONE
+                        return false
+                    }
+                })
+                .apply(RequestOptions().override(300, 300)).into(imageView)
         }
         if (GlobalVariable.vip) {
             vip.setText(R.string.you_are_vip)
@@ -254,7 +295,6 @@ class ProfileActivity : Fragment(){
     }
 
 
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 //        if (!bp.handleActivityResult(requestCode, resultCode, data)) {
 //            super.onActivityResult(requestCode, resultCode, data)
@@ -264,9 +304,9 @@ class ProfileActivity : Fragment(){
 //            }
 //        }
 
-        if(requestCode == 14){
-            if(resultCode == 14){
-                Snackbar.make(likeYou,"ขอบคุณ",Snackbar.LENGTH_SHORT).show()
+        if (requestCode == 14) {
+            if (resultCode == 14) {
+                Snackbar.make(likeYou, "ขอบคุณ", Snackbar.LENGTH_SHORT).show()
             }
         }
     }

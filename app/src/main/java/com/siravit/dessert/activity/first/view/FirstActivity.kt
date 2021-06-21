@@ -19,6 +19,7 @@ import com.siravit.dessert.services.LocationService
 import com.siravit.dessert.activity.first.view_model.FirstViewModel
 import com.siravit.dessert.constants.CheckStatusUser
 import com.siravit.dessert.constants.Status
+import com.siravit.dessert.services.RemoteConfig
 import kotlinx.android.synthetic.main.activity_first_.*
 
 class FirstActivity : AppCompatActivity() {
@@ -31,6 +32,7 @@ class FirstActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_first_)
+        RemoteConfig(this).remote()
         //TransparentStatusBar(this)
         MobileAds.initialize(this) {}
         locationService = LocationService(this)

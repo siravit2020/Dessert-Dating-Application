@@ -2,9 +2,7 @@ package com.siravit.dessert.activity.edit_profile.view
 
 import android.app.Activity
 import android.app.Dialog
-import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.ImageDecoder
@@ -23,7 +21,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
-import com.akexorcist.localizationactivity.core.LocalizationActivityDelegate
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.google.android.flexbox.FlexDirection
@@ -42,6 +39,8 @@ import com.siravit.dessert.R
 import com.siravit.dessert.activity.card.view.CardActivity
 import com.siravit.dessert.utils.*
 import com.nipunru.nsfwdetector.NSFWDetector
+import com.siravit.dessert.constants.DRAWABLE_IS_NOT_NULL
+import com.siravit.dessert.constants.DRAWABLE_IS_NULL
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.main.activity_edit_profile.*

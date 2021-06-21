@@ -64,8 +64,8 @@ class MainActivity : AppCompatActivity() ,LocationListener {
     lateinit var load:LinearLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         language.setLanguage()
-        remote()
         permissionCheck()
         setContentView(R.layout.activity_main)
         load = findViewById(R.id.candyCane)
@@ -159,6 +159,7 @@ class MainActivity : AppCompatActivity() ,LocationListener {
 
             }
         })
+//        remote()
     }
 
     private fun permissionCheck(){
@@ -190,12 +191,20 @@ class MainActivity : AppCompatActivity() ,LocationListener {
 
             minimumFetchIntervalInSeconds = 10
         }
+        remoteConfig.setDefaultsAsync(R.xml.remote_config)
         remoteConfig.setConfigSettingsAsync(configSettings)
         remoteConfig.fetchAndActivate()
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
-                        Log.d("show_vip",remoteConfig.getBoolean("show_vip").toString())
-                        Log.d("show_vip",remoteConfig.getString("show"))
+
+
+                        GlobalVariable.feedback = remoteConfig.getString("feedback").toBoolean()
+                        GlobalVariable.priceVip = remoteConfig.getString("price_vip").toInt()
+                        GlobalVariable.priceLike = remoteConfig.getString("price_like").toInt()
+                        GlobalVariable.idAds = remoteConfig.getString("id_ads")
+
+
+
                     }
                 }
 
@@ -291,6 +300,8 @@ class MainActivity : AppCompatActivity() ,LocationListener {
 
                     GlobalVariable.seeYou = 0
                 }
+                GlobalVariable.countMatch = dataSnapshot.child("connection").child("matches").childrenCount.toInt()
+
                 GlobalVariable.buyLike = dataSnapshot.hasChild("buy_like")
                 GlobalVariable.name = dataSnapshot.child("name").value.toString()
                 GlobalVariable.age = dataSnapshot.child("Age").value.toString().toInt()
@@ -336,6 +347,7 @@ class MainActivity : AppCompatActivity() ,LocationListener {
             }
 
         })
+
     }
     fun setCurrentIndex(newValueFormCurrentIndex: Int) {
         if (newValueFormCurrentIndex > 0) {

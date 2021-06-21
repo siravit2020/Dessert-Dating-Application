@@ -12,11 +12,12 @@
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/settingPage"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_width="match_parent"
-        android:paddingEnd="@dimen/View8dp"
+        android:layout_height="match_parent"
         android:paddingStart="@dimen/View8dp"
-        android:layout_height="match_parent">
+        android:paddingEnd="@dimen/View8dp"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -35,14 +36,13 @@
                 android:textSize="@dimen/Text20sp" />
 
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/corner15"
+                android:orientation="vertical"
                 android:paddingTop="@dimen/View32dp"
-                android:paddingBottom="@dimen/View32dp"
-                android:orientation="vertical">
+                android:paddingBottom="@dimen/View32dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -60,8 +60,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/View16dp"
-                    android:layout_marginEnd="@dimen/View16dp"
-                    >
+                    android:layout_marginEnd="@dimen/View16dp">
 
                     <RadioButton
                         android:id="@+id/radioButton"
@@ -106,12 +105,11 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginEnd="@dimen/View20dp"
                     android:layout_marginStart="@dimen/View20dp"
                     android:layout_marginTop="@dimen/View8dp"
+                    android:layout_marginEnd="@dimen/View20dp"
                     android:layout_marginBottom="@dimen/View8dp"
-                    android:background="@color/background_gray"
-                    />
+                    android:background="@color/background_gray" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -129,6 +127,7 @@
                         android:text="@string/distance"
                         android:textColor="@color/text_black_gray"
                         android:textSize="@dimen/Text16sp" />
+
                     <TextView
                         android:id="@+id/text_seek2"
                         android:layout_width="wrap_content"
@@ -149,7 +148,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-
 
 
                     <hearsilent.discreteslider.DiscreteSlider
@@ -173,32 +171,34 @@
                         app:ds_valueLabelMode="none" />
 
 
-
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginEnd="@dimen/View20dp"
                     android:layout_marginStart="@dimen/View20dp"
                     android:layout_marginTop="@dimen/View8dp"
+                    android:layout_marginEnd="@dimen/View20dp"
                     android:layout_marginBottom="@dimen/View8dp"
-                    android:background="@color/background_gray"
-                    />
+                    android:background="@color/background_gray" />
+
                 <LinearLayout
                     android:id="@+id/linearLayout4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/text_black_gray"
                         android:paddingStart="@dimen/View16dp"
                         android:paddingTop="@dimen/View8dp"
                         android:paddingEnd="@dimen/View8dp"
                         android:paddingBottom="@dimen/View8dp"
                         android:text="@string/age"
+                        android:textColor="@color/text_black_gray"
                         android:textSize="@dimen/Text16sp" />
+
                     <TextView
                         android:id="@+id/seek_age_text"
                         android:layout_width="wrap_content"
@@ -220,7 +220,6 @@
                     android:orientation="vertical">
 
 
-
                     <hearsilent.discreteslider.DiscreteSlider
                         android:id="@+id/discreteSlider"
                         android:layout_width="match_parent"
@@ -229,8 +228,8 @@
                         android:focusable="true"
                         android:paddingStart="@dimen/View16dp"
                         android:paddingTop="@dimen/View8dp"
-                        android:paddingBottom="@dimen/View8dp"
                         android:paddingEnd="@dimen/View16dp"
+                        android:paddingBottom="@dimen/View8dp"
                         app:ds_count="53"
                         app:ds_inactiveTrackColor="#4D9A9A9A"
                         app:ds_mode="range"
@@ -242,10 +241,10 @@
                         app:ds_valueLabelMode="none" />
 
 
-
                 </LinearLayout>
 
             </LinearLayout>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -258,23 +257,25 @@
                 android:text="@string/application_settings"
                 android:textColor="@color/text_black_gray"
                 android:textSize="@dimen/Text20sp" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:background="@drawable/corner15"
-                >
+                android:orientation="vertical">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
                     android:paddingStart="@dimen/View16dp"
                     android:paddingTop="@dimen/View20dp"
                     android:paddingEnd="@dimen/View8dp"
                     android:paddingBottom="@dimen/View8dp"
                     android:text="@string/notifications"
                     android:textColor="@color/text_black_gray"
-                    android:includeFontPadding="false"
                     android:textSize="@dimen/Text16sp" />
+
                 <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/switch1"
                     android:layout_width="match_parent"
@@ -284,15 +285,16 @@
                     android:paddingEnd="@dimen/View16dp"
                     android:paddingBottom="@dimen/View20dp"
                     android:text="@string/notify_match"
-                    android:textSize="@dimen/Text16sp"
-                    android:textColor="@color/text_black_gray" />
+                    android:textColor="@color/text_black_gray"
+                    android:textSize="@dimen/Text16sp" />
             </LinearLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_marginTop="@dimen/View8dp"
                 android:background="@drawable/corner15"
+                android:orientation="horizontal"
                 android:paddingStart="@dimen/View16dp"
                 android:paddingTop="@dimen/View20dp"
                 android:paddingEnd="@dimen/View16dp"
@@ -302,8 +304,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/language"
-                    android:textSize="@dimen/Text16sp"
-                    android:textColor="@color/text_black_gray" />
+                    android:textColor="@color/text_black_gray"
+                    android:textSize="@dimen/Text16sp" />
 
                 <TextView
                     android:id="@+id/change_Language"
@@ -311,8 +313,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="@dimen/View8dp"
-                    android:textSize="@dimen/Text16sp"
-                    android:textColor="@color/text_gray" />
+                    android:textColor="@color/text_gray"
+                    android:textSize="@dimen/Text16sp" />
             </RelativeLayout>
 
             <TextView
@@ -327,23 +329,25 @@
                 android:text="@string/active_status_settings"
                 android:textColor="@color/text_black_gray"
                 android:textSize="@dimen/Text20sp" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:background="@drawable/corner15"
-                >
+                android:orientation="vertical">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="@dimen/View20dp"
+                    android:includeFontPadding="false"
                     android:paddingStart="@dimen/View16dp"
+                    android:paddingTop="@dimen/View20dp"
                     android:paddingEnd="@dimen/View16dp"
                     android:paddingBottom="@dimen/View8dp"
                     android:text="@string/active_status"
                     android:textColor="@color/text_black_gray"
-                    android:includeFontPadding="false"
                     android:textSize="@dimen/Text16sp" />
+
                 <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/switch2"
                     android:layout_width="match_parent"
@@ -353,10 +357,11 @@
                     android:paddingEnd="@dimen/View16dp"
                     android:paddingBottom="@dimen/View20dp"
                     android:text="@string/show_active_status_recently"
-                    android:textSize="@dimen/Text16sp"
-                    android:textColor="@color/text_black_gray" />
+                    android:textColor="@color/text_black_gray"
+                    android:textSize="@dimen/Text16sp" />
 
             </LinearLayout>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -369,23 +374,25 @@
                 android:text="@string/visibility_settings"
                 android:textColor="@color/text_black_gray"
                 android:textSize="@dimen/Text20sp" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:background="@drawable/corner15"
-                >
+                android:orientation="vertical">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
                     android:paddingStart="@dimen/View16dp"
                     android:paddingTop="@dimen/View20dp"
                     android:paddingEnd="@dimen/View16dp"
                     android:paddingBottom="@dimen/View8dp"
                     android:text="@string/visibility"
                     android:textColor="@color/text_black_gray"
-                    android:includeFontPadding="false"
                     android:textSize="@dimen/Text16sp" />
+
                 <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/on_off_card"
                     android:layout_width="match_parent"
@@ -394,10 +401,10 @@
                     android:paddingTop="@dimen/View8dp"
                     android:paddingEnd="@dimen/View16dp"
                     android:paddingBottom="@dimen/View8dp"
-                    android:text="@string/matching_mode"
-                    android:textSize="@dimen/Text16sp"
                     android:switchPadding="20dp"
-                    android:textColor="@color/text_black_gray" />
+                    android:text="@string/matching_mode"
+                    android:textColor="@color/text_black_gray"
+                    android:textSize="@dimen/Text16sp" />
 
                 <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/on_off_list"
@@ -407,20 +414,48 @@
                     android:paddingTop="@dimen/View8dp"
                     android:paddingEnd="@dimen/View16dp"
                     android:paddingBottom="@dimen/View20dp"
-                    android:text="@string/list_mode"
-                    android:textSize="@dimen/Text16sp"
                     android:switchPadding="20dp"
-                    android:textColor="@color/text_black_gray" />
+                    android:text="@string/list_mode"
+                    android:textColor="@color/text_black_gray"
+                    android:textSize="@dimen/Text16sp" />
             </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/policy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/View20dp"
+                android:background="@drawable/corner15"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/View16dp"
+                android:paddingTop="@dimen/View20dp"
+                android:paddingEnd="@dimen/View16dp"
+                android:paddingBottom="@dimen/View20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Policy Privacy"
+                    android:textColor="@color/text_black_gray"
+                    android:textSize="@dimen/Text16sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+
+                    android:src="@drawable/ic_chevron_right_black_24dp" />
+            </RelativeLayout>
+
             <LinearLayout
                 android:id="@+id/linearLayout22"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/View20dp"
-                android:paddingBottom="@dimen/View20dp"
-                android:layout_marginTop="@dimen/View20dp"
+                android:layout_marginTop="@dimen/View24dp"
                 android:background="@drawable/corner15"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingTop="@dimen/View20dp"
+                android:paddingBottom="@dimen/View20dp">
 
                 <TextView
                     android:id="@+id/bl"
@@ -437,13 +472,13 @@
                 android:id="@+id/delete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/View20dp"
-                android:paddingBottom="@dimen/View20dp"
-                android:layout_marginTop="@dimen/View20dp"
+                android:layout_marginTop="@dimen/View16dp"
                 android:layout_marginBottom="@dimen/View40dp"
                 android:background="@drawable/corner15"
                 android:orientation="vertical"
-                >
+                android:paddingTop="@dimen/View20dp"
+                android:paddingBottom="@dimen/View20dp">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

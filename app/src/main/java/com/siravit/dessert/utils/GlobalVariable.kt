@@ -9,6 +9,7 @@ class GlobalVariable : Application(){
         lateinit var x: String
         lateinit var distance: String
         lateinit var oppositeUserSex: String
+        lateinit var idAds:String
         var oppositeUserAgeMax: Int = 0
         var maxStar: Int = 0
         var oppositeUserAgeMin: Int = 0
@@ -21,5 +22,9 @@ class GlobalVariable : Application(){
         var seeYou: Int = 0
         var vip = false
         var likeYou = 0
+        var feedback = false
+        var priceVip = 79
+        var priceLike = 29
+        var countMatch = 0
     }
 }
