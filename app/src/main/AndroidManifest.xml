@@ -17,26 +17,46 @@
     <application
         android:name=".utils.App"
         android:allowBackup="true"
-        android:icon="@drawable/ic_candy"
+        android:icon="@drawable/candy_icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="LockedOrientationActivity"
         tools:replace="android:icon">
-        <activity android:name=".activity.web_view.WebViewActivity"></activity>
-        <activity android:name=".activity.forgot_password.view.ForgotPasswordActivity" />
-        <activity android:name=".activity.register.view.SendVerificationActivity" />
-        <activity android:name=".activity.dis_like.view.DisLike" />
-        <activity android:name=".activity.problem_list.ProblemListActivity" />
-        <activity android:name=".activity.send_problem.view.SendProblemActivity" />
-        <activity android:name=".activity.close_account.view.CloseAccount" />
-        <activity android:name=".activity.register.view.QuestionActivity" /> <!-- Include the AdActivity configChanges and theme. -->
+        <activity
+            android:name=".activity.web_view.WebViewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.forgot_password.view.ForgotPasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.register.view.SendVerificationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.dis_like.view.DisLike"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.problem_list.ProblemListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.send_problem.view.SendProblemActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.close_account.view.CloseAccount"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.register.view.QuestionActivity"
+            android:screenOrientation="portrait" /> <!-- Include the AdActivity configChanges and theme. -->
         <activity
             android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:theme="@android:style/Theme.Translucent" />
-        <activity android:name=".activity.band_user.view.BandUser" />
-        <activity android:name=".activity.show_gps_open.view.ShowGpsOpen" />
+        <activity
+            android:name=".activity.band_user.view.BandUser"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.show_gps_open.view.ShowGpsOpen"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.like_you.view.LikeYouActivity"
             android:screenOrientation="portrait" />

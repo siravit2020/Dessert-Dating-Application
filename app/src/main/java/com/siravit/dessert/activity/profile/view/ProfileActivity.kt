@@ -19,6 +19,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.akexorcist.localizationactivity.core.LocalizationActivityDelegate
 
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -264,14 +265,13 @@ class ProfileActivity : Fragment() {
         age.text = ", " + GlobalVariable.age.toString()
         val latDouble = GlobalVariable.x.toDouble()
         val lonDouble = GlobalVariable.y.toDouble()
-        val preferences2 = requireActivity().getSharedPreferences("Settings", Context.MODE_PRIVATE)
-        val language = preferences2.getString("My_Lang", "")
+        val language = LocalizationActivityDelegate(requireActivity()).getLanguage(requireContext()).toString()
         val geoCoder: Geocoder = if (language == "th") {
             Geocoder(context)
         } else {
             Geocoder(context, Locale.UK)
         }
-        var addresses: MutableList<Address?>? = null
+        val addresses: MutableList<Address?>?
         try {
             addresses = geoCoder.getFromLocation(latDouble, lonDouble, 1)
             val city = addresses[0]!!.adminArea

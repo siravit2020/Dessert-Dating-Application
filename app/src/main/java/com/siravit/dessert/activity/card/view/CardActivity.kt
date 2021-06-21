@@ -594,10 +594,11 @@ class CardActivity : Fragment(), View.OnClickListener {
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Default) {
                 val preferences = requireActivity().getSharedPreferences("Settings", Context.MODE_PRIVATE)
-                val language = preferences.getString("My_Lang", "")
-                val ff: Geocoder
+
+
                 var addresses: MutableList<Address>
-                ff = if (language == "th") {
+                val language = LocalizationActivityDelegate(requireActivity()).getLanguage(requireContext()).toString()
+                val geoCoder: Geocoder = if (language == "th") {
                     Geocoder(context)
                 } else {
                     Geocoder(context, Locale.UK)
@@ -619,9 +620,10 @@ class CardActivity : Fragment(), View.OnClickListener {
                     var offStatus = false
                     var vip = false
                     var starS = false
+
                     val location = user["Location"] as Map<*, *>
                     try {
-                        addresses = ff.getFromLocation(location["X"].toString().toDouble(), location["Y"].toString().toDouble(), 1)
+                        addresses = geoCoder.getFromLocation(location["X"].toString().toDouble(), location["Y"].toString().toDouble(), 1)
                         val city = addresses[0].adminArea
                         citysend = city
                     } catch (e: IOException) {
