@@ -54,7 +54,7 @@ class DialogQuestion(private val fragment: FragmentManager,context: Context) {
     private fun openDialog(ListChoice: ArrayList<QAObject>) {
         loadingDialog.dismiss()
         val dialogFragment: DialogFragment = DialogFragment()
-        dialogFragment.setData(ListChoice)
+        dialogFragment.setData(ListChoice,"Question")
         dialogFragment.show(fragment, "example Dialog")
     }
 }

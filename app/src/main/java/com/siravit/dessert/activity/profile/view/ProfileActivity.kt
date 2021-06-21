@@ -15,9 +15,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.akexorcist.localizationactivity.core.LocalizationActivityDelegate
 
@@ -32,11 +32,14 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.siravit.dessert.QAStore.DialogFragment
+import com.siravit.dessert.QAStore.QAObject
 import com.siravit.dessert.activity.filter_setting.view.FilterSettingActivity
 import com.siravit.dessert.utils.DialogSlide
 import com.siravit.dessert.utils.GlobalVariable
 import com.siravit.dessert.activity.like_you.view.LikeYouActivity
 import com.siravit.dessert.R
+import com.siravit.dessert.ViewModel.QuestionViewModel
 import com.siravit.dessert.activity.send_problem.view.SendProblemActivity
 import com.siravit.dessert.activity.edit_profile.view.EditProfileActivity
 import com.siravit.dessert.activity.profile_information.view.ProfileInformationsActivity
@@ -44,6 +47,7 @@ import com.siravit.dessert.dialogs.FeedbackDialog
 import com.siravit.dessert.services.RemoteConfig
 import java.io.IOException
 import java.util.*
+import kotlin.collections.ArrayList
 
 class ProfileActivity : Fragment() {
     private lateinit var setting: TextView
@@ -66,10 +70,12 @@ class ProfileActivity : Fragment() {
     private lateinit var dialog: Dialog
     private lateinit var dialog2: Dialog
     private lateinit var resultFeedback:TextView
+    private lateinit var localizationDelegate: LocalizationActivityDelegate
 
     private var statusDialog = false
     private lateinit var setimage: ImageView
     private var gotoProfile = true
+    private lateinit var questionViewModel:QuestionViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -78,8 +84,13 @@ class ProfileActivity : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.activity_profile, container, false)
         super.onCreate(savedInstanceState)
-
         RemoteConfig(requireActivity()).remote()
+        localizationDelegate = LocalizationActivityDelegate(requireActivity())
+        questionViewModel = ViewModelProvider(this,object : ViewModelProvider.Factory{
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return QuestionViewModel(requireContext()) as T
+            }
+        }).get(QuestionViewModel::class.java)
         dialog = Dialog(requireContext())
         val view2 = inflater.inflate(R.layout.progress_dialog, null)
         dialog2 = Dialog(requireContext())
@@ -161,8 +172,13 @@ class ProfileActivity : Fragment() {
             requireActivity().overridePendingTransition(0, 0)
         }
         resultFeedback.setOnClickListener {
-            FeedbackDialog(requireContext()).show()
+            FeedbackDialog(requireContext()) { getFeedbackQuestion() }.show()
         }
+        val dialogFragment = DialogFragment()
+        questionViewModel.fetchQAFeedback.observe(requireActivity(),{
+            dialogFragment.setData(it,"Feedback")
+            dialogFragment.show(requireActivity().supportFragmentManager,"Feedback dialog")
+        })
 
         return view
     }
@@ -292,6 +308,11 @@ class ProfileActivity : Fragment() {
     override fun onStop() {
         super.onStop()
         dialog2.dismiss()
+    }
+    private var arrQuestion:ArrayList<QAObject> = ArrayList()
+    private fun getFeedbackQuestion() {
+        Log.d("QUESTION_TAG","Work")
+        questionViewModel.responseFeedbackQA(localizationDelegate.getLanguage(requireContext()).toLanguageTag())
     }
 
 
