@@ -3,17 +3,16 @@ package com.siravit.dessert.dialogs
 import android.content.Context
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
-import com.google.android.material.snackbar.Snackbar
 import com.siravit.dessert.R
 
-class FeedbackDialog(private var context: Context) {
+class FeedbackDialog(private var context: Context,private var getFeedbackQuestion:() -> Unit) {
     fun show(){
         val mBuilder = AlertDialog.Builder(context)
         mBuilder.setTitle("ตอบความพึงพอใจค่ะ")
         mBuilder.setMessage("ตอบๆมาเถอะ เดี๋ยวให้ 20 ไลค์")
         mBuilder.setCancelable(true)
         mBuilder.setPositiveButton(R.string.ok) { _, _ ->
-            //ตรงนี้ค่ะ
+            getFeedbackQuestion()
         }
         mBuilder.setNegativeButton(R.string.cancel) { _, _ -> }
         val mDialog = mBuilder.create()

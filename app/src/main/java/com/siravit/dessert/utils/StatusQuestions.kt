@@ -9,9 +9,13 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.json.JSONArray
+import org.json.JSONObject
 
 class StatusQuestions {
     private val db = FirebaseDatabase.getInstance().reference.child("QuestionStatus")
+    private val dbFeedback = FirebaseDatabase.getInstance().reference.child("FeedbackStatus")
+    private val hashMapQA: HashMap<String, Any> = HashMap()
+
     fun questionStats(array:JSONArray){
         Log.d("ButtonQA",array.toString())
        for(i in 0 until array.length()){
@@ -38,7 +42,7 @@ class StatusQuestions {
                                 }
                             }
                             when (weight) {
-                                0 -> {
+                                1 -> {
                                     var value = snapshot.child(id).child("weight1").value.toString().toInt()
                                     db.child(id).child("weight1").setValue(++value)
                                 }
@@ -89,7 +93,51 @@ class StatusQuestions {
                     override fun onCancelled(error: DatabaseError) {}
                 })
             }
-           Log.d("TAG_JSON","$id : qa $question , wa : $weight")
        }
+    }
+
+    fun feedbackStatus(array: JSONArray) {
+        dbFeedback.addListenerForSingleValueEvent(object: ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                Log.d("QUESTION_TAG",array.length().toString())
+                for(i in 0 until  array.length()){
+                    val obj = array.getJSONObject(i)
+                    val id = obj.optString("id")
+                    if(snapshot.hasChild(id)){
+                        when (obj.optInt("question")) {
+                            0 -> {
+                                var value = snapshot.child(id).child("question0").value.toString().toInt()
+                                dbFeedback.child(id).child("question0").setValue(++value)
+                            }
+                            1 -> {
+                                var value = snapshot.child(id).child("question1").value.toString().toInt()
+                                dbFeedback.child(id).child("question1").setValue(++value)
+                            }
+                            2 -> {
+                                var value = snapshot.child(id).child("question2").value.toString().toInt()
+                                dbFeedback.child(id).child("question2").setValue(++value)
+                            }
+                        }
+                    }else {
+                        val mapNoChild: HashMap<String, Any> = hashMapOf(
+                            "qid" to id,
+                            "question0" to 0,
+                            "question1" to 0,
+                            "question2" to 0,
+                        )
+                        when (obj.optInt("question")) {
+                            0 -> mapNoChild["question0"] = 1
+                            1 -> mapNoChild["question1"] = 1
+                            2 -> mapNoChild["question2"] = 1
+                        }
+                        dbFeedback.child(id).updateChildren(mapNoChild)
+                    }
+
+
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {}
+        })
+
     }
 }

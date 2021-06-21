@@ -27,6 +27,7 @@ class DialogFragment : AppCompatDialogFragment() {
     var radioGroupWeight: RadioGroup? = null
     var question: String = ""*/
     private var choice: ArrayList<QAObject> = ArrayList()
+    private var type:String = "Question"
     //private lateinit var functions: FirebaseFunctions
 
     @SuppressLint("UseRequireInsteadOfGet")
@@ -35,7 +36,7 @@ class DialogFragment : AppCompatDialogFragment() {
         val lay = activity!!.layoutInflater
         val view: View = lay.inflate(R.layout.viewpager_questions, null)
         val viewpager: ViewPager2 = view.findViewById(R.id.pagerTest)
-        val adapter = QAPagerAdapter(activity!!, choice, builder, viewpager)
+        val adapter = QAPagerAdapter(activity!!, choice, builder, viewpager , type)
         viewpager.adapter = adapter
         viewpager.isUserInputEnabled = false
         builder.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -47,8 +48,13 @@ class DialogFragment : AppCompatDialogFragment() {
         return builder
     }
 
-    fun setData(choice: ArrayList<QAObject>) {
+    fun setData(choice: ArrayList<QAObject>,type: String) {
         this.choice = choice
+        this.type = type
+    }
+
+    fun setType(type: String){
+        this.type = type
     }
 
     override fun onAttach(context: Context) {

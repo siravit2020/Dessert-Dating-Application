@@ -158,8 +158,8 @@ class CardActivity : Fragment(), View.OnClickListener {
             Log.d("GET_QUESTION", it.size.toString())
             if (it.size > 0) {
                 val dialogFragment = DialogFragment()
-                dialogFragment.setData(it)
-                dialogFragment.show(requireActivity().supportFragmentManager, "example Dialog")
+                dialogFragment.setData(it, "Question")
+                dialogFragment.show(requireActivity().supportFragmentManager, "Question dialog")
             } else {
                 errorDialog = ErrorDialog(requireContext())
                 errorDialog.outOfQuestionDialog().show()

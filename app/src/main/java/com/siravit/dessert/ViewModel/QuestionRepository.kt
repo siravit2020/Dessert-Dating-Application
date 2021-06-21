@@ -4,6 +4,11 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
 import com.siravit.dessert.dialogs.LoadingDialog
@@ -12,15 +17,37 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
+@Suppress("UNCHECKED_CAST")
 class QuestionRepository(context: Context) {
     private val loadingDialog = LoadingDialog(context).dialog()
-    private var functions = Firebase.functions
+    private val functions = Firebase.functions
+    private val database = FirebaseDatabase.getInstance().reference
     private var result: MutableLiveData<ArrayList<QAObject>> = MutableLiveData()
     private var resultRegisterQA: MutableLiveData<ArrayList<QAObject>> = MutableLiveData()
+    private var resultFeedbackQA: MutableLiveData<ArrayList<QAObject>> = MutableLiveData()
     val responseQuestion: LiveData<ArrayList<QAObject>>
         get() = result
     val responseRegisterQA: LiveData<ArrayList<QAObject>>
         get() = resultRegisterQA
+    val responseFeedbackQA : LiveData<ArrayList<QAObject>>
+        get() =  resultFeedbackQA
+    fun fetchFeedbackQuestion(languageTag:String) {
+        val addData:ArrayList<QAObject> = ArrayList()
+        val arr: ArrayList<String> = ArrayList()
+        val db = database.child("/QuestionFeedback/${languageTag}")
+        db.addListenerForSingleValueEvent(object: ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                snapshot.children.forEach{
+                    val map:Map<*,*> = it.value as Map<*,*>
+                    val obj = QAObject(it.key.toString() ,map["question"].toString(),map["choice"] as ArrayList<String>)
+                    addData.add(obj)
+                    Log.d("QUESTION_FETCH", it.value.toString())
+                }
+                resultFeedbackQA.value = addData
+            }
+            override fun onCancelled(error: DatabaseError) {}
+        })
+    }
     fun fetchQuestion(languageTag:String){
         loadingDialog.show()
         val addData:ArrayList<QAObject> = ArrayList()
