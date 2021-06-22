@@ -37,7 +37,7 @@ class ListCardActivity : Fragment() {
     private var xUser = 0.0
     private var yUser = 0.0
     private var isScroll = false
-    private var percentageMath:Map<*,*>? = null
+
     private lateinit var currentUserId: String
     private var oppositeUserSex: String? = null
     private var startNode = 20
@@ -195,7 +195,7 @@ class ListCardActivity : Fragment() {
                     .addOnSuccessListener { task ->
                         val dataResult = task.data as Map<*, *>
                         Log.d("testDatatatat", dataResult.toString())
-                        percentageMath = dataResult["dictionary"] as Map<*, *>
+
                         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
                             getStartAt()
                         }
@@ -278,11 +278,8 @@ class ListCardActivity : Fragment() {
                     }
                     val df2 = DecimalFormat("#.#")
                     val dis = df2.format(user["distance_other"])
-                    var percentAdd: String? = "0"
-                    if (percentageMath!![user["key"].toString()] != null) {
-                        percentAdd = percentageMath!![user["key"].toString()].toString()
-                    }
-                    val obj = ListCardModel(user["key"].toString(), user["name"].toString(), profileImageUrl, dis, status, user["Age"].toString(), user["sex"].toString(), myself, offStatus, typeTime, time, percentAdd)
+
+                    val obj = ListCardModel(user["key"].toString(), user["name"].toString(), profileImageUrl, dis, status, user["Age"].toString(), user["sex"].toString(), myself, offStatus, typeTime, time)
                     resultMatches.add(obj)
 
                 }

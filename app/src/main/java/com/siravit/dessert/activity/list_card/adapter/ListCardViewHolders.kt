@@ -33,7 +33,7 @@ class ListCardViewHolders(itemView: View, private val context: Context) : Recycl
     var mDistance: TextView = itemView.findViewById(R.id.distance_text)
     var mStatus: TextView = itemView.findViewById(R.id.status_time)
     var tag: TextView = itemView.findViewById(R.id.tagkm)
-    var percent:TextView = itemView.findViewById(R.id.Latest_chat)
+    var percen: LinearLayout = itemView.findViewById(R.id.description)
     var myself: TextView = itemView.findViewById(R.id.myself)
     var mMatchImage: ImageView = itemView.findViewById(R.id.Match_Image)
     var onOffList: ImageView = itemView.findViewById(R.id.on_off_matches)
@@ -45,7 +45,7 @@ class ListCardViewHolders(itemView: View, private val context: Context) : Recycl
     private var i = 0
     var progressBar: ProgressBar? = itemView.findViewById(R.id.progress_image)
     init {
-
+        percen.visibility = View.GONE
         mLinear.setOnLongClickListener{
             mLinear.background = ContextCompat.getDrawable(context, R.drawable.background_click_tran)
             showDialog()
@@ -65,8 +65,7 @@ class ListCardViewHolders(itemView: View, private val context: Context) : Recycl
     fun bind(listCardItem: ListCardModel?) {
         var placeHolder = R.drawable.ic_man;
         if(listCardItem!!.gender == "Female") placeHolder = R.drawable.ic_woman;
-        percent.visibility = View.VISIBLE
-        percent.text = "ความเข้ากัน ${(listCardItem!!.percent.toString())} %"
+
         Glide.with(context).load(listCardItem!!.profileImageUrl).listener(object : RequestListener<Drawable?> {
             override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable?>?, isFirstResource: Boolean): Boolean {
                 Log.d("failLoadPhoto" , "fails");

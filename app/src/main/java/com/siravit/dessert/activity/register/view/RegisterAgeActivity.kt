@@ -12,6 +12,7 @@ import android.widget.DatePicker
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.siravit.dessert.R
+import com.siravit.dessert.utils.ChangLanguage
 import com.tapadoo.alerter.Alerter
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -36,7 +37,8 @@ class RegisterAgeActivity : AppCompatActivity() {
     @SuppressLint("SimpleDateFormat")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        loadLocal()
+        val language: ChangLanguage = ChangLanguage(this)
+        language.setLanguage()
         setContentView(R.layout.activity_regis_age)
         button = findViewById(R.id.button_name)
         toolbar = findViewById(R.id.my_tools)
@@ -89,35 +91,12 @@ class RegisterAgeActivity : AppCompatActivity() {
         })
     }
 
-    private fun setLocal(lang: String) {
-
-        val locale = Locale(lang)
-        Locale.setDefault(locale)
-//        val configuration = Configuration()
-//        configuration.setLocale(locale)
-//        baseContext.resources.updateConfiguration(configuration, baseContext.resources.displayMetrics)
-        val overrideConfiguration = baseContext.resources.configuration
-        overrideConfiguration.setLocale(locale)
-        val editor = getSharedPreferences("Settings", Context.MODE_PRIVATE).edit()
-        editor.putString("My_Lang", lang)
-        editor.apply()
-        Log.d("My", lang)
-
-
-    }
-
-    private fun loadLocal() {
-        val preferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
-        val language = preferences.getString("My_Lang", "")!!
-        Log.d("My2", language)
-        setLocal(language)
-    }
 
     private fun getAge(year: Int, month: Int, dayOfMonth: Int): Int {
         return Period.between(
                 LocalDate.of(year, month, dayOfMonth),
                 LocalDate.now()
-        ).years;
+        ).years
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

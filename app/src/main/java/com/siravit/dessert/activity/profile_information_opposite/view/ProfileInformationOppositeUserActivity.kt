@@ -7,6 +7,8 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.location.Address
+import android.location.Geocoder
 import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
@@ -18,6 +20,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
+import com.akexorcist.localizationactivity.core.LocalizationActivityDelegate
 
 import com.bumptech.glide.Glide
 import com.github.demono.AutoScrollViewPager
@@ -51,6 +54,7 @@ import com.siravit.dessert.utils.*
 import kotlinx.android.synthetic.main.activity_profile_user_opposite2.*
 import kotlinx.coroutines.*
 import me.relex.circleindicator.CircleIndicator
+import java.io.IOException
 import java.text.DecimalFormat
 import java.util.*
 
@@ -73,7 +77,7 @@ class ProfileInformationOppositeUserActivity : AppCompatActivity() {
     private var url3: String? = null
     private var url4: String? = null
     private var url5: String? = null
-    private var language2: String? = null
+
     private lateinit var currentUid: String
     private var send: String? = null
 
@@ -122,9 +126,7 @@ class ProfileInformationOppositeUserActivity : AppCompatActivity() {
         mAuth = FirebaseAuth.getInstance()
         matchId = intent.extras!!.getString("User_opposite")!!
         currentUserId = mAuth.uid.toString()
-
-        val preferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
-        language2 = preferences.getString("My_Lang", "")
+        ChangLanguage(this).setLanguage()
         currentUid = mAuth.currentUser!!.uid
         usersDb = FirebaseDatabase.getInstance().reference.child("Users")
         mUserDatabase = FirebaseDatabase.getInstance().reference.child("Users").child(matchId)
@@ -481,8 +483,21 @@ class ProfileInformationOppositeUserActivity : AppCompatActivity() {
                                 yOpposite = dataSnapshot.child("Location").child("Y").value.toString().toDouble()
                                 val distance = CalculateDistance.calculate(GlobalVariable.x.toDouble(), GlobalVariable.y.toDouble(), xOpposite, yOpposite)
                                 val distance1 = df2.format(distance)
-                                val city = City(language2!!, this@ProfileInformationOppositeUserActivity, xOpposite, yOpposite).invoke()
-                                city1.text = "$city ,  $distance1 ${getString(R.string.kilometer)}"
+                                val lang = LocalizationActivityDelegate(this@ProfileInformationOppositeUserActivity).getLanguage(this@ProfileInformationOppositeUserActivity).toString()
+                                val geoCoder: Geocoder = if (lang == "th") {
+                                    Geocoder(this@ProfileInformationOppositeUserActivity)
+                                } else {
+                                    Geocoder(this@ProfileInformationOppositeUserActivity, Locale.UK)
+                                }
+                                val addresses: MutableList<Address?>?
+                                try {
+                                    addresses = geoCoder.getFromLocation(xOpposite, yOpposite, 1)
+                                    val city = addresses[0]!!.adminArea
+                                    city1.text = "$city ,  $distance1 ${getString(R.string.kilometer)}"
+                                } catch (e: IOException) {
+                                    e.printStackTrace()
+                                }
+
 
                                 if (map["myself"] != null && map["myself"] != "") {
                                     l3.visibility = View.VISIBLE

@@ -646,28 +646,29 @@ open class EditProfileActivity : AppCompatActivity(), View.OnClickListener {
         if (this::map.isInitialized) {
             if(scanText()) {
                 saveUserInformation()
-                super.onBackPressed()
+                if (image1.tag == 1) {
+                    if(scanText()) {
+                        setResult(DRAWABLE_IS_NOT_NULL)
+                        super.onBackPressed()
+                    }
+                } else {
+                    val mBuilder = AlertDialog.Builder(this@EditProfileActivity)
+                    mBuilder.setTitle(R.string.profile_image)
+                    mBuilder.setMessage(R.string.primary_profile_alert)
+                    mBuilder.setCancelable(true)
+                    mBuilder.setPositiveButton(R.string.ok) { _, _ ->
+                        setResult(DRAWABLE_IS_NULL)
+                        super@EditProfileActivity.onBackPressed()
+                    }
+                    mBuilder.setNegativeButton(R.string.cancle) { _, _ -> }
+                    val mDialog = mBuilder.create()
+                    mDialog.window!!.setBackgroundDrawable(ContextCompat.getDrawable(this@EditProfileActivity, R.drawable.myrect2))
+                    mDialog.show()
+                }
+
             }
         }
-        if (image1.tag == 1) {
-            if(scanText()) {
-                setResult(DRAWABLE_IS_NOT_NULL)
-                super.onBackPressed()
-            }
-        } else {
-            val mBuilder = AlertDialog.Builder(this@EditProfileActivity)
-            mBuilder.setTitle(R.string.profile_image)
-            mBuilder.setMessage(R.string.primary_profile_alert)
-            mBuilder.setCancelable(true)
-            mBuilder.setPositiveButton(R.string.ok) { _, _ ->
-                setResult(DRAWABLE_IS_NULL)
-                super@EditProfileActivity.onBackPressed()
-            }
-            mBuilder.setNegativeButton(R.string.cancle) { _, _ -> }
-            val mDialog = mBuilder.create()
-            mDialog.window!!.setBackgroundDrawable(ContextCompat.getDrawable(this@EditProfileActivity, R.drawable.myrect2))
-            mDialog.show()
-        }
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

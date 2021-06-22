@@ -69,8 +69,8 @@
     <string name="sayhi">ทักทาย</string>
     <string name="message">ข้อความ</string>
     <string name="start_chat">เริ่มแชท</string>
-    <string name="cancel_match">ยกเลิกการจับคู่</string>
-    <string name="cancel_match_confirm">ต้องการยกเลิกการจับคู่ใช่หรือไม่ ?</string>
+    <string name="cancel_match">ยกเลิกการแมตช์</string>
+    <string name="cancel_match_confirm">ต้องการยกเลิกการแมตช์ใช่หรือไม่ ?</string>
     <string name="delete_message_all">ลบประวัติการแชท</string>
     <string name="delete_message_all_confirm">คุณต้องการลบข้อความทั้งหมดใช่หรือไม่</string>
     <string name="touch">แตะเพื่อดูโปรไฟล์</string>
@@ -107,13 +107,13 @@
     <string name="application_has_sent">แอปพลิเคชั่นได้ส่งรหัสยืนยันไปที่</string>
     <string name="like_you_too">ถูกใจคุณเช่นเดียวกัน</string>
     <string name="send_message">ส่งข้อความ</string>
-    <string name="matching_mode">ทุกคนสามารถเมองเห็นคุณได้ในโหมดการจับคู่</string>
+    <string name="matching_mode">ทุกคนสามารถเมองเห็นคุณได้ในโหมดการแมตช์</string>
     <string name="list_mode">ทุกคนสามารถมองเห็นคุณได้ในโหมดหาผู้ใช้ที่อยู่ใกล้เคียง</string>
     <string name="see_other_user">ดูคนอื่นๆ</string>
-    <string name="matched">จับคู่แล้ว</string>
+    <string name="matched">แมตช์แล้ว</string>
     <string name="new_match">คู่แมตท์ใหม่</string>
     <string name="you_and">คุณและ</string>
-    <string name="matched2">จับคู่กันแล้ว</string>
+    <string name="matched2">แมตช์กันแล้ว</string>
     <string name="You_have_a_new_match">คุณมีคู่ใหม่</string>
     <string name="new_message">ข้อความใหม่</string>
     <string name="you_have_new_message">คุณมีข้อความใหม่เข้า</string>
@@ -125,7 +125,7 @@
     <string name="enter_number">โปรดกรอกหมายเลขให้ถูกต้อง</string>
     <string name="close_account_confirm">คุณต้องการลบบัญชีนี้ออกจากระบบอย่างถาวรเใช่หรือไม่</string>
     <string name="vision_closed">ปิดการมองเห็น</string>
-    <string name="vision_closed_match">หากคุณปิดการมองเห็นในโหมดจับคู่ ผู้ใช้คนอื่นจะไม่สามารถมองเห็นคุณ</string>
+    <string name="vision_closed_match">หากคุณปิดการมองเห็นในโหมดแมตช์ ผู้ใช้คนอื่นจะไม่สามารถมองเห็นคุณ</string>
     <string name="vision_closed_nearby">หากคุณปิดการมองเห็นในโหมดหาูผ้ใช้ที่อยู่ใกล้เคียง ผู้ใช้คนอื่นจะไม่สามารถมองเห็นคุณ</string>
     <string name="try_again">กรุณาดำเนินการใหม่ในภายหลัง</string>
     <string name="visibility_settings">ตั้งค่าการมองเห็น</string>
@@ -151,7 +151,7 @@
     <string name="qa_choice4">สำคัญมาก</string>
     <string name="qa_choice5">เป็นเรื่องคอขาดบาดตาย</string>
     <string name="question">คำถาม</string>
-    <string name="question_sub_title">ตอบคำถามของเราเพื่อการจับคู่กับคนที่เข้ากันกับคุณ</string>
+    <string name="question_sub_title">ตอบคำถามของเราเพื่อการแมตช์กับคนที่เข้ากันกับคุณ</string>
     <string name="question_call">ตอบคำถามเพิ่มไลค์</string>
     <string name="warning_skip">ถ้าคุณกดข้ามคุณจะไม่ได้โควตาของวันนี้เพิ่ม</string>
     <string name="out_of_qa_description">ขออภัย คำถามของเราหมดแล้วกรุณาเลือกดูโฆษณาหรือซื้อ VIP เพื่อเพิ่มโควตาในวันนี้</string>
@@ -159,7 +159,7 @@
     <string name="uploading">กำลังอัปโหลด</string>
     <string name="selected_questions">กรุณาเลือกคำตอบและตอบให้ครบถ้วน</string>
     <string name="title_askQuestion">ตอบคำถามสิ</string>
-    <string name="body_askQuestion">เพื่อเพิ่มโอกาสการจับคู่และจำนวนการกดไลค์ของคุณกรุณาตอบคำถามของทางแอปพลิเคชัน</string>
+    <string name="body_askQuestion">เพื่อเพิ่มโอกาสการแมตช์และจำนวนการกดไลค์ของคุณกรุณาตอบคำถามของทางแอปพลิเคชัน</string>
     <string name="out_of_quota">โควต้าวันนี้ของคุณหมดแล้ว</string>
     <string name="out_of_questions">ขอโทษคำถามของเราหมดแล้ว</string>
     <string name="out_of_questions_description">คำถามหมดแล้ว</string>
@@ -262,7 +262,7 @@
     <string name="qa_improtant">ความสำคัญของคำถามนี้ ?</string>
     <string name="dessert_vip">Dessert VIP</string>
     <string name="loading_ads">กำลังโหลดโฆษณา</string>
-    <string name="match">จับคู่</string>
+    <string name="match">แมตช์</string>
     <string name="tryAgian">ลองอีกครั้ง</string>
     <string name="aleart_gps_open">คุณต้องเปิด GPS เพื่อเข้าใช้งานแอปพลิเคชัน กรุณาลองใหม่อีกครั้ง</string>
     <string name="feedback">ข้อเสนอแนะ</string>
@@ -302,7 +302,7 @@
     <string name="something_is_wrong">มีบางอย่างผิดปกติ</string>
     <string name="bad_experience">ฉันมีประสบการณ์ที่ไม่ค่อยดีบน Dessert</string>
     <string name="other_apps">ฉันชอบแอปอื่นมากกว่า</string>
-    <string name="not_enough">ฉันหาคนเพื่อจับคู่ได้ไม่มากพอ</string>
+    <string name="not_enough">ฉันหาคนเพื่อแมตช์ได้ไม่มากพอ</string>
     <string name="i_haven_t_dated_anyone">ฉันไม่ได้นัดพบใครเลย</string>
     <string name="valid_email">กรุณากรอกอีเมลให้ถูกต้อง</string>
     <string name="who_like_you">ใครถูกใจคุณ</string>

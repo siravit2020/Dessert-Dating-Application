@@ -256,14 +256,23 @@ class MainActivity : AppCompatActivity() ,LocationListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val connected = snapshot.getValue(Boolean::class.java)!!
                 if (connected) {
-                    val statusUp = HashMap<String?, Any?>()
-                    statusUp["status"] = 1
-                    userDb.updateChildren(statusUp)
-                    userDb.onDisconnect().let {
-                        val statusUp2 = HashMap<String?, Any?>()
-                        statusUp2["date"] = ServerValue.TIMESTAMP
-                        statusUp2["status"] = 0
-                        it.updateChildren(statusUp2)
+                    userDb.get().addOnSuccessListener { snapshot ->
+                        Log.i("firebase", "Got value ${snapshot.value}")
+                        if(snapshot.exists()){
+
+                                val statusUp = HashMap<String?, Any?>()
+                                statusUp["status"] = 1
+                                userDb.updateChildren(statusUp)
+                                userDb.onDisconnect().let {
+                                    val statusUp2 = HashMap<String?, Any?>()
+                                    statusUp2["date"] = ServerValue.TIMESTAMP
+                                    statusUp2["status"] = 0
+                                    it.updateChildren(statusUp2)
+                                }
+
+                        }
+                    }.addOnFailureListener{
+                        Log.e("firebase", "Error getting data", it)
                     }
 
                 }
