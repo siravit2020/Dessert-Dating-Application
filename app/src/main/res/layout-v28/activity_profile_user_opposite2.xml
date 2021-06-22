@@ -31,7 +31,7 @@
                 android:background="@color/background_white"
                 android:layout_height="wrap_content">
 
-                <com.siravit.dessert.utils.WrapContentHeightViewPager
+                <com.maiguy.dessert.utils.WrapContentHeightViewPager
                     android:id="@+id/slide_main"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
