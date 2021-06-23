@@ -1,5 +1,6 @@
 package com.maiguy.dessert.activity.card.view
 
+import android.app.Activity
 import android.app.Dialog
 import android.content.ContentValues.TAG
 import android.content.Context
@@ -116,7 +117,7 @@ class CardActivity : Fragment(), View.OnClickListener {
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }
-//        billing()
+        billing()
         localizationDelegate = LocalizationActivityDelegate(requireActivity())
         layoutGps = view.findViewById(R.id.layout_in)
         textgps = view.findViewById(R.id.textView8)
@@ -499,6 +500,13 @@ class CardActivity : Fragment(), View.OnClickListener {
         Log.d("billing", skuDetailsResult.skuDetailsList!!.size.toString())
         skuDetailsResult.skuDetailsList!!.forEach {
             Log.d("billing", it.title)
+            val activity: Activity = requireActivity()
+
+            // Retrieve a value for "skuDetails" by calling querySkuDetailsAsync().
+            val flowParams = BillingFlowParams.newBuilder()
+                .setSkuDetails(it)
+                .build()
+            val responseCode = billingClient.launchBillingFlow(activity, flowParams).responseCode
         }
 
 
