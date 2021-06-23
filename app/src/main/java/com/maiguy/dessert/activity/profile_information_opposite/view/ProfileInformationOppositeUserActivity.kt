@@ -9,7 +9,6 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.location.Address
 import android.location.Geocoder
-import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -23,15 +22,10 @@ import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.akexorcist.localizationactivity.core.LocalizationActivityDelegate
 
 import com.bumptech.glide.Glide
-import com.github.demono.AutoScrollViewPager
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayout
-import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
-import com.google.android.gms.ads.OnUserEarnedRewardListener
-import com.google.android.gms.ads.rewarded.RewardItem
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 
@@ -46,14 +40,11 @@ import com.maiguy.dessert.R
 import com.maiguy.dessert.constants.VipDialogType
 import com.maiguy.dessert.dialogs.ReportUser
 import com.maiguy.dessert.dialogs.VipDialog
-import com.maiguy.dessert.dialogs.adapter.VipSlideAdapter
-import com.maiguy.dessert.model.PagerModel
 import com.maiguy.dessert.utils.adapter.ScreenAdapter
 import com.maiguy.dessert.utils.*
 
 import kotlinx.android.synthetic.main.activity_profile_user_opposite2.*
 import kotlinx.coroutines.*
-import me.relex.circleindicator.CircleIndicator
 import java.io.IOException
 import java.text.DecimalFormat
 import java.util.*

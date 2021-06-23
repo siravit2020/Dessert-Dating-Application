@@ -1,6 +1,5 @@
 package com.maiguy.dessert.activity.image_chat.view
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -15,15 +14,12 @@ import androidx.viewpager.widget.ViewPager
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 import com.maiguy.dessert.activity.image_chat.adapter.ImageAllAdapter
 import com.maiguy.dessert.activity.image_chat.adapter.ScreenAdapterImage
 import com.maiguy.dessert.activity.image_chat.model.ScreenModel
 
 import com.maiguy.dessert.R
 import com.maiguy.dessert.utils.TimeStampToDate
-import org.json.JSONObject
 import java.util.*
 
 class ItemImageActivity : AppCompatActivity() {

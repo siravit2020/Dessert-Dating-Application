@@ -55,7 +55,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 import com.maiguy.dessert.utils.TimeStampToDate
 import kotlinx.android.synthetic.main.show_match.*
-import org.json.JSONObject
 
 class ChatActivity : AppCompatActivity() {
     private lateinit var mRecyclerView: RecyclerView

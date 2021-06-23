@@ -26,7 +26,6 @@ import com.maiguy.dessert.R
 import com.maiguy.dessert.constants.VipDialogType
 import com.maiguy.dessert.dialogs.adapter.VipSlideAdapter
 import com.maiguy.dessert.model.PagerModel
-import com.maiguy.dessert.utils.DialogSlide
 import com.maiguy.dessert.utils.GlobalVariable
 import me.relex.circleindicator.CircleIndicator
 
