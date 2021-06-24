@@ -154,11 +154,15 @@ class ListCardActivity : Fragment() {
     }
 
     private fun deleteListDataFromBlackList(key: String) {
+        Log.d("TAG_CHILD",key)
+        Log.d("TAG_CHILD",resultMatches.toString())
         val index = resultMatches.map { T -> T!!.userId.equals(key) }.indexOf(true)
-        resultMatches.removeAt(index)
-        mMatchesAdapter.notifyItemRemoved(index)
-        mMatchesAdapter.notifyItemRangeChanged(index,resultMatches.size)
-        Log.d("TAG_CHILD",index.toString())
+        if(index != -1){
+            resultMatches.removeAt(index)
+            mMatchesAdapter.notifyItemRemoved(index)
+            mMatchesAdapter.notifyItemRangeChanged(index,resultMatches.size)
+            Log.d("TAG_CHILD",index.toString())
+        }
     }
 
     private fun getStartAt() {
