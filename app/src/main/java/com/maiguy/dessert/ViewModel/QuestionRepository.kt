@@ -38,9 +38,11 @@ class QuestionRepository(context: Context) {
             override fun onDataChange(snapshot: DataSnapshot) {
                 snapshot.children.forEach{
                     val map:Map<*,*> = it.value as Map<*,*>
-                    val obj = QAObject(it.key.toString() ,map["question"].toString(),map["choice"] as ArrayList<String>)
-                    addData.add(obj)
-                    Log.d("QUESTION_FETCH", it.value.toString())
+                    if(map["status"] == true){
+                        val obj = QAObject(it.key.toString() ,map["question"].toString(),map["choice"] as ArrayList<String>)
+                        addData.add(obj)
+                        Log.d("QUESTION_FETCH", it.value.toString())
+                    }
                 }
                 resultFeedbackQA.value = addData
             }
