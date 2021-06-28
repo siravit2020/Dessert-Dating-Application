@@ -51,6 +51,7 @@ import com.maiguy.dessert.constants.VipDialogType
 import com.maiguy.dessert.dialogs.adapter.VipSlideAdapter
 import com.maiguy.dessert.model.PagerModel
 import com.maiguy.dessert.dialogs.VipDialog
+import com.maiguy.dessert.services.BillingService
 import com.maiguy.dessert.utils.CloseLoading
 import com.maiguy.dessert.utils.GlobalVariable
 import com.yuyakaido.android.cardstackview.*
@@ -117,7 +118,8 @@ class CardActivity : Fragment(), View.OnClickListener {
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }
-        billing()
+       // BillingService(requireActivity()).checkStatusBilling()
+
         localizationDelegate = LocalizationActivityDelegate(requireActivity())
         layoutGps = view.findViewById(R.id.layout_in)
         textgps = view.findViewById(R.id.textView8)
@@ -459,72 +461,7 @@ class CardActivity : Fragment(), View.OnClickListener {
         })
     }
 
-    private fun billing() {
-        val purchasesUpdatedListener =
-                PurchasesUpdatedListener { billingResult, purchases ->
-                    // To be implemented in a later section.
-                }
-        billingClient = BillingClient.newBuilder(requireContext())
-                .setListener(purchasesUpdatedListener)
-                .enablePendingPurchases()
-                .build()
 
-        billingClient.startConnection(object : BillingClientStateListener {
-            override fun onBillingSetupFinished(billingResult: BillingResult) {
-                if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
-                    Log.d("billing", "200ok")
-                    GlobalScope.launch {
-                        querySkuDetails()
-                    }
-                }
-            }
-
-            override fun onBillingServiceDisconnected() {
-                // Try to restart the connection on the next request to
-                // Google Play by calling the startConnection() method.
-            }
-        })
-
-    }
-
-    suspend fun querySkuDetails() {
-        val skuList = ArrayList<String>()
-
-        skuList.add("dessert_vip")
-        val params = SkuDetailsParams.newBuilder()
-        params.setSkusList(skuList).setType(BillingClient.SkuType.SUBS)
-        // leverage querySkuDetails Kotlin extension function
-        val skuDetailsResult = withContext(Dispatchers.IO) {
-            billingClient.querySkuDetails(params.build())
-        }
-        Log.d("billing", skuDetailsResult.skuDetailsList!!.size.toString())
-        skuDetailsResult.skuDetailsList!!.forEach {
-            Log.d("billing", it.title)
-            val activity: Activity = requireActivity()
-
-            // Retrieve a value for "skuDetails" by calling querySkuDetailsAsync().
-            val flowParams = BillingFlowParams.newBuilder()
-                .setSkuDetails(it)
-                .build()
-            val responseCode = billingClient.launchBillingFlow(activity, flowParams).responseCode
-        }
-
-
-        // Process the result.
-
-
-    }
-
-    private fun startBilling() {
-//        // An activity reference from which the billing flow will be launched.
-//        val activity: Activity = requireActivity()
-//
-//        // Retrieve a value for "skuDetails" by calling querySkuDetailsAsync().
-//        val flowParams = BillingFlowParams.newBuilder()
-//                .setSkuDetails(skuDetails)
-//                .build()
-//        val responseCode = billingClient.launchBillingFlow(activity, flowParams).responseCode
-    }
 
     private fun getDis() {
 

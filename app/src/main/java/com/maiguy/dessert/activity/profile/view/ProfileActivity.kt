@@ -43,6 +43,7 @@ import com.maiguy.dessert.activity.send_problem.view.SendProblemActivity
 import com.maiguy.dessert.activity.edit_profile.view.EditProfileActivity
 import com.maiguy.dessert.activity.profile_information.view.ProfileInformationsActivity
 import com.maiguy.dessert.dialogs.FeedbackDialog
+import com.maiguy.dessert.services.BillingService
 import com.maiguy.dessert.services.RemoteConfig
 import java.io.IOException
 import java.util.*
@@ -124,6 +125,10 @@ class ProfileActivity : Fragment() {
         }
 
         vip.setOnClickListener {
+            if (GlobalVariable.vip) {
+                vip.setText(R.string.you_are_vip)
+                statusDialog = true
+            }
             openDialog()
         }
 
@@ -193,9 +198,7 @@ class ProfileActivity : Fragment() {
         if (!statusDialog) {
             b1.setOnClickListener {
 
-                mUserDatabase.child("Vip").setValue(1)
-                GlobalVariable.vip = true
-                getData()
+                BillingService(requireActivity()).billing()
                 dialog.dismiss()
             }
         } else {
@@ -270,6 +273,7 @@ class ProfileActivity : Fragment() {
                 })
                 .apply(RequestOptions().override(300, 300)).into(imageView)
         }
+        BillingService(requireActivity())
         if (GlobalVariable.vip) {
             vip.setText(R.string.you_are_vip)
             statusDialog = true

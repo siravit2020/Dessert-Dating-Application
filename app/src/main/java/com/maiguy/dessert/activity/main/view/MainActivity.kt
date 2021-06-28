@@ -33,19 +33,17 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 import com.ismaeldivita.chipnavigation.ChipNavigationBar
+import com.maiguy.dessert.R
 import com.maiguy.dessert.activity.card.view.CardActivity
-import com.maiguy.dessert.utils.ChangLanguage
-import com.maiguy.dessert.utils.GlobalVariable
-import com.maiguy.dessert.dialogs.WarningDialog
 import com.maiguy.dessert.activity.list_card.view.ListCardActivity
 import com.maiguy.dessert.activity.matches.view.MatchesActivity
 import com.maiguy.dessert.activity.profile.view.ProfileActivity
-import com.maiguy.dessert.R
 import com.maiguy.dessert.activity.show_gps_open.view.ShowGpsOpen
-
+import com.maiguy.dessert.dialogs.WarningDialog
+import com.maiguy.dessert.services.BillingService
+import com.maiguy.dessert.utils.ChangLanguage
+import com.maiguy.dessert.utils.GlobalVariable
 import kotlinx.coroutines.*
-
-import kotlin.collections.HashMap
 
 @Suppress("NAME_SHADOWING")
 class MainActivity : AppCompatActivity() ,LocationListener {
@@ -73,93 +71,150 @@ class MainActivity : AppCompatActivity() ,LocationListener {
             getMyUser()
             getUnreadFunction()
         }
-        //questionCalculate()
-        bar = findViewById(R.id.bar2)
-        if (intent.hasExtra("warning")) {
-            val choice = this.resources.getStringArray(R.array.report_item)
-            var nameAndValue = ""
-            val name = intent.getStringArrayListExtra("warning")
-            val value = intent.getIntegerArrayListExtra("warning_value")
-            for (i in name!!.indices) {
-                nameAndValue += "${i + 1}.${choice[Integer.valueOf(name[i])]}${getString(R.string.count_report)}	${value!![i]} ${getString(R.string.times)}"
+
+
+        GlobalScope.launch {
+            withContext(Dispatchers.Default) {
+                BillingService(
+                    this@MainActivity
+                ).checkStatusBilling()
             }
-            WarningDialog(this,nameAndValue).show()
-
-        }
-        if (intent.hasExtra("first")) {
-            first = intent.getStringExtra("first")!!
-            if (first != "0") {
-                bar!!.showBadge(R.id.item4, Integer.valueOf(first))
-            }
-            id = R.id.item2
-            intent.removeExtra("first")
-        }
-        if (intent.hasExtra("accept")) {
-            id = R.id.item4
-            intent.removeExtra("accept")
-        }
-        if (intent.hasExtra("back")) {
-            id = R.id.item1
-            intent.removeExtra("back")
-        }
-
-        bar!!.setOnItemSelectedListener(object : ChipNavigationBar.OnItemSelectedListener {
-            override fun onItemSelected(id: Int) {
-                Log.d("num", id.toString())
-                if (isOnline(applicationContext)) {
-                    when (id) {
-                        R.id.item1 -> {
-
-                            supportFragmentManager.beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left).hide(activeFragment).show(page1).commit()
-                            activeFragment = page1
-                            this@MainActivity.id = R.id.item1
-                        }
-                        R.id.item2 -> {
-                            if (R.id.item2 < this@MainActivity.id)
-                                supportFragmentManager.beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left).hide(activeFragment).show(page2).commit()
-                            else
-                                supportFragmentManager.beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right).hide(activeFragment).show(page2).commit()
-                            activeFragment = page2
-                            this@MainActivity.id = R.id.item2
-
-                        }
-                        R.id.item3 -> {
-                            if (R.id.item3 < this@MainActivity.id)
-                                supportFragmentManager.beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left).hide(activeFragment).show(page3).commit()
-                            else
-                                supportFragmentManager.beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right).hide(activeFragment).show(page3).commit()
-                            activeFragment = page3
-                            this@MainActivity.id = R.id.item3
-                        }
-                        R.id.item4 -> {
-                            supportFragmentManager.beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right).hide(activeFragment).show(page4).commit()
-                            activeFragment = page4
-                            this@MainActivity.id = R.id.item4
-
-                        }
+            withContext(Dispatchers.Default) {
+                bar = findViewById(R.id.bar2)
+                if (intent.hasExtra("warning")) {
+                    val choice = this@MainActivity.resources.getStringArray(R.array.report_item)
+                    var nameAndValue = ""
+                    val name = intent.getStringArrayListExtra("warning")
+                    val value = intent.getIntegerArrayListExtra("warning_value")
+                    for (i in name!!.indices) {
+                        nameAndValue += "${i + 1}.${choice[Integer.valueOf(name[i])]}${getString(R.string.count_report)}	${value!![i]} ${
+                            getString(
+                                R.string.times
+                            )
+                        }"
                     }
-                } else {
-                    val builder = AlertDialog.Builder(this@MainActivity)
-                    builder.setTitle("Internet ของคุณปิดอยุ่")
-                    builder.setMessage("กรุณาเปิด Internet บนอุปกรณ์ของคุณเพื่อใช้งานแอปพลิเคชัน")
-                    builder.setPositiveButton("เปิด internet") { _, _ ->
-                        val intent = Intent(Settings.ACTION_WIRELESS_SETTINGS)
-                        startActivity(intent)
+                    WarningDialog(this@MainActivity, nameAndValue).show()
+
+                }
+                if (intent.hasExtra("first")) {
+                    first = intent.getStringExtra("first")!!
+                    if (first != "0") {
+                        bar!!.showBadge(R.id.item4, Integer.valueOf(first))
                     }
-                            .setNegativeButton("ปิด app") { _, _ ->
-                                val intent = Intent(this@MainActivity, ShowGpsOpen::class.java)
-                                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                finish()
-                                startActivity(intent)
-                            }
-                    val mGPSDialog: Dialog = builder.create()
-                    mGPSDialog.window!!.setBackgroundDrawable(ContextCompat.getDrawable(this@MainActivity, R.drawable.myrect2))
-                    mGPSDialog.show()
+                    id = R.id.item2
+                    intent.removeExtra("first")
+                }
+                if (intent.hasExtra("accept")) {
+                    id = R.id.item4
+                    intent.removeExtra("accept")
+                }
+                if (intent.hasExtra("back")) {
+                    id = R.id.item1
+                    intent.removeExtra("back")
                 }
 
+                bar!!.setOnItemSelectedListener(object : ChipNavigationBar.OnItemSelectedListener {
+                    override fun onItemSelected(id: Int) {
+                        Log.d("num", id.toString())
+                        if (isOnline(applicationContext)) {
+                            when (id) {
+                                R.id.item1 -> {
+
+                                    supportFragmentManager.beginTransaction().setCustomAnimations(
+                                        R.anim.enter_from_left,
+                                        R.anim.exit_to_right,
+                                        R.anim.enter_from_right,
+                                        R.anim.exit_to_left
+                                    ).hide(activeFragment).show(page1).commit()
+                                    activeFragment = page1
+                                    this@MainActivity.id = R.id.item1
+                                }
+                                R.id.item2 -> {
+                                    if (R.id.item2 < this@MainActivity.id)
+                                        supportFragmentManager.beginTransaction()
+                                            .setCustomAnimations(
+                                                R.anim.enter_from_left,
+                                                R.anim.exit_to_right,
+                                                R.anim.enter_from_right,
+                                                R.anim.exit_to_left
+                                            ).hide(activeFragment).show(page2).commit()
+                                    else
+                                        supportFragmentManager.beginTransaction()
+                                            .setCustomAnimations(
+                                                R.anim.enter_from_right,
+                                                R.anim.exit_to_left,
+                                                R.anim.enter_from_left,
+                                                R.anim.exit_to_right
+                                            ).hide(activeFragment).show(page2).commit()
+                                    activeFragment = page2
+                                    this@MainActivity.id = R.id.item2
+
+                                }
+                                R.id.item3 -> {
+                                    if (R.id.item3 < this@MainActivity.id)
+                                        supportFragmentManager.beginTransaction()
+                                            .setCustomAnimations(
+                                                R.anim.enter_from_left,
+                                                R.anim.exit_to_right,
+                                                R.anim.enter_from_right,
+                                                R.anim.exit_to_left
+                                            ).hide(activeFragment).show(page3).commit()
+                                    else
+                                        supportFragmentManager.beginTransaction()
+                                            .setCustomAnimations(
+                                                R.anim.enter_from_right,
+                                                R.anim.exit_to_left,
+                                                R.anim.enter_from_left,
+                                                R.anim.exit_to_right
+                                            ).hide(activeFragment).show(page3).commit()
+                                    activeFragment = page3
+                                    this@MainActivity.id = R.id.item3
+                                }
+                                R.id.item4 -> {
+                                    supportFragmentManager.beginTransaction().setCustomAnimations(
+                                        R.anim.enter_from_right,
+                                        R.anim.exit_to_left,
+                                        R.anim.enter_from_left,
+                                        R.anim.exit_to_right
+                                    ).hide(activeFragment).show(page4).commit()
+                                    activeFragment = page4
+                                    this@MainActivity.id = R.id.item4
+
+                                }
+                            }
+                        } else {
+                            val builder = AlertDialog.Builder(this@MainActivity)
+                            builder.setTitle("Internet ของคุณปิดอยุ่")
+                            builder.setMessage("กรุณาเปิด Internet บนอุปกรณ์ของคุณเพื่อใช้งานแอปพลิเคชัน")
+                            builder.setPositiveButton("เปิด internet") { _, _ ->
+                                val intent = Intent(Settings.ACTION_WIRELESS_SETTINGS)
+                                startActivity(intent)
+                            }
+                                .setNegativeButton("ปิด app") { _, _ ->
+                                    val intent = Intent(this@MainActivity, ShowGpsOpen::class.java)
+                                    intent.flags =
+                                        Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                    finish()
+                                    startActivity(intent)
+                                }
+                            val mGPSDialog: Dialog = builder.create()
+                            mGPSDialog.window!!.setBackgroundDrawable(
+                                ContextCompat.getDrawable(
+                                    this@MainActivity,
+                                    R.drawable.myrect2
+                                )
+                            )
+                            mGPSDialog.show()
+                        }
+
+                    }
+                })
             }
-        })
-//        remote()
+
+
+        }
+        //questionCalculate()
+
     }
 
     private fun permissionCheck(){
@@ -294,6 +349,7 @@ class MainActivity : AppCompatActivity() ,LocationListener {
 
                     GlobalVariable.vip = false
                 }
+
                 if (dataSnapshot.child("connection").hasChild("yep")) {
 
                     GlobalVariable.likeYou = dataSnapshot.child("connection").child("yep").childrenCount.toInt()

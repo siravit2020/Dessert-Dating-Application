@@ -26,6 +26,7 @@ import com.maiguy.dessert.R
 import com.maiguy.dessert.constants.VipDialogType
 import com.maiguy.dessert.dialogs.adapter.VipSlideAdapter
 import com.maiguy.dessert.model.PagerModel
+import com.maiguy.dessert.services.BillingService
 import com.maiguy.dessert.utils.GlobalVariable
 import me.relex.circleindicator.CircleIndicator
 
@@ -108,12 +109,13 @@ class VipDialog(private val activity: Activity, private var type: VipDialogType)
         }
         b1.setOnClickListener {
 
-            usersDb.child(currentUid).child("Vip").setValue(1)
+//            usersDb.child(currentUid).child("Vip").setValue(1)
             dialog.dismiss()
-            activity.finish()
-            activity.overridePendingTransition(0, 0)
-            activity.startActivity(activity.intent)
-            activity.overridePendingTransition(0, 0)
+//            activity.finish()
+//            activity.overridePendingTransition(0, 0)
+//            activity.startActivity(activity.intent)
+//            activity.overridePendingTransition(0, 0)
+            BillingService(activity).billing()
         }
         dialog = Dialog(activity)
         dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))

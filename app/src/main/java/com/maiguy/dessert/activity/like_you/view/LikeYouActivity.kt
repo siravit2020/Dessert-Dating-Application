@@ -23,6 +23,7 @@ import com.maiguy.dessert.R
 import com.maiguy.dessert.activity.LikeYou.DateModel
 import com.maiguy.dessert.activity.LikeYou.LikeYouModel
 import com.maiguy.dessert.activity.like_you.adapter.LikeYouAdapter
+import com.maiguy.dessert.services.BillingService
 import com.maiguy.dessert.utils.CalculateDistance
 import com.maiguy.dessert.utils.City
 import com.maiguy.dessert.utils.CloseLoading
@@ -76,7 +77,9 @@ class LikeYouActivity : AppCompatActivity() {
 
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        button.setOnClickListener { openDialog() }
+        button.setOnClickListener {
+            openDialog()
+        }
         blurView = findViewById(R.id.blurView)
         currentUserId = FirebaseAuth.getInstance().currentUser!!.uid
         userDb = FirebaseDatabase.getInstance().reference.child("Users")
@@ -234,11 +237,8 @@ class LikeYouActivity : AppCompatActivity() {
         textView.setText(R.string.who_like_you)
         textView2.setText(R.string.see_who_has_like)
         b1.setOnClickListener {
-            GlobalVariable.buyLike = true
-            blurView.visibility = View.GONE
-            button.visibility = View.GONE
+            BillingService(this).billing()
             dialog.dismiss()
-            buyLike()
 
         }
         dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -309,16 +309,6 @@ class LikeYouActivity : AppCompatActivity() {
     }
 
 
-    private fun buyLike() {
-        val currentUserId = FirebaseAuth.getInstance().currentUser!!.uid
-        val databaseReference = FirebaseDatabase.getInstance().reference.child("Users").child(currentUserId)
-        databaseReference.child("buy_like").setValue(true).addOnSuccessListener {
-            activity.finish()
-            activity.overridePendingTransition(0, 0)
-            activity.startActivity(activity.intent)
-            activity.overridePendingTransition(0, 0)
-        }
-    }
 
 
 
