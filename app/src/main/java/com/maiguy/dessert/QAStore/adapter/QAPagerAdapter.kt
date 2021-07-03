@@ -1,4 +1,4 @@
-package com.maiguy.dessert.QAStore
+package com.maiguy.dessert.QAStore.adapter
 
 import android.app.Activity
 import android.app.Dialog
@@ -11,13 +11,14 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import com.maiguy.dessert.QAStore.data.QAObject
 import com.maiguy.dessert.utils.GlobalVariable
 import com.maiguy.dessert.utils.StatusQuestions
 import com.maiguy.dessert.R
 import org.json.JSONArray
 import org.json.JSONObject
 
-class QAPagerAdapter(val context: Context, private val choice: ArrayList<QAObject>, val dialog: Dialog, val viewpager: ViewPager2 ,val type:String) : RecyclerView.Adapter<QAPagerAdapter.Holder?>() {
+class QAPagerAdapter(val context: Context, private val choice: ArrayList<QAObject>, val dialog: Dialog, val viewpager: ViewPager2, val type:String) : RecyclerView.Adapter<QAPagerAdapter.Holder?>() {
     private val hashMapQA: HashMap<String, Any> = HashMap()
     private val json:JSONArray = JSONArray()
     private val uid = FirebaseAuth.getInstance().currentUser!!.uid

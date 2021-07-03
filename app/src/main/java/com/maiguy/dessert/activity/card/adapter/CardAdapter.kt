@@ -3,6 +3,7 @@ package com.maiguy.dessert.activity.card.adapter
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,7 +48,6 @@ class CardAdapter(private var items: ArrayList<CardModel>, private val context: 
         private val onOff: ImageView?
         private val currentUid: String?
         private val linearLayout: LinearLayout?
-
         init {
             currentUid = FirebaseAuth.getInstance().currentUser!!.uid
             name = itemView.findViewById(R.id.cname)
@@ -61,7 +61,6 @@ class CardAdapter(private var items: ArrayList<CardModel>, private val context: 
 
         @SuppressLint("SetTextI18n")
         fun set(position: Int) {
-
 
             if (items[position].star) {
                 linearLayout!!.visibility = View.VISIBLE
@@ -94,6 +93,7 @@ class CardAdapter(private var items: ArrayList<CardModel>, private val context: 
                 val intent = Intent(context, ProfileInformationOppositeUserActivity::class.java)
                 intent.putExtra("User_opposite", items[position].userId)
                 intent.putExtra("form_main", "1")
+                intent.putExtra("percent",items[position].percent)
                 activity.startActivityForResult(intent, 115)
             })
         }

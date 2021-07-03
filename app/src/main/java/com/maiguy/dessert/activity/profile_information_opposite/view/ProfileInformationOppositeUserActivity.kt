@@ -18,6 +18,8 @@ import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.akexorcist.localizationactivity.core.LocalizationActivityDelegate
 
@@ -37,7 +39,9 @@ import com.google.firebase.database.*
 import com.maiguy.dessert.*
 import com.maiguy.dessert.activity.chat.view.ChatActivity
 import com.maiguy.dessert.R
+import com.maiguy.dessert.ViewModel.QuestionViewModel
 import com.maiguy.dessert.constants.VipDialogType
+import com.maiguy.dessert.dialogs.DialogAskQuestion
 import com.maiguy.dessert.dialogs.ReportUser
 import com.maiguy.dessert.dialogs.VipDialog
 import com.maiguy.dessert.utils.adapter.ScreenAdapter
@@ -104,16 +108,29 @@ class ProfileInformationOppositeUserActivity : AppCompatActivity() {
     private lateinit var adapter: ScreenAdapter
     private lateinit var mDatabaseChat: DatabaseReference
     private lateinit var usersDb: DatabaseReference
+    private lateinit var containerPercent: LinearLayout
+    private lateinit var percentText : TextView
+    private lateinit var detailEqualQA: ImageView
     private var drawableGender = 0
     private var delete = false
     private var rewardedAd: RewardedAd? = null
+    private lateinit var questionViewModel: QuestionViewModel
+    private lateinit var localizationDelegate: LocalizationActivityDelegate
 
     @SuppressLint("SimpleDateFormat", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_profile_user_opposite2)
+        localizationDelegate = LocalizationActivityDelegate(activity = this@ProfileInformationOppositeUserActivity)
+        questionViewModel = ViewModelProvider(this,object : ViewModelProvider.Factory{
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return QuestionViewModel(this@ProfileInformationOppositeUserActivity) as T
+            }
+        }).get(QuestionViewModel::class.java)
+        questionViewModel.fetchEqualsQA.observe(this@ProfileInformationOppositeUserActivity,{
+            DialogAskQuestion(this@ProfileInformationOppositeUserActivity).equalsDialog(it).show()
+        })
         mAuth = FirebaseAuth.getInstance()
         matchId = intent.extras!!.getString("User_opposite")!!
         currentUserId = mAuth.uid.toString()
@@ -124,7 +141,10 @@ class ProfileInformationOppositeUserActivity : AppCompatActivity() {
         mDatabaseChat = FirebaseDatabase.getInstance().reference.child("Chat")
         flexboxLayout = findViewById(R.id.Grid_profile)
         flexboxLayout.flexDirection = FlexDirection.ROW
+        containerPercent = findViewById(R.id.profile_percent_container)
+        percentText = findViewById(R.id.checkEqualQA)
         params = GridLayout.LayoutParams()
+        detailEqualQA = findViewById(R.id.button_equals)
         name = findViewById(R.id.name_profile)
         age = findViewById(R.id.age_profile)
         gender = findViewById(R.id.gender_profile)
@@ -163,8 +183,15 @@ class ProfileInformationOppositeUserActivity : AppCompatActivity() {
 
         fab.visibility = View.GONE
         madoo = findViewById(R.id.linearLayout17)
+        detailEqualQA.setOnClickListener {
+            Log.d("DATA_FORM_ON_CALL","On clicks")
+            questionViewModel.responseEqualsQA(localizationDelegate.getLanguage(this@ProfileInformationOppositeUserActivity).toLanguageTag(),matchId)
+        }
         if (intent.hasExtra("form_main")) {
+            val percent = intent.extras!!.getInt("percent")
             madoo.visibility = View.VISIBLE
+            containerPercent.visibility = View.VISIBLE
+            percentText.text = "ความเข้ากัน ${percent}%"
         }
         if (intent.hasExtra("form_like")) {
             madoo.visibility = View.VISIBLE

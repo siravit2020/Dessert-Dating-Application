@@ -590,13 +590,14 @@ class CardActivity : Fragment(), View.OnClickListener {
                     if (user["Vip"] == 1) {
                         vip = true
                     }
-
                     if (user["star_s"] != null) {
                         if ((user["star_s"] as Map<*, *>)[currentUid] != null)
                             starS = true
                     }
                     dis = df2.format(user["distance_other"])
-                    rowItem.add(CardModel(user["key"].toString(), user["name"].toString(), profileImageUrl, user["Age"].toString(), dis, citysend, status, myself, offStatus, vip, starS))
+                    rowItem.add(CardModel(user["key"].toString(), user["name"].toString(), profileImageUrl, user["Age"].toString(), dis, citysend, status, myself, offStatus, vip, starS ,
+                        user["percent"] as Int
+                    ))
 
                 }
             }

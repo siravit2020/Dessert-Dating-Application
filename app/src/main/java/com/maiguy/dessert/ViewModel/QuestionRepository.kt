@@ -10,8 +10,9 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
+import com.maiguy.dessert.QAStore.data.EqualsQAObject
 import com.maiguy.dessert.dialogs.LoadingDialog
-import com.maiguy.dessert.QAStore.QAObject
+import com.maiguy.dessert.QAStore.data.QAObject
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -24,6 +25,9 @@ class QuestionRepository(context: Context) {
     private var result: MutableLiveData<ArrayList<QAObject>> = MutableLiveData()
     private var resultRegisterQA: MutableLiveData<ArrayList<QAObject>> = MutableLiveData()
     private var resultFeedbackQA: MutableLiveData<ArrayList<QAObject>> = MutableLiveData()
+    private var resultEqualsQA:MutableLiveData<ArrayList<EqualsQAObject>> = MutableLiveData()
+    val responseEqualsQA : LiveData<ArrayList<EqualsQAObject>>
+        get() = resultEqualsQA
     val responseQuestion: LiveData<ArrayList<QAObject>>
         get() = result
     val responseRegisterQA: LiveData<ArrayList<QAObject>>
@@ -120,5 +124,38 @@ class QuestionRepository(context: Context) {
                                 loadingDialog.dismiss()
                             }
                 }
+    }
+
+
+    fun fetchEqualsQuestion(languageTag: String,uid:String) {
+        val arrayList:ArrayList<EqualsQAObject> = ArrayList()
+        loadingDialog.show()
+        val data = hashMapOf(
+            "oppositeUid" to uid,
+            "locale" to languageTag
+        )
+        functions.getHttpsCallable("getListQuestionEqual")
+            .call(data)
+            .addOnCompleteListener {
+                if(it.isSuccessful){
+                    val data:Map<*,*> = it.result.data as Map<*, *>
+                    val list :ArrayList<*> = data["result"] as ArrayList<*>
+                    for(i in 0 until list.size){
+                        val map:Map<*,*> = list[i] as Map<*, *>
+                        val obj = EqualsQAObject(map["question"].toString() ,map["status"] as Boolean )
+                        arrayList.add(obj)
+                    }
+                    Observable.just(arrayList)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe{
+                            resultEqualsQA.postValue(it)
+                            loadingDialog.dismiss()
+                        }
+                }else{
+                    Log.d("DATA_FORM_ON_CALL","error")
+                }
+                loadingDialog.dismiss()
+            }
     }
 }

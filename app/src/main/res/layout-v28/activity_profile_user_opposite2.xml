@@ -64,15 +64,12 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
-
             <LinearLayout
                 android:id="@+id/linearLayout30"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:orientation="vertical"
-
                 app:layout_constraintTop_toBottomOf="@+id/slide_main"
                 tools:layout_editor_absoluteX="35dp">
 
@@ -99,12 +96,9 @@
                         android:id="@+id/age_profile"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
                         android:textColor="@color/c2"
                         android:textSize="@dimen/Text20sp" />
-
                 </LinearLayout>
-
 
             </LinearLayout>
 
@@ -145,6 +139,7 @@
                         android:textSize="@dimen/Text16sp" />
 
                 </LinearLayout>
+
 
 
             </LinearLayout>
@@ -413,6 +408,54 @@
 
 
             </LinearLayout>
+            <LinearLayout
+                android:id="@+id/profile_percent_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/background_white"
+                android:visibility="gone"
+                >
+                <LinearLayout
+                    android:layout_marginStart="@dimen/View8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    >
+                    <ImageView
+                        android:layout_marginStart="@dimen/View8dp"
+                        android:layout_width="@dimen/View18dp"
+                        android:layout_height="@dimen/View18dp"
+                        android:layout_marginEnd="@dimen/View4dp"
+                        android:src="@drawable/ic_heart" />
+                    <TextView
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:id="@+id/checkEqualQA"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/Text16sp"
+                        android:text="ความเข้ากัน 0%"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginEnd="@dimen/View16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    >
+                    <ImageView
+                        android:id="@+id/button_equals"
+                        android:layout_width="@dimen/View24dp"
+                        android:layout_height="@dimen/View24dp"
+                        android:backgroundTint="@color/gray_btn_bg_color"
+                        android:src="@drawable/ic_baseline_search_24"
+                        />
+                </LinearLayout>
+
+            </LinearLayout>
+
 
 
             <LinearLayout
@@ -420,7 +463,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/background_white"
                 android:orientation="vertical"
-                android:paddingBottom="@dimen/View32dp" />
+                android:paddingBottom="@dimen/View8dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -449,7 +492,9 @@
                 android:orientation="vertical"
                 android:paddingBottom="100dp" />
         </LinearLayout>
+
         </LinearLayout>
+
     </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

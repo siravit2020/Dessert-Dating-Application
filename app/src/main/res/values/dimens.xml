@@ -8,6 +8,7 @@
     <dimen name="View8dp">8dp</dimen>
     <dimen name="View12dp">12dp</dimen>
     <dimen name="View16dp">16dp</dimen>
+    <dimen name="View18dp">18dp</dimen>
     <dimen name="View20dp">20dp</dimen>
     <dimen name="View24dp">24dp</dimen>
     <dimen name="View32dp">32dp</dimen>

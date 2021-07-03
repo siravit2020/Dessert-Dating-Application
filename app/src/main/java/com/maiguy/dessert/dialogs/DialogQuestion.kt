@@ -8,7 +8,7 @@ import com.google.firebase.functions.HttpsCallableResult
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
 import com.maiguy.dessert.QAStore.DialogFragment
-import com.maiguy.dessert.QAStore.QAObject
+import com.maiguy.dessert.QAStore.data.QAObject
 
 class DialogQuestion(private val fragment: FragmentManager,context: Context) {
     private val loadingDialog = LoadingDialog(context).dialog()

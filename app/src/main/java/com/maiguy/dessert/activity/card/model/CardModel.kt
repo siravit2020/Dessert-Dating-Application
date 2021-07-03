@@ -11,4 +11,5 @@ class CardModel(val userId: String?,
                 val myself: String?,
                 val off_status: Boolean,
                 val vip: Boolean,
-                val star: Boolean)
+                val star: Boolean,
+                val percent:Int)

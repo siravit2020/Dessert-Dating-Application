@@ -1,4 +1,4 @@
-package com.maiguy.dessert.QAStore
+package com.maiguy.dessert.QAStore.adapter
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import com.maiguy.dessert.QAStore.data.QAObject
 import com.maiguy.dessert.utils.StatusQuestions
 import com.maiguy.dessert.R
 import org.json.JSONArray

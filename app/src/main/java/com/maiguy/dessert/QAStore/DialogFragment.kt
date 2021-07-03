@@ -13,6 +13,8 @@ import android.view.ViewGroup
 import android.view.Window
 import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.viewpager2.widget.ViewPager2
+import com.maiguy.dessert.QAStore.data.QAObject
+import com.maiguy.dessert.QAStore.adapter.QAPagerAdapter
 import com.maiguy.dessert.R
 
 
@@ -48,7 +50,7 @@ class DialogFragment : AppCompatDialogFragment() {
         return builder
     }
 
-    fun setData(choice: ArrayList<QAObject>,type: String) {
+    fun setData(choice: ArrayList<QAObject>, type: String) {
         this.choice = choice
         this.type = type
     }

@@ -32,7 +32,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.maiguy.dessert.QAStore.DialogFragment
-import com.maiguy.dessert.QAStore.QAObject
+import com.maiguy.dessert.QAStore.data.QAObject
 import com.maiguy.dessert.activity.filter_setting.view.FilterSettingActivity
 import com.maiguy.dessert.utils.DialogSlide
 import com.maiguy.dessert.utils.GlobalVariable

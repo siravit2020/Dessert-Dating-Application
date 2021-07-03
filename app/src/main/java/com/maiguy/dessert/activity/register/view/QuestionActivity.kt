@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.akexorcist.localizationactivity.core.LocalizationActivityDelegate
 import com.maiguy.dessert.utils.ChangLanguage
-import com.maiguy.dessert.QAStore.QAActivityAdapter
+import com.maiguy.dessert.QAStore.adapter.QAActivityAdapter
 import com.maiguy.dessert.R
 import com.maiguy.dessert.ViewModel.QuestionViewModel
 
