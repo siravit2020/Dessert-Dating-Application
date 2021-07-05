@@ -392,6 +392,7 @@ class MatchesActivity : Fragment() {
                         obj = MatchesObject(userId, name, profileImageUrl, status, last_chat, time, countRead)
                         val myUnread = mContext?.getSharedPreferences("NotificationMessage", Context.MODE_PRIVATE)
                         val editorRead = myUnread?.edit()
+                        Log.d("COUNT_READ",countRead.toString())
                         editorRead?.putInt(key, countRead)
                         editorRead?.apply()
                         countRead = 0
@@ -408,8 +409,8 @@ class MatchesActivity : Fragment() {
                     resultMatchNode.find {
                         it.userId == obj.userId
                     }.let {
-                        Log.d("MatchingUser",it.toString())
-                        if(createByBoolean) addBadgeOnTabBar()
+                        Log.d("MATCHING_USER",obj.toString())
+                        if(createByBoolean && count_unread != -1 && count_unread != 0) addBadgeOnTabBar()
                         if(it != null){
                             it.status = obj.status
                             it.late = obj.late
@@ -441,6 +442,7 @@ class MatchesActivity : Fragment() {
     private fun getDataSetHi(): ArrayList<HiObject> { return resultHi }
 
     private fun addBadgeOnTabBar() {
+        Log.d("MATCHING_USER","ADD_MESSAGE")
         val shareUnread = mContext!!.getSharedPreferences("TotalMessage", Context.MODE_PRIVATE)
         var unread  = shareUnread.getInt("total", 0)
         (mContext as MainActivity).setCurrentIndex(++unread)

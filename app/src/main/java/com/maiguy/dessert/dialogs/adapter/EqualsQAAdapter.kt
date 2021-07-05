@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.maiguy.dessert.QAStore.data.EqualsQAObject
 import com.maiguy.dessert.R
@@ -18,6 +19,10 @@ class EqualsQAAdapter(private val data:ArrayList<EqualsQAObject>,private val con
         private val iconQuestion:ImageView = itemView.findViewById(R.id.icon_equals_item)
         fun set(position:Int){
             textQuestion.text = data[position].question
+            if(!data[position].status){
+                iconQuestion.background = ContextCompat.getDrawable(context,R.drawable.ic_do_not_disturb_black_24dp)
+                textQuestion.setTextColor(ContextCompat.getColor(context,R.color.disable_grey))
+            }
         }
     }
 

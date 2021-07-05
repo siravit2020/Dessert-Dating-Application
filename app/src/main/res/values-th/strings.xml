@@ -165,7 +165,8 @@
     <string name="out_of_questions_description">คำถามหมดแล้ว</string>
     <string name="error_title">มีบางอย่างผิดพลาด !!</string>
     <string name="get_vip_description">ดูโฆษณาเพื่อรับ จำนวนกดถูกใจ เพิ่ม<br/>หรือสมัคร Dessert VIP เพื่อรับสิทธิพิเศษต่างๆ</string>
-
+    <string name="title_equals_question">คำถามที่ตอบตรงกัน</string>
+    <string name="equals_question_des">ความเข้ากัน</string>
 
 
 

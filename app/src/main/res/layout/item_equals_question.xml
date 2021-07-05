@@ -5,8 +5,8 @@
     <LinearLayout
         android:layout_marginStart="@dimen/View12dp"
         android:layout_marginEnd="@dimen/View12dp"
-        android:paddingTop="@dimen/View8dp"
-        android:paddingBottom="@dimen/View8dp"
+        android:paddingTop="@dimen/View4dp"
+        android:paddingBottom="@dimen/View4dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -16,7 +16,7 @@
             android:layout_marginStart="@dimen/View8dp"
             android:layout_marginEnd="@dimen/View8dp"
             android:id="@+id/icon_equals_item"
-            android:src="@drawable/ic_heart"
+            android:background="@drawable/ic_heart"
             android:layout_width="@dimen/View18dp"
             android:layout_gravity="top"
             android:layout_height="@dimen/View18dp"/>

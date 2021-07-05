@@ -191,7 +191,7 @@ class ProfileInformationOppositeUserActivity : AppCompatActivity() {
             val percent = intent.extras!!.getInt("percent")
             madoo.visibility = View.VISIBLE
             containerPercent.visibility = View.VISIBLE
-            percentText.text = "ความเข้ากัน ${percent}%"
+            percentText.text = "" + getString(R.string.equals_question_des) +" ${percent}%"
         }
         if (intent.hasExtra("form_like")) {
             madoo.visibility = View.VISIBLE

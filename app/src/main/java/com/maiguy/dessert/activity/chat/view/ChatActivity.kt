@@ -395,10 +395,12 @@ class ChatActivity : AppCompatActivity() {
     }
     var countUnread = 0
     private fun chatCheckRead() {
+        Log.d("UNREAD_HANDLER","WORK_UNDREAD")
         val db = mDatabaseChat.orderByChild("read").equalTo("Unread")
         db.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (loop in dataSnapshot.children) {
+                    Log.d("UNREAD_HANDLER",countUnread.toString())
                     ++countUnread
                     (dataSnapshot.child(loop.key.toString()).child("createByUser").value.toString() == matchId).let{
                         mDatabaseChat.child(loop.key.toString()).child("read").setValue("Read")
@@ -503,6 +505,7 @@ class ChatActivity : AppCompatActivity() {
             audio = myInNode.getString("audio", "null")!!
             audioLength = myInNode.getString("audio_length", "null")!!
             var currentUserBoolean = false
+            Log.d("UNREAD_HANDLER","c: ${c} , size : ${fetchId.size}")
             if (createdByUser == currentUserId) {
                 currentUserBoolean = true
             } else if (c == fetchId.size) {
@@ -592,9 +595,8 @@ class ChatActivity : AppCompatActivity() {
                                 if (createdByUser == currentUserId) {
                                     currentUserBoolean = true
                                 } else {
-                                    if (active) {
+                                    if(active){
                                         if (dataSnapshot.child("read").value.toString() == "Unread") {
-                                            Toast.makeText(this@ChatActivity, dataSnapshot.child("read").value.toString(), Toast.LENGTH_LONG).show()
                                             chatCheckRead()
                                         }
                                     }
@@ -671,7 +673,7 @@ class ChatActivity : AppCompatActivity() {
                             } else {
                                 if (active) {
                                     if (dataSnapshot.child("read").value.toString() == "Unread") {
-
+                                        chatCheckRead()
                                     }
                                 }
                             }

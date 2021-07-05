@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import com.maiguy.dessert.R
 import android.view.LayoutInflater
+import android.widget.Button
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,12 +27,16 @@ class DialogAskQuestion(private var context: Context) {
         mRecycler.adapter = recyclerViewAdapter
         recyclerViewAdapter.notifyDataSetChanged()
         /** dialog config */
+        val closeButton:Button = view.findViewById(R.id.close_equals_question)
         val dialog = Dialog(context)
         dialog.setContentView(view)
         dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        val height = (context.resources.displayMetrics.heightPixels * 0.50).toInt()
+        val height = (context.resources.displayMetrics.heightPixels * 0.60).toInt()
         val width = (context.resources.displayMetrics.widthPixels * 0.85).toInt()
         dialog.window!!.setLayout(width, height)
+        closeButton.setOnClickListener {
+            dialog.dismiss()
+        }
         return  dialog
     }
 }

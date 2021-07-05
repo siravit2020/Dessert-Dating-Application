@@ -234,6 +234,8 @@
     <string name="send_star">send you star</string>
     <string name="ads_rewards">Watch ads to earn rewards.</string>
     <string name="buy">Buy</string>
+    <string name="title_equals_question">Matching question.</string>
+    <string name="equals_question_des">Compatibility</string>
 
     <string-array name="shopping_item">
         <item>จัดดอกไม้-ทำสวน</item>

@@ -14,8 +14,7 @@
             android:layout_marginTop="@dimen/View12dp"
             android:layout_marginBottom="@dimen/View12dp"
             android:layout_gravity="center_horizontal"
-            android:text="คำถามที่ตอบตรงกัน"
-            android:textColor="@color/black"
+            android:text="@string/title_equals_question"
             android:layout_centerHorizontal="true"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -27,24 +26,23 @@
             android:layout_height="1dp"
             android:background="@color/gray_btn_bg_color"
             />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:paddingBottom="56dp"
+            android:layout_below="@+id/text_test"
+            android:id="@+id/recycler_equals_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+        </androidx.recyclerview.widget.RecyclerView>
         <Button
-            android:visibility="gone"
             android:id="@+id/close_equals_question"
-            android:layout_marginBottom="@dimen/View24dp"
-            android:layout_marginTop="@dimen/View16dp"
+            android:layout_alignParentBottom="true"
             android:text="@string/close"
             android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-        <androidx.recyclerview.widget.RecyclerView
-            android:paddingBottom="@dimen/View8dp"
-            android:layout_below="@+id/text_test"
-            android:layout_above="@+id/close_equals_question"
-            android:id="@+id/recycler_equals_question"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
-        </androidx.recyclerview.widget.RecyclerView>
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>
