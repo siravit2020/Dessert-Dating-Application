@@ -72,7 +72,7 @@ class ListCardActivity : Fragment() {
         anime1 = view.findViewById(R.id.anime1)
         anime2 = view.findViewById(R.id.anime2)
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) { // launch a new coroutine in background and continue
-            percentage()
+            getStartAt()
             detectUserCloseAccount()
         }
 
@@ -250,6 +250,7 @@ class ListCardActivity : Fragment() {
                 var max = start + 20
                 var typeTime = ""
                 var time = ""
+                var percent = 0
                 Log.d("max", (start + 20).toString() + " " + result2.size)
                 if (result2.size < start + 20) {
                     max = result2.size
@@ -273,6 +274,9 @@ class ListCardActivity : Fragment() {
                     if (user["off_status"] != null) {
                         offStatus = true
                     }
+                    if(user["percent"] != null){
+                        percent = user["percent"] as Int
+                    }
                     (user["ProfileImage"] as Map<*, *>)["profileImageUrl0"]
                     val profileImageUrl = (user["ProfileImage"] as Map<*, *>)["profileImageUrl0"].toString()
 
@@ -283,7 +287,7 @@ class ListCardActivity : Fragment() {
                     val df2 = DecimalFormat("#.#")
                     val dis = df2.format(user["distance_other"])
 
-                    val obj = ListCardModel(user["key"].toString(), user["name"].toString(), profileImageUrl, dis, status, user["Age"].toString(), user["sex"].toString(), myself, offStatus, typeTime, time)
+                    val obj = ListCardModel(user["key"].toString(), user["name"].toString(), profileImageUrl, dis, status, user["Age"].toString(), user["sex"].toString(), myself, offStatus, typeTime, time,percent)
                     resultMatches.add(obj)
 
                 }

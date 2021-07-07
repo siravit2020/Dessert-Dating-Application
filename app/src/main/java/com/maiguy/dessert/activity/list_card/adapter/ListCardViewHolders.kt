@@ -43,6 +43,7 @@ class ListCardViewHolders(itemView: View, private val context: Context) : Recycl
     private var seeDB: DatabaseReference? = null
     private val userID: String = FirebaseAuth.getInstance().uid!!
     private var i = 0
+    private var intent = Intent(context,ProfileInformationOppositeUserActivity::class.java)
     var progressBar: ProgressBar? = itemView.findViewById(R.id.progress_image)
     init {
         percen.visibility = View.GONE
@@ -56,17 +57,17 @@ class ListCardViewHolders(itemView: View, private val context: Context) : Recycl
             val newDate: MutableMap<String?, Any?> = HashMap()
             newDate["date"] =  ServerValue.TIMESTAMP
             seeDB!!.updateChildren(newDate)
-            val intent = Intent(context, ProfileInformationOppositeUserActivity::class.java)
             intent.putExtra("User_opposite", mMatchId.text.toString())
             intent.putExtra("form_list", mMatchId.text.toString())
             context.startActivity(intent)
         }
     }
     fun bind(listCardItem: ListCardModel?) {
-        var placeHolder = R.drawable.ic_man;
-        if(listCardItem!!.gender == "Female") placeHolder = R.drawable.ic_woman;
+        var placeHolder = R.drawable.ic_man
+        intent.putExtra("percent",listCardItem!!.percent as Int)
+        if(listCardItem.gender == "Female") placeHolder = R.drawable.ic_woman;
 
-        Glide.with(context).load(listCardItem!!.profileImageUrl).listener(object : RequestListener<Drawable?> {
+        Glide.with(context).load(listCardItem.profileImageUrl).listener(object : RequestListener<Drawable?> {
             override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable?>?, isFirstResource: Boolean): Boolean {
                 Log.d("failLoadPhoto" , "fails");
                 progressBar!!.visibility = View.GONE

@@ -36,12 +36,15 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.google.firebase.functions.ktx.functions
+import com.google.firebase.ktx.Firebase
 import com.maiguy.dessert.*
 import com.maiguy.dessert.activity.chat.view.ChatActivity
 import com.maiguy.dessert.R
 import com.maiguy.dessert.ViewModel.QuestionViewModel
 import com.maiguy.dessert.constants.VipDialogType
 import com.maiguy.dessert.dialogs.DialogAskQuestion
+import com.maiguy.dessert.dialogs.LoadingDialog
 import com.maiguy.dessert.dialogs.ReportUser
 import com.maiguy.dessert.dialogs.VipDialog
 import com.maiguy.dessert.utils.adapter.ScreenAdapter
@@ -114,14 +117,17 @@ class ProfileInformationOppositeUserActivity : AppCompatActivity() {
     private var drawableGender = 0
     private var delete = false
     private var rewardedAd: RewardedAd? = null
+    private var percentTwo: Int = 0
     private lateinit var questionViewModel: QuestionViewModel
     private lateinit var localizationDelegate: LocalizationActivityDelegate
+    private lateinit var loadingDialog:Dialog
+    private val functions = Firebase.functions
 
     @SuppressLint("SimpleDateFormat", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_user_opposite2)
+        loadingDialog = LoadingDialog(this@ProfileInformationOppositeUserActivity).dialog()
         localizationDelegate = LocalizationActivityDelegate(activity = this@ProfileInformationOppositeUserActivity)
         questionViewModel = ViewModelProvider(this,object : ViewModelProvider.Factory{
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
@@ -196,7 +202,15 @@ class ProfileInformationOppositeUserActivity : AppCompatActivity() {
         if (intent.hasExtra("form_like")) {
             madoo.visibility = View.VISIBLE
         }
+        if(intent.hasExtra("form_chat")){
+            getPercentApi()
+            containerPercent.visibility = View.VISIBLE
+            percentText.text = "" + getString(R.string.equals_question_des) +" ${percentTwo}%"
+        }
         if (intent.hasExtra("form_list")) {
+            val percent = intent.extras!!.getInt("percent")
+            percentText.text = "" + getString(R.string.equals_question_des) +" ${percent}%"
+            containerPercent.visibility = View.VISIBLE
 
             fab.setOnClickListener {
                 if (click || GlobalVariable.vip) {
@@ -331,6 +345,28 @@ class ProfileInformationOppositeUserActivity : AppCompatActivity() {
             override fun onPageScrollStateChanged(state: Int) {}
         })
 
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun getPercentApi() {
+        val data = hashMapOf(
+            "oppositeUid" to matchId,
+        )
+        loadingDialog.show()
+        functions.getHttpsCallable("getPercentTwoUsers")
+            .call(data)
+            .addOnCompleteListener {
+                if(it.isSuccessful){
+                    val data:Map<*,*> = it.result.data as Map<*, *>
+                    Log.d("UNREAD_HANDLER",data.toString())
+                    percentTwo = data["result"] as Int
+                    percentText.text = "" + getString(R.string.equals_question_des) +" ${percentTwo}%"
+
+                }else{
+                    percentTwo = 0
+                }
+                loadingDialog.dismiss()
+            }
     }
 
     private fun createAndLoadRewardedAd() {

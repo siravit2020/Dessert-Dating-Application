@@ -262,6 +262,7 @@ class ChatActivity : AppCompatActivity() {
         profile.setOnClickListener {
             val intent = Intent(applicationContext, ProfileInformationOppositeUserActivity::class.java)
             intent.putExtra("madoo", "1")
+            intent.putExtra("form_chat", "1")
             intent.putExtra("User_opposite", matchId)
             startActivity(intent)
         }

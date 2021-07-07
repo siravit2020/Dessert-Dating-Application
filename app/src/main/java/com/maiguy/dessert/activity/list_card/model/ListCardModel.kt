@@ -11,4 +11,5 @@ data class ListCardModel(val userId: String?,
                     val off_status: Boolean,
                     val typeTime: String?,
                     val time: String?,
+                         val percent:Int?
                    )
