@@ -62,6 +62,7 @@ class ProfileActivity : Fragment() {
     private lateinit var edit: LinearLayout
     private lateinit var likeYou: LinearLayout
     private lateinit var seeProfileYou: LinearLayout
+    private lateinit var resultQa:LinearLayout
     private lateinit var mAuth: FirebaseAuth
     private lateinit var userId: String
     private lateinit var imageView: ImageView
@@ -115,6 +116,7 @@ class ProfileActivity : Fragment() {
         seeProfileYou = view.findViewById(R.id.see_porfile_you)
         vip = view.findViewById(R.id.vip)
         resultFeedback = view.findViewById(R.id.result_feedback)
+        resultQa = view.findViewById(R.id.result_qa)
 
         setimage = view.findViewById(R.id.goto_set_image)
 
@@ -178,6 +180,9 @@ class ProfileActivity : Fragment() {
         resultFeedback.setOnClickListener {
             FeedbackDialog(requireContext()) { getFeedbackQuestion() }.show()
         }
+        resultQa.setOnClickListener {
+
+        }
         val dialogFragment = DialogFragment()
         questionViewModel.fetchQAFeedback.observe(requireActivity(),{
             dialogFragment.setData(it,"Feedback")
@@ -195,6 +200,7 @@ class ProfileActivity : Fragment() {
         val b1 = view.findViewById<Button>(R.id.buy)
         val b2 = view.findViewById<Button>(R.id.admob)
         val text = view.findViewById<TextView>(R.id.test_de)
+        view.findViewById<TextView>(R.id.question_call).visibility = View.GONE
         if (!statusDialog) {
             b1.setOnClickListener {
 

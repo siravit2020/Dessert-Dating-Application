@@ -2,6 +2,7 @@ package com.maiguy.dessert.services
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,6 +10,9 @@ import androidx.lifecycle.ViewModel
 import com.android.billingclient.api.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import com.maiguy.dessert.activity.first.view.FirstActivity
+import com.maiguy.dessert.activity.main.view.MainActivity
+import com.maiguy.dessert.activity.show_gps_open.view.ShowGpsOpen
 import com.maiguy.dessert.utils.GlobalVariable
 import kotlinx.coroutines.*
 
@@ -27,9 +31,10 @@ class BillingService(private var activity: Activity) {
                             .child(FirebaseAuth.getInstance().currentUser!!.uid)
                             .child("Vip")
                             .setValue(1).addOnSuccessListener {
-                                activity.finish()
+                                val intent = Intent(activity, MainActivity::class.java)
+                                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                                 activity.overridePendingTransition(0, 0)
-                                activity.startActivity(activity.intent)
+                                activity.startActivity(intent)
                                 activity.overridePendingTransition(0, 0)
                             }
 

@@ -273,43 +273,39 @@ class ProfileInformationOppositeUserActivity : AppCompatActivity() {
             if (!intent.hasExtra("form_like")) {
                 setResult(1)
 
+            }
+            if (GlobalVariable.maxLike > 0 || GlobalVariable.vip) {
+                val dateTime = hashMapOf<String, Any>()
+                dateTime["date"] = ServerValue.TIMESTAMP
+                usersDb.child(matchId).child("connection").child("yep").child(currentUid).updateChildren(dateTime)
+                GlobalVariable.maxLike--
+                usersDb.child(currentUid).child("MaxLike").setValue(GlobalVariable.maxLike)
+                isConnectionMatches2()
             } else {
-                if (GlobalVariable.maxLike > 0 || GlobalVariable.vip) {
-                    val dateTime = hashMapOf<String, Any>()
-                    dateTime["date"] = ServerValue.TIMESTAMP
-                    usersDb.child(matchId).child("connection").child("yep").child(currentUid).updateChildren(dateTime)
-                    GlobalVariable.maxLike--
-                    usersDb.child(currentUid).child("MaxLike").setValue(GlobalVariable.maxLike)
-                    isConnectionMatches2()
-                } else {
-                    VipDialog(this, VipDialogType.Card).openDialog()
-                }
+                VipDialog(this, VipDialogType.Card).openDialog()
             }
         }
         dislike.setOnClickListener(View.OnClickListener {
             if (!intent.hasExtra("form_like")) {
                 setResult(2)
-            } else {
-                usersDb.child(matchId).child("connection").child("nope").child(currentUid).setValue(true)
-
             }
+            usersDb.child(matchId).child("connection").child("nope").child(currentUid).setValue(true)
             onBackPressed()
         })
         star.setOnClickListener(View.OnClickListener {
             if (!intent.hasExtra("form_like")) {
                 setResult(3)
+            }
+            if (GlobalVariable.maxStar > 0) {
+                val datetime = hashMapOf<String, Any>()
+                datetime["date"] = ServerValue.TIMESTAMP
+                datetime["super"] = true
+                usersDb.child(matchId).child("connection").child("yep").child(currentUid).updateChildren(datetime)
+                GlobalVariable.maxStar--
+                usersDb.child(currentUid).child("MaxStar").setValue(GlobalVariable.maxStar)
+                isConnectionMatches2()
             } else {
-                if (GlobalVariable.maxStar > 0) {
-                    val datetime = hashMapOf<String, Any>()
-                    datetime["date"] = ServerValue.TIMESTAMP
-                    datetime["super"] = true
-                    usersDb.child(matchId).child("connection").child("yep").child(currentUid).updateChildren(datetime)
-                    GlobalVariable.maxStar--
-                    usersDb.child(currentUid).child("MaxStar").setValue(GlobalVariable.maxStar)
-                    isConnectionMatches2()
-                } else {
-                    VipDialog(this, VipDialogType.Card).openDialog()
-                }
+                VipDialog(this, VipDialogType.Card).openDialog()
             }
 
         })

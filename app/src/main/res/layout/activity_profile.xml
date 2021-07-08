@@ -121,6 +121,7 @@
                             android:textSize="@dimen/Text16sp" />
 
                     </LinearLayout>
+
                     <TextView
                         android:visibility="gone"
                         android:id="@+id/result_feedback"
@@ -153,6 +154,35 @@
                         android:textColor="@color/white"
                         android:textSize="@dimen/Text16sp"
                         android:translationZ="4dp" />
+                    <LinearLayout
+                        android:id="@+id/result_qa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginHorizontal="@dimen/View32dp"
+                        >
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_marginBottom="@dimen/View12dp"
+                            android:textSize="@dimen/Text16sp"
+                            android:text="ตอบคำถาม เพิ่มความแม่นยำ "
+                            android:textColor="@color/text_gray"
+                            />
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_marginBottom="@dimen/View12dp"
+                            android:textSize="@dimen/Text16sp"
+                            android:text="คลิก"
+                            android:textColor="@color/c3"
+                            />
+                    </LinearLayout>
+
 
 
                     <TextView
