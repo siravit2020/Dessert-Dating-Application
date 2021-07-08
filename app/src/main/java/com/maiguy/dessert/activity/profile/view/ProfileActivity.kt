@@ -39,6 +39,7 @@ import com.maiguy.dessert.utils.GlobalVariable
 import com.maiguy.dessert.activity.like_you.view.LikeYouActivity
 import com.maiguy.dessert.R
 import com.maiguy.dessert.ViewModel.QuestionViewModel
+import com.maiguy.dessert.ViewModel.ViewModelFactory
 import com.maiguy.dessert.activity.send_problem.view.SendProblemActivity
 import com.maiguy.dessert.activity.edit_profile.view.EditProfileActivity
 import com.maiguy.dessert.activity.profile_information.view.ProfileInformationsActivity
@@ -87,11 +88,7 @@ class ProfileActivity : Fragment() {
         super.onCreate(savedInstanceState)
         RemoteConfig(requireActivity()).remote()
         localizationDelegate = LocalizationActivityDelegate(requireActivity())
-        questionViewModel = ViewModelProvider(this,object : ViewModelProvider.Factory{
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return QuestionViewModel(requireContext()) as T
-            }
-        }).get(QuestionViewModel::class.java)
+        questionViewModel = ViewModelProvider(this, ViewModelFactory(requireContext())).get(QuestionViewModel::class.java)
         dialog = Dialog(requireContext())
         val view2 = inflater.inflate(R.layout.progress_dialog, null)
         dialog2 = Dialog(requireContext())
@@ -178,7 +175,7 @@ class ProfileActivity : Fragment() {
             requireActivity().overridePendingTransition(0, 0)
         }
         resultFeedback.setOnClickListener {
-            FeedbackDialog(requireContext()) { getFeedbackQuestion() }.show()
+            FeedbackDialog(requireActivity()) { getFeedbackQuestion() }.show()
         }
         resultQa.setOnClickListener {
 

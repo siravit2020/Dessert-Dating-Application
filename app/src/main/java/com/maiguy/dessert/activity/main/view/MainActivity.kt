@@ -23,6 +23,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.akexorcist.localizationactivity.core.LocalizationActivityDelegate
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -33,12 +35,16 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 import com.ismaeldivita.chipnavigation.ChipNavigationBar
+import com.maiguy.dessert.QAStore.DialogFragment
 import com.maiguy.dessert.R
+import com.maiguy.dessert.ViewModel.QuestionViewModel
+import com.maiguy.dessert.ViewModel.ViewModelFactory
 import com.maiguy.dessert.activity.card.view.CardActivity
 import com.maiguy.dessert.activity.list_card.view.ListCardActivity
 import com.maiguy.dessert.activity.matches.view.MatchesActivity
 import com.maiguy.dessert.activity.profile.view.ProfileActivity
 import com.maiguy.dessert.activity.show_gps_open.view.ShowGpsOpen
+import com.maiguy.dessert.dialogs.FeedbackDialog
 import com.maiguy.dessert.dialogs.WarningDialog
 import com.maiguy.dessert.services.BillingService
 import com.maiguy.dessert.utils.ChangLanguage
@@ -60,6 +66,8 @@ class MainActivity : AppCompatActivity() ,LocationListener {
     private val language: ChangLanguage = ChangLanguage(this)
     private val j1 = CoroutineScope(Job())
     lateinit var load:LinearLayout
+    private lateinit var questionViewModel:QuestionViewModel
+    private lateinit var localizationDelegate: LocalizationActivityDelegate
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -67,6 +75,16 @@ class MainActivity : AppCompatActivity() ,LocationListener {
         permissionCheck()
         setContentView(R.layout.activity_main)
         load = findViewById(R.id.candyCane)
+        localizationDelegate = LocalizationActivityDelegate(this)
+        questionViewModel = ViewModelProvider(this, ViewModelFactory(this)).get(
+            QuestionViewModel::class.java)
+        val dialogFragment = DialogFragment()
+        questionViewModel.fetchQAFeedback.observe(this,{
+            dialogFragment.setData(it,"Feedback")
+            dialogFragment.show(supportFragmentManager,"Feedback dialog")
+        })
+
+
         j1.launch(Dispatchers.Unconfined) { // launch a new coroutine in background and continue
             getMyUser()
             getUnreadFunction()
@@ -215,6 +233,10 @@ class MainActivity : AppCompatActivity() ,LocationListener {
         }
         //questionCalculate()
 
+    }
+    private fun getFeedbackQuestion() {
+        Log.d("QUESTION_TAG","Work")
+        questionViewModel.responseFeedbackQA(localizationDelegate.getLanguage(this).toLanguageTag())
     }
 
     private fun permissionCheck(){
@@ -366,7 +388,9 @@ class MainActivity : AppCompatActivity() ,LocationListener {
                     GlobalVariable.seeYou = 0
                 }
                 GlobalVariable.countMatch = dataSnapshot.child("connection").child("matches").childrenCount.toInt()
-
+                if(GlobalVariable.feedback && GlobalVariable.countMatch >= 1){
+                    FeedbackDialog(this@MainActivity) { getFeedbackQuestion() }.show()
+                }
                 GlobalVariable.buyLike = dataSnapshot.hasChild("buy_like")
                 GlobalVariable.name = dataSnapshot.child("name").value.toString()
                 GlobalVariable.age = dataSnapshot.child("Age").value.toString().toInt()

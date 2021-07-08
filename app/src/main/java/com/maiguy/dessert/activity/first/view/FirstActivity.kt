@@ -20,6 +20,8 @@ import com.maiguy.dessert.constants.CheckStatusUser
 import com.maiguy.dessert.constants.Status
 import com.maiguy.dessert.services.RemoteConfig
 import kotlinx.android.synthetic.main.activity_first_.*
+import java.util.*
+import kotlin.concurrent.schedule
 
 class FirstActivity : AppCompatActivity() {
 
@@ -44,24 +46,34 @@ class FirstActivity : AppCompatActivity() {
 
             aniFade.setAnimationListener(null)
             aniFade2.setAnimationListener(null)
+
             if(it == CheckStatusUser.CHOOSE){
-                val intent = Intent(this@FirstActivity, SignInActivity::class.java)
-                startActivity(intent)
+                Timer("SettingUp", false).schedule(2000) {
+                    val intent = Intent(this@FirstActivity, SignInActivity::class.java)
+                    startActivity(intent)
+                }
+
             }
             if(it == CheckStatusUser.SWITCH){
-                val intent = Intent(this@FirstActivity, MainActivity::class.java)
-                startActivity(intent)
-                finish()
+                Timer("SettingUp", false).schedule(2000) {
+                    val intent = Intent(this@FirstActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+
             }
         })
         firstViewModel.getCheckUser().observe(this, Observer {
 
             if(!it){
-                aniFade.setAnimationListener(null)
-                aniFade2.setAnimationListener(null)
-                val intent = Intent(this@FirstActivity, SignInActivity::class.java)
-                startActivity(intent)
-                finish()
+                Timer("SettingUp", false).schedule(2000) {
+                    aniFade.setAnimationListener(null)
+                    aniFade2.setAnimationListener(null)
+                    val intent = Intent(this@FirstActivity, SignInActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+
             }
         })
 
@@ -118,6 +130,7 @@ class FirstActivity : AppCompatActivity() {
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 recreate()
             } else {
+
                 val intent = Intent(this@FirstActivity, ShowGpsOpen::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 intent.putExtra("2", "2")
