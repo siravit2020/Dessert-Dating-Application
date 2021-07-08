@@ -53,7 +53,7 @@ class QuestionRepository(context: Context) {
             override fun onCancelled(error: DatabaseError) {}
         })
     }
-    fun fetchQuestion(languageTag:String){
+    fun fetchQuestion(languageTag:String,count:Int){
         loadingDialog.show()
         val addData:ArrayList<QAObject> = ArrayList()
         val data = hashMapOf(
@@ -70,7 +70,7 @@ class QuestionRepository(context: Context) {
                     Log.d("TAG_QUESTION",questions.size.toString())
                     if(questions.size > 3) {
                         for ((i, entry) in questions.keys.withIndex()) {
-                            if (i + 1 < 3) {
+                            if (i + 1 < (count+1)) {
                                 val questionId = entry.toString()
                                 Log.d("testGetQuestionData", questionId)
                                 val questionSet = questions[questionId] as Map<*, *>

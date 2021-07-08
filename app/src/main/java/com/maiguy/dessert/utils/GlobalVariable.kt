@@ -26,5 +26,6 @@ class GlobalVariable : Application(){
         var priceVip = 79
         var priceLike = 29
         var countMatch = 0
+        var outOfQuestion = false
     }
 }

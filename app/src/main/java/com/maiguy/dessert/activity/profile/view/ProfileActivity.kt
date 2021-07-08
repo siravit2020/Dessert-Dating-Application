@@ -31,6 +31,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.maiandguy.dessert.utils.ErrorDialog
 import com.maiguy.dessert.QAStore.DialogFragment
 import com.maiguy.dessert.QAStore.data.QAObject
 import com.maiguy.dessert.activity.filter_setting.view.FilterSettingActivity
@@ -73,11 +74,12 @@ class ProfileActivity : Fragment() {
     private lateinit var dialog2: Dialog
     private lateinit var resultFeedback:TextView
     private lateinit var localizationDelegate: LocalizationActivityDelegate
-
+    private lateinit var accurateQuestionBtn:TextView
     private var statusDialog = false
     private lateinit var setimage: ImageView
     private var gotoProfile = true
     private lateinit var questionViewModel:QuestionViewModel
+    private lateinit var errorDialog: ErrorDialog
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -88,7 +90,11 @@ class ProfileActivity : Fragment() {
         super.onCreate(savedInstanceState)
         RemoteConfig(requireActivity()).remote()
         localizationDelegate = LocalizationActivityDelegate(requireActivity())
+
         questionViewModel = ViewModelProvider(this, ViewModelFactory(requireContext())).get(QuestionViewModel::class.java)
+        
+        accurateQuestionBtn = view.findViewById(R.id.accurate_question_btn)
+
         dialog = Dialog(requireContext())
         val view2 = inflater.inflate(R.layout.progress_dialog, null)
         dialog2 = Dialog(requireContext())
@@ -130,6 +136,18 @@ class ProfileActivity : Fragment() {
             }
             openDialog()
         }
+        questionViewModel.fetchQA.observe(requireActivity(), {
+            Log.d("GET_QUESTION", it.size.toString())
+            if (it.size > 0) {
+                val dialogFragment = DialogFragment()
+                dialogFragment.setData(it, "Question")
+                dialogFragment.show(requireActivity().supportFragmentManager, "Question dialog")
+            } else {
+                errorDialog = ErrorDialog(requireContext())
+                errorDialog.outOfQuestionDialog().show()
+            }
+
+        })
 
         likeYou.setOnClickListener {
             val intent = Intent(context, LikeYouActivity::class.java)
@@ -179,6 +197,9 @@ class ProfileActivity : Fragment() {
         }
         resultQa.setOnClickListener {
 
+        }
+        accurateQuestionBtn.setOnClickListener {
+            questionViewModel.response(localizationDelegate.getLanguage(requireContext()).toLanguageTag(),10)
         }
         val dialogFragment = DialogFragment()
         questionViewModel.fetchQAFeedback.observe(requireActivity(),{

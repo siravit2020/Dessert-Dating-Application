@@ -290,7 +290,7 @@ class CardActivity : Fragment(), View.OnClickListener {
             dialog.dismiss()
         }
         btnConfirm.setOnClickListener {
-            questionViewModel.response(localizationDelegate.getLanguage(requireContext()).toLanguageTag())
+            questionViewModel.response(localizationDelegate.getLanguage(requireContext()).toLanguageTag(),2)
             dialog.dismiss()
         }
         return dialog
