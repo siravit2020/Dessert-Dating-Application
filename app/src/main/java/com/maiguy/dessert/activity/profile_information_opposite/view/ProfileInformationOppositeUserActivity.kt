@@ -201,6 +201,9 @@ class ProfileInformationOppositeUserActivity : AppCompatActivity() {
         }
         if (intent.hasExtra("form_like")) {
             madoo.visibility = View.VISIBLE
+            getPercentApi()
+            containerPercent.visibility = View.VISIBLE
+            percentText.text = "" + getString(R.string.equals_question_des) +" ${percentTwo}%"
         }
         if(intent.hasExtra("form_chat")){
             getPercentApi()

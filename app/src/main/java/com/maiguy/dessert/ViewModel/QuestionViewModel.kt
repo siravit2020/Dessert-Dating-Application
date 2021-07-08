@@ -23,8 +23,8 @@ class QuestionViewModel(context: Context) : ViewModel() {
     fun responseEqualsQA(languageTag: String,uid:String){
         repository.fetchEqualsQuestion(languageTag,uid)
     }
-    fun response(languageTag: String) {
-        repository.fetchQuestion(languageTag)
+    fun response(languageTag: String,count:Int) {
+        repository.fetchQuestion(languageTag,count)
     }
     fun responseRegisterQA(languageTag: String){
         repository.fetchQuestionRegister(languageTag)

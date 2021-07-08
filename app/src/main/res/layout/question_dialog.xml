@@ -79,11 +79,13 @@
                         android:text="@string/qa_choice5"/>
                 </RadioGroup>
         <LinearLayout
+            android:minWidth="400dp"
+            android:orientation="horizontal"
             android:layout_marginTop="@dimen/View8dp"
             android:padding="@dimen/View4dp"
-            android:gravity="end"
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <Button
                 android:layout_weight="0.1"
@@ -97,21 +99,11 @@
                 android:text="@string/cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
+
             <Button
                 android:layout_weight="0.1"
                 android:layout_marginStart="@dimen/View8dp"
                 android:layout_marginEnd="@dimen/View8dp"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                android:id="@+id/QA_skip"
-                android:padding="@dimen/View8dp"
-                android:text="@string/skip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <Button
-                android:layout_marginStart="@dimen/View8dp"
-                android:layout_marginEnd="@dimen/View8dp"
-                android:layout_weight="0.1"
                 android:theme="@style/Theme.MaterialComponents.successGreen"
                 android:textStyle="bold"
                 android:textColor="@color/white"

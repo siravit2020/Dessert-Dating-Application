@@ -7,21 +7,25 @@ import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.maiguy.dessert.QAStore.data.QAObject
+import com.maiguy.dessert.R
 import com.maiguy.dessert.utils.GlobalVariable
 import com.maiguy.dessert.utils.StatusQuestions
-import com.maiguy.dessert.R
 import org.json.JSONArray
 import org.json.JSONObject
+
 
 class QAPagerAdapter(val context: Context, private val choice: ArrayList<QAObject>, val dialog: Dialog, val viewpager: ViewPager2, val type:String) : RecyclerView.Adapter<QAPagerAdapter.Holder?>() {
     private val hashMapQA: HashMap<String, Any> = HashMap()
     private val json:JSONArray = JSONArray()
     private val uid = FirebaseAuth.getInstance().currentUser!!.uid
+    private val phoneWidth:Int = (context.resources.displayMetrics.widthPixels * 0.90).toInt()
+    private val phoneWidthDp:Int = dpFromPx(phoneWidth)
     private val db = FirebaseDatabase.getInstance().reference.child("Users").child(uid)
     val userId = FirebaseAuth.getInstance().currentUser!!.uid
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -33,10 +37,10 @@ class QAPagerAdapter(val context: Context, private val choice: ArrayList<QAObjec
         val questions: TextView = itemView.findViewById(R.id.message_QA)
         val valPage: TextView = itemView.findViewById(R.id.page_QA)
         val confirmButton: Button = itemView.findViewById(R.id.QA_confirm)
-        val skipButton: Button = itemView.findViewById(R.id.QA_skip)
         val dismissButton: Button = itemView.findViewById(R.id.QA_dismiss)
         val textImportant: TextView = itemView.findViewById(R.id.howImpotant)
     }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val inflater = (context as Activity).layoutInflater
@@ -47,7 +51,6 @@ class QAPagerAdapter(val context: Context, private val choice: ArrayList<QAObjec
         if(type == "Feedback") {
             holder.textImportant.visibility = View.GONE
             holder.radioGroupChoiceWeight.visibility = View.GONE
-            holder.skipButton.visibility = View.GONE
             holder.choice3.text = choice[position].choice[2]
         }else{
             holder.choice3.visibility = View.GONE
@@ -58,7 +61,14 @@ class QAPagerAdapter(val context: Context, private val choice: ArrayList<QAObjec
         holder.choice2.text = choice[position].choice[1]
         when (position) {
             0 -> {
-                if(type == "Question") holder.dismissButton.visibility = View.GONE
+                if(type == "Question") {
+                    holder.dismissButton.visibility = View.GONE
+                    val params: LinearLayout.LayoutParams = LinearLayout.LayoutParams(
+                        widthButton(), LinearLayout.LayoutParams.WRAP_CONTENT,
+                        0.0f
+                    )
+                    holder.confirmButton.layoutParams = params
+                }
                 holder.confirmButton.text = context.getString(R.string.next)
                 holder.dismissButton.text = context.getString(R.string.cancel)
                 holder.dismissButton.setOnClickListener {
@@ -85,9 +95,6 @@ class QAPagerAdapter(val context: Context, private val choice: ArrayList<QAObjec
                 }
             }
         }
-        holder.skipButton.setOnClickListener {
-            questionSkip(position)
-        }
         holder.confirmButton.setOnClickListener {
             val chk1 = holder.radioGroupChoice.checkedRadioButtonId
             val chk2 = holder.radioGroupChoiceWeight.checkedRadioButtonId
@@ -99,17 +106,6 @@ class QAPagerAdapter(val context: Context, private val choice: ArrayList<QAObjec
 
         }
 
-    }
-    private fun questionSkip(position: Int) {
-        viewpager.setCurrentItem(++viewpager.currentItem, false)
-        val inputMap = mapOf("id" to choice[position].questionId, "question" to -1, "weight" to -1)
-        hashMapQA[choice[position].questionId] = inputMap
-        val obj = JSONObject(inputMap)
-        json.put(obj)
-        Toast.makeText(context, context.getString(R.string.warning_skip), Toast.LENGTH_SHORT).show()
-        if(itemCount-1 == position){
-            questionFinish()
-        }
     }
     private fun questionFbConfirm(chk1:Int,position: Int){
         var answerQA: Int = 0
@@ -176,6 +172,21 @@ class QAPagerAdapter(val context: Context, private val choice: ArrayList<QAObjec
         StatusQuestions().questionStats(json)
         FirebaseDatabase.getInstance().reference.child("Users").child(userId).child("Questions").updateChildren(hashMapQA)
         dialog.dismiss()
+    }
+
+    private fun widthButton():Int {
+        return if(phoneWidthDp > 400){
+            pxFromDp(200)
+        }else{
+            pxFromDp((phoneWidthDp/2))
+        }
+    }
+
+    private fun dpFromPx (px: Int): Int {
+        return (px / context.resources.displayMetrics.density).toInt()
+    }
+    private fun pxFromDp(dp: Int): Int {
+        return (dp * context.resources.displayMetrics.density).toInt()
     }
 
     override fun getItemCount(): Int {

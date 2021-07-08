@@ -74,7 +74,7 @@ class QuestionActivity : AppCompatActivity() {
             progressBar.visibility = View.GONE
         })
         questionViewModel.responseRegisterQA(localizationDelegate.getLanguage(this).toLanguageTag())
-        questionViewModel.response(localizationDelegate.getLanguage(this).toLanguageTag())
+//        questionViewModel.response(localizationDelegate.getLanguage(this).toLanguageTag())
 
     }
 
