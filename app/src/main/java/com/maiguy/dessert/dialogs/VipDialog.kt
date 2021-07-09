@@ -3,6 +3,7 @@ package com.maiguy.dessert.dialogs
 import android.app.Activity
 import android.app.Dialog
 import android.content.ContentValues
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.util.Log
@@ -23,6 +24,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.maiguy.dessert.R
+import com.maiguy.dessert.ViewModel.QuestionViewModel
 import com.maiguy.dessert.constants.VipDialogType
 import com.maiguy.dessert.dialogs.adapter.VipSlideAdapter
 import com.maiguy.dessert.model.PagerModel
@@ -36,7 +38,10 @@ class VipDialog(private val activity: Activity, private var type: VipDialogType)
     private var usersDb: DatabaseReference = FirebaseDatabase.getInstance().reference.child("Users")
     private var currentUid: String = mAuth.currentUser!!.uid
     private var rewardedAd: RewardedAd? = null
+    private var questionViewModel:QuestionViewModel? = null
+    private var lang:String = "th"
     init {
+
         dialog = Dialog(activity)
     }
 
@@ -146,6 +151,11 @@ class VipDialog(private val activity: Activity, private var type: VipDialogType)
         dialog.show()
     }
 
+    fun setViewModel(lang:String,questionViewModel: QuestionViewModel){
+        this.questionViewModel = questionViewModel
+        this.lang = lang
+    }
+
     fun createAndLoadRewardedAd(b2: Button) {
         val adRequest = AdRequest.Builder().build()
         RewardedAd.load(activity, GlobalVariable.idAds, adRequest, object : RewardedAdLoadCallback() {
@@ -174,7 +184,7 @@ class VipDialog(private val activity: Activity, private var type: VipDialogType)
             dialog.dismiss()
         }
         btnConfirm.setOnClickListener {
-            //questionViewModel.response(localizationDelegate.getLanguage(activity).toLanguageTag())
+            questionViewModel!!.response(lang,2)
             dialog.dismiss()
         }
         return dialog

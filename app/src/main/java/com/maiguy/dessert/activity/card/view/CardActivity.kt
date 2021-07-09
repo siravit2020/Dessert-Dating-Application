@@ -1,6 +1,5 @@
 package com.maiguy.dessert.activity.card.view
 
-import android.app.Activity
 import android.app.Dialog
 import android.content.ContentValues.TAG
 import android.content.Context
@@ -51,7 +50,6 @@ import com.maiguy.dessert.constants.VipDialogType
 import com.maiguy.dessert.dialogs.adapter.VipSlideAdapter
 import com.maiguy.dessert.model.PagerModel
 import com.maiguy.dessert.dialogs.VipDialog
-import com.maiguy.dessert.services.BillingService
 import com.maiguy.dessert.utils.CloseLoading
 import com.maiguy.dessert.utils.GlobalVariable
 import com.yuyakaido.android.cardstackview.*
@@ -189,7 +187,9 @@ class CardActivity : Fragment(), View.OnClickListener {
                     } else {
                         handler.postDelayed(Runnable { cardStackView.rewind() }, 200)
                         //openDialog()
-                        VipDialog(activity!!,VipDialogType.Card).openDialog()
+                        val dialog = VipDialog(activity!!,VipDialogType.Card)
+                        dialog.setViewModel(localizationDelegate.getLanguage(requireContext()).toLanguageTag(),questionViewModel)
+                        dialog.openDialog()
                     }
                 }
                 if (direction == Direction.Left) {
@@ -208,7 +208,9 @@ class CardActivity : Fragment(), View.OnClickListener {
                     } else {
                         handler.postDelayed(Runnable { cardStackView.rewind() }, 200)
                         //openDialog()
-                        VipDialog(activity!!,VipDialogType.Card).openDialog()
+                        val dialog = VipDialog(activity!!,VipDialogType.Card)
+                        dialog.setViewModel(localizationDelegate.getLanguage(requireContext()).toLanguageTag(),questionViewModel)
+                        dialog.openDialog()
                     }
                 }
             }
@@ -287,9 +289,11 @@ class CardActivity : Fragment(), View.OnClickListener {
         val width = (resources.displayMetrics.widthPixels * 0.90).toInt()
         dialog.window!!.setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT)
         btnDismiss.setOnClickListener {
+            Log.d("CONFIRM_DIALOG","Cancel");
             dialog.dismiss()
         }
         btnConfirm.setOnClickListener {
+            Log.d("CONFIRM_DIALOG","Click");
             questionViewModel.response(localizationDelegate.getLanguage(requireContext()).toLanguageTag(),2)
             dialog.dismiss()
         }
@@ -327,6 +331,7 @@ class CardActivity : Fragment(), View.OnClickListener {
 
         }
         bQA.setOnClickListener {
+            Log.d("CONFIRM_DIALOG","Open");
             questionAskDialog().show()
             dialog.dismiss()
         }

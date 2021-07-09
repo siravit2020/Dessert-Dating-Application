@@ -143,6 +143,8 @@ class ProfileActivity : Fragment() {
                 dialogFragment.setData(it, "Question")
                 dialogFragment.show(requireActivity().supportFragmentManager, "Question dialog")
             } else {
+                GlobalVariable.outOfQuestion = true
+                resultQa.visibility = View.GONE
                 errorDialog = ErrorDialog(requireContext())
                 errorDialog.outOfQuestionDialog().show()
             }
@@ -195,8 +197,9 @@ class ProfileActivity : Fragment() {
         resultFeedback.setOnClickListener {
             FeedbackDialog(requireContext()) { getFeedbackQuestion() }.show()
         }
-        resultQa.setOnClickListener {
-
+        if(GlobalVariable.outOfQuestion){
+            Log.d("COUNT_QUESTION",GlobalVariable.outOfQuestion.toString())
+            resultQa.visibility = View.GONE
         }
         accurateQuestionBtn.setOnClickListener {
             questionViewModel.response(localizationDelegate.getLanguage(requireContext()).toLanguageTag(),10)

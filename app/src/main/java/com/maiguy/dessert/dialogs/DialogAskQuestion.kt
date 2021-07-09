@@ -8,13 +8,17 @@ import com.maiguy.dessert.R
 import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.LinearLayout
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.maiguy.dessert.QAStore.data.EqualsQAObject
+import com.maiguy.dessert.ViewModel.QuestionViewModel
 import com.maiguy.dessert.dialogs.adapter.EqualsQAAdapter
 
 
 class DialogAskQuestion(private var context: Context) {
+
     fun equalsDialog(data:ArrayList<EqualsQAObject>) : Dialog {
         /** set View content */
         val view = LayoutInflater.from(context).inflate(R.layout.dialog_equals_questions,null)
@@ -39,4 +43,5 @@ class DialogAskQuestion(private var context: Context) {
         }
         return  dialog
     }
+
 }
