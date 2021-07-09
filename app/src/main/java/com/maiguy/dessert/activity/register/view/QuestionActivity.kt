@@ -61,7 +61,7 @@ class QuestionActivity : AppCompatActivity() {
             putExtra("X", intent.getDoubleExtra("X", 0.0))
             putExtra("Y", intent.getDoubleExtra("Y", 0.0))
             putExtra("Name", intent.getStringExtra("Name"))
-            putExtra("Age", intent.getStringExtra("Age"))
+            putExtra("Age", intent.getIntExtra("Age",age))
             putExtra("email", intent.getStringExtra("email"))
             putExtra("password", intent.getStringExtra("password"))
             putExtra("Birth", intent.getLongExtra("Birth", 0))

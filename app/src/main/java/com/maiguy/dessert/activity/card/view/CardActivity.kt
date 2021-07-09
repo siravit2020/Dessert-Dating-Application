@@ -626,12 +626,12 @@ class CardActivity : Fragment(), View.OnClickListener {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1112) {
-            handler.postDelayed(Runnable {
-                requireActivity().finish()
-                requireActivity().overridePendingTransition(0, 0)
-                requireActivity().startActivity(requireActivity().intent)
-                requireActivity().overridePendingTransition(0, 0)
-            }, 400)
+//            handler.postDelayed(Runnable {
+//                requireActivity().finish()
+//                requireActivity().overridePendingTransition(0, 0)
+//                requireActivity().startActivity(requireActivity().intent)
+//                requireActivity().overridePendingTransition(0, 0)
+//            }, 400)
         }
         if (requestCode == 115) {
             when (resultCode) {

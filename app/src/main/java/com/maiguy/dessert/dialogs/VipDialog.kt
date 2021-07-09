@@ -71,7 +71,7 @@ class VipDialog(private val activity: Activity, private var type: VipDialogType)
             override fun onAdShowedFullScreenContent() {
                 Log.d(ContentValues.TAG, "Ad showed fullscreen content.")
 
-                createAndLoadRewardedAd(b2)
+//                createAndLoadRewardedAd(b2)
 
             }
 
@@ -82,7 +82,9 @@ class VipDialog(private val activity: Activity, private var type: VipDialogType)
         }
         b2.setOnClickListener {
             if (rewardedAd != null) {
+                b2.text = activity.getString(R.string.loading_ads)
                 rewardedAd?.show(activity, OnUserEarnedRewardListener() {
+                    createAndLoadRewardedAd(b2)
                     if (type == VipDialogType.Card) {
                         GlobalVariable.maxLike++
                         GlobalVariable.maxAdmob -= 1

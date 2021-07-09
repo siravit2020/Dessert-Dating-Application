@@ -236,6 +236,9 @@
     <string name="buy">Buy</string>
     <string name="title_equals_question">Matching question.</string>
     <string name="equals_question_des">Compatibility</string>
+    <string name="policy_privacy">Policy Privacy</string>
+    <string name="assessment_form">Do the satisfaction assessment form.<br/>(Get 5 Stars for free)</string>
+    <string name="satisfaction">satisfaction</string>
 
     <string-array name="shopping_item">
         <item>จัดดอกไม้-ทำสวน</item>

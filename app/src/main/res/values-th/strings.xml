@@ -330,5 +330,8 @@
     <string name="send_star">ส่งดาวให้คุณ</string>
     <string name="ads_rewards">ดูโฆษณาเพื่อรับรางวัล</string>
     <string name="buy">ซื้อ</string>
+    <string name="policy_privacy">นโยบายความเป็นส่วนตัว</string>
+    <string name="assessment_form">ทำแบบประเมินความพึงพอใจ ในการใช้งาน<br/>(รับ 5 Star ฟรี)</string>
+    <string name="satisfaction">ความพึงพอใจ</string>
 
 </resources>

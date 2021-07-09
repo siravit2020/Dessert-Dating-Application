@@ -9,7 +9,6 @@ import android.graphics.ImageDecoder
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
@@ -42,14 +41,14 @@ class RegisterFinishAcivity : AppCompatActivity() {
     private var pass: String? = null
     private var name: String? = null
     private var sex: String? = null
-    private var Age: Int = 18
+    private var age: Int = 18
     private var type: String? = null
     private var x: Double = 0.0
     private var y: Double = 0.0
     private var hashMapQA: Map<*, *>? = null
     private lateinit var mAuth: FirebaseAuth
     private lateinit var imageView: ImageView
-    private lateinit var UserId: String
+    private lateinit var userId: String
     private lateinit var currentUserDb: DatabaseReference
     private lateinit var dialog: Dialog
     private lateinit var toolbar: Toolbar
@@ -78,7 +77,7 @@ class RegisterFinishAcivity : AppCompatActivity() {
         pass = intent.getStringExtra("password")
         name = intent.getStringExtra("Name")
         sex = intent.getStringExtra("Sex")
-        Age = intent.getIntExtra("Age", Age)
+        age = intent.getIntExtra("Age", age)
         hashMapQA = intent.getSerializableExtra("MapQA") as Map<*, *>
         dialog = LoadingDialog(this).dialog()
         imageView.setOnClickListener {
@@ -104,21 +103,24 @@ class RegisterFinishAcivity : AppCompatActivity() {
     }
 
     private fun createDataToFirebase(i: Int) {
+
+        val oppositeUserSex = if(sex == "Male") "Female"
+        else "Male"
         val editor = getSharedPreferences("notification_match", Context.MODE_PRIVATE).edit()
         editor.putString("noti", "1")
         editor.apply()
-        UserId = mAuth.currentUser!!.uid
-        currentUserDb = FirebaseDatabase.getInstance().reference.child("Users").child(UserId)
+        userId = mAuth.currentUser!!.uid
+        currentUserDb = FirebaseDatabase.getInstance().reference.child("Users").child(userId)
         val userInfo = hashMapOf(
                 "name" to name,
                 "sex" to sex,
-                "Age" to Age,
+                "Age" to age,
                 "Distance" to "Untitled",
-                "OppositeUserSex" to "All",
+                "OppositeUserSex" to oppositeUserSex,
                 "OppositeUserAgeMin" to 18,
                 "OppositeUserAgeMax" to 70,
-                "MaxChat" to 20,
-                "MaxLike" to 40,
+                "MaxChat" to 15,
+                "MaxLike" to 30,
                 "MaxAdmob" to 10,
                 "MaxStar" to 3,
                 "Vip" to 0,
@@ -138,7 +140,7 @@ class RegisterFinishAcivity : AppCompatActivity() {
                 dialog.show()
                 val filepath = FirebaseStorage.getInstance().reference
                         .child("profileImages")
-                        .child(UserId)
+                        .child(userId)
                         .child("profileImageUrl0")
 
                 val baos = ByteArrayOutputStream()
@@ -150,7 +152,6 @@ class RegisterFinishAcivity : AppCompatActivity() {
                     addOnFailureListener { finish() }
                     addOnSuccessListener {
 
-                        Log.d("TAG", "สำเร็จ")
                         filepath.downloadUrl.addOnSuccessListener { uri ->
                             dialog.dismiss()
                             val userInfo = hashMapOf(
@@ -164,7 +165,6 @@ class RegisterFinishAcivity : AppCompatActivity() {
                             startActivity(intent)
                             finish()
                         }.addOnFailureListener(OnFailureListener {
-                            Log.d("TAG", "สวยยยยย")
                             return@OnFailureListener
                         })
                     }

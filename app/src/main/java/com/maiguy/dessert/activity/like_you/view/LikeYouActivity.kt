@@ -16,6 +16,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.akexorcist.localizationactivity.core.LocalizationActivityDelegate
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
@@ -86,8 +87,7 @@ class LikeYouActivity : AppCompatActivity() {
         connectionDb = userDb.child(currentUserId).child("connection").child("yep")
         s = GlobalVariable.seeYou
         c = GlobalVariable.likeYou
-        val preferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
-        language = preferences.getString("My_Lang", "").toString()
+        language = LocalizationActivityDelegate(this).getLanguage(this).toString()
         ff = if (language == "th") {
             Geocoder(this@LikeYouActivity)
         } else {

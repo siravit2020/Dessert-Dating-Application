@@ -131,7 +131,7 @@
                 android:layout_width="20dp"
                 android:layout_height="1dp"
                 android:layout_weight="1"
-                android:background="#80000000" />
+                android:background="@color/text_gray" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -139,7 +139,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="@dimen/View20dp"
                 android:text="@string/sign_in_with"
-                android:textColor="@color/text_black_gray"
+                android:textColor="@color/text_gray"
                 android:textSize="@dimen/Text16sp"
 
                 />
@@ -148,7 +148,7 @@
                 android:layout_width="20dp"
                 android:layout_height="1dp"
                 android:layout_weight="1"
-                android:background="#80000000" />
+                android:background="@color/text_gray" />
         </LinearLayout>
 
         <com.google.android.flexbox.FlexboxLayout
@@ -221,7 +221,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@string/phone_no"
+                    android:text="Phone"
                     android:textColor="@color/text_black_gray"
                     android:textSize="@dimen/Text14sp" />
             </LinearLayout>

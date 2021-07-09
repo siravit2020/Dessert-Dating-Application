@@ -174,7 +174,8 @@ class  FilterSettingActivity : AppCompatActivity(),View.OnClickListener {
                     map["OppositeUserAgeMax"] = maxV
                     mSlider.minProgress = minV - 18
                     mSlider.maxProgress = maxV - 18
-                    if (maxV == 70) textSeekAge.text = "$minV - $maxV+" else textSeekAge.text = "$ageMin - $ageMax"
+//                    if (maxV == 70) textSeekAge.text = "$minV - $maxV+" else textSeekAge.text = "$ageMin - $ageMax"
+                    textSeekAge.text = "$ageMin - $ageMax"
                 }
                 if (dataSnapshot.hasChild("OppositeUserSex")) {
                     when (dataSnapshot.child("OppositeUserSex").value.toString()) {

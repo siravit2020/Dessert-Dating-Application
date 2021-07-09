@@ -1,5 +1,6 @@
 package com.maiguy.dessert.activity.list_card.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -23,6 +24,7 @@ import com.maiguy.dessert.activity.list_card.adapter.ListCardAdapter
 import com.maiguy.dessert.activity.list_card.model.ListCardModel
 import com.maiguy.dessert.utils.GlobalVariable
 import com.maiguy.dessert.R
+import com.maiguy.dessert.activity.filter_setting.view.FilterSettingActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -58,7 +60,7 @@ class ListCardActivity : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.activity_listcard, container, false)
         super.onCreate(savedInstanceState)
-
+        handler = Handler()
         pro = view.findViewById(R.id.view_pro)
         search = view.findViewById(R.id.layout_in)
         currentUserId = FirebaseAuth.getInstance().currentUser!!.uid
@@ -73,7 +75,10 @@ class ListCardActivity : Fragment() {
         anime2 = view.findViewById(R.id.anime2)
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) { // launch a new coroutine in background and continue
             getStartAt()
-            detectUserCloseAccount()
+//            detectUserCloseAccount()
+        }
+        view.findViewById<ImageView>(R.id.imageView3).setOnClickListener {
+            startActivity(Intent(context, FilterSettingActivity::class.java))
         }
 
         mRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -238,6 +243,10 @@ class ListCardActivity : Fragment() {
                                 else{
                                     getUser(resultLimit, 0, type, resultMatches.size - 1)
                                 }
+                            else{
+                                runnable!!.run()
+                                search.visibility = View.VISIBLE
+                            }
                         }
 
                     }

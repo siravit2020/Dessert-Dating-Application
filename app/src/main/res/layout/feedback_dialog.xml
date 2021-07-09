@@ -14,7 +14,7 @@
             <TextView
                 android:textStyle="bold"
                 android:textAlignment="center"
-                android:text="ความพึงพอใจ"
+                android:text="@string/satisfaction"
                 android:layout_marginTop="@dimen/View24dp"
                 android:layout_marginStart="@dimen/View32dp"
                 android:layout_marginEnd="@dimen/View32dp"
@@ -39,7 +39,7 @@
                 android:layout_gravity="center"
 
                 android:textColor="@color/text_black_gray"
-                android:text="ทำแบบประเมิณความพึงพอใจ ในการใช้งาน\n(รับ 5 Star ฟรี)"
+                android:text="@string/assessment_form"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <LinearLayout
@@ -54,6 +54,7 @@
                     android:layout_marginRight="@dimen/View12dp"
                     android:layout_gravity="center"
                     android:text="@string/cancel"
+                    android:backgroundTint="@color/disable_grey"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
