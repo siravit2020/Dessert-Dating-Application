@@ -360,6 +360,7 @@ class MainActivity : AppCompatActivity() ,LocationListener {
             }
         })
 
+
         userDb.addListenerForSingleValueEvent(object : ValueEventListener {
             @SuppressLint("SetTextI18n")
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -372,6 +373,10 @@ class MainActivity : AppCompatActivity() ,LocationListener {
                     GlobalVariable.vip = false
                 }
 
+                val questionCount = dataSnapshot.child("Questions").childrenCount.toInt()
+                if(questionCount == 100){
+                    GlobalVariable.outOfQuestion = true
+                }
                 if (dataSnapshot.child("connection").hasChild("yep")) {
 
                     GlobalVariable.likeYou = dataSnapshot.child("connection").child("yep").childrenCount.toInt()
