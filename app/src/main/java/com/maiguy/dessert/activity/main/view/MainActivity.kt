@@ -231,8 +231,6 @@ class MainActivity : AppCompatActivity() ,LocationListener {
 
 
         }
-        //questionCalculate()
-
     }
     private fun getFeedbackQuestion() {
         Log.d("QUESTION_TAG","Work")
@@ -286,9 +284,10 @@ class MainActivity : AppCompatActivity() ,LocationListener {
                 }
 
     }
+
     private fun getUnreadFunction(): Task<HttpsCallableResult> {
         val data = hashMapOf(
-                "uid" to "test"
+                "uid" to FirebaseAuth.getInstance().uid.toString()
         )
         return functions
                 .getHttpsCallable("getUnreadChat")
@@ -305,23 +304,6 @@ class MainActivity : AppCompatActivity() ,LocationListener {
                 }
                 .addOnFailureListener {
                     Log.d("testGetUnreadFunction", "error")
-                }
-    }
-    private fun questionCalculate(): Task<HttpsCallableResult> {
-        // Create the arguments to the callable function.
-        val data = hashMapOf(
-                "uid" to uid
-        )
-        return functions
-                .getHttpsCallable("getPercentageMatching")
-                .call(data)
-                .addOnSuccessListener { task ->
-                    val data = task.data as Map<*, *>
-                    Log.d("testDatatatat", data.toString())
-                    val ff = data.get("dictionary") as Map<*, *>
-                }
-                .addOnFailureListener {
-                    Log.d("testDatatatat", "error")
                 }
     }
 
@@ -369,12 +351,7 @@ class MainActivity : AppCompatActivity() ,LocationListener {
                     GlobalVariable.vip = false
                 }
 
-                val questionCount = dataSnapshot.child("Questions").childrenCount.toInt()
-                if(questionCount == 100){
-                    GlobalVariable.outOfQuestion = true
-                }
                 if (dataSnapshot.child("connection").hasChild("yep")) {
-
                     GlobalVariable.likeYou = dataSnapshot.child("connection").child("yep").childrenCount.toInt()
                 } else {
 
@@ -382,7 +359,6 @@ class MainActivity : AppCompatActivity() ,LocationListener {
 
                 }
                 if (dataSnapshot.hasChild("see_profile")) {
-
                     GlobalVariable.seeYou = dataSnapshot.child("see_profile").childrenCount.toInt()
                 } else {
 

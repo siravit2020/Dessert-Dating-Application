@@ -26,6 +26,9 @@ class QuestionRepository(context: Context) {
     private var resultRegisterQA: MutableLiveData<ArrayList<QAObject>> = MutableLiveData()
     private var resultFeedbackQA: MutableLiveData<ArrayList<QAObject>> = MutableLiveData()
     private var resultEqualsQA:MutableLiveData<ArrayList<EqualsQAObject>> = MutableLiveData()
+    private var resultOutOfQuestion:MutableLiveData<Boolean> = MutableLiveData()
+    val responseOutOfQuestion: LiveData<Boolean>
+        get() = resultOutOfQuestion
     val responseEqualsQA : LiveData<ArrayList<EqualsQAObject>>
         get() = resultEqualsQA
     val responseQuestion: LiveData<ArrayList<QAObject>>
@@ -156,6 +159,20 @@ class QuestionRepository(context: Context) {
                     Log.d("DATA_FORM_ON_CALL","error")
                 }
                 loadingDialog.dismiss()
+            }
+    }
+
+    fun getOutOfQuestionStatus() {
+        functions.getHttpsCallable("outOfQuestion")
+            .call()
+            .addOnCompleteListener {
+                if(it.isSuccessful){
+                    val data:Map<*,*> = it.result.data as Map<*, *>
+                    Log.d("OUT_OF_QUESTION","success : ${data["result"]}")
+                    resultOutOfQuestion.postValue(data["result"] as Boolean)
+                }else{
+                    Log.d("OUT_OF_QUESTION","fails")
+                }
             }
     }
 }

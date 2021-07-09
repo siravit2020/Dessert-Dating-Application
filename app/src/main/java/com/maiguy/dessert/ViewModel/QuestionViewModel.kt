@@ -20,6 +20,12 @@ class QuestionViewModel(context: Context) : ViewModel() {
     val fetchRegisterQA: LiveData<ArrayList<QAObject>> by lazy {
         repository.responseRegisterQA
     }
+    val outOfQuestion: LiveData<Boolean> by lazy {
+        repository.responseOutOfQuestion
+    }
+    fun responseOutOfQuestion() {
+        repository.getOutOfQuestionStatus()
+    }
     fun responseEqualsQA(languageTag: String,uid:String){
         repository.fetchEqualsQuestion(languageTag,uid)
     }
