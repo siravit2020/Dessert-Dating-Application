@@ -167,10 +167,7 @@
     <string name="get_vip_description">ดูโฆษณาเพื่อรับ จำนวนกดถูกใจ เพิ่ม<br/>หรือสมัคร Dessert VIP เพื่อรับสิทธิพิเศษต่างๆ</string>
     <string name="title_equals_question">คำถามที่ตอบตรงกัน</string>
     <string name="equals_question_des">ความเข้ากัน</string>
-
-
-
-
+    <string name="pornography">รูปภาพลามก-อนาจาร</string>
 
 
     <string-array name="shopping_item">
@@ -188,9 +185,13 @@
         <item>กิจกรรมอาสา</item>
         <item>ร้องเพลง</item>
         <item>เต้น</item>
-        <item>ด่าสมพร</item>
         <item>เล่นเกม</item>
         <item>แข่งรถ</item>
+        <item>เล่นดนตรี</item>
+        <item>ตกปลา</item>
+        <item>ฟังเพลง</item>
+        <item>สะสมของหายาก</item>
+        <item>เล่นหุ้น</item>
     </string-array>
 
     <string-array name="pasa_item">

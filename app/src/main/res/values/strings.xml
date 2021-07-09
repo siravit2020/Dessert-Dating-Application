@@ -239,6 +239,8 @@
     <string name="policy_privacy">Policy Privacy</string>
     <string name="assessment_form">Do the satisfaction assessment form.<br/>(Get 5 Stars for free)</string>
     <string name="satisfaction">satisfaction</string>
+    <string name="pornography">pornography</string>
+
 
     <string-array name="shopping_item">
         <item>จัดดอกไม้-ทำสวน</item>
@@ -255,9 +257,13 @@
         <item>กิจกรรมอาสา</item>
         <item>ร้องเพลง</item>
         <item>เต้น</item>
-        <item>ด่าสมพร</item>
         <item>เล่นเกม</item>
         <item>แข่งรถ</item>
+        <item>เล่นดนตรี</item>
+        <item>ตกปลา</item>
+        <item>ฟังเพลง</item>
+        <item>สะสมของหายาก</item>
+        <item>เล่นหุ้น</item>
     </string-array>
 
     <string-array name="pasa_item">

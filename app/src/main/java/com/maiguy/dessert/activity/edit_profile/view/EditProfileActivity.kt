@@ -532,7 +532,7 @@ open class EditProfileActivity : AppCompatActivity(), View.OnClickListener {
                     if (faces.isNotEmpty()) {
                         NSFWDetector.isNSFW(bitmap) { isNSFW, confidence, image ->
                             if (isNSFW) {
-                                Snackbar.make(image1, "โรคจิต", Snackbar.LENGTH_SHORT).show()
+                                Snackbar.make(image1, (R.string.pornography), Snackbar.LENGTH_SHORT).show()
                                 backgroundAdd()
                                 dialog.dismiss()
                             } else {
@@ -589,7 +589,7 @@ open class EditProfileActivity : AppCompatActivity(), View.OnClickListener {
 
                     } else {
                         backgroundAdd()
-                        Snackbar.make(image1, "ไม่ใช่หน้าอีดอก", Snackbar.LENGTH_SHORT).show()
+                        Snackbar.make(image1, getString(R.string.recommend_profile), Snackbar.LENGTH_SHORT).show()
                     }
                 }
                 .addOnFailureListener { }
