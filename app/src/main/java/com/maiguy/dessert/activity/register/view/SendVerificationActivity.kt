@@ -42,6 +42,7 @@ class SendVerificationActivity : AppCompatActivity() {
             if(!intent.hasExtra("login")){
                 val intent = Intent(this, SignInActivity::class.java)
                 startActivity(intent)
+                finish()
             }
             else{
                 onBackPressed()

@@ -22,6 +22,7 @@ import com.maiguy.dessert.activity.phone.view.PhoneActivity
 import com.maiguy.dessert.activity.register.view.RegisterNameActivity
 import com.maiguy.dessert.activity.sign_in.view_model.SignInViewModel
 import com.maiguy.dessert.activity.register.view.RegistrationActivity
+import com.maiguy.dessert.activity.register.view.SendVerificationActivity
 import com.maiguy.dessert.constants.Status
 import java.util.*
 
@@ -92,12 +93,12 @@ class SignInActivity : AppCompatActivity() {
                         startActivity(intent)
                     }
                     "verification" -> {
-                       val intent = Intent(this@SignInActivity, RegisterNameActivity::class.java)
-                       intent.putExtra("Type", "face")
-                       startActivity(intent)
-                       // val intent = Intent(this@SignInActivity, SendVerificationActivity::class.java)
-                       // intent.putExtra("login", true)
-                       // startActivity(intent)
+//                       val intent = Intent(this@SignInActivity, RegisterNameActivity::class.java)
+//                       intent.putExtra("Type", "face")
+//                       startActivity(intent)
+                        val intent = Intent(this@SignInActivity, SendVerificationActivity::class.java)
+                        intent.putExtra("login", true)
+                        startActivity(intent)
                     }
 
                 }

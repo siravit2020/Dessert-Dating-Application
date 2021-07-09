@@ -20,14 +20,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/Text16sp"
+            android:layout_marginBottom="@dimen/View8dp"
             android:text="@string/message"/>
         <RadioGroup
-            android:background="@color/background_gray"
+
             android:id="@+id/radioGroupRegisterQA"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <RadioButton
-                android:layout_marginBottom="2dp"
+
                 android:background="@color/white"
                 android:id="@+id/radioButtonRegisterQA1"
                 android:layout_width="match_parent"
@@ -44,38 +45,39 @@
         <TextView
             android:textStyle="bold"
             android:textColor="@color/text_black_gray"
+            android:layout_marginVertical="@dimen/View8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/Text16sp"
             android:text="@string/qa_improtant"/>
         <RadioGroup
-            android:background="@color/background_gray"
+
             android:id="@+id/radioGroupRegisterQAAns"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <RadioButton
-                android:layout_marginBottom="2dp"
+
                 android:background="@color/white"
                 android:id="@+id/radioButtonRegisterQAAns1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/qa_choice1"/>
             <RadioButton
-                android:layout_marginBottom="2dp"
+
                 android:background="@color/white"
                 android:id="@+id/radioButtonRegisterQAAns2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/qa_choice2"/>
             <RadioButton
-                android:layout_marginBottom="2dp"
+
                 android:background="@color/white"
                 android:id="@+id/radioButtonRegisterQAAns3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/qa_choice4"/>
             <RadioButton
-                android:layout_marginBottom="2dp"
+
                 android:background="@color/white"
                 android:id="@+id/radioButtonRegisterQAAns4"
                 android:layout_width="match_parent"
@@ -94,6 +96,7 @@
             android:textSize="@dimen/Text12sp"
             android:gravity="center"
             android:text="0/0"
+            android:textColor="@color/text_gray"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         </LinearLayout>

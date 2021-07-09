@@ -238,9 +238,9 @@
     <string name="equals_question_des">Compatibility</string>
     <string name="policy_privacy">Policy Privacy</string>
     <string name="assessment_form">Do the satisfaction assessment form.<br/>(Get 5 Stars for free)</string>
-    <string name="satisfaction">satisfaction</string>
-    <string name="pornography">pornography</string>
-
+    <string name="satisfaction">Satisfaction</string>
+    <string name="pornography">Pornography</string>
+    <string name="thank">Thank</string>
 
     <string-array name="shopping_item">
         <item>จัดดอกไม้-ทำสวน</item>
