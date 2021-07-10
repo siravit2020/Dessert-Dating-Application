@@ -33,9 +33,9 @@ class BillingService(private var activity: Activity) {
                             .setValue(1).addOnSuccessListener {
                                 val intent = Intent(activity, MainActivity::class.java)
                                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                activity.overridePendingTransition(0, 0)
+                                //activity.overridePendingTransition(0, 0)
                                 activity.startActivity(intent)
-                                activity.overridePendingTransition(0, 0)
+                                //activity.overridePendingTransition(0, 0)
                             }
 
                     }

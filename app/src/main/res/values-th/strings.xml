@@ -337,5 +337,7 @@
     <string name="satisfaction">ความพึงพอใจ</string>
     <string name="result_feedback">ตอบคำถาม เพิ่มความแม่นยำ </string>
     <string name="click">คลิก</string>
+    <string name="i_m_sorry">เสียใจด้วย</string>
+    <string name="the_stars_for_today_are_gone">จำนวณดาวสำหรับวันนี้ หมดลงแล้ว</string>
 
 </resources>

@@ -18,6 +18,7 @@ import android.view.WindowManager
 import android.view.animation.*
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -50,6 +51,7 @@ import com.maiguy.dessert.constants.VipDialogType
 import com.maiguy.dessert.dialogs.adapter.VipSlideAdapter
 import com.maiguy.dessert.model.PagerModel
 import com.maiguy.dessert.dialogs.VipDialog
+import com.maiguy.dessert.services.BillingService
 import com.maiguy.dessert.utils.CloseLoading
 import com.maiguy.dessert.utils.GlobalVariable
 import com.yuyakaido.android.cardstackview.*
@@ -217,14 +219,20 @@ class CardActivity : Fragment(), View.OnClickListener {
                         usersDb.child(currentUid).child("MaxStar").setValue(GlobalVariable.maxStar)
                         isConnectionMatches(userId)
                     } else {
-                        handler.postDelayed(Runnable { cardStackView.rewind() }, 200)
-                        //openDialog()
-                        val dialog = VipDialog(activity!!, VipDialogType.Card)
-                        dialog.setViewModel(
-                            localizationDelegate.getLanguage(requireContext()).toLanguageTag(),
-                            questionViewModel
-                        )
-                        dialog.openDialog()
+                        Log.d("check_vip",GlobalVariable.vip.toString())
+                        if (GlobalVariable.vip) {
+                            openDialogStarOutOfStock()
+                        } else {
+                            handler.postDelayed(Runnable { cardStackView.rewind() }, 200)
+                            //openDialog()
+                            val dialog = VipDialog(activity!!, VipDialogType.Card)
+                            dialog.setViewModel(
+                                localizationDelegate.getLanguage(requireContext()).toLanguageTag(),
+                                questionViewModel
+                            )
+                            dialog.openDialog()
+                        }
+
                     }
                 }
             }
@@ -295,6 +303,21 @@ class CardActivity : Fragment(), View.OnClickListener {
                 }
             })
 
+    }
+
+    private fun openDialogStarOutOfStock() {
+        val inflater = layoutInflater
+        val view = inflater.inflate(R.layout.star_out_of_stock, null)
+        var dialog = Dialog(requireContext())
+        val b1 = view.findViewById<Button>(R.id.buy)
+        b1.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.setContentView(view)
+        val width = (resources.displayMetrics.widthPixels * 0.90).toInt()
+        dialog.window!!.setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT)
+        dialog.show()
     }
 
     private fun questionAskDialog(): Dialog {
