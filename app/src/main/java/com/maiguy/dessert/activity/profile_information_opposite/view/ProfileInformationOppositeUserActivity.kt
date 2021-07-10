@@ -38,10 +38,13 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
+import com.maiandguy.dessert.utils.ErrorDialog
 import com.maiguy.dessert.*
+import com.maiguy.dessert.QAStore.DialogFragment
 import com.maiguy.dessert.activity.chat.view.ChatActivity
 import com.maiguy.dessert.R
 import com.maiguy.dessert.ViewModel.QuestionViewModel
+import com.maiguy.dessert.ViewModel.ViewModelFactory
 import com.maiguy.dessert.constants.VipDialogType
 import com.maiguy.dessert.dialogs.DialogAskQuestion
 import com.maiguy.dessert.dialogs.LoadingDialog
@@ -122,20 +125,27 @@ class ProfileInformationOppositeUserActivity : AppCompatActivity() {
     private lateinit var localizationDelegate: LocalizationActivityDelegate
     private lateinit var loadingDialog:Dialog
     private val functions = Firebase.functions
-
+    private lateinit var errorDialog: ErrorDialog
     @SuppressLint("SimpleDateFormat", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_user_opposite2)
         loadingDialog = LoadingDialog(this@ProfileInformationOppositeUserActivity).dialog()
         localizationDelegate = LocalizationActivityDelegate(activity = this@ProfileInformationOppositeUserActivity)
-        questionViewModel = ViewModelProvider(this,object : ViewModelProvider.Factory{
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return QuestionViewModel(this@ProfileInformationOppositeUserActivity) as T
+        questionViewModel = ViewModelProvider(this, ViewModelFactory(this)).get(
+            QuestionViewModel::class.java)
+
+        questionViewModel.fetchQA.observe(this, {
+            Log.d("GET_QUESTION", it.size.toString())
+            if (it.size > 0) {
+                val dialogFragment = DialogFragment()
+                dialogFragment.setData(it, "Question")
+                dialogFragment.show(this.supportFragmentManager, "Question dialog")
+            } else {
+                errorDialog = ErrorDialog(this)
+                errorDialog.outOfQuestionDialog().show()
             }
-        }).get(QuestionViewModel::class.java)
-        questionViewModel.fetchEqualsQA.observe(this@ProfileInformationOppositeUserActivity,{
-            DialogAskQuestion(this@ProfileInformationOppositeUserActivity).equalsDialog(it).show()
+
         })
         mAuth = FirebaseAuth.getInstance()
         matchId = intent.extras!!.getString("User_opposite")!!
@@ -251,7 +261,12 @@ class ProfileInformationOppositeUserActivity : AppCompatActivity() {
                     dialog.show()
                 } else {
 
-                    VipDialog(this, VipDialogType.List).openDialog()
+                    val dialog = VipDialog(this, VipDialogType.Card)
+                    dialog.setViewModel(
+                        localizationDelegate.getLanguage(this).toLanguageTag(),
+                        questionViewModel
+                    )
+                    dialog.openDialog()
                 }
             }
         }

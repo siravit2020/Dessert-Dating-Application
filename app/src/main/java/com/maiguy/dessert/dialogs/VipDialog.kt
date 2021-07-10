@@ -57,6 +57,9 @@ class VipDialog(private val activity: Activity, private var type: VipDialogType)
             text.text = activity.getString(R.string.ads_out_stock)
             b2.visibility = View.GONE
         }
+        if(GlobalVariable.outOfQuestion){
+            bQA.visibility = View.GONE
+        }
         createAndLoadRewardedAd(b2)
 
         rewardedAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
@@ -105,7 +108,7 @@ class VipDialog(private val activity: Activity, private var type: VipDialogType)
                         else if (GlobalVariable.maxAdmob <= 0)
                             b2.visibility = View.GONE
                         usersDb.child(currentUid).child("MaxChat").setValue(GlobalVariable.maxChat)
-                        usersDb.child(currentUid).child("MaxAdmob").setValue(GlobalVariable.maxChat)
+                        usersDb.child(currentUid).child("MaxAdmob").setValue(GlobalVariable.maxAdmob)
                     }
 
 
