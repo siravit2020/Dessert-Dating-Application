@@ -633,6 +633,7 @@ open class EditProfileActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun glide(img: ImageView){
         Log.d("start", "1")
+        img.tag = 1
         Glide.with(application).load(resulturi).transition(DrawableTransitionOptions.withCrossFade(100)).into(img)
     }
     private fun glideGetImage(img: ImageView){

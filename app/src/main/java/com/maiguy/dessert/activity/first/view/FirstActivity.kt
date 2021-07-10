@@ -48,14 +48,14 @@ class FirstActivity : AppCompatActivity() {
             aniFade2.setAnimationListener(null)
 
             if(it == CheckStatusUser.CHOOSE){
-                Timer("SettingUp", false).schedule(2000) {
+                Timer("SettingUp", false).schedule(2300) {
                     val intent = Intent(this@FirstActivity, SignInActivity::class.java)
                     startActivity(intent)
                 }
 
             }
             if(it == CheckStatusUser.SWITCH){
-                Timer("SettingUp", false).schedule(2000) {
+                Timer("SettingUp", false).schedule(2300) {
                     val intent = Intent(this@FirstActivity, MainActivity::class.java)
                     startActivity(intent)
                     finish()
@@ -66,7 +66,7 @@ class FirstActivity : AppCompatActivity() {
         firstViewModel.getCheckUser().observe(this, Observer {
 
             if(!it){
-                Timer("SettingUp", false).schedule(2000) {
+                Timer("SettingUp", false).schedule(2300) {
                     aniFade.setAnimationListener(null)
                     aniFade2.setAnimationListener(null)
                     val intent = Intent(this@FirstActivity, SignInActivity::class.java)

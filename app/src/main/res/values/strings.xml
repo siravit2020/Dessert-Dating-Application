@@ -166,7 +166,8 @@
     <string name="uploading">Uploading....</string>
     <string name="selected_questions">Please selected the answer</string>
     <string name="title_askQuestion">Answer questions</string>
-    <string name="body_askQuestion">Answer the algorithm matching for increase your quota today</string>
+    <string name="body_askQuestion">ตอบคำถามเพิ่มความแม่นยำในการแมตช์<br/>(รับ 5 ไลค์ฟรี)</string>
+    <string name="body_askQuestion2">ตอบคำถามเพิ่มความแม่นยำในการแมตช์<br/>(รับ 3 ดาวฟรี)</string>
     <string name="out_of_quota">Out of today quota !!</string>
     <string name="out_of_questions">Sorry, Out of question !!</string>
     <string name="out_of_questions_description">Out of question</string>
@@ -237,7 +238,7 @@
     <string name="title_equals_question">Matching question.</string>
     <string name="equals_question_des">Compatibility</string>
     <string name="policy_privacy">Policy Privacy</string>
-    <string name="assessment_form">Do the satisfaction assessment form.<br/>(Get 5 Stars for free)</string>
+    <string name="assessment_form">Do the satisfaction assessment form. (Get 3 Stars for free)</string>
     <string name="satisfaction">Satisfaction</string>
     <string name="pornography">Pornography</string>
     <string name="thank">Thank</string>

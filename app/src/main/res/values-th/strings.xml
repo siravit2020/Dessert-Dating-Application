@@ -159,8 +159,9 @@
     <string name="uploading">กำลังอัปโหลด</string>
     <string name="selected_questions">กรุณาเลือกคำตอบและตอบให้ครบถ้วน</string>
     <string name="title_askQuestion">ตอบคำถามสิ</string>
-    <string name="body_askQuestion">เพื่อเพิ่มโอกาสการแมตช์และจำนวนการกดไลค์ของคุณกรุณาตอบคำถามของทางแอปพลิเคชัน</string>
-    <string name="out_of_quota">โควต้าวันนี้ของคุณหมดแล้ว</string>
+    <string name="body_askQuestion">ตอบคำถามเพิ่มความแม่นยำในการแมตช์ (รับ 5 ไลค์ฟรี)</string>
+    <string name="body_askQuestion2">ตอบคำถามเพิ่มความแม่นยำในการแมตช์ (รับ 3 ดาวฟรี)</string>
+    <string name="out_of_quota">เพิ่มความแม่นยำ</string>
     <string name="out_of_questions">ขอโทษคำถามของเราหมดแล้ว</string>
     <string name="out_of_questions_description">คำถามหมดแล้ว</string>
     <string name="error_title">มีบางอย่างผิดพลาด !!</string>
@@ -332,7 +333,7 @@
     <string name="ads_rewards">ดูโฆษณาเพื่อรับรางวัล</string>
     <string name="buy">ซื้อ</string>
     <string name="policy_privacy">นโยบายความเป็นส่วนตัว</string>
-    <string name="assessment_form">ทำแบบประเมินความพึงพอใจ ในการใช้งาน<br/>(รับ 5 Star ฟรี)</string>
+    <string name="assessment_form">ทำแบบประเมินความพึงพอใจ ในการใช้งาน (รับ 3 Star ฟรี)</string>
     <string name="satisfaction">ความพึงพอใจ</string>
 
 </resources>
