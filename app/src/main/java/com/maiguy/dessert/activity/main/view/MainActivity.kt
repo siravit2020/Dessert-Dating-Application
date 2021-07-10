@@ -365,7 +365,7 @@ class MainActivity : AppCompatActivity() ,LocationListener {
                     GlobalVariable.seeYou = 0
                 }
                 GlobalVariable.countMatch = dataSnapshot.child("connection").child("matches").childrenCount.toInt()
-                if(GlobalVariable.feedback && GlobalVariable.countMatch >= 1){
+                if(!GlobalVariable.feedback && GlobalVariable.countMatch >= 1){
                     FeedbackDialog(this@MainActivity) { getFeedbackQuestion() }.show()
                 }
                 GlobalVariable.buyLike = dataSnapshot.hasChild("buy_like")

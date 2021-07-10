@@ -313,7 +313,7 @@ class CardActivity : Fragment(), View.OnClickListener {
         btnConfirm.setOnClickListener {
             Log.d("CONFIRM_DIALOG", "Click");
             questionViewModel.response(
-                localizationDelegate.getLanguage(requireContext()).toLanguageTag(), 2
+                localizationDelegate.getLanguage(requireContext()).toLanguageTag(), 5
             )
             dialog.dismiss()
         }

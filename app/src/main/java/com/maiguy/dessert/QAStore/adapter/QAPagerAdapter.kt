@@ -152,6 +152,9 @@ class QAPagerAdapter(val context: Context, private val choice: ArrayList<QAObjec
         }
     }
     private fun feedbackFinish() {
+        GlobalVariable.maxStar = GlobalVariable.maxStar + 3
+        db.child("MaxStar").setValue(GlobalVariable.maxStar)
+        GlobalVariable.feedback = true
         StatusQuestions().feedbackStatus(json)
         dialog.dismiss()
     }
@@ -165,9 +168,13 @@ class QAPagerAdapter(val context: Context, private val choice: ArrayList<QAObjec
             Log.d("GET_QUESTION", item.toString())
         }
         if(check){
-            GlobalVariable.maxLike = ++GlobalVariable.maxLike
-            Log.d("GLOBAL_MAX_LIKE__Adapter",GlobalVariable.maxLike.toString())
-            db.child("MaxLike").setValue(GlobalVariable.maxLike)
+            if(GlobalVariable.vip){
+                GlobalVariable.maxStar = GlobalVariable.maxStar + 3
+                db.child("MaxStar").setValue(GlobalVariable.maxStar)
+            }else{
+                GlobalVariable.maxLike = GlobalVariable.maxLike + 5
+                db.child("MaxLike").setValue(GlobalVariable.maxLike)
+            }
         }
         StatusQuestions().questionStats(json)
         FirebaseDatabase.getInstance().reference.child("Users").child(userId).child("Questions").updateChildren(hashMapQA)

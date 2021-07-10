@@ -125,7 +125,7 @@ class ProfileActivity : Fragment() {
 
         Log.d("count",GlobalVariable.countMatch.toString())
         Log.d("count",GlobalVariable.feedback.toString())
-        if(GlobalVariable.feedback && GlobalVariable.countMatch >= 1){
+        if(!GlobalVariable.feedback && GlobalVariable.countMatch >= 1){
             resultFeedback.visibility = View.VISIBLE
         }
 
@@ -137,14 +137,13 @@ class ProfileActivity : Fragment() {
             openDialog()
         }
         questionViewModel.outOfQuestion.observe(requireActivity(),{
-            GlobalVariable.outOfQuestion = true
             if(it){
+                GlobalVariable.outOfQuestion = true
                 resultQa.visibility = View.GONE
             }
         })
         questionViewModel.responseOutOfQuestion()
         questionViewModel.fetchQA.observe(requireActivity(), {
-            Log.d("GET_QUESTION", it.size.toString())
             if (it.size > 0) {
                 val dialogFragment = DialogFragment()
                 dialogFragment.setData(it, "Question")
