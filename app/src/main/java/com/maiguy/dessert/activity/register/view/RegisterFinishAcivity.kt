@@ -217,7 +217,7 @@ class RegisterFinishAcivity : AppCompatActivity() {
 
                                 NSFWDetector.isNSFW(bitmap!!) { isNSFW, confidence, image ->
                                     if (isNSFW) {
-                                        Snackbar.make(b1, "โรคจิต", Snackbar.LENGTH_LONG).show()
+                                        Snackbar.make(b1, (R.string.pornography), Snackbar.LENGTH_SHORT).show()
                                         dialog.dismiss()
                                     } else {
                                         Glide.with(application).load(result.uri).placeholder(R.drawable.tran).into(imageView)
@@ -226,7 +226,7 @@ class RegisterFinishAcivity : AppCompatActivity() {
                                     }
                                 }
                             } else {
-                                Snackbar.make(b1, "ไม่ใช่คน", Snackbar.LENGTH_LONG).show()
+                                Snackbar.make(b1, getString(R.string.recommend_profile), Snackbar.LENGTH_LONG).show()
                             }
                         }
                         .addOnFailureListener {

@@ -94,7 +94,7 @@ class CardActivity : Fragment(), View.OnClickListener {
     private var countLimit = 0
     private var countLimit2 = 0
     private var countLimit3 = 1
-    private var countDataSet = 60
+    private var countDataSet = 1000
     private lateinit var resultlimit: ArrayList<*>
     private var checkEmpty = false
     private var empty = 0
@@ -104,7 +104,11 @@ class CardActivity : Fragment(), View.OnClickListener {
     private lateinit var errorDialog: ErrorDialog
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         val view = inflater.inflate(R.layout.activity_card, container, false)
         checkStart()
@@ -116,7 +120,7 @@ class CardActivity : Fragment(), View.OnClickListener {
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }
-       // BillingService(requireActivity()).checkStatusBilling()
+        // BillingService(requireActivity()).checkStatusBilling()
 
         localizationDelegate = LocalizationActivityDelegate(requireActivity())
         layoutGps = view.findViewById(R.id.layout_in)
@@ -149,11 +153,12 @@ class CardActivity : Fragment(), View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        questionViewModel = ViewModelProvider(requireActivity(), object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return QuestionViewModel(requireContext()) as T
-            }
-        }).get(QuestionViewModel::class.java)
+        questionViewModel =
+            ViewModelProvider(requireActivity(), object : ViewModelProvider.Factory {
+                override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                    return QuestionViewModel(requireContext()) as T
+                }
+            }).get(QuestionViewModel::class.java)
 
         questionViewModel.fetchQA.observe(requireActivity(), {
             Log.d("GET_QUESTION", it.size.toString())
@@ -180,27 +185,33 @@ class CardActivity : Fragment(), View.OnClickListener {
                     if (GlobalVariable.maxLike > 0 || GlobalVariable.vip) {
                         val datetime = hashMapOf<String, Any>()
                         datetime["date"] = ServerValue.TIMESTAMP
-                        usersDb.child(userId).child("connection").child("yep").child(currentUid).updateChildren(datetime)
+                        usersDb.child(userId).child("connection").child("yep").child(currentUid)
+                            .updateChildren(datetime)
                         GlobalVariable.maxLike = --GlobalVariable.maxLike
                         usersDb.child(currentUid).child("MaxLike").setValue(GlobalVariable.maxLike)
                         isConnectionMatches(userId)
                     } else {
                         handler.postDelayed(Runnable { cardStackView.rewind() }, 200)
                         //openDialog()
-                        val dialog = VipDialog(activity!!,VipDialogType.Card)
-                        dialog.setViewModel(localizationDelegate.getLanguage(requireContext()).toLanguageTag(),questionViewModel)
+                        val dialog = VipDialog(activity!!, VipDialogType.Card)
+                        dialog.setViewModel(
+                            localizationDelegate.getLanguage(requireContext()).toLanguageTag(),
+                            questionViewModel
+                        )
                         dialog.openDialog()
                     }
                 }
                 if (direction == Direction.Left) {
-                    usersDb.child(userId).child("connection").child("nope").child(currentUid).setValue(true)
+                    usersDb.child(userId).child("connection").child("nope").child(currentUid)
+                        .setValue(true)
                 }
                 if (direction == Direction.Top) {
                     if (GlobalVariable.maxStar > 0) {
                         val datetime = hashMapOf<String, Any>()
                         datetime["date"] = ServerValue.TIMESTAMP
                         datetime["super"] = true
-                        usersDb.child(userId).child("connection").child("yep").child(currentUid).updateChildren(datetime)
+                        usersDb.child(userId).child("connection").child("yep").child(currentUid)
+                            .updateChildren(datetime)
                         usersDb.child(currentUid).child("star_s").child(userId).setValue(true)
                         GlobalVariable.maxStar--
                         usersDb.child(currentUid).child("MaxStar").setValue(GlobalVariable.maxStar)
@@ -208,8 +219,11 @@ class CardActivity : Fragment(), View.OnClickListener {
                     } else {
                         handler.postDelayed(Runnable { cardStackView.rewind() }, 200)
                         //openDialog()
-                        val dialog = VipDialog(activity!!,VipDialogType.Card)
-                        dialog.setViewModel(localizationDelegate.getLanguage(requireContext()).toLanguageTag(),questionViewModel)
+                        val dialog = VipDialog(activity!!, VipDialogType.Card)
+                        dialog.setViewModel(
+                            localizationDelegate.getLanguage(requireContext()).toLanguageTag(),
+                            questionViewModel
+                        )
                         dialog.openDialog()
                     }
                 }
@@ -266,16 +280,20 @@ class CardActivity : Fragment(), View.OnClickListener {
 
     fun createAndLoadRewardedAd(b2: Button) {
         val adRequest = AdRequest.Builder().build()
-        RewardedAd.load(requireContext(), "ca-app-pub-3940256099942544/5224354917", adRequest, object : RewardedAdLoadCallback() {
-            override fun onAdFailedToLoad(adError: LoadAdError) {
-                rewardedAd = null
-            }
+        RewardedAd.load(
+            requireContext(),
+            "ca-app-pub-3940256099942544/5224354917",
+            adRequest,
+            object : RewardedAdLoadCallback() {
+                override fun onAdFailedToLoad(adError: LoadAdError) {
+                    rewardedAd = null
+                }
 
-            override fun onAdLoaded(reward: RewardedAd) {
-                rewardedAd = reward
-                b2.text = getString(R.string.ads_rewards)
-            }
-        })
+                override fun onAdLoaded(reward: RewardedAd) {
+                    rewardedAd = reward
+                    b2.text = getString(R.string.ads_rewards)
+                }
+            })
 
     }
 
@@ -289,12 +307,14 @@ class CardActivity : Fragment(), View.OnClickListener {
         val width = (resources.displayMetrics.widthPixels * 0.90).toInt()
         dialog.window!!.setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT)
         btnDismiss.setOnClickListener {
-            Log.d("CONFIRM_DIALOG","Cancel");
+            Log.d("CONFIRM_DIALOG", "Cancel");
             dialog.dismiss()
         }
         btnConfirm.setOnClickListener {
-            Log.d("CONFIRM_DIALOG","Click");
-            questionViewModel.response(localizationDelegate.getLanguage(requireContext()).toLanguageTag(),2)
+            Log.d("CONFIRM_DIALOG", "Click");
+            questionViewModel.response(
+                localizationDelegate.getLanguage(requireContext()).toLanguageTag(), 2
+            )
             dialog.dismiss()
         }
         return dialog
@@ -331,7 +351,7 @@ class CardActivity : Fragment(), View.OnClickListener {
 
         }
         bQA.setOnClickListener {
-            Log.d("CONFIRM_DIALOG","Open");
+            Log.d("CONFIRM_DIALOG", "Open");
             questionAskDialog().show()
             dialog.dismiss()
         }
@@ -368,10 +388,34 @@ class CardActivity : Fragment(), View.OnClickListener {
         dialog.setContentView(view)
         val pagerModels: ArrayList<PagerModel?> = ArrayList()
         with(pagerModels) {
-            add(PagerModel(getString(R.string.like_out_stock), getString(R.string.full_swipe), R.drawable.ic_heart))
-            add(PagerModel(getString(R.string.get_5_star), getString(R.string.you_send_star), R.drawable.ic_starss))
-            add(PagerModel(getString(R.string.unlimited_say_hi_2), getString(R.string.unlimited_say_hi_3), R.drawable.ic_hand))
-            add(PagerModel(getString(R.string.who_like_you), getString(R.string.see_who_has_like), R.drawable.ic_love2))
+            add(
+                PagerModel(
+                    getString(R.string.like_out_stock),
+                    getString(R.string.full_swipe),
+                    R.drawable.ic_heart
+                )
+            )
+            add(
+                PagerModel(
+                    getString(R.string.get_5_star),
+                    getString(R.string.you_send_star),
+                    R.drawable.ic_starss
+                )
+            )
+            add(
+                PagerModel(
+                    getString(R.string.unlimited_say_hi_2),
+                    getString(R.string.unlimited_say_hi_3),
+                    R.drawable.ic_hand
+                )
+            )
+            add(
+                PagerModel(
+                    getString(R.string.who_like_you),
+                    getString(R.string.see_who_has_like),
+                    R.drawable.ic_love2
+                )
+            )
 
         }
         val adapter = VipSlideAdapter(requireContext(), pagerModels)
@@ -402,30 +446,31 @@ class CardActivity : Fragment(), View.OnClickListener {
     }
 
     private fun isConnectionMatches(userId: String) {
-        val currentUserConnectionDb = usersDb.child(currentUid).child("connection").child("yep").child(userId)
+        val currentUserConnectionDb =
+            usersDb.child(currentUid).child("connection").child("yep").child(userId)
         currentUserConnectionDb.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if (dataSnapshot.exists()) {
                     val key = FirebaseDatabase.getInstance().reference.child("Chat").push().key
                     usersDb.child(dataSnapshot.key!!)
-                            .child("connection").child("matches")
-                            .child(currentUid).child("ChatId")
-                            .setValue(key)
+                        .child("connection").child("matches")
+                        .child(currentUid).child("ChatId")
+                        .setValue(key)
                     usersDb.child(currentUid)
-                            .child("connection")
-                            .child("matches")
-                            .child(dataSnapshot.key!!)
-                            .child("ChatId").setValue(key)
+                        .child("connection")
+                        .child("matches")
+                        .child(dataSnapshot.key!!)
+                        .child("ChatId").setValue(key)
                     usersDb.child(dataSnapshot.key!!)
-                            .child("connection")
-                            .child("yep")
-                            .child(currentUid)
-                            .setValue(null)
+                        .child("connection")
+                        .child("yep")
+                        .child(currentUid)
+                        .setValue(null)
                     usersDb.child(currentUid)
-                            .child("connection")
-                            .child("yep")
-                            .child(dataSnapshot.key!!)
-                            .setValue(null)
+                        .child("connection")
+                        .child("yep")
+                        .child(dataSnapshot.key!!)
+                        .setValue(null)
                     if (notificationMatch == "1") {
                         dialog = Dialog(requireContext())
                         val inflater = layoutInflater
@@ -456,7 +501,10 @@ class CardActivity : Fragment(), View.OnClickListener {
                         Glide.with(requireContext()).load(po.profileImageUrl).into(imageView)
                         dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                         dialog.setContentView(view)
-                        dialog.window!!.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
+                        dialog.window!!.setLayout(
+                            WindowManager.LayoutParams.MATCH_PARENT,
+                            WindowManager.LayoutParams.MATCH_PARENT
+                        )
                         dialog.show()
                     }
                 }
@@ -465,7 +513,6 @@ class CardActivity : Fragment(), View.OnClickListener {
             override fun onCancelled(databaseError: DatabaseError) {}
         })
     }
-
 
 
     private fun getDis() {
@@ -486,56 +533,57 @@ class CardActivity : Fragment(), View.OnClickListener {
 
     private fun callFunctions(limit: Int, type: Boolean, count: Int) {
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
-            val preferences2 = requireActivity().getSharedPreferences("notification_match", Context.MODE_PRIVATE)
+            val preferences2 =
+                requireActivity().getSharedPreferences("notification_match", Context.MODE_PRIVATE)
             notificationMatch = preferences2.getString("noti", "1")
             var pre = 0
             if (!type) pre = 0
 
             val data = hashMapOf(
-                    "sex" to GlobalVariable.oppositeUserSex,
-                    "min" to GlobalVariable.oppositeUserAgeMin,
-                    "max" to GlobalVariable.oppositeUserAgeMax,
-                    "x_user" to GlobalVariable.x.toDouble(),
-                    "y_user" to GlobalVariable.y.toDouble(),
-                    "distance" to distance,
-                    "limit" to pre + limit,
-                    "prelimit" to pre
+                "sex" to GlobalVariable.oppositeUserSex,
+                "min" to GlobalVariable.oppositeUserAgeMin,
+                "max" to GlobalVariable.oppositeUserAgeMax,
+                "x_user" to GlobalVariable.x.toDouble(),
+                "y_user" to GlobalVariable.y.toDouble(),
+                "distance" to distance,
+                "limit" to pre + limit,
+                "prelimit" to pre
             )
             Log.d("tagkl", data.toString())
 
             functions.getHttpsCallable("getUserCard")
-                    .call(data)
-                    .addOnFailureListener { Log.d("ghj", "failed") }
-                    .addOnSuccessListener { task ->
+                .call(data)
+                .addOnFailureListener { Log.d("ghj", "failed") }
+                .addOnSuccessListener { task ->
 
-                        val result1 = task.data as Map<*, *>
-                        resultlimit = result1["o"] as ArrayList<*>
-                        if (resultlimit.isNotEmpty()) {
-                            Log.d("iii", resultlimit.size.toString())
-                            getUser(resultlimit, type, count, 10)
-                        } else {
-                            val logoMoveAnimation: Animation = AnimationUtils.loadAnimation(context, R.anim.fade_out2)
-                            val load = (activity as MainActivity).load
-                            logoMoveAnimation.setAnimationListener(object : Animation.AnimationListener {
-                                override fun onAnimationStart(animation: Animation?) {
+                    val result1 = task.data as Map<*, *>
+                    resultlimit = result1["o"] as ArrayList<*>
+                    if (resultlimit.isNotEmpty()) {
+                        Log.d("iii", resultlimit.size.toString())
+                        getUser(resultlimit, type, count, 10)
+                    } else {
+                        val logoMoveAnimation: Animation =
+                            AnimationUtils.loadAnimation(context, R.anim.fade_out2)
+                        val load = (activity as MainActivity).load
+                        logoMoveAnimation.setAnimationListener(object :
+                            Animation.AnimationListener {
+                            override fun onAnimationStart(animation: Animation?) {
 
-                                }
+                            }
 
-                                override fun onAnimationEnd(animation: Animation?) {
-                                    load.visibility = View.GONE
-                                }
+                            override fun onAnimationEnd(animation: Animation?) {
+                                load.visibility = View.GONE
+                            }
 
-                                override fun onAnimationRepeat(animation: Animation?) {
+                            override fun onAnimationRepeat(animation: Animation?) {
 
-                                }
-                            })
-                            load.startAnimation(logoMoveAnimation)
-                            layoutGps.visibility = View.VISIBLE
-                            runnable!!.run()
-                        }
-
-
+                            }
+                        })
+                        load.startAnimation(logoMoveAnimation)
+                        layoutGps.visibility = View.VISIBLE
+                        runnable!!.run()
                     }
+                }
         }
 
     }
@@ -543,11 +591,14 @@ class CardActivity : Fragment(), View.OnClickListener {
     private fun getUser(result2: ArrayList<*>, type: Boolean, count: Int, limit: Int) {
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Default) {
-                val preferences = requireActivity().getSharedPreferences("Settings", Context.MODE_PRIVATE)
+                val preferences =
+                    requireActivity().getSharedPreferences("Settings", Context.MODE_PRIVATE)
 
 
                 var addresses: MutableList<Address>
-                val language = LocalizationActivityDelegate(requireActivity()).getLanguage(requireContext()).toString()
+                val language =
+                    LocalizationActivityDelegate(requireActivity()).getLanguage(requireContext())
+                        .toString()
                 val geoCoder: Geocoder = if (language == "th") {
                     Geocoder(context)
                 } else {
@@ -564,7 +615,10 @@ class CardActivity : Fragment(), View.OnClickListener {
                     countLimit++
                     Log.d("iop", "$countLimit ${result2.size}")
                     val user = result2[x] as Map<*, *>
-                    Log.d("ghj", user["name"].toString() + " , " + user["distance_other"].toString())
+                    Log.d(
+                        "ghj",
+                        user["name"].toString() + " , " + user["distance_other"].toString()
+                    )
                     var myself = ""
                     var citysend: String? = ""
                     var offStatus = false
@@ -573,7 +627,11 @@ class CardActivity : Fragment(), View.OnClickListener {
 
                     val location = user["Location"] as Map<*, *>
                     try {
-                        addresses = geoCoder.getFromLocation(location["X"].toString().toDouble(), location["Y"].toString().toDouble(), 1)
+                        addresses = geoCoder.getFromLocation(
+                            location["X"].toString().toDouble(),
+                            location["Y"].toString().toDouble(),
+                            1
+                        )
                         val city = addresses[0].adminArea
                         citysend = city
                     } catch (e: IOException) {
@@ -586,7 +644,8 @@ class CardActivity : Fragment(), View.OnClickListener {
                         offStatus = true
                     }
                     (user["ProfileImage"] as Map<*, *>)["profileImageUrl0"]
-                    val profileImageUrl = (user["ProfileImage"] as Map<*, *>)["profileImageUrl0"].toString()
+                    val profileImageUrl =
+                        (user["ProfileImage"] as Map<*, *>)["profileImageUrl0"].toString()
 
                     var status = "offline"
                     if (user["status"] == 1) {
@@ -600,9 +659,22 @@ class CardActivity : Fragment(), View.OnClickListener {
                             starS = true
                     }
                     dis = df2.format(user["distance_other"])
-                    rowItem.add(CardModel(user["key"].toString(), user["name"].toString(), profileImageUrl, user["Age"].toString(), dis, citysend, status, myself, offStatus, vip, starS ,
-                        user["percent"] as Int
-                    ))
+                    rowItem.add(
+                        CardModel(
+                            user["key"].toString(),
+                            user["name"].toString(),
+                            profileImageUrl,
+                            user["Age"].toString(),
+                            dis,
+                            citysend,
+                            status,
+                            myself,
+                            offStatus,
+                            vip,
+                            starS,
+                            user["percent"] as Int
+                        )
+                    )
 
                 }
             }
@@ -663,10 +735,10 @@ class CardActivity : Fragment(), View.OnClickListener {
 
     private fun like() {
         val setting = SwipeAnimationSetting.Builder()
-                .setDirection(Direction.Right)
-                .setDuration(Duration.Normal.duration)
-                .setInterpolator(AccelerateInterpolator())
-                .build()
+            .setDirection(Direction.Right)
+            .setDuration(Duration.Normal.duration)
+            .setInterpolator(AccelerateInterpolator())
+            .build()
         manager.setSwipeAnimationSetting(setting)
         cardStackView.swipe()
     }
@@ -680,10 +752,10 @@ class CardActivity : Fragment(), View.OnClickListener {
 
     private fun disLike() {
         val setting = SwipeAnimationSetting.Builder()
-                .setDirection(Direction.Left)
-                .setDuration(Duration.Normal.duration)
-                .setInterpolator(AccelerateInterpolator())
-                .build()
+            .setDirection(Direction.Left)
+            .setDuration(Duration.Normal.duration)
+            .setInterpolator(AccelerateInterpolator())
+            .build()
         manager.setSwipeAnimationSetting(setting)
         cardStackView.swipe()
     }
@@ -699,10 +771,10 @@ class CardActivity : Fragment(), View.OnClickListener {
 
     private fun star() {
         val setting = SwipeAnimationSetting.Builder()
-                .setDirection(Direction.Top)
-                .setDuration(Duration.Normal.duration)
-                .setInterpolator(AccelerateInterpolator())
-                .build()
+            .setDirection(Direction.Top)
+            .setDuration(Duration.Normal.duration)
+            .setInterpolator(AccelerateInterpolator())
+            .build()
         manager.setSwipeAnimationSetting(setting)
         cardStackView.swipe()
     }

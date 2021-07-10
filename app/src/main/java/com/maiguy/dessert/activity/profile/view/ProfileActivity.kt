@@ -364,7 +364,7 @@ class ProfileActivity : Fragment() {
 
         if (requestCode == 14) {
             if (resultCode == 14) {
-                Snackbar.make(likeYou, "ขอบคุณ", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(likeYou, getString(R.string.thank), Snackbar.LENGTH_SHORT).show()
             }
         }
     }

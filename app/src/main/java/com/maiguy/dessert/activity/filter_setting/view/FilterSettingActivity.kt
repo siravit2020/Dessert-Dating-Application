@@ -328,9 +328,9 @@ class  FilterSettingActivity : AppCompatActivity(),View.OnClickListener {
                 language.setLanguage()
                 save()
                 finish()
-                overridePendingTransition(0, 0)
-                startActivity(Intent(this@FilterSettingActivity, MainActivity::class.java))
-                overridePendingTransition(0, 0)
+//                overridePendingTransition(0, 0)
+//                startActivity(Intent(this@FilterSettingActivity, MainActivity::class.java))
+//                overridePendingTransition(0, 0)
 
             }
             mBuilder.setNegativeButton(R.string.cancle) { dialog, _ -> dialog.dismiss() }
