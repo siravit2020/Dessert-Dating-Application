@@ -122,7 +122,7 @@
     <string name="please_open_gps">Your GPS is off. Please turn on GPS to use the application.</string>
     <string name="open_gps">turn on GPS</string>
     <string name="enter_number">Please enter the number correctly.</string>
-    <string name="close_account_confirm">Do you want to permanently delete this account from the system?</string>
+    <string name="close_account_confirm">Do you want to permanently delete this account from application?</string>
     <string name="vision_closed">Vision closed</string>
     <string name="vision_closed_match">If you turn off visibility in Matching mode Other users will not be able to see you.</string>
     <string name="vision_closed_nearby">If you turn off visibility in Nearby mode Other users will not be able to see you.</string>
@@ -132,7 +132,7 @@
     <string name="Send_a_message_to">Send a message to him/she.</string>
     <string name="back">back</string>
     <string name="you_are_vip">You are VIP</string>
-    <string name="primary_profile_alert">If you don\'t have a primary profile picture, other users won\'t be able to see you. Do you want to exit?</string>
+    <string name="primary_profile_alert">If you don\'t have a profile picture, other users won\'t be able to see you. Do you want to exit?</string>
     <string name="delete_image">Delete photo</string>
     <string name="delete_image_confirm">Do you want to delete the photo?</string>
     <string name="Sign_in">Sign In</string>
@@ -198,14 +198,14 @@
     <string name="other">other</string>
     <string name="no_one_has_viewed_your_profile_yet">No one has viewed your profile yet.</string>
     <string name="your_email">Your email</string>
-    <string name="reset_password_link">Dessert will send you a link to reset your password. go to your email</string>
+    <string name="reset_password_link">Dessert will send you a link to reset your password. at your email</string>
     <string name="you_want_close_your_account">Are you sure you want close your account</string>
     <string name="reason_stopped">Please tell me the reason why you stopped using it.</string>
-    <string name="i_want_to_start_again">I want to start again</string>
+    <string name="i_want_to_start_again">I want to restart</string>
     <string name="meet_the_right_person">meet the right person</string>
     <string name="i_don_t_like_dessert">"I don't like Dessert"</string>
-    <string name="something_is_wrong">something is wrong</string>
-    <string name="bad_experience">I had a bad experience with Dessert.</string>
+    <string name="something_is_wrong">something was wrong</string>
+    <string name="bad_experience">I had a bad experience on Dessert.</string>
     <string name="other_apps">I prefer other apps.</string>
     <string name="not_enough">I can\'t find enough people to match.</string>
     <string name="i_haven_t_dated_anyone">I haven\'t dated anyone.</string>
@@ -213,7 +213,7 @@
     <string name="who_like_you">Who like you</string>
     <string name="see_who_has_like">See who has liked you.</string>
     <string name="apply_vip_dessert">Apply for Dessert VIP to receive various privileges.</string>
-    <string name="say_hi_out">Your number of say hi has run out.</string>
+    <string name="say_hi_out">Your number of say hi has out of quota.</string>
     <string name="unlimited_say_hi">Apply Dessert VIP for unlimited say hi.</string>
     <string name="unlimited_like">unlimited likes</string>
     <string name="full_right_swipe">full right swipe don\'t wait time</string>
@@ -255,7 +255,6 @@
         <item>กิจกรรมอาสา</item>
         <item>ร้องเพลง</item>
         <item>เต้น</item>
-        <item>ด่าสมพร</item>
         <item>เล่นเกม</item>
         <item>แข่งรถ</item>
     </string-array>
