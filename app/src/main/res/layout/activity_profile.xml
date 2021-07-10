@@ -82,7 +82,7 @@
                             android:maxEms="8"
 
                             android:maxLines="1"
-                            android:text="Mai siravit"
+
                             android:textColor="@color/text_black_gray"
                             android:textSize="@dimen/Text20sp" />
 
@@ -91,7 +91,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
 
-                            android:text="21"
+
                             android:textColor="@color/text_black_gray"
                             android:textSize="@dimen/Text20sp" />
 
@@ -168,7 +168,7 @@
                             android:gravity="center"
                             android:layout_marginBottom="@dimen/View12dp"
                             android:textSize="@dimen/Text16sp"
-                            android:text="ตอบคำถาม เพิ่มความแม่นยำ "
+                            android:text="@string/result_feedback"
                             android:textColor="@color/text_gray"
                             />
                         <TextView
@@ -178,7 +178,7 @@
                             android:gravity="center"
                             android:layout_marginBottom="@dimen/View12dp"
                             android:textSize="@dimen/Text16sp"
-                            android:text="คลิก"
+                            android:text="@string/click"
                             android:textColor="@color/c3"
                             />
                     </LinearLayout>

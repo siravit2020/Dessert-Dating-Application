@@ -242,6 +242,8 @@
     <string name="satisfaction">Satisfaction</string>
     <string name="pornography">Pornography</string>
     <string name="thank">Thank</string>
+    <string name="result_feedback">ตอบคำถาม เพิ่มความแม่นยำ </string>
+    <string name="click">Click</string>
 
     <string-array name="shopping_item">
         <item>จัดดอกไม้-ทำสวน</item>

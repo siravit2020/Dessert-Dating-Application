@@ -20,7 +20,7 @@ class RemoteConfig(private var activity: Activity) {
             .addOnCompleteListener(activity) { task ->
                 if (task.isSuccessful) {
 
-                    GlobalVariable.feedback = remoteConfig.getString("feedback").toBoolean()
+                    GlobalVariable.feedbackOn = remoteConfig.getString("feedback").toBoolean()
                     GlobalVariable.priceVip = remoteConfig.getString("price_vip").toInt()
                     GlobalVariable.priceLike = remoteConfig.getString("price_like").toInt()
                     GlobalVariable.idAds = remoteConfig.getString("id_ads")

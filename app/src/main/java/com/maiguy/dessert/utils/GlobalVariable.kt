@@ -22,7 +22,8 @@ class GlobalVariable : Application(){
         var seeYou: Int = 0
         var vip = false
         var likeYou = 0
-        var feedback = false
+        var feedbackOn = false
+        var feedbackResult = false
         var priceVip = 79
         var priceLike = 29
         var countMatch = 0

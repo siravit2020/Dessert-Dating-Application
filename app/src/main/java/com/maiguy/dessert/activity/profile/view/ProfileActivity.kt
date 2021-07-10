@@ -15,7 +15,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.akexorcist.localizationactivity.core.LocalizationActivityDelegate
@@ -124,8 +123,8 @@ class ProfileActivity : Fragment() {
         setimage = view.findViewById(R.id.goto_set_image)
 
         Log.d("count",GlobalVariable.countMatch.toString())
-        Log.d("count",GlobalVariable.feedback.toString())
-        if(!GlobalVariable.feedback && GlobalVariable.countMatch >= 1){
+        Log.d("count",GlobalVariable.feedbackOn.toString())
+        if(GlobalVariable.feedbackOn && GlobalVariable.countMatch >= 1 && GlobalVariable.feedbackResult){
             resultFeedback.visibility = View.VISIBLE
         }
 

@@ -16,10 +16,11 @@
         <TextView
             android:textStyle="bold"
             android:id="@+id/questionQARegister"
-            android:textColor="@color/text_black_gray"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/Text16sp"
+            android:textColor="@color/text_black_gray"
             android:layout_marginBottom="@dimen/View8dp"
             android:text="@string/message"/>
         <RadioGroup
@@ -28,13 +29,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <RadioButton
-
+                android:textColor="@color/text_black_gray"
                 android:background="@color/white"
                 android:id="@+id/radioButtonRegisterQA1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="label_1"/>
             <RadioButton
+                android:textColor="@color/text_black_gray"
                 android:background="@color/white"
                 android:id="@+id/radioButtonRegisterQA2"
                 android:layout_width="match_parent"
@@ -43,6 +45,7 @@
         </RadioGroup>
 
         <TextView
+
             android:textStyle="bold"
             android:textColor="@color/text_black_gray"
             android:layout_marginVertical="@dimen/View8dp"
@@ -56,34 +59,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <RadioButton
-
+                android:textColor="@color/text_black_gray"
                 android:background="@color/white"
                 android:id="@+id/radioButtonRegisterQAAns1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/qa_choice1"/>
             <RadioButton
-
+                android:textColor="@color/text_black_gray"
                 android:background="@color/white"
                 android:id="@+id/radioButtonRegisterQAAns2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/qa_choice2"/>
             <RadioButton
-
+                android:textColor="@color/text_black_gray"
                 android:background="@color/white"
                 android:id="@+id/radioButtonRegisterQAAns3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/qa_choice4"/>
             <RadioButton
-
+                android:textColor="@color/text_black_gray"
                 android:background="@color/white"
                 android:id="@+id/radioButtonRegisterQAAns4"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/qa_choice4"/>
             <RadioButton
+                android:textColor="@color/text_black_gray"
                 android:background="@color/white"
                 android:id="@+id/radioButtonRegisterQAAns5"
                 android:layout_width="match_parent"

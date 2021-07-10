@@ -273,7 +273,7 @@ class MainActivity : AppCompatActivity() ,LocationListener {
                     if (task.isSuccessful) {
 
 
-                        GlobalVariable.feedback = remoteConfig.getString("feedback").toBoolean()
+                        GlobalVariable.feedbackOn = remoteConfig.getString("feedback").toBoolean()
                         GlobalVariable.priceVip = remoteConfig.getString("price_vip").toInt()
                         GlobalVariable.priceLike = remoteConfig.getString("price_like").toInt()
                         GlobalVariable.idAds = remoteConfig.getString("id_ads")
@@ -364,8 +364,12 @@ class MainActivity : AppCompatActivity() ,LocationListener {
 
                     GlobalVariable.seeYou = 0
                 }
+                if(!dataSnapshot.hasChild("feedback_result")){
+                    Log.d("feed","true")
+                    GlobalVariable.feedbackResult = true
+                }
                 GlobalVariable.countMatch = dataSnapshot.child("connection").child("matches").childrenCount.toInt()
-                if(!GlobalVariable.feedback && GlobalVariable.countMatch >= 1){
+                if(GlobalVariable.feedbackOn && GlobalVariable.countMatch >= 1 && GlobalVariable.feedbackResult){
                     FeedbackDialog(this@MainActivity) { getFeedbackQuestion() }.show()
                 }
                 GlobalVariable.buyLike = dataSnapshot.hasChild("buy_like")

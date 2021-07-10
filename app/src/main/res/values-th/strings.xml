@@ -335,5 +335,7 @@
     <string name="policy_privacy">นโยบายความเป็นส่วนตัว</string>
     <string name="assessment_form">ทำแบบประเมินความพึงพอใจ ในการใช้งาน (รับ 3 Star ฟรี)</string>
     <string name="satisfaction">ความพึงพอใจ</string>
+    <string name="result_feedback">ตอบคำถาม เพิ่มความแม่นยำ </string>
+    <string name="click">คลิก</string>
 
 </resources>
