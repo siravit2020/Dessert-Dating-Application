@@ -456,10 +456,10 @@ class MatchesActivity : Fragment() {
         val myUnread = mContext!!.getSharedPreferences("NotificationActive", Context.MODE_PRIVATE)
         val s1 = myUnread.getString("ID", "null")
         if (s1 != "null") { val index = resultMatchNode.map { T -> T.userId.equals(s1) }.indexOf(element = true)
-            if (resultMatchNode.size > 0) {
+            if (resultMatchNode.size > 1) {
                 resultMatchNode.elementAt(index).count_unread = 0
                 mMatchesAdapter.notifyDataSetChanged()
-            } else {
+            } else if(resultMatchNode.size > 0) {
                 resultMatchNode.elementAt(0).count_unread = 0
                 mMatchesAdapter.notifyDataSetChanged() }
             myUnread.edit().clear().apply() }
@@ -467,13 +467,13 @@ class MatchesActivity : Fragment() {
         val s2 = myDelete.getString("ID", "null")
         if (s2 != "null") {
             val index = resultMatchNode.map { T -> T.userId.equals(s2) }.indexOf(element = true)
-            if (resultMatchNode.size > 0) {
+            if (resultMatchNode.size > 1) {
                 resultMatchNode.apply {
                     elementAt(index).late = ""
                     elementAt(index).time = null
                 }
                 mMatchesAdapter.notifyDataSetChanged()
-            } else {
+            } else if(resultMatchNode.size > 0){
                 resultMatchNode.apply {
                     elementAt(0).late = ""
                     elementAt(0).time = null

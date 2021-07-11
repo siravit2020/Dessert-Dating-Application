@@ -135,17 +135,8 @@ class ProfileInformationOppositeUserActivity : AppCompatActivity() {
         questionViewModel = ViewModelProvider(this, ViewModelFactory(this)).get(
             QuestionViewModel::class.java)
 
-        questionViewModel.fetchQA.observe(this, {
-            Log.d("GET_QUESTION", it.size.toString())
-            if (it.size > 0) {
-                val dialogFragment = DialogFragment()
-                dialogFragment.setData(it, "Question")
-                dialogFragment.show(this.supportFragmentManager, "Question dialog")
-            } else {
-                errorDialog = ErrorDialog(this)
-                errorDialog.outOfQuestionDialog().show()
-            }
-
+        questionViewModel.fetchEqualsQA.observe(this,{
+                DialogAskQuestion(this@ProfileInformationOppositeUserActivity).equalsDialog(it).show()
         })
         mAuth = FirebaseAuth.getInstance()
         matchId = intent.extras!!.getString("User_opposite")!!
