@@ -97,6 +97,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         if (id == 2) {
             notificationManager!!.notify(id + random.nextInt(9999 - 1000) + 1000, sum)
         }
+
         notificationManager!!.notify(id + random.nextInt(9999 - 1000) + 1000, notification)
     }
 

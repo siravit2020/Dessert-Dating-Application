@@ -861,10 +861,10 @@ class ChatActivity : AppCompatActivity() {
                     usersDb.apply {
                         usersDb.child(matchId).child("connection")
                                 .child("yep")
-                                .child(currentUserId).setValue(true)
+                                .child(currentUserId).setValue(null)
                         usersDb.child(currentUserId).child("connection")
                                 .child("yep")
-                                .child(matchId).setValue(true)
+                                .child(matchId).setValue(null)
                         usersDb.child(currentUserId).child("connection")
                                 .child("chatna")
                                 .child(matchId).setValue(null)
