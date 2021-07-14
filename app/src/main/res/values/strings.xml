@@ -92,7 +92,7 @@
     <string name="please">Please fill out below.</string>
     <string name="finish">Finish</string>
     <string name="register">Register</string>
-    <string name="See_who_like">See who likes you</string>
+    <string name="See_who_like">Let's see who likes you</string>
     <string name="Searching">Searching</string>
     <string name="chatna_empty">No one greets you yet \n Wait a little longer</string>
     <string name="chat_empty">When you match with other users \n Or when you accept the greeting \n Your match will appear here.</string>
@@ -129,7 +129,7 @@
     <string name="try_again">Please try again later.</string>
     <string name="visibility_settings">Visibility settings</string>
     <string name="visibility">Visibility</string>
-    <string name="Send_a_message_to">Send a message to him/she.</string>
+    <string name="Send_a_message_to">Send a message to him/her.</string>
     <string name="back">back</string>
     <string name="you_are_vip">You are VIP</string>
     <string name="primary_profile_alert">If you don\'t have a profile picture, other users won\'t be able to see you. Do you want to exit?</string>
@@ -166,15 +166,15 @@
     <string name="uploading">Uploading....</string>
     <string name="selected_questions">Please selected the answer</string>
     <string name="title_askQuestion">Answer questions</string>
-    <string name="body_askQuestion">ตอบคำถามเพิ่มความแม่นยำในการแมตช์<br/>(รับ 5 ไลค์ฟรี)</string>
-    <string name="body_askQuestion2">ตอบคำถามเพิ่มความแม่นยำในการแมตช์<br/>(รับ 3 ดาวฟรี)</string>
+    <string name="body_askQuestion">Anwering the question to increase the accuracy of the match<br/>(Get free 5 likes)</string>
+    <string name="body_askQuestion2">Anwering the question to increase the accuracy of the match<br/>(Get free 3 stars)</string>
     <string name="out_of_quota">Out of today quota !!</string>
     <string name="out_of_questions">Sorry, Out of question !!</string>
     <string name="out_of_questions_description">Out of question</string>
     <string name="email">Email</string>
     <string name="error_title">Error, Something went wrong !!</string>
     <string name="password">Password</string>
-    <string name="new_user">New User ?</string>
+    <string name="new_user">Join us.</string>
     <string name="verify_email">Please verify your account. at your e-mail</string>
     <string name="sending_to_email">Sending to email...</string>
     <string name="get_vip_description">Watch ads to get more likes<br />or apply for Dessert VIP to receive various privileges.</string>
@@ -190,20 +190,20 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="note_email_register">Please use a valid email address. because user account verification is required</string>
     <string name="skip_arrow">skip ></string>
-    <string name="not_found_user">Not found another user.</string>
-    <string name="not_matches">I have not seen any matches</string>
+    <string name="not_found_user">Not found other users.</string>
+    <string name="not_matches">I have not seen any matches.</string>
     <string name="app_freezes">The app freezes too often</string>
     <string name="my_match_has_disappeared">My match has disappeared.</string>
-    <string name="over_and_over">I see people over and over</string>
+    <string name="over_and_over">I see the same person over and over again.</string>
     <string name="chat_problem">Chat problem</string>
     <string name="other">other</string>
     <string name="no_one_has_viewed_your_profile_yet">No one has viewed your profile yet.</string>
     <string name="your_email">Your email</string>
     <string name="reset_password_link">Dessert will send you a link to reset your password. at your email</string>
     <string name="you_want_close_your_account">Are you sure you want close your account</string>
-    <string name="reason_stopped">Please tell me the reason why you stopped using it.</string>
+    <string name="reason_stopped">Are you sure you want close your account</string>
     <string name="i_want_to_start_again">I want to restart</string>
-    <string name="meet_the_right_person">meet the right person</string>
+    <string name="meet_the_right_person">I found my soul mate.</string>
     <string name="i_don_t_like_dessert">"I don't like Dessert"</string>
     <string name="something_is_wrong">something was wrong</string>
     <string name="bad_experience">I had a bad experience on Dessert.</string>
@@ -232,7 +232,7 @@
     <string name="unlimited_say_hi_3">Can say hi you fully unlimited number</string>
     <string name="like_out_stock">Your number of likes has run out.</string>
     <string name="full_swipe">Apply for Desert for unlimited likes. full right swipe don\'t wait time</string>
-    <string name="send_star">send you star</string>
+    <string name="send_star">send you a star</string>
     <string name="ads_rewards">Watch ads to earn rewards.</string>
     <string name="buy">Buy</string>
     <string name="title_equals_question">Matching question.</string>
@@ -242,33 +242,33 @@
     <string name="satisfaction">Satisfaction</string>
     <string name="pornography">Pornography</string>
     <string name="thank">Thank</string>
-    <string name="result_feedback">ตอบคำถาม เพิ่มความแม่นยำ </string>
+    <string name="result_feedback">Question to increase the accuracy.</string>
     <string name="click">Click</string>
     <string name="i_m_sorry">I\'m sorry</string>
     <string name="the_stars_for_today_are_gone">The stars for today are gone.</string>
 
     <string-array name="shopping_item">
-        <item>จัดดอกไม้-ทำสวน</item>
-        <item>ทำอาหาร</item>
-        <item>เย็บปักถักร้อย</item>
-        <item>เล่นกีฬา</item>
-        <item>หัดแต่งหน้า-ทำผม</item>
-        <item>ท่องเที่ยว</item>
-        <item>ถ่ายรูป</item>
-        <item>ทำบล๊อก-Vlog</item>
-        <item>ดูภาพยนตร์-ซีรี่ส์</item>
-        <item>อ่านหนังสือ</item>
-        <item>ทำงานฝีมือ</item>
-        <item>กิจกรรมอาสา</item>
-        <item>ร้องเพลง</item>
-        <item>เต้น</item>
-        <item>เล่นเกม</item>
-        <item>แข่งรถ</item>
-        <item>เล่นดนตรี</item>
-        <item>ตกปลา</item>
-        <item>ฟังเพลง</item>
-        <item>สะสมของหายาก</item>
-        <item>เล่นหุ้น</item>
+        <item>Gardening</item>
+        <item>Cooking</item>
+        <item>Embroidery</item>
+        <item>Sport</item>
+        <item>Beauty</item>
+        <item>Traveling</item>
+        <item>Photograph</item>
+        <item>Lifestyle (Blog-Vlog)</item>
+        <item>Movie</item>
+        <item>Read</item>
+        <item>Handcraft</item>
+        <item>Volunteering</item>
+        <item>Sing a songs</item>
+        <item>Dance</item>
+        <item>Game</item>
+        <item>Car race</item>
+        <item>Music</item>
+        <item>Fishing</item>
+        <item>Listen to music</item>
+        <item>Collecting rare item</item>
+        <item>Stock markets</item>
     </string-array>
 
     <string-array name="pasa_item">
@@ -324,10 +324,10 @@
         <item>Use someone picture</item>
         <item>Age below 18 years old</item>
         <item>Use pornography</item>
-        <item>Try to incite Another Users</item>
-        <item>Watch the language</item>
+        <item>Try to incite other Users</item>
+        <item>Using inappropriate words</item>
         <item>Left be hide Ads for income</item>
-        <item>Try to trick another Users</item>
+        <item>Try to trick other Users</item>
     </string-array>
 
     <string-array name="chat_item">
