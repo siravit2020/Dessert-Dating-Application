@@ -95,11 +95,11 @@ class ItemImageActivity : AppCompatActivity() {
                 if (position == 0 && chk1time) {
                     chk1time = if (resultImage!![position]!!.create) {
                         nameSender.text = nameUser
-                        setDate.text = (TimeStampToDate(resultImage[position]?.date!!).date()  + " " + TimeStampToDate(resultImage[position]?.date!!).time())
+                        setDate.hint = (TimeStampToDate(resultImage[position]?.date!!).date()  + " " + TimeStampToDate(resultImage[position]?.date!!).time())
                         false
                     } else {
                         nameSender.text = nameMatch
-                        setDate.text = (TimeStampToDate(resultImage[position]?.date!!).date() + " " + TimeStampToDate(resultImage[position]?.date!!).time())
+                        setDate.hint = (TimeStampToDate(resultImage[position]?.date!!).date() + " " + TimeStampToDate(resultImage[position]?.date!!).time())
                         false
                     }
                 }
