@@ -92,7 +92,7 @@
     <string name="please">Please fill out below.</string>
     <string name="finish">Finish</string>
     <string name="register">Register</string>
-    <string name="See_who_like">Let's see who likes you</string>
+    <string name="See_who_like">Let\'s see who likes you</string>
     <string name="Searching">Searching</string>
     <string name="chatna_empty">No one greets you yet \n Wait a little longer</string>
     <string name="chat_empty">When you match with other users \n Or when you accept the greeting \n Your match will appear here.</string>
@@ -242,7 +242,7 @@
     <string name="satisfaction">Satisfaction</string>
     <string name="pornography">Pornography</string>
     <string name="thank">Thank</string>
-    <string name="result_feedback">Question to increase the accuracy.</string>
+    <string name="result_feedback">Question to increase the accuracy. </string>
     <string name="click">Click</string>
     <string name="i_m_sorry">I\'m sorry</string>
     <string name="the_stars_for_today_are_gone">The stars for today are gone.</string>
