@@ -94,8 +94,10 @@ class ChatViewHolders(itemView: View, private val context: Context) : RecyclerVi
                         beginAudio.text = "00:00"
                         mMessage.text = "00:$second"
                     } else {
-                        val minute = String.format("%02d", Integer.valueOf(chatList.audio_length!!) / 60)
-                        val second = String.format("%02d", Integer.valueOf(chatList.audio_length!!) % 60)
+                        val minute =
+                            String.format("%02d", Integer.valueOf(chatList.audio_length!!) / 60)
+                        val second =
+                            String.format("%02d", Integer.valueOf(chatList.audio_length!!) % 60)
                         beginAudio.text = "00:00"
                         mMessage.text = "$minute:$second"
                     }
@@ -119,10 +121,13 @@ class ChatViewHolders(itemView: View, private val context: Context) : RecyclerVi
                     b()
                     imageOpposite.visibility = View.VISIBLE
                     if (chatList.profileImageUrl == "")
-                        Glide.with(context).load(R.drawable.ic_woman).thumbnail(0.1f).into(imageOpposite)
+                        Glide.with(context).load(R.drawable.ic_woman).thumbnail(0.1f)
+                            .into(imageOpposite)
                     else
-                        Glide.with(context).load(chatList.profileImageUrl).thumbnail(0.1f).into(imageOpposite)
-                    Glide.with(context).load(chatList.profileImageUrl).thumbnail(0.1f).into(imageOpposite)
+                        Glide.with(context).load(chatList.profileImageUrl).thumbnail(0.1f)
+                            .into(imageOpposite)
+                    Glide.with(context).load(chatList.profileImageUrl).thumbnail(0.1f)
+                        .into(imageOpposite)
                     Glide.with(context).load(chatList.url).thumbnail(0.1f).into(mImageSent)
                     mchk3.background = ContextCompat.getDrawable(context, R.drawable.chat_2_photo)
                     mchk2.visibility = View.GONE
@@ -137,8 +142,10 @@ class ChatViewHolders(itemView: View, private val context: Context) : RecyclerVi
                         beginAudio.text = "00:00"
                         mMessage.text = "00:$second"
                     } else {
-                        val minute = String.format("%02d", Integer.valueOf(chatList.audio_length!!) / 60)
-                        val second = String.format("%02d", Integer.valueOf(chatList.audio_length!!) % 60)
+                        val minute =
+                            String.format("%02d", Integer.valueOf(chatList.audio_length!!) / 60)
+                        val second =
+                            String.format("%02d", Integer.valueOf(chatList.audio_length!!) % 60)
                         beginAudio.text = "00:00"
                         mMessage.text = "$minute:$second"
                     }
@@ -165,9 +172,6 @@ class ChatViewHolders(itemView: View, private val context: Context) : RecyclerVi
             }
         }
         cd.setViewColor(Color.parseColor("#FFF064"))
-        val item = context.resources.getStringArray(R.array.chat_item)
-        val itemImage = context.resources.getStringArray(R.array.chat_item_image)
-        val builder = AlertDialog.Builder(context)
         myClipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         buttonAudio.setOnClickListener {
             if (!play) {
@@ -200,14 +204,23 @@ class ChatViewHolders(itemView: View, private val context: Context) : RecyclerVi
                     mediaPlayer.seekTo(length)
                     mediaPlayer.start()
                 }
-                if (mchk2.background.constantState === ContextCompat.getDrawable(context, R.drawable.chat_1)!!.constantState) {
-                    mchk2.background = ContextCompat.getDrawable(context, R.drawable.chat_1_selected)
+                if (mchk2.background.constantState === ContextCompat.getDrawable(
+                        context,
+                        R.drawable.chat_1
+                    )!!.constantState
+                ) {
+                    mchk2.background =
+                        ContextCompat.getDrawable(context, R.drawable.chat_1_selected)
                 } else {
-                    mchk2.background = ContextCompat.getDrawable(context, R.drawable.chat_2_selected)
+                    mchk2.background =
+                        ContextCompat.getDrawable(context, R.drawable.chat_2_selected)
                 }
                 progressBarAudio.visibility = View.GONE
                 buttonAudio.visibility = View.VISIBLE
-                buttonAudio.background = ContextCompat.getDrawable(context, R.drawable.ic_pause_circle_outline_black_24dp)
+                buttonAudio.background = ContextCompat.getDrawable(
+                    context,
+                    R.drawable.ic_pause_circle_outline_black_24dp
+                )
                 countDownTimer = object : CountDownTimer(((counter + 1) * 1000).toLong(), 1000) {
                     var total = counter
                     override fun onTick(millisUntilFinished: Long) {
@@ -228,9 +241,16 @@ class ChatViewHolders(itemView: View, private val context: Context) : RecyclerVi
                     override fun onFinish() {
                         length = 0
                         cd.stopAnim()
-                        buttonAudio.background = ContextCompat.getDrawable(context, R.drawable.ic_play_circle_outline_black_24dp)
+                        buttonAudio.background = ContextCompat.getDrawable(
+                            context,
+                            R.drawable.ic_play_circle_outline_black_24dp
+                        )
                         beginAudio.text = ("00:00")
-                        if (mchk2.background.constantState === ContextCompat.getDrawable(context, R.drawable.chat_1_selected)!!.constantState) {
+                        if (mchk2.background.constantState === ContextCompat.getDrawable(
+                                context,
+                                R.drawable.chat_1_selected
+                            )!!.constantState
+                        ) {
                             mchk2.background = ContextCompat.getDrawable(context, R.drawable.chat_1)
                         } else {
                             mchk2.background = ContextCompat.getDrawable(context, R.drawable.chat_2)
@@ -244,48 +264,21 @@ class ChatViewHolders(itemView: View, private val context: Context) : RecyclerVi
                 Log.d("audioBackground", "$play")
                 cd.stopAnim()
                 countDownTimer.cancel()
-                buttonAudio.background = ContextCompat.getDrawable(context, R.drawable.ic_play_circle_outline_black_24dp)
+                buttonAudio.background =
+                    ContextCompat.getDrawable(context, R.drawable.ic_play_circle_outline_black_24dp)
                 mediaPlayer.stop()
                 length = mediaPlayer.currentPosition
                 Log.d("audioBackground", "$length")
-                if (mchk2.background.constantState === ContextCompat.getDrawable(context, R.drawable.chat_1_selected)!!.constantState) {
+                if (mchk2.background.constantState === ContextCompat.getDrawable(
+                        context,
+                        R.drawable.chat_1_selected
+                    )!!.constantState
+                ) {
                     mchk2.background = ContextCompat.getDrawable(context, R.drawable.chat_1)
                 } else {
                     mchk2.background = ContextCompat.getDrawable(context, R.drawable.chat_2)
                 }
             }
-        }
-        mchk2.setOnLongClickListener {
-            if (mchk2.background.constantState === ContextCompat.getDrawable(context, R.drawable.chat_2)!!.constantState) {
-                mchk2.background = ContextCompat.getDrawable(context, R.drawable.chat_2_selected)
-                builder.setItems(item) { _, which ->
-                    mchk2.background = ContextCompat.getDrawable(context, R.drawable.chat_2)
-                    if (item[which] == "คัดลอก") {
-                        val text: String = mMessage.text.toString()
-                        myClip = ClipData.newPlainText("text", text)
-                        myClipboard.setPrimaryClip(myClip)
-                    }
-                }
-                builder.setOnDismissListener { mchk2.background = ContextCompat.getDrawable(context, R.drawable.chat_2) }
-                alertDialog = builder.create()
-                alertDialog.show()
-                alertDialog.window!!.setLayout(800, 400)
-            } else {
-                mchk2.background = ContextCompat.getDrawable(context, R.drawable.chat_1_selected)
-                builder.setItems(item) { _, which ->
-                    mchk2.background = ContextCompat.getDrawable(context, R.drawable.chat_1)
-                    if (item[which] == "คัดลอก") {
-                        val text: String = mMessage.text.toString()
-                        myClip = ClipData.newPlainText("text", text)
-                        myClipboard.setPrimaryClip(myClip)
-                    }
-                }
-                builder.setOnDismissListener { mchk2.background = ContextCompat.getDrawable(context, R.drawable.chat_1) }
-                alertDialog = builder.create()
-                alertDialog.show()
-                alertDialog.window!!.setLayout(800, 390)
-            }
-            true
         }
         mImageSent.setOnClickListener {
             val intent = Intent(context, ItemImageActivity::class.java)
@@ -293,41 +286,6 @@ class ChatViewHolders(itemView: View, private val context: Context) : RecyclerVi
             intent.putExtra("chatId", mMatchId.text.toString())
             intent.putExtra("ChkImage", mChk.text.toString())
             context.startActivity(intent)
-        }
-        mImageSent.setOnLongClickListener {
-            if (mchk3.background.constantState === ContextCompat.getDrawable(context, R.drawable.chat_1_photo)!!.constantState) {
-                mchk3.background = ContextCompat.getDrawable(context, R.drawable.chat_1_photo_selected)
-                builder.setItems(itemImage) { _, which ->
-                    if (itemImage[which] == "ดาวน์โหลดภาพ") {
-                        ActivityCompat.requestPermissions((context as Activity?)!!, arrayOf<String?>(Manifest.permission.WRITE_EXTERNAL_STORAGE), 1)
-                        mchk3.background = ContextCompat.getDrawable(context, R.drawable.chat_1_photo)
-                        val bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.maicar)
-                        val file = File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), "test.png")
-                        val out: FileOutputStream
-                        try {
-                            out = FileOutputStream(file)
-                            Toast.makeText(context, "chk", Toast.LENGTH_SHORT).show()
-                            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out)
-                            out.flush()
-                            out.close()
-                        } catch (e: IOException) {
-                            e.printStackTrace()
-                        }
-                    }
-                }
-                builder.setOnDismissListener { mchk3.background = ContextCompat.getDrawable(context, R.drawable.chat_1_photo) }
-                alertDialog = builder.create()
-                alertDialog.show()
-                alertDialog.window!!.setLayout(800, 245)
-            } else {
-                mchk3.background = ContextCompat.getDrawable(context, R.drawable.chat_2_photo_selected)
-                builder.setItems(itemImage) { _, _ -> mchk3.background = ContextCompat.getDrawable(context, R.drawable.chat_2_photo) }
-                builder.setOnDismissListener { mchk3.background = ContextCompat.getDrawable(context, R.drawable.chat_2_photo) }
-                alertDialog = builder.create()
-                alertDialog.show()
-                alertDialog.window!!.setLayout(800, 245)
-            }
-            true
         }
     }
 
