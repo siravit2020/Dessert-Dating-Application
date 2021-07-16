@@ -12,22 +12,18 @@ class RemoteConfig(private var activity: Activity) {
         val remoteConfig = Firebase.remoteConfig
         val configSettings = remoteConfigSettings {
 
-            minimumFetchIntervalInSeconds = 10
+            minimumFetchIntervalInSeconds = 600
         }
         remoteConfig.setDefaultsAsync(R.xml.remote_config)
         remoteConfig.setConfigSettingsAsync(configSettings)
         remoteConfig.fetchAndActivate()
             .addOnCompleteListener(activity) { task ->
                 if (task.isSuccessful) {
-
                     GlobalVariable.feedbackOn = remoteConfig.getString("feedback").toBoolean()
                     GlobalVariable.priceVip = remoteConfig.getString("price_vip").toInt()
                     GlobalVariable.priceLike = remoteConfig.getString("price_like").toInt()
                     GlobalVariable.idAds = remoteConfig.getString("id_ads")
-
-
                 }
             }
-
     }
 }

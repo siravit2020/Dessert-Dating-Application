@@ -30,7 +30,10 @@ class SendProblemActivity : AppCompatActivity() {
 
         toolbar = findViewById(R.id.my_tools)
         setSupportActionBar(toolbar)
-        supportActionBar!!.title = "Close Account"
+        if(intent.hasExtra("fromProfile")){
+            supportActionBar!!.title = getString(R.string.feedback)
+        }
+        else supportActionBar!!.title = getString(R.string.close_account)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         editText.addTextChangedListener(object : TextWatcher {
 

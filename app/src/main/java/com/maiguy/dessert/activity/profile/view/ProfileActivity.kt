@@ -191,6 +191,7 @@ class ProfileActivity : Fragment() {
         }
         view.findViewById<LinearLayout>(R.id.linearLayout22).setOnClickListener {
             val intent = Intent(context, SendProblemActivity::class.java)
+            intent.putExtra("fromProfile",true)
             startActivityForResult(intent, 14)
         }
         view.findViewById<SwipeRefreshLayout>(R.id.swipe_refresh).setOnRefreshListener {
