@@ -1,0 +1,80 @@
+{
+  "project_info": {
+    "project_number": "240850021287",
+    "firebase_url": "https://dessert-67b50-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "dessert-67b50",
+    "storage_bucket": "dessert-67b50.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:240850021287:android:c0350bc16b772bf0306482",
+        "android_client_info": {
+          "package_name": "com.maiguy.dessert"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "240850021287-jfi1887efjuh7dd5bf12arbn6shng65l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.maiguy.dessert",
+            "certificate_hash": "de0ee9ef629413a5b4a934c1980b2b8304e60dde"
+          }
+        },
+        {
+          "client_id": "240850021287-jibqvvs3a6m3cdmi1keabt569sigbpeu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.maiguy.dessert",
+            "certificate_hash": "0ecdf94750ed0aa0daf5098fa5f51b55a9094862"
+          }
+        },
+        {
+          "client_id": "240850021287-juhdu1eujenm14cegnmdup2uu11rum42.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.maiguy.dessert",
+            "certificate_hash": "e50cd8f8f96b0611f369dbae7b87eb03d0e2a669"
+          }
+        },
+        {
+          "client_id": "240850021287-l0utvhc8bg8h2dj8o70toprr9nckbe4m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.maiguy.dessert",
+            "certificate_hash": "037de41fc9d3e7826c5535b80135773312881c90"
+          }
+        },
+        {
+          "client_id": "240850021287-q01fu2jamv5l32cbuqecu7q7pk2l1oo0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.maiguy.dessert",
+            "certificate_hash": "47988be41b348c4ef8ab6c005e3b987b7e4ac9a7"
+          }
+        },
+        {
+          "client_id": "240850021287-nimfar5rpkl5sucm3eusf5avr4ie6v1t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuC32_ezeG6k9MQyfDcZyl-WynpZynuPE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "240850021287-nimfar5rpkl5sucm3eusf5avr4ie6v1t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

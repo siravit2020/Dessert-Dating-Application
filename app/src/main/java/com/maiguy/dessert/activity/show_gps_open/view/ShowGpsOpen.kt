@@ -35,7 +35,6 @@ class ShowGpsOpen : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        Log.d("onside","1")
         if (requestCode == 0) {
             val intent = Intent(this@ShowGpsOpen, FirstActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

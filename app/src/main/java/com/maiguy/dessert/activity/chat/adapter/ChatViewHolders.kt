@@ -261,14 +261,13 @@ class ChatViewHolders(itemView: View, private val context: Context) : RecyclerVi
 
             } else {
                 play = false
-                Log.d("audioBackground", "$play")
                 cd.stopAnim()
                 countDownTimer.cancel()
                 buttonAudio.background =
                     ContextCompat.getDrawable(context, R.drawable.ic_play_circle_outline_black_24dp)
                 mediaPlayer.stop()
                 length = mediaPlayer.currentPosition
-                Log.d("audioBackground", "$length")
+
                 if (mchk2.background.constantState === ContextCompat.getDrawable(
                         context,
                         R.drawable.chat_1_selected

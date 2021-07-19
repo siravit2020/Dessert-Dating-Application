@@ -42,6 +42,7 @@ import com.maiguy.dessert.ViewModel.QuestionViewModel
 import com.maiguy.dessert.ViewModel.ViewModelFactory
 import com.maiguy.dessert.activity.send_problem.view.SendProblemActivity
 import com.maiguy.dessert.activity.edit_profile.view.EditProfileActivity
+import com.maiguy.dessert.activity.main.view.MainActivity
 import com.maiguy.dessert.activity.profile_information.view.ProfileInformationsActivity
 import com.maiguy.dessert.dialogs.FeedbackDialog
 import com.maiguy.dessert.services.BillingService
@@ -122,8 +123,6 @@ class ProfileActivity : Fragment() {
 
         setimage = view.findViewById(R.id.goto_set_image)
 
-        Log.d("count",GlobalVariable.countMatch.toString())
-        Log.d("count",GlobalVariable.feedbackOn.toString())
         if(GlobalVariable.feedbackOn && GlobalVariable.countMatch >= 1 && GlobalVariable.feedbackResult){
             resultFeedback.visibility = View.VISIBLE
         }
@@ -195,16 +194,16 @@ class ProfileActivity : Fragment() {
             startActivityForResult(intent, 14)
         }
         view.findViewById<SwipeRefreshLayout>(R.id.swipe_refresh).setOnRefreshListener {
+            val intent = Intent(context, MainActivity::class.java)
             requireActivity().finish()
             requireActivity().overridePendingTransition(0, 0)
-            requireActivity().startActivity(requireActivity().intent)
+            requireActivity().startActivity(intent)
             requireActivity().overridePendingTransition(0, 0)
         }
         resultFeedback.setOnClickListener {
             FeedbackDialog(requireActivity()) { getFeedbackQuestion() }.show()
         }
         if(GlobalVariable.outOfQuestion){
-            Log.d("COUNT_QUESTION",GlobalVariable.outOfQuestion.toString())
             resultQa.visibility = View.GONE
         }
         accurateQuestionBtn.setOnClickListener {

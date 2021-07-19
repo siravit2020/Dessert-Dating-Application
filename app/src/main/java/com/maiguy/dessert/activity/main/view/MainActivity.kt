@@ -85,10 +85,6 @@ class MainActivity : AppCompatActivity() ,LocationListener {
         })
 
 
-        j1.launch(Dispatchers.Unconfined) { // launch a new coroutine in background and continue
-            getMyUser()
-            getUnreadFunction()
-        }
 
 
         GlobalScope.launch {
@@ -133,7 +129,6 @@ class MainActivity : AppCompatActivity() ,LocationListener {
 
                 bar!!.setOnItemSelectedListener(object : ChipNavigationBar.OnItemSelectedListener {
                     override fun onItemSelected(id: Int) {
-                        Log.d("num", id.toString())
                         if (isOnline(applicationContext)) {
                             when (id) {
                                 R.id.item1 -> {
@@ -294,7 +289,6 @@ class MainActivity : AppCompatActivity() ,LocationListener {
                 .call(data)
                 .addOnSuccessListener { task ->
                     val data = task.data as Map<*, *>
-                    Log.d("testGetUnreadFunction", data.toString())
                     val count = data["resultSum"].toString()
                     val myUnread2 = getSharedPreferences("TotalMessage", Context.MODE_PRIVATE)
                     val editorRead = myUnread2.edit()
@@ -310,14 +304,15 @@ class MainActivity : AppCompatActivity() ,LocationListener {
     private fun getMyUser() {
 
         val userDb = Firebase.database.reference.child("Users").child(FirebaseAuth.getInstance().uid.toString())
-        val connectedRef: DatabaseReference = FirebaseDatabase.getInstance().getReference(".info/connected")
+        val connectedRef = Firebase.database.getReference(".info/connected")
         connectedRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val connected = snapshot.getValue(Boolean::class.java)!!
+                val connected = snapshot.getValue(Boolean::class.java) ?: false
                 if (connected) {
                     val statusUp = HashMap<String?, Any?>()
                     statusUp["status"] = 1
                     userDb.updateChildren(statusUp)
+                } else {
                     userDb.onDisconnect().let {
                         userDb.get().addOnSuccessListener { db ->
                             if(db.exists()){
@@ -327,14 +322,12 @@ class MainActivity : AppCompatActivity() ,LocationListener {
                                 userDb.updateChildren(statusUp2)
                             }
                         }
-
                     }
-
                 }
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Log.w("TAG112", "Listener was cancelled")
+
             }
         })
 
@@ -343,7 +336,6 @@ class MainActivity : AppCompatActivity() ,LocationListener {
             @SuppressLint("SetTextI18n")
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if (dataSnapshot.child("Vip").value.toString().toInt() == 1) {
-                    Log.d("vvv", "1")
                     GlobalVariable.vip = true
 
                 } else {
@@ -365,9 +357,9 @@ class MainActivity : AppCompatActivity() ,LocationListener {
                     GlobalVariable.seeYou = 0
                 }
                 if(!dataSnapshot.hasChild("feedback_result")){
-                    Log.d("feed","true")
                     GlobalVariable.feedbackResult = true
                 }
+                else GlobalVariable.feedbackResult = false
                 GlobalVariable.countMatch = dataSnapshot.child("connection").child("matches").childrenCount.toInt()
                 if(GlobalVariable.feedbackOn && GlobalVariable.countMatch >= 1 && GlobalVariable.feedbackResult){
                     FeedbackDialog(this@MainActivity) { getFeedbackQuestion() }.show()
@@ -413,7 +405,7 @@ class MainActivity : AppCompatActivity() ,LocationListener {
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
-                Log.d("tagh", "3")
+
             }
 
         })
@@ -452,6 +444,14 @@ class MainActivity : AppCompatActivity() ,LocationListener {
         return false
     }
 
+    override fun onResume() {
+        j1.launch(Dispatchers.Unconfined) { // launch a new coroutine in background and continue
+            getMyUser()
+            getUnreadFunction()
+        }
+        super.onResume()
+    }
+
     private var doubleBackToExitPressedOnce = false
     override fun onBackPressed() {
         if (doubleBackToExitPressedOnce) {
@@ -461,6 +461,21 @@ class MainActivity : AppCompatActivity() ,LocationListener {
         doubleBackToExitPressedOnce = true
         Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
         Handler(Looper.getMainLooper()).postDelayed({ doubleBackToExitPressedOnce = false }, 1000)
+    }
+
+    override fun onDestroy() {
+        val userDb = Firebase.database.reference.child("Users").child(FirebaseAuth.getInstance().uid.toString())
+        userDb.onDisconnect().let {
+            userDb.get().addOnSuccessListener { db ->
+                if(db.exists()){
+                    val statusUp2 = HashMap<String?, Any?>()
+                    statusUp2["date"] = ServerValue.TIMESTAMP
+                    statusUp2["status"] = 0
+                    userDb.updateChildren(statusUp2)
+                }
+            }
+        }
+        super.onDestroy()
     }
     companion object {
         var bar: ChipNavigationBar? = null

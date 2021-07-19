@@ -2,6 +2,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.google.firebase.crashlytics'
 android {
     signingConfigs {
         release {
@@ -16,8 +17,8 @@ android {
         applicationId "com.maiguy.dessert"
         minSdkVersion 26
         targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        versionCode 5
+        versionName "1.4"
 
     }
     compileOptions {
@@ -130,6 +131,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-functions-ktx:20.0.0'
     implementation 'com.google.firebase:firebase-storage-ktx:20.0.0'
     implementation 'com.google.firebase:firebase-config-ktx:21.0.0'
+    implementation 'com.google.firebase:firebase-crashlytics'
+
 
 
     // NFS

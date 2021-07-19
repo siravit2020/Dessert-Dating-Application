@@ -363,7 +363,6 @@ class ProfileInformationOppositeUserActivity : AppCompatActivity() {
             .addOnCompleteListener {
                 if(it.isSuccessful){
                     val data:Map<*,*> = it.result.data as Map<*, *>
-                    Log.d("UNREAD_HANDLER",data.toString())
                     percentTwo = data["result"] as Int
                     percentText.text = "" + getString(R.string.equals_question_des) +" ${percentTwo}%"
 

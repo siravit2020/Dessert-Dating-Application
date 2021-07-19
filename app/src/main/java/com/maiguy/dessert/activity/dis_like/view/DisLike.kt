@@ -66,7 +66,6 @@ class DisLike : AppCompatActivity(),View.OnClickListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         val sendMap =  hashMapOf<String, Any>()
                         val map:Map<*,*> = snapshot.value as Map<*, *>
-                        Log.d("map",map.toString())
                         if(c1.isChecked){
                             sendMap["notFound"]  = map["notFound"].toString().toInt() + 1
                         }

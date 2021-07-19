@@ -121,8 +121,6 @@ class LikeYouActivity : AppCompatActivity() {
         co.launch {
             withContext(Dispatchers.Default) {
                 GlobalVariable.apply {
-                    Log.d("check", vip.toString())
-                    Log.d("check", buyLike.toString())
                     if (!vip)
                         if (!intent.hasExtra("See")) {
                             if (!buyLike) {
@@ -147,8 +145,6 @@ class LikeYouActivity : AppCompatActivity() {
                             }
 
                             resultlimit.add(DateModel(dataSnapshot.key.toString(), time))
-
-                            Log.d("ttt", "" + resultlimit.size + " :" + limit)
                             if (resultlimit.size == limit) {
                                 resultlimit.sortWith { t1, t2 ->
                                     (t2.time - t1.time).toInt()
@@ -156,7 +152,6 @@ class LikeYouActivity : AppCompatActivity() {
                                 starTarget = startNode + 20
                                 if (limit <= 20) starTarget = limit
                                 for (i in startNode until starTarget) {
-                                    Log.d("num", i.toString())
                                     readData(resultlimit[i].key, resultlimit[i].time, 0, 0)
                                 }
                             }
@@ -274,14 +269,11 @@ class LikeYouActivity : AppCompatActivity() {
                     resultLike.add(LikeYouModel(
                             userId, profileImageUrl, name, status, age, gender, myself, distance, city, time,
                     ))
-                    Log.d("add", name)
                 } else {
-                    Log.d("delete", dataSnapshot.key.toString())
                     connectionDb.child(dataSnapshot.key.toString()).removeValue().addOnSuccessListener {
                         if (intent.hasExtra("See")) GlobalVariable.seeYou-- else GlobalVariable.likeYou--
                     }
                 }
-                Log.d("start", startNode.toString() + resultLike.size)
                 if (countUser == starTarget) {
                     likeYouAdapter.notifyDataSetChanged()
                     CloseLoading(this@LikeYouActivity, progress_like).invoke()
@@ -316,18 +308,13 @@ class LikeYouActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 11) {
             if (resultCode == 11) {
-                Log.d("result", "re11")
                 val status = data!!.getBooleanExtra("status", false)
                 if (status) {
-                    Log.d("result", likeYouAdapter.itemCount.toString() + resultLike.size)
                     val result = data.getIntExtra("result", 0)
                     resultLike.removeAt(result)
                     likeYouAdapter.notifyDataSetChanged()
-                    Log.d("result", likeYouAdapter.itemCount.toString() + resultLike.size)
-
                 }
             }
-            Log.d("result", "11")
         }
     }
 

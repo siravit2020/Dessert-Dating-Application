@@ -149,7 +149,7 @@ class SignInViewModel(application: Application) : AndroidViewModel(application) 
 
     fun facebookSigIn(activity: Activity, mCallbackManager: CallbackManager) {
         LoginManager.getInstance()
-            .logInWithReadPermissions(activity, listOf("email", "public_profile", "user_friends"))
+            .logInWithReadPermissions(activity, listOf("email", "public_profile"))
         LoginManager.getInstance()
             .registerCallback(mCallbackManager, object : FacebookCallback<LoginResult?> {
                 override fun onSuccess(loginResult: LoginResult?) {
@@ -162,7 +162,7 @@ class SignInViewModel(application: Application) : AndroidViewModel(application) 
 
                 override fun onError(exception: FacebookException?) {
 
-                    resource.value = Resource.error(exception.toString(), null)
+                    resource.value = Resource.error(exception?.localizedMessage!!, null)
                 }
             })
     }

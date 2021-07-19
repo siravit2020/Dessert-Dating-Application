@@ -44,7 +44,6 @@ class ScreenAdapter(private val ctx: Context, private val length: Int, m0: Strin
         val layoutInflater = ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val itemView = layoutInflater.inflate(R.layout.item_image_slide, container, false)
         val imageView = itemView.findViewById<View?>(R.id.slide_1) as ImageView
-        Log.d("rty", "0")
         Glide.with(ctx).load(m[Items[position]]).placeholder(R.drawable.tran).transition(DrawableTransitionOptions.withCrossFade(100)).into(imageView)
         if (ic != 0) {
             Glide.with(ctx).load(ic).placeholder(R.drawable.tran).transition(DrawableTransitionOptions.withCrossFade(100)).into(imageView)

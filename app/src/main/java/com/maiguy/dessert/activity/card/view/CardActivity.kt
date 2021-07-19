@@ -163,7 +163,6 @@ class CardActivity : Fragment(), View.OnClickListener {
             }).get(QuestionViewModel::class.java)
 
         questionViewModel.fetchQA.observe(requireActivity(), {
-            Log.d("GET_QUESTION", it.size.toString())
             if (it.size > 0) {
                 val dialogFragment = DialogFragment()
                 dialogFragment.setData(it, "Question")
@@ -182,7 +181,6 @@ class CardActivity : Fragment(), View.OnClickListener {
             override fun onCardSwiped(direction: Direction?) {
                 po = rowItem[manager.topPosition - 1]
                 val userId = po.userId!!
-                Log.d("GLOBAL_MAX_LIKE__cardActivity", GlobalVariable.maxLike.toString())
                 if (direction == Direction.Right) {
                     if (GlobalVariable.maxLike > 0 || GlobalVariable.vip) {
                         val datetime = hashMapOf<String, Any>()
@@ -219,7 +217,6 @@ class CardActivity : Fragment(), View.OnClickListener {
                         usersDb.child(currentUid).child("MaxStar").setValue(GlobalVariable.maxStar)
                         isConnectionMatches(userId)
                     } else {
-                        Log.d("check_vip",GlobalVariable.vip.toString())
                         if (GlobalVariable.vip) {
                             openDialogStarOutOfStock()
                         } else {
@@ -240,7 +237,6 @@ class CardActivity : Fragment(), View.OnClickListener {
             override fun onCardRewound() {}
             override fun onCardCanceled() {}
             override fun onCardAppeared(view: View?, position: Int) {
-                Log.d("ggg", "$position $countLimit $countLimit3 " + rowItem.size)
 
                 if (countLimit2 == 5 && countLimit < countDataSet) {
                     getUser(resultlimit, false, rowItem.size - 1, 5)
@@ -261,9 +257,7 @@ class CardActivity : Fragment(), View.OnClickListener {
             }
 
             override fun onCardDisappeared(view: View?, position: Int) {
-                Log.d("ggg", "$position $countLimit $countLimit3 " + rowItem.size)
                 if (checkEmpty) {
-                    Log.d("ggg2", "$countEmpty $empty")
                     if (countEmpty == empty - 1) {
                         runnable!!.run()
                         layoutGps.visibility = View.VISIBLE
@@ -572,7 +566,6 @@ class CardActivity : Fragment(), View.OnClickListener {
                 "limit" to pre + limit,
                 "prelimit" to pre
             )
-            Log.d("tagkl", data.toString())
 
             functions.getHttpsCallable("getUserCard")
                 .call(data)
@@ -582,7 +575,6 @@ class CardActivity : Fragment(), View.OnClickListener {
                     val result1 = task.data as Map<*, *>
                     resultlimit = result1["o"] as ArrayList<*>
                     if (resultlimit.isNotEmpty()) {
-                        Log.d("iii", resultlimit.size.toString())
                         getUser(resultlimit, type, count, 10)
                     } else {
                         val logoMoveAnimation: Animation =
@@ -627,7 +619,6 @@ class CardActivity : Fragment(), View.OnClickListener {
                 } else {
                     Geocoder(context, Locale.UK)
                 }
-                Log.d("iop", "")
                 var a = countLimit + limit
                 if (result2.size < countLimit + limit) {
                     a = result2.size
@@ -636,12 +627,7 @@ class CardActivity : Fragment(), View.OnClickListener {
                 }
                 for (x in countLimit until a) {
                     countLimit++
-                    Log.d("iop", "$countLimit ${result2.size}")
                     val user = result2[x] as Map<*, *>
-                    Log.d(
-                        "ghj",
-                        user["name"].toString() + " , " + user["distance_other"].toString()
-                    )
                     var myself = ""
                     var citysend: String? = ""
                     var offStatus = false

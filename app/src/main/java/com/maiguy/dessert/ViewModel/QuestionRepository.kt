@@ -48,7 +48,6 @@ class QuestionRepository(context: Context) {
                     if(map["status"] == true){
                         val obj = QAObject(it.key.toString() ,map["question"].toString(),map["choice"] as ArrayList<String>)
                         addData.add(obj)
-                        Log.d("QUESTION_FETCH", it.value.toString())
                     }
                 }
                 resultFeedbackQA.value = addData
@@ -67,20 +66,16 @@ class QuestionRepository(context: Context) {
                 .getHttpsCallable("addQuestions")
                 .call(data)
                 .addOnSuccessListener { task ->
-                    Log.d("TAG_QUESTION",task.data.toString())
                     val data: Map<*, *> = task.data as Map<*, *>
                     val questions:Map<*,*> = data["questions"] as Map<*, *>
-                    Log.d("TAG_QUESTION",questions.size.toString())
                     if(questions.size > 3) {
                         for ((i, entry) in questions.keys.withIndex()) {
                             if (i + 1 < (count+1)) {
                                 val questionId = entry.toString()
-                                Log.d("testGetQuestionData", questionId)
                                 val questionSet = questions[questionId] as Map<*, *>
                                 val arr: ArrayList<String> = ArrayList()
                                 arr.add(questionSet["0"].toString())
                                 arr.add(questionSet["1"].toString())
-                                Log.d("testGetQuestionData", arr.toString())
                                 val ob = QAObject(questionId, questionSet["question"].toString(), arr)
                                 addData.add(ob)
                             }
@@ -117,7 +112,6 @@ class QuestionRepository(context: Context) {
                         arr.add(questionSet["1"].toString())
                         val ob = QAObject(questionId, questionSet["question"].toString(), arr)
                         obj.add(ob)
-                        Log.d("tagRegisterQuestion", questionSet["question"].toString())
                     }
                     Observable.just(obj)
                             .subscribeOn(Schedulers.io())
@@ -168,7 +162,6 @@ class QuestionRepository(context: Context) {
             .addOnCompleteListener {
                 if(it.isSuccessful){
                     val data:Map<*,*> = it.result.data as Map<*, *>
-                    Log.d("OUT_OF_QUESTION","success : ${data["result"]}")
                     resultOutOfQuestion.postValue(data["result"] as Boolean)
                 }else{
                     Log.d("OUT_OF_QUESTION","fails")

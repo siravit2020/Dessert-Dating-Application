@@ -27,7 +27,6 @@ class SendVerificationActivity : AppCompatActivity() {
             user!!.sendEmailVerification()
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            Log.d("email send", "Email sent.")
                             button.text = getString(R.string.go_to_sign_in)
                             button.isEnabled = true
                             Firebase.auth.signOut()

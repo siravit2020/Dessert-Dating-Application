@@ -11,6 +11,7 @@ import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.maiandguy.dessert.utils.ErrorDialog
+import com.maiguy.dessert.R
 
 import com.maiguy.dessert.activity.sign_in.view.SignInActivity
 import com.maiguy.dessert.dialogs.LoadingDialog
@@ -42,7 +43,6 @@ class Close(private var currentUid: String, private var context: Context) {
                          functions.getHttpsCallable("closeAccount")
                                  .call(data)
                                  .addOnSuccessListener {
-                                     Log.d("CloseAccountEvent",it.data.toString())
                                      userDb.onDisconnect().cancel()
                                      val intent = Intent(context, SignInActivity::class.java)
                                      intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -60,8 +60,7 @@ class Close(private var currentUid: String, private var context: Context) {
                      }
                  }
                  .addOnFailureListener{
-                     Log.d("CloseAccountEvent",it.toString())
-                     errorDialog.questionAskDialog("กรุณาล็อคอินใหม่และลองใหม่อีกครั้ง").show()
+                     errorDialog.questionAskDialog(context.getString(R.string.tryAgian)).show()
                      loadingDialog.dismiss()
                  }
 

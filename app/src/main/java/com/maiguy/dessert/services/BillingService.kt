@@ -26,12 +26,13 @@ class BillingService(private var activity: Activity) {
             PurchasesUpdatedListener { billingResult, purchases ->
                 if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && purchases != null) {
                     for (purchase in purchases) {
+                        Log.d("puches","1")
                         FirebaseDatabase.getInstance().reference
                             .child("Users")
                             .child(FirebaseAuth.getInstance().currentUser!!.uid)
                             .child("Vip")
                             .setValue(1).addOnSuccessListener {
-                                val intent = Intent(activity, MainActivity::class.java)
+                                val intent = Intent(activity, FirstActivity::class.java)
                                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                                 //activity.overridePendingTransition(0, 0)
                                 activity.startActivity(intent)
@@ -54,6 +55,30 @@ class BillingService(private var activity: Activity) {
     }
 
     fun billing() {
+        val purchasesUpdatedListener =
+            PurchasesUpdatedListener { billingResult, purchases ->
+                if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && purchases != null) {
+                    for (purchase in purchases) {
+                        Log.d("puches","1")
+                        FirebaseDatabase.getInstance().reference
+                            .child("Users")
+                            .child(FirebaseAuth.getInstance().currentUser!!.uid)
+                            .child("Vip")
+                            .setValue(1).addOnSuccessListener {
+                                val intent = Intent(activity, FirstActivity::class.java)
+                                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                //activity.overridePendingTransition(0, 0)
+                                activity.startActivity(intent)
+                                //activity.overridePendingTransition(0, 0)
+                            }
+
+                    }
+                } else if (billingResult.responseCode == BillingClient.BillingResponseCode.USER_CANCELED) {
+                    // Handle an error caused by a user cancelling the purchase flow.
+                } else {
+                    // Handle any other error codes.
+                }
+            }
         billingClient.startConnection(object : BillingClientStateListener {
             override fun onBillingSetupFinished(billingResult: BillingResult) {
                 if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {

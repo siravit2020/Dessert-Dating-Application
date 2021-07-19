@@ -63,7 +63,6 @@ class ReportUser(private var context: Activity, private var matchId: String) {
                     ff["date"] = dateUser
                     usersDb.child(currentUserId).child("PutReportId").child(matchId).updateChildren(ff)
                 }
-                Log.d("test_boolean", "$dateBefore , $matchId")
                 if (dateBefore) {
                         //report(Child)
                     Alerter.create(context)
