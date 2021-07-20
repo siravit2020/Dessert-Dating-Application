@@ -373,7 +373,6 @@ class ChatActivity : AppCompatActivity() {
             val newMessage = hashMapOf(
                     "createByUser" to currentUserId,
                     "text" to sendMessageText,
-                    "time" to d.time(),
                     "date" to ServerValue.TIMESTAMP,
                     "read" to "Unread")
             newMessageDb.setValue(newMessage)
@@ -742,7 +741,6 @@ class ChatActivity : AppCompatActivity() {
                         val d = DateTime
                         val newMessage = hashMapOf(
                                 "createByUser" to currentUserId,
-                                "time" to d.time(),
                                 "date" to ServerValue.TIMESTAMP,
                                 "text" to "photo$currentUserId",
                                 "read" to "Unread",
@@ -784,7 +782,6 @@ class ChatActivity : AppCompatActivity() {
                         val d = DateTime
                         val newMessage = hashMapOf(
                                 "createByUser" to currentUserId,
-                                "time" to d.time(),
                                 "date" to ServerValue.TIMESTAMP,
                                 "text" to "photo$currentUserId",
                                 "read" to "Unread",
@@ -833,12 +830,9 @@ class ChatActivity : AppCompatActivity() {
                 val newMessageDb = mDatabaseChat.push()
                 val calendar = Calendar.getInstance()
                 val currentTime = SimpleDateFormat("HH:mm", Locale.UK)
-                val timeUser = currentTime.format(calendar.time)
                 val currentDate = SimpleDateFormat("dd/MM/yyyy")
-                val dateUser = currentDate.format(calendar.time)
                 val newMessage = hashMapOf(
                         "createByUser" to currentUserId,
-                        "time" to timeUser,
                         "date" to ServerValue.TIMESTAMP,
                         "audio_length" to timeCount.toString(),
                         "audio" to downloadUrl.toString(),
