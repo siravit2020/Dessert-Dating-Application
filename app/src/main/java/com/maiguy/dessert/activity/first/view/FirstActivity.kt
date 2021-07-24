@@ -8,6 +8,7 @@ import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.akexorcist.localizationactivity.core.LocalizationActivityDelegate
 import com.google.android.gms.ads.MobileAds
 import com.google.firebase.database.*
 import com.maiguy.dessert.activity.sign_in.view.SignInActivity
@@ -28,7 +29,9 @@ class FirstActivity : AppCompatActivity() {
     private lateinit var aniFade: Animation
     private lateinit var aniFade2: Animation
     private lateinit var firstViewModel: FirstViewModel
-    private lateinit var locationService:LocationService;
+    private lateinit var locationService:LocationService
+    private lateinit var localizationDelegate: LocalizationActivityDelegate
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -42,11 +45,13 @@ class FirstActivity : AppCompatActivity() {
         if (locationService.checkPermission() == Status.SUCCESS){
             firstViewModel.addListener()
         }
+        localizationDelegate = LocalizationActivityDelegate(this)
+        localizationDelegate.setLanguage(this,"th")
         firstViewModel.getStatus().observe(this, Observer {
 
             aniFade.setAnimationListener(null)
             aniFade2.setAnimationListener(null)
-
+v
             if(it == CheckStatusUser.CHOOSE){
                 Timer("SettingUp", false).schedule(2300) {
                     val intent = Intent(this@FirstActivity, SignInActivity::class.java)
