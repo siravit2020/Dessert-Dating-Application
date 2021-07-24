@@ -168,7 +168,7 @@
     <string name="title_askQuestion">Answer questions</string>
     <string name="body_askQuestion">Anwering the question to increase the accuracy of the match<br/>(Get free 5 likes)</string>
     <string name="body_askQuestion2">Anwering the question to increase the accuracy of the match<br/>(Get free 3 stars)</string>
-    <string name="out_of_quota">Out of today quota !!</string>
+    <string name="out_of_quota">Increase accuracy of the match !!</string>
     <string name="out_of_questions">Sorry, Out of question !!</string>
     <string name="out_of_questions_description">Out of question</string>
     <string name="email">Email</string>

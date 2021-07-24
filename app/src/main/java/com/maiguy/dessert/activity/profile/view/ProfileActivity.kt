@@ -44,6 +44,7 @@ import com.maiguy.dessert.activity.send_problem.view.SendProblemActivity
 import com.maiguy.dessert.activity.edit_profile.view.EditProfileActivity
 import com.maiguy.dessert.activity.main.view.MainActivity
 import com.maiguy.dessert.activity.profile_information.view.ProfileInformationsActivity
+import com.maiguy.dessert.dialogs.DialogAskQuestion
 import com.maiguy.dessert.dialogs.FeedbackDialog
 import com.maiguy.dessert.services.BillingService
 import com.maiguy.dessert.services.RemoteConfig
@@ -207,7 +208,7 @@ class ProfileActivity : Fragment() {
             resultQa.visibility = View.GONE
         }
         accurateQuestionBtn.setOnClickListener {
-            questionViewModel.response(localizationDelegate.getLanguage(requireContext()).toLanguageTag(),10)
+            DialogAskQuestion(requireContext()).questionAskDialog(localizationDelegate.getLanguage(requireContext()).toLanguageTag(),questionViewModel,10).show()
         }
         val dialogFragment = DialogFragment()
         questionViewModel.fetchQAFeedback.observe(requireActivity(),{
@@ -332,7 +333,6 @@ class ProfileActivity : Fragment() {
         }
 
     }
-
 
     override fun onResume() {
         super.onResume()

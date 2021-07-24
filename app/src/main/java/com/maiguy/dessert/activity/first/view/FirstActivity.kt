@@ -51,7 +51,6 @@ class FirstActivity : AppCompatActivity() {
 
             aniFade.setAnimationListener(null)
             aniFade2.setAnimationListener(null)
-v
             if(it == CheckStatusUser.CHOOSE){
                 Timer("SettingUp", false).schedule(2300) {
                     val intent = Intent(this@FirstActivity, SignInActivity::class.java)

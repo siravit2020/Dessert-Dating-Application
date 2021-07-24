@@ -48,6 +48,7 @@ import com.maiguy.dessert.activity.filter_setting.view.FilterSettingActivity
 import com.maiguy.dessert.activity.main.view.MainActivity
 import com.maiguy.dessert.activity.sign_in.view.SignInActivity
 import com.maiguy.dessert.constants.VipDialogType
+import com.maiguy.dessert.dialogs.DialogAskQuestion
 import com.maiguy.dessert.dialogs.adapter.VipSlideAdapter
 import com.maiguy.dessert.model.PagerModel
 import com.maiguy.dessert.dialogs.VipDialog
@@ -314,28 +315,6 @@ class CardActivity : Fragment(), View.OnClickListener {
         dialog.show()
     }
 
-    private fun questionAskDialog(): Dialog {
-        val view = layoutInflater.inflate(R.layout.question_ask_dialog, null)
-        val btnConfirm = view.findViewById<Button>(R.id.confirm_button_askDialog)
-        val btnDismiss = view.findViewById<Button>(R.id.dismiss_button_askDialog)
-        val dialog = Dialog(requireContext())
-        dialog.setContentView(view)
-        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        val width = (resources.displayMetrics.widthPixels * 0.90).toInt()
-        dialog.window!!.setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT)
-        btnDismiss.setOnClickListener {
-            Log.d("CONFIRM_DIALOG", "Cancel");
-            dialog.dismiss()
-        }
-        btnConfirm.setOnClickListener {
-            Log.d("CONFIRM_DIALOG", "Click");
-            questionViewModel.response(
-                localizationDelegate.getLanguage(requireContext()).toLanguageTag(), 5
-            )
-            dialog.dismiss()
-        }
-        return dialog
-    }
 
     fun openDialog() {
         val inflater = layoutInflater
@@ -368,8 +347,7 @@ class CardActivity : Fragment(), View.OnClickListener {
 
         }
         bQA.setOnClickListener {
-            Log.d("CONFIRM_DIALOG", "Open");
-            questionAskDialog().show()
+            DialogAskQuestion(requireContext()).questionAskDialog(localizationDelegate.getLanguage(requireContext()).toLanguageTag(),questionViewModel,5)
             dialog.dismiss()
         }
         b2.setOnClickListener {

@@ -80,7 +80,7 @@ class VipDialog(private val activity: Activity, private var type: VipDialogType)
 
         }
         bQA.setOnClickListener {
-            questionAskDialog().show()
+            DialogAskQuestion(activity as Context).questionAskDialog(lang,questionViewModel!!,2).show()
             dialog.dismiss()
         }
         b2.setOnClickListener {
@@ -174,24 +174,5 @@ class VipDialog(private val activity: Activity, private var type: VipDialogType)
             }
         })
 
-    }
-
-    private fun questionAskDialog(): Dialog {
-        val view = LayoutInflater.from(activity).inflate(R.layout.question_ask_dialog, null)
-        val btnConfirm = view.findViewById<Button>(R.id.confirm_button_askDialog)
-        val btnDismiss = view.findViewById<Button>(R.id.dismiss_button_askDialog)
-        val dialog = Dialog(activity)
-        dialog.setContentView(view)
-        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        val width = (activity.resources.displayMetrics.widthPixels * 0.90).toInt()
-        dialog.window!!.setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT)
-        btnDismiss.setOnClickListener {
-            dialog.dismiss()
-        }
-        btnConfirm.setOnClickListener {
-            questionViewModel!!.response(lang,2)
-            dialog.dismiss()
-        }
-        return dialog
     }
 }
