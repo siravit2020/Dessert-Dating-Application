@@ -89,7 +89,7 @@
     <string name="phone_hint">หมายเลขโทรศัพท์</string>
     <string name="phine_no">หมายเลขโทรศัพท์ของคุณ</string>
     <string name="otp">รหัสของคุณ</string>
-    <string name="verification">แอปพลิเคชั่นได้ส่งรหัสยืนยันไปที่</string>
+    <string name="verification">แอปพลิเคชันได้ส่งรหัสยืนยันไปที่</string>
     <string name="please">โปรดกรอกด้านล่าง</string>
     <string name="finish">เสร็จสิ้น</string>
     <string name="register">ลงทะเบียน</string>
@@ -97,14 +97,14 @@
     <string name="Searching">กำลังค้นหา</string>
     <string name="chatna_empty">ยังไม่มีใครทักทายคุณ \n รออีกหน่อยนะ</string>
     <string name="chat_empty">เมื่อคุณแมทช์กับผู้ใช้งานคนอื่น \n หรือเมื่อคุณยอมรับคำทักทาย \n คู่ของคุณจะปรากฎที่นี่</string>
-    <string name="application_settings">ตั้งค่าแอปพิลเคชั่น</string>
+    <string name="application_settings">ตั้งค่าแอปพิลเคชัน</string>
     <string name="search_settings">ตั้งค่าการค้นหา</string>
     <string name="notifications">การแจ้งเตือน</string>
     <string name="active_status_settings">ตั้งค่าสถานะการใช้งาน</string>
     <string name="active_status">สถานะการใช้งาน</string>
     <string name="show_active_status_recently">แสดงสถานะการใช้งานล่าสุด</string>
     <string name="notify_match">แจ้งเตือนเมื่อปัดขวาเจอคู่แมทช์</string>
-    <string name="application_has_sent">แอปพลิเคชั่นได้ส่งรหัสยืนยันไปที่</string>
+    <string name="application_has_sent">แอปพลิเคชันได้ส่งรหัสยืนยันไปที่</string>
     <string name="like_you_too">ถูกใจคุณเช่นเดียวกัน</string>
     <string name="send_message">ส่งข้อความ</string>
     <string name="matching_mode">ทุกคนสามารถเมองเห็นคุณได้ในโหมดการแมตช์</string>
