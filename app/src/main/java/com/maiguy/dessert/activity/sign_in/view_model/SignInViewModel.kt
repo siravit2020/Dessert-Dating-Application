@@ -161,8 +161,8 @@ class SignInViewModel(application: Application) : AndroidViewModel(application) 
                 }
 
                 override fun onError(exception: FacebookException?) {
-
-                    resource.value = Resource.error(exception?.localizedMessage!!, null)
+                    Log.d("facebook_error",exception?.message ?: "error")
+                    resource.value = Resource.error(app.getString(R.string.try_again), null)
                 }
             })
     }

@@ -322,9 +322,26 @@ class  FilterSettingActivity : AppCompatActivity(),View.OnClickListener {
             }
             mBuilder.setCancelable(true)
             mBuilder.setPositiveButton(R.string.ok) { _, _ ->
-                if (selectedPosition == 0) localizationDelegate.setLanguage(this,"th")
-                else
-                    localizationDelegate.setLanguage(this,"en")
+                if (selectedPosition == 0) {
+                    localizationDelegate.setLanguage(this, "th")
+                    val sharedPref = this.getPreferences(MODE_PRIVATE)
+                    if(sharedPref != null){
+                        with (sharedPref.edit()) {
+                            putString("language", "th")
+                            apply()
+                        }
+                    }
+                }
+                else {
+                    localizationDelegate.setLanguage(this, "en")
+                    val sharedPref = this.getPreferences(MODE_PRIVATE)
+                    if(sharedPref != null){
+                        with (sharedPref.edit()) {
+                            putString("language", "en")
+                            apply()
+                        }
+                    }
+                }
                 language.setLanguage()
                 save()
                 finish()

@@ -76,6 +76,7 @@ class MainActivity : AppCompatActivity() ,LocationListener {
         setContentView(R.layout.activity_main)
         load = findViewById(R.id.candyCane)
         localizationDelegate = LocalizationActivityDelegate(this)
+
         questionViewModel = ViewModelProvider(this, ViewModelFactory(this)).get(
             QuestionViewModel::class.java)
         val dialogFragment = DialogFragment()

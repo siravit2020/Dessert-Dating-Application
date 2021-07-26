@@ -30,14 +30,12 @@ class FirstActivity : AppCompatActivity() {
     private lateinit var aniFade2: Animation
     private lateinit var firstViewModel: FirstViewModel
     private lateinit var locationService:LocationService
-    private lateinit var localizationDelegate: LocalizationActivityDelegate
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_first_)
         RemoteConfig(this).remote()
-        //TransparentStatusBar(this)
         MobileAds.initialize(this) {}
         locationService = LocationService(this)
         setAnimation()
@@ -45,8 +43,6 @@ class FirstActivity : AppCompatActivity() {
         if (locationService.checkPermission() == Status.SUCCESS){
             firstViewModel.addListener()
         }
-        localizationDelegate = LocalizationActivityDelegate(this)
-        localizationDelegate.setLanguage(this,"th")
         firstViewModel.getStatus().observe(this, Observer {
 
             aniFade.setAnimationListener(null)

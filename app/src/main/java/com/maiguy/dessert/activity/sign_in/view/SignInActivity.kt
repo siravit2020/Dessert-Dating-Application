@@ -36,7 +36,7 @@ class SignInActivity : AppCompatActivity() {
     private lateinit var mCallbackManager: CallbackManager
     private lateinit var mAuth: FirebaseAuth
     private val localizationDelegate = LocalizationActivityDelegate(this)
-    private val language: ChangLanguage = ChangLanguage(this)
+
     private lateinit var thai: TextView
     private lateinit var eng: TextView
     private lateinit var facebook: LinearLayout
@@ -45,7 +45,7 @@ class SignInActivity : AppCompatActivity() {
     private lateinit var dialog: Dialog
     private lateinit var signInViewModel: SignInViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
-        language.setLanguage()
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
         //TransparentStatusBar(this)
@@ -62,17 +62,24 @@ class SignInActivity : AppCompatActivity() {
         google = findViewById(R.id.google)
         facebook = findViewById(R.id.facebook_login)
         dialog = LoadingDialog(this).dialog()
-        if (localizationDelegate.getLanguage(this).toLanguageTag() == "th") {
-            thai.setTextColor(ContextCompat.getColor(applicationContext, R.color.c4))
-            eng.setTextColor(ContextCompat.getColor(applicationContext, R.color.c4tran))
-        } else {
-            thai.setTextColor(ContextCompat.getColor(applicationContext, R.color.c4tran))
-            eng.setTextColor(ContextCompat.getColor(applicationContext, R.color.c4))
+        val sharedPref = this.getSharedPreferences(
+            "language", MODE_PRIVATE)
+        when {
+            !sharedPref.contains("language") -> {
+                localizationDelegate.setLanguage(this,"th")
+            }
+            localizationDelegate.getLanguage(this).toLanguageTag() == "th" -> {
+                thai.setTextColor(ContextCompat.getColor(applicationContext, R.color.c4))
+                eng.setTextColor(ContextCompat.getColor(applicationContext, R.color.c4tran))
+            }
+            else -> {
+                thai.setTextColor(ContextCompat.getColor(applicationContext, R.color.c4tran))
+                eng.setTextColor(ContextCompat.getColor(applicationContext, R.color.c4))
+            }
         }
         signInViewModel = ViewModelProvider(this).get(SignInViewModel::class.java)
         signInViewModel.setLanguage(this)
         signInViewModel.getResource().observe(this, androidx.lifecycle.Observer {
-            Log.d("resulttt",it.message.toString())
             if (it.status === Status.SUCCESS) {
                 Log.d("result",it.data.toString())
                 when (it.data) {
@@ -93,9 +100,6 @@ class SignInActivity : AppCompatActivity() {
                         startActivity(intent)
                     }
                     "verification" -> {
-//                       val intent = Intent(this@SignInActivity, RegisterNameActivity::class.java)
-//                       intent.putExtra("Type", "face")
-//                       startActivity(intent)
                         val intent = Intent(this@SignInActivity, SendVerificationActivity::class.java)
                         intent.putExtra("login", true)
                         startActivity(intent)
@@ -138,7 +142,14 @@ class SignInActivity : AppCompatActivity() {
         }
         thai.setOnClickListener {
             localizationDelegate.setLanguage(this, "th")
-            language.setLanguage()
+            val sharedPref = this.getPreferences(MODE_PRIVATE)
+            if(sharedPref != null){
+                with (sharedPref.edit()) {
+                    putString("language", "th")
+                    apply()
+                }
+            }
+
             finish()
             overridePendingTransition(0, 0)
             startActivity(intent)
@@ -146,7 +157,13 @@ class SignInActivity : AppCompatActivity() {
         }
         eng.setOnClickListener {
             localizationDelegate.setLanguage(this, "en")
-            language.setLanguage()
+            val sharedPref = this.getPreferences(MODE_PRIVATE)
+            if(sharedPref != null){
+                with (sharedPref.edit()) {
+                    putString("language", "en")
+                    apply()
+                }
+            }
             finish()
             overridePendingTransition(0, 0)
             startActivity(intent)
