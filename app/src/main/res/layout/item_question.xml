@@ -78,7 +78,7 @@
                 android:id="@+id/radioButtonRegisterQAAns3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="@string/qa_choice4"/>
+                android:text="@string/qa_choice3"/>
             <RadioButton
                 android:textColor="@color/text_black_gray"
                 android:background="@color/white"
