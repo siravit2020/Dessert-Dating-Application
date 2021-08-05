@@ -22,7 +22,7 @@ class RemoteConfig(private var activity: Activity) {
                     GlobalVariable.feedbackOn = remoteConfig.getString("feedback").toBoolean()
                     GlobalVariable.priceVip = remoteConfig.getString("price_vip").toInt()
                     GlobalVariable.priceLike = remoteConfig.getString("price_like").toInt()
-                    GlobalVariable.idAds = remoteConfig.getString("id_ads")
+                    GlobalVariable.idAds = "ca-app-pub-3940256099942544/5224354917"
                 }
             }
     }
