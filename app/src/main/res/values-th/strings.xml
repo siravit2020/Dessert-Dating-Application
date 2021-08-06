@@ -170,6 +170,7 @@
     <string name="equals_question_des">ความเข้ากัน</string>
     <string name="pornography">รูปภาพลามก-อนาจาร</string>
     <string name="thank">ขอบคุณ</string>
+    <string name="call_email">ติดต่อข้อมูลเพิ่มเติม : dessert200iq@gmail.com</string>
 
     <string-array name="shopping_item">
         <item>จัดดอกไม้-ทำสวน</item>
@@ -339,5 +340,9 @@
     <string name="click">คลิก</string>
     <string name="i_m_sorry">เสียใจด้วย</string>
     <string name="the_stars_for_today_are_gone">จำนวณดาวสำหรับวันนี้ หมดลงแล้ว</string>
+    <string name="off_internet">อินเทอร์เน็ตของคุณปิดอยู่ของคุณปิดอยู่</string>
+    <string name="please_turn_on_internet">กรุณาเปิดอินเทอร์เน็ตบนอุปกรณ์ของคุณเพื่อใช้งานแอปพลิเคชัน</string>
+    <string name="turn_on_internet">เปิดอินเทอร์เน็ต</string>
+    <string name="close_app">ปิดแอปพลิเคชัน</string>
 
 </resources>

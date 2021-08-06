@@ -198,18 +198,16 @@ class MainActivity : AppCompatActivity() ,LocationListener {
                             }
                         } else {
                             val builder = AlertDialog.Builder(this@MainActivity)
-                            builder.setTitle("Internet ของคุณปิดอยุ่")
-                            builder.setMessage("กรุณาเปิด Internet บนอุปกรณ์ของคุณเพื่อใช้งานแอปพลิเคชัน")
-                            builder.setPositiveButton("เปิด internet") { _, _ ->
+                            builder.setTitle(getString(R.string.off_internet))
+                            builder.setMessage(getString(R.string.please_turn_on_internet))
+                            builder.setPositiveButton(getString(R.string.turn_on_internet)) { _, _ ->
                                 val intent = Intent(Settings.ACTION_WIRELESS_SETTINGS)
                                 startActivity(intent)
                             }
-                                .setNegativeButton("ปิด app") { _, _ ->
-                                    val intent = Intent(this@MainActivity, ShowGpsOpen::class.java)
-                                    intent.flags =
-                                        Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                .setNegativeButton(getString(R.string.close_app)) { _, _ ->
+
                                     finish()
-                                    startActivity(intent)
+
                                 }
                             val mGPSDialog: Dialog = builder.create()
                             mGPSDialog.window!!.setBackgroundDrawable(

@@ -23,6 +23,16 @@
         android:textColor="@color/red"
         android:textSize="@dimen/Text20sp"
         />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/View32dp"
+        android:layout_marginLeft="@dimen/View32dp"
+        android:text="@string/call_email"
+        android:gravity="center"
+        android:textColor="@color/red"
+        android:textSize="@dimen/Text12sp"
+        />
     <Button
         android:id="@+id/button_back"
         android:layout_width="wrap_content"
