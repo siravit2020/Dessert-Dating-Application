@@ -250,6 +250,7 @@
     <string name="please_turn_on_internet">Please turn on the Internet on your device to use the application</string>
     <string name="turn_on_internet">Turn on internet</string>
     <string name="close_app">Close Application</string>
+    <string name="call_email">Contact for information : dessert200iq@gmail.com</string>
 
     <string-array name="shopping_item">
         <item>Gardening</item>
