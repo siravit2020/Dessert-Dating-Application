@@ -246,6 +246,10 @@
     <string name="click">Click</string>
     <string name="i_m_sorry">I\'m sorry</string>
     <string name="the_stars_for_today_are_gone">The stars for today are gone.</string>
+    <string name="off_internet">Your Internet is off</string>
+    <string name="please_turn_on_internet">Please turn on the Internet on your device to use the application</string>
+    <string name="turn_on_internet">Turn on internet</string>
+    <string name="close_app">Close Application</string>
 
     <string-array name="shopping_item">
         <item>Gardening</item>
