@@ -62,26 +62,27 @@ class SignInActivity : AppCompatActivity() {
         google = findViewById(R.id.google)
         facebook = findViewById(R.id.facebook_login)
         dialog = LoadingDialog(this).dialog()
-        val sharedPref = this.getSharedPreferences(
-            "language", MODE_PRIVATE)
-        when {
-            !sharedPref.contains("language") -> {
-                localizationDelegate.setLanguage(this,"th")
-            }
-            localizationDelegate.getLanguage(this).toLanguageTag() == "th" -> {
-                thai.setTextColor(ContextCompat.getColor(applicationContext, R.color.c4))
-                eng.setTextColor(ContextCompat.getColor(applicationContext, R.color.c4tran))
-            }
-            else -> {
-                thai.setTextColor(ContextCompat.getColor(applicationContext, R.color.c4tran))
-                eng.setTextColor(ContextCompat.getColor(applicationContext, R.color.c4))
-            }
+//        val sharedPref = this.getSharedPreferences(
+//            "language", MODE_PRIVATE
+//        )
+//        if (!sharedPref.contains("language")) {
+//            localizationDelegate.setLanguage(this, "th")
+//        }else{
+//            ChangLanguage(this).setLanguage()
+//        }
+        ChangLanguage(this).setLanguage()
+        if (localizationDelegate.getLanguage(this).toLanguageTag() == "th") {
+            thai.setTextColor(ContextCompat.getColor(applicationContext, R.color.c4))
+            eng.setTextColor(ContextCompat.getColor(applicationContext, R.color.c4tran))
+        } else {
+            thai.setTextColor(ContextCompat.getColor(applicationContext, R.color.c4tran))
+            eng.setTextColor(ContextCompat.getColor(applicationContext, R.color.c4))
         }
         signInViewModel = ViewModelProvider(this).get(SignInViewModel::class.java)
         signInViewModel.setLanguage(this)
         signInViewModel.getResource().observe(this, androidx.lifecycle.Observer {
             if (it.status === Status.SUCCESS) {
-                Log.d("result",it.data.toString())
+                Log.d("result", it.data.toString())
                 when (it.data) {
                     "blackList" -> {
                         val intent = Intent(this@SignInActivity, BandUser::class.java)
@@ -89,7 +90,8 @@ class SignInActivity : AppCompatActivity() {
                     }
                     "main" -> {
                         val intent = Intent(this@SignInActivity, MainActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        intent.flags =
+                            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         intent.putExtra("first", "0")
                         startActivity(intent)
                         finish()
@@ -100,14 +102,16 @@ class SignInActivity : AppCompatActivity() {
                         startActivity(intent)
                     }
                     "verification" -> {
-                        val intent = Intent(this@SignInActivity, SendVerificationActivity::class.java)
+                        val intent =
+                            Intent(this@SignInActivity, SendVerificationActivity::class.java)
                         intent.putExtra("login", true)
                         startActivity(intent)
                     }
 
                 }
             } else {
-                Snackbar.make(google, getString( signInViewModel.getError()), Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(google, getString(signInViewModel.getError()), Snackbar.LENGTH_SHORT)
+                    .show();
             }
         })
         signInViewModel.getStatusDialog().observe(this, androidx.lifecycle.Observer {
@@ -123,7 +127,10 @@ class SignInActivity : AppCompatActivity() {
             signInViewModel.googleSignIn(this@SignInActivity)
         }
         loginButton.setOnClickListener {
-            signInViewModel.authenticationWithEmail(emailEditText.text.toString(), passwordEditText.text.toString())
+            signInViewModel.authenticationWithEmail(
+                emailEditText.text.toString(),
+                passwordEditText.text.toString()
+            )
         }
         forgotButton.setOnClickListener {
             val intent = Intent(this@SignInActivity, ForgotPasswordActivity::class.java)
@@ -138,13 +145,13 @@ class SignInActivity : AppCompatActivity() {
             startActivity(intent)
         }
         facebook.setOnClickListener {
-            signInViewModel.facebookSigIn(this,mCallbackManager)
+            signInViewModel.facebookSigIn(this, mCallbackManager)
         }
         thai.setOnClickListener {
             localizationDelegate.setLanguage(this, "th")
             val sharedPref = this.getPreferences(MODE_PRIVATE)
-            if(sharedPref != null){
-                with (sharedPref.edit()) {
+            if (sharedPref != null) {
+                with(sharedPref.edit()) {
                     putString("language", "th")
                     apply()
                 }
@@ -158,8 +165,8 @@ class SignInActivity : AppCompatActivity() {
         eng.setOnClickListener {
             localizationDelegate.setLanguage(this, "en")
             val sharedPref = this.getPreferences(MODE_PRIVATE)
-            if(sharedPref != null){
-                with (sharedPref.edit()) {
+            if (sharedPref != null) {
+                with(sharedPref.edit()) {
                     putString("language", "en")
                     apply()
                 }
